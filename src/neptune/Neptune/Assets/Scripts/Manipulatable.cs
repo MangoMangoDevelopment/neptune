@@ -30,8 +30,10 @@ public class Manipulatable : MonoBehaviour {
     private AxisHandle.Axis draggedAxis;
     private float lastDragObjectPos;
     private Vector3 lastDragMousePos;
+    private EditorManager editorManager;
 
     void Start () {
+        editorManager = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
         XPosHandle.SetActive(XPosManipulation);
         YPosHandle.SetActive(YPosManipulation);
         ZPosHandle.SetActive(ZPosManipulation);
@@ -41,6 +43,33 @@ public class Manipulatable : MonoBehaviour {
     }
 
 	void Update () {
+        switch (editorManager.GetMode())
+        {
+            case EditorManager.Mode.Translate:
+                XPosHandle.SetActive(XPosManipulation);
+                YPosHandle.SetActive(YPosManipulation);
+                ZPosHandle.SetActive(ZPosManipulation);
+                RRotHandle.SetActive(false);
+                PRotHandle.SetActive(false);
+                YRotHandle.SetActive(false);
+                break;
+            case EditorManager.Mode.Rotate:
+                XPosHandle.SetActive(false);
+                YPosHandle.SetActive(false);
+                ZPosHandle.SetActive(false);
+                RRotHandle.SetActive(RRotManipulation);
+                PRotHandle.SetActive(PRotManipulation);
+                YRotHandle.SetActive(YRotManipulation);
+                break;
+            case EditorManager.Mode.Select:
+                XPosHandle.SetActive(false);
+                YPosHandle.SetActive(false);
+                ZPosHandle.SetActive(false);
+                RRotHandle.SetActive(false);
+                PRotHandle.SetActive(false);
+                YRotHandle.SetActive(false);
+                break;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AxisHandle
+  - EditorManager
   layers:
   - Default
   - TransparentFX
