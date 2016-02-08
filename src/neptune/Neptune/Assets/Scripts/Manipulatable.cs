@@ -4,13 +4,26 @@ using System.Collections;
 public class Manipulatable : MonoBehaviour {
 
     //Public Variables
-    public float DragScaleFactor = 1f;
+
+    //XYZ Translation
+    public float XYZDragScaleFactor = 1f;
     public bool XPosManipulation = true;
     public bool YPosManipulation = true;
     public bool ZPosManipulation = true;
+    public GameObject XYZHandles;
     public GameObject XPosHandle;
     public GameObject YPosHandle;
     public GameObject ZPosHandle;
+
+    //RPY Rotation
+    public float RPYDragScaleFactor = 10f;
+    public bool RRotManipulation = true;
+    public bool PRotManipulation = true;
+    public bool YRotManipulation = true;
+    public GameObject RPYHandles;
+    public GameObject RRotHandle;
+    public GameObject PRotHandle;
+    public GameObject YRotHandle;
 
     //Private Variables
     private bool isDragging = false;
@@ -22,8 +35,10 @@ public class Manipulatable : MonoBehaviour {
         XPosHandle.SetActive(XPosManipulation);
         YPosHandle.SetActive(YPosManipulation);
         ZPosHandle.SetActive(ZPosManipulation);
+        RRotHandle.SetActive(RRotManipulation);
+        PRotHandle.SetActive(PRotManipulation);
+        YRotHandle.SetActive(YRotManipulation);
     }
-	
 
 	void Update () {
         if (Input.GetMouseButtonDown(0))
@@ -64,6 +79,33 @@ public class Manipulatable : MonoBehaviour {
                                 lastDragMousePos = Input.mousePosition;
                             }
                             break;
+                        case AxisHandle.Axis.RRot:
+                            if (RRotManipulation)
+                            {
+                                draggedAxis = AxisHandle.Axis.RRot;
+                                isDragging = true;
+                                lastDragObjectPos = transform.rotation.eulerAngles.z;
+                                lastDragMousePos = Input.mousePosition;
+                            }
+                            break;
+                        case AxisHandle.Axis.PRot:
+                            if (PRotManipulation)
+                            {
+                                draggedAxis = AxisHandle.Axis.PRot;
+                                isDragging = true;
+                                lastDragObjectPos = transform.rotation.eulerAngles.x;
+                                lastDragMousePos = Input.mousePosition;
+                            }
+                            break;
+                        case AxisHandle.Axis.YRot:
+                            if (YRotManipulation)
+                            {
+                                draggedAxis = AxisHandle.Axis.YRot;
+                                isDragging = true;
+                                lastDragObjectPos = transform.rotation.eulerAngles.y;
+                                lastDragMousePos = Input.mousePosition;
+                            }
+                            break;
                     }
                 }
             }
@@ -77,35 +119,67 @@ public class Manipulatable : MonoBehaviour {
             if (isDragging)
             {
                 Vector3 pos = transform.position;
+                Vector3 rot = transform.rotation.eulerAngles;
                 Vector3 startingPoint = lastDragMousePos;
                 Vector3 currentPoint = Input.mousePosition;
-                Debug.Log(startingPoint + "::" + currentPoint + " == " + (startingPoint - currentPoint));
+                float xOffset = 0;
+                float yOffset = 0;
                 float offset = 0;
                 switch (draggedAxis)
                 {
                     case AxisHandle.Axis.XPos:
-                        offset = (currentPoint - startingPoint).x * DragScaleFactor * Time.deltaTime;
+                        offset = (currentPoint - startingPoint).x * XYZDragScaleFactor * Time.deltaTime;
                         pos.x = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.x;
                         transform.position = pos;
                         break;
                     case AxisHandle.Axis.YPos:
-                        offset = (currentPoint - startingPoint).y * DragScaleFactor * Time.deltaTime;
+                        offset = (currentPoint - startingPoint).y * XYZDragScaleFactor * Time.deltaTime;
                         pos.y = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.y;
                         transform.position = pos;
                         break;
                     case AxisHandle.Axis.ZPos:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the Z axis
-                        float xOffset = (currentPoint - startingPoint).x;
-                        float yOffset = (currentPoint - startingPoint).y;
-                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * DragScaleFactor * Time.deltaTime;
+                        xOffset = (currentPoint - startingPoint).x;
+                        yOffset = (currentPoint - startingPoint).y;
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime;
                         pos.z = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.z;
                         transform.position = pos;
                         break;
+                    case AxisHandle.Axis.RRot:
+                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
+                        xOffset = (currentPoint - startingPoint).x;
+                        yOffset = (currentPoint - startingPoint).y;
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
+                        rot.z = lastDragObjectPos + offset;
+                        lastDragObjectPos = rot.z;
+                        transform.rotation = Quaternion.Euler(rot);
+                        break;
+                    case AxisHandle.Axis.PRot:
+                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
+                        xOffset = (currentPoint - startingPoint).x;
+                        yOffset = (currentPoint - startingPoint).y;
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
+                        rot.x = lastDragObjectPos + offset;
+                        lastDragObjectPos = rot.x;
+                        transform.rotation = Quaternion.Euler(rot);
+                        break;
+                    case AxisHandle.Axis.YRot:
+                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
+                        xOffset = (currentPoint - startingPoint).x;
+                        yOffset = (currentPoint - startingPoint).y;
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
+                        rot.y = lastDragObjectPos + offset;
+                        lastDragObjectPos = rot.y;
+                        transform.rotation = Quaternion.Euler(rot);
+                        break;
                 }
                 lastDragMousePos = currentPoint;
+
+                XYZHandles.transform.position = transform.position;
+                RPYHandles.transform.position = transform.position;
             }
         }
 	}
