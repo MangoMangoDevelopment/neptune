@@ -3,8 +3,10 @@ using System.Collections;
 
 public class AxisHandle : MonoBehaviour {
 
+    //Static Variables
     public static string TAG = "AxisHandle";
 
+    //Public Structures
     public enum Axis
     {
         XPos,
@@ -15,6 +17,7 @@ public class AxisHandle : MonoBehaviour {
         YRot
     };
 
+    //Private Variables
     [SerializeField]
     private Axis axis;
 

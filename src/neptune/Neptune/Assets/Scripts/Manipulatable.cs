@@ -3,27 +3,23 @@ using System.Collections;
 
 public class Manipulatable : MonoBehaviour {
 
+    //Static Variables
+    public static string TAG = "Manipulatable";
+
     //Public Variables
+    public bool isSelected = false;
 
     //XYZ Translation
     public float XYZDragScaleFactor = 1f;
     public bool XPosManipulation = true;
     public bool YPosManipulation = true;
     public bool ZPosManipulation = true;
-    public GameObject XYZHandles;
-    public GameObject XPosHandle;
-    public GameObject YPosHandle;
-    public GameObject ZPosHandle;
 
     //RPY Rotation
     public float RPYDragScaleFactor = 10f;
     public bool RRotManipulation = true;
     public bool PRotManipulation = true;
     public bool YRotManipulation = true;
-    public GameObject RPYHandles;
-    public GameObject RRotHandle;
-    public GameObject PRotHandle;
-    public GameObject YRotHandle;
 
     //Private Variables
     private bool isDragging = false;
@@ -32,44 +28,31 @@ public class Manipulatable : MonoBehaviour {
     private Vector3 lastDragMousePos;
     private EditorManager editorManager;
 
-    void Start () {
+    void Start()
+    {
         editorManager = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
-        XPosHandle.SetActive(XPosManipulation);
-        YPosHandle.SetActive(YPosManipulation);
-        ZPosHandle.SetActive(ZPosManipulation);
-        RRotHandle.SetActive(RRotManipulation);
-        PRotHandle.SetActive(PRotManipulation);
-        YRotHandle.SetActive(YRotManipulation);
     }
 
-	void Update () {
-        switch (editorManager.GetMode())
+    public void Select ()
+    {
+        isSelected = true;
+    }
+
+    public void Deselect()
+    {
+        isSelected = false;
+    }
+
+    void Update()
+    {
+        if (isSelected)
         {
-            case EditorManager.Mode.Translate:
-                XPosHandle.SetActive(XPosManipulation);
-                YPosHandle.SetActive(YPosManipulation);
-                ZPosHandle.SetActive(ZPosManipulation);
-                RRotHandle.SetActive(false);
-                PRotHandle.SetActive(false);
-                YRotHandle.SetActive(false);
-                break;
-            case EditorManager.Mode.Rotate:
-                XPosHandle.SetActive(false);
-                YPosHandle.SetActive(false);
-                ZPosHandle.SetActive(false);
-                RRotHandle.SetActive(RRotManipulation);
-                PRotHandle.SetActive(PRotManipulation);
-                YRotHandle.SetActive(YRotManipulation);
-                break;
-            case EditorManager.Mode.Select:
-                XPosHandle.SetActive(false);
-                YPosHandle.SetActive(false);
-                ZPosHandle.SetActive(false);
-                RRotHandle.SetActive(false);
-                PRotHandle.SetActive(false);
-                YRotHandle.SetActive(false);
-                break;
+            UpdateDrag();
         }
+    }
+
+    private void UpdateDrag()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -113,7 +96,7 @@ public class Manipulatable : MonoBehaviour {
                             {
                                 draggedAxis = AxisHandle.Axis.RRot;
                                 isDragging = true;
-                                lastDragObjectPos = transform.rotation.eulerAngles.z;
+                                lastDragObjectPos = transform.localRotation.eulerAngles.z;
                                 lastDragMousePos = Input.mousePosition;
                             }
                             break;
@@ -122,7 +105,7 @@ public class Manipulatable : MonoBehaviour {
                             {
                                 draggedAxis = AxisHandle.Axis.PRot;
                                 isDragging = true;
-                                lastDragObjectPos = transform.rotation.eulerAngles.x;
+                                lastDragObjectPos = transform.localRotation.eulerAngles.x;
                                 lastDragMousePos = Input.mousePosition;
                             }
                             break;
@@ -131,7 +114,7 @@ public class Manipulatable : MonoBehaviour {
                             {
                                 draggedAxis = AxisHandle.Axis.YRot;
                                 isDragging = true;
-                                lastDragObjectPos = transform.rotation.eulerAngles.y;
+                                lastDragObjectPos = transform.localRotation.eulerAngles.y;
                                 lastDragMousePos = Input.mousePosition;
                             }
                             break;
@@ -184,7 +167,7 @@ public class Manipulatable : MonoBehaviour {
                         offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
                         rot.z = lastDragObjectPos + offset;
                         lastDragObjectPos = rot.z;
-                        transform.rotation = Quaternion.Euler(rot);
+                        transform.localRotation = Quaternion.Euler(rot);
                         break;
                     case AxisHandle.Axis.PRot:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
@@ -193,7 +176,7 @@ public class Manipulatable : MonoBehaviour {
                         offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
                         rot.x = lastDragObjectPos + offset;
                         lastDragObjectPos = rot.x;
-                        transform.rotation = Quaternion.Euler(rot);
+                        transform.localRotation = Quaternion.Euler(rot);
                         break;
                     case AxisHandle.Axis.YRot:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
@@ -202,14 +185,11 @@ public class Manipulatable : MonoBehaviour {
                         offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
                         rot.y = lastDragObjectPos + offset;
                         lastDragObjectPos = rot.y;
-                        transform.rotation = Quaternion.Euler(rot);
+                        transform.localRotation = Quaternion.Euler(rot);
                         break;
                 }
                 lastDragMousePos = currentPoint;
-
-                XYZHandles.transform.position = transform.position;
-                RPYHandles.transform.position = transform.position;
             }
         }
-	}
+    }
 }
