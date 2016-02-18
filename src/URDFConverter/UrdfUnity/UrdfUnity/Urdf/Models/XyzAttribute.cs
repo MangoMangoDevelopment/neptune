@@ -11,17 +11,17 @@
         /// <summary>
         /// The attribute's X-axis offset value.
         /// </summary>
-        public int X { get; set; }
+        public double X { get; set; }
 
         /// <summary>
         /// The attribute's Y-axis offset value.
         /// </summary>
-        public int Y { get; set; }
+        public double Y { get; set; }
 
         /// <summary>
         /// The attribute's Z-axis offset value.
         /// </summary>
-        public int Z { get; set; }
+        public double Z { get; set; }
 
 
         /// <summary>

@@ -10,17 +10,17 @@
         /// <summary>
         /// The attribute's roll value.
         /// </summary>
-        public int R { get; set; }
+        public double R { get; set; }
 
         /// <summary>
         /// The attribute's pitch value.
         /// </summary>
-        public int P { get; set; }
+        public double P { get; set; }
 
         /// <summary>
         /// The attribute's yaw value.
         /// </summary>
-        public int Y { get; set; }
+        public double Y { get; set; }
 
 
         /// <summary>
