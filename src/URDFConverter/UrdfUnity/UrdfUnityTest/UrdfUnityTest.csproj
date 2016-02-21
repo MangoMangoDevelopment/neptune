@@ -53,6 +53,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Urdf\Models\AbstractOriginTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialElements\InertialOriginTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialElements\MassTest.cs" />
     <Compile Include="Urdf\Models\RpyAttributeTest.cs" />
     <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

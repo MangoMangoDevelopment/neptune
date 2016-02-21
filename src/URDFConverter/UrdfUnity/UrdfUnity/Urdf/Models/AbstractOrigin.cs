@@ -23,6 +23,14 @@
 
 
         /// <summary>
+        /// Creates a new instance of AbstractOrigin with the default xyz and rpy attribute values.
+        /// </summary>
+        public AbstractOrigin() : this(new XyzAttribute(), new RpyAttribute())
+        {
+            // Invoke the overloaded constructor.
+        }
+
+        /// <summary>
         /// Creates a new instance of AbstractOrigin with the specified xyz attribute and default rpy attribute value.
         /// </summary>
         /// <param name="xyz">The origin element's x, y, z offset.</param>

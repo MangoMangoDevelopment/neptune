@@ -41,11 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Urdf\Models\Link\Inertial\Inertia.cs" />
-    <Compile Include="Urdf\Models\Link\Inertial\Inertial.cs" />
-    <Compile Include="Urdf\Models\Link\Inertial\Mass.cs" />
-    <Compile Include="Urdf\Models\Link\Inertial\InertialOrigin.cs" />
-    <Compile Include="Urdf\Models\Link\Link.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialElements\Inertia.cs" />
+    <Compile Include="Urdf\Models\LinkElements\Inertial.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialElements\Mass.cs" />
+    <Compile Include="Urdf\Models\LinkElements\InertialElements\InertialOrigin.cs" />
+    <Compile Include="Urdf\Models\Link.cs" />
     <Compile Include="Urdf\Models\AbstractOrigin.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
