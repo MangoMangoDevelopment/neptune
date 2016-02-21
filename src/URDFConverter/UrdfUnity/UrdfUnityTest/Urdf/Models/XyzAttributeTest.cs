@@ -28,26 +28,5 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.AreEqual(xyz.Y, y);
             Assert.AreEqual(xyz.Z, z);
         }
-
-        [TestMethod]
-        public void SetProperties()
-        {
-            int x = 1;
-            int y = 2;
-            int z = 3;
-            XyzAttribute xyz = new XyzAttribute();
-
-            Assert.AreNotEqual(xyz.X, x);
-            Assert.AreNotEqual(xyz.Y, y);
-            Assert.AreNotEqual(xyz.Z, z);
-
-            xyz.X = x;
-            xyz.Y = y;
-            xyz.Z = z;
-
-            Assert.AreEqual(xyz.X, x);
-            Assert.AreEqual(xyz.Y, y);
-            Assert.AreEqual(xyz.Z, z);
-        }
     }
 }
