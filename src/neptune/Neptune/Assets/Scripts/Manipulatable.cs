@@ -55,6 +55,11 @@ public class Manipulatable : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
+                return;
+            }
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(mouseRay, out hit, 100))

@@ -63,8 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AxisHandle.cs" />
+    <Compile Include="Assets\Scripts\DBManager.cs" />
     <Compile Include="Assets\Scripts\EditorManager.cs" />
     <Compile Include="Assets\Scripts\Manipulatable.cs" />
+    <Compile Include="Assets\Scripts\PartText.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\readme.txt" />

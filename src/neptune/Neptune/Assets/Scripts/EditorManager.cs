@@ -3,6 +3,9 @@ using System.Collections;
 
 public class EditorManager : MonoBehaviour {
 
+    //Public Static Variables
+    public static string TAG = "EditorManager";
+
     //Public Structures
     public enum Mode
     {
@@ -14,7 +17,7 @@ public class EditorManager : MonoBehaviour {
     }
 
     //Public Variables
-    public GameObject parts;
+    public GameObject PartsContainer;
     public GameObject XYZHandles;
     public GameObject XPosHandle;
     public GameObject YPosHandle;
@@ -34,6 +37,11 @@ public class EditorManager : MonoBehaviour {
     private Vector3 lastCameraMousePos;
     private Quaternion lastCameraRot;
     private Vector3 lastCameraPos;
+    //Camera Animation
+    private bool isAnimatingCameraPos = false;
+    private bool isAnimatingCameraRot = false;
+    private float cameraAnimationTargetOffset = 5f;
+    private float cameraAnimationLerpTime = 1f;
 
     void Start()
     {
@@ -41,8 +49,16 @@ public class EditorManager : MonoBehaviour {
         RPYHandles.SetActive(false);
     }
 
-	// Update is called once per frame
-	void Update () {
+	public void SetSelectedObject(GameObject go)
+    {
+        if (selectedObject != null)
+            selectedObject.GetComponent<Manipulatable>().Deselect();
+        selectedObject = go;
+        selectedObject.GetComponent<Manipulatable>().Select();
+    }
+
+    void Update ()
+    {
         if (Input.GetKeyDown(KeyCode.T))
         {
             mode = Mode.Translate;
@@ -71,10 +87,7 @@ public class EditorManager : MonoBehaviour {
             {
                 if (hit.transform.gameObject.tag == Manipulatable.TAG)
                 {
-                    if (selectedObject != null)
-                        selectedObject.GetComponent<Manipulatable>().Deselect();
-                    selectedObject = hit.transform.gameObject;
-                    selectedObject.GetComponent<Manipulatable>().Select();
+                    SetSelectedObject(hit.transform.gameObject);
                 }
             }
         }
@@ -125,6 +138,11 @@ public class EditorManager : MonoBehaviour {
 
     private void UpdateCameraControl()
     {
+        if (isAnimatingCameraPos || isAnimatingCameraRot)
+        {
+            //Camera is being animated, let's not allow for interference.
+            return;
+        }
         if (Input.GetMouseButtonDown(1))
         {
             //Don't track other camera mode as mode to return to
@@ -200,6 +218,104 @@ public class EditorManager : MonoBehaviour {
                 lastCameraPos = Camera.main.transform.position;
             }
         }
+    }
+
+    public IEnumerator MoveCameraPosCoroutine(Vector3 target)
+    {
+        float lerpTime = cameraAnimationLerpTime;
+        float currentLerpTime = 0f;
+
+        Vector3 startPos = Camera.main.transform.localPosition;
+
+        //Pretend we are above the sensor, so that we get the heading we want
+        Vector3 heading = (target - startPos).normalized;
+        //Calculate how far away we want to be from the target on that heading
+        Vector3 endPos = target - (heading * cameraAnimationTargetOffset);
+        float angle = Vector3.Angle(endPos - target, Vector3.up);
+        //endPos = Quaternion.AngleAxis(50f - angle, Vector3.forward) * endPos;
+        endPos = Quaternion.Euler(50f - angle, 0, 0) * endPos;
+        Debug.Log(Vector3.Angle(endPos - target, Vector3.up));
+        isAnimatingCameraPos = true;
+
+        while (lerpTime > 0)
+        {
+            lerpTime -= Time.deltaTime;
+            currentLerpTime += Time.deltaTime;
+
+            if (currentLerpTime > lerpTime)
+            {
+                currentLerpTime = lerpTime;
+            }
+
+            float t = currentLerpTime / lerpTime;
+            //Lerp equation pulled from http://stackoverflow.com/questions/32208980/use-lerp-position-and-slerp-rotation-together-unity/32224625#32224625
+            t = t * t * t * (t * (6f * t - 15f) + 10f);
+            Camera.main.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+
+            yield return null;
+        }
+        
+        isAnimatingCameraPos = false;
+    }
+
+    public IEnumerator MoveCameraRotCoroutine(Vector3 target)
+    {
+        float lerpTime = cameraAnimationLerpTime;
+        float currentLerpTime = 0f;
+
+        isAnimatingCameraRot = true;
+
+        Vector3 relativePos =  target - Camera.main.transform.localPosition;
+        Quaternion rotation = Quaternion.LookRotation(relativePos);
+        Quaternion current = Camera.main.transform.localRotation;
+
+        while (lerpTime > 0)
+        {
+            lerpTime -= Time.deltaTime;
+            currentLerpTime += Time.deltaTime;
+
+            if (currentLerpTime > lerpTime)
+                currentLerpTime = lerpTime;
+
+            relativePos = target - Camera.main.transform.position;
+            rotation = Quaternion.LookRotation(relativePos);
+
+            float t = currentLerpTime / lerpTime;
+            //Lerp equation pulled from http://stackoverflow.com/questions/32208980/use-lerp-position-and-slerp-rotation-together-unity/32224625#32224625
+            t = t * t * t * (t * (6f * t - 15f) + 10f);
+            Camera.main.transform.localRotation = Quaternion.Slerp(current, rotation, t);
+
+            yield return null;
+        }
+        
+        isAnimatingCameraRot = false;
+    }
+
+    public GameObject AddPart(GameObject go, string name)
+    {
+        GameObject sensor = Instantiate<GameObject>(go);
+        sensor.name = name;
+        sensor.transform.position = Vector3.zero;
+        sensor.transform.SetParent(PartsContainer.transform);
+        return sensor;
+    }
+
+    public void SelectPart(GameObject go)
+    {
+        Manipulatable sensor = go.GetComponent<Manipulatable>();
+        if (sensor != null)
+        {
+            if (selectedObject != go)
+                SetSelectedObject(go);
+            else
+                AnimateCameraToSelection();
+        }
+    }
+
+    public void AnimateCameraToSelection()
+    {
+        StartCoroutine(MoveCameraPosCoroutine(selectedObject.transform.position));
+        StartCoroutine(MoveCameraRotCoroutine(selectedObject.transform.position));
     }
 
     public Mode GetMode()
