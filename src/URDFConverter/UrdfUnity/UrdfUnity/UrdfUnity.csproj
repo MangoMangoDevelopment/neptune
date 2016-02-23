@@ -43,12 +43,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Box.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Cylinder.cs" />
+    <Compile Include="Urdf\Models\LinkElements\GeometryElements\Mesh.cs" />
+    <Compile Include="Urdf\Models\LinkElements\GeometryElements\ScaleAttribute.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttribute.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Sphere.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Inertia.cs" />
     <Compile Include="Urdf\Models\LinkElements\Inertial.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Mass.cs" />
-    <Compile Include="Urdf\Models\Link.cs" />
     <Compile Include="Urdf\Models\Origin.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
