@@ -29,6 +29,7 @@ public class EditorManager : MonoBehaviour {
 
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
+    public float CameraScrollSpeed = 1f;
     public Mode mode = Mode.Translate;
 
     //Private Variables
@@ -42,6 +43,7 @@ public class EditorManager : MonoBehaviour {
     private bool isAnimatingCameraRot = false;
     private float cameraAnimationTargetOffset = 5f;
     private float cameraAnimationLerpTime = 1f;
+    private float cameraPosYSensorRelative = 3.5f;
 
     void Start()
     {
@@ -172,7 +174,7 @@ public class EditorManager : MonoBehaviour {
         }
         else
         {
-            if (mode == Mode.CameraControl)
+            if (mode == Mode.CameraControl) //Right-click
             {
                 Vector3 rotOffset = new Vector3(-(Input.mousePosition - lastCameraMousePos).y, (Input.mousePosition - lastCameraMousePos).x, 0);
                 Vector3 cameraRot = rotOffset * CameraRotScaleFactor * Time.deltaTime;
@@ -208,7 +210,7 @@ public class EditorManager : MonoBehaviour {
                 Camera.main.transform.position = cameraPos;
                 lastCameraPos = cameraPos;
             }
-            else if (mode == Mode.CameraPan)
+            else if (mode == Mode.CameraPan)    //Middle click
             {
                 Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
                 Vector3 cameraPos = posOffset * CameraPosMoveSpeed * Time.deltaTime;
@@ -216,6 +218,11 @@ public class EditorManager : MonoBehaviour {
 
                 lastCameraMousePos = Input.mousePosition;
                 lastCameraPos = Camera.main.transform.position;
+            }
+            else    //No camera modifiers held
+            {
+                float scrollVal = Input.GetAxis("Mouse ScrollWheel");
+                Camera.main.transform.position += Camera.main.transform.forward * scrollVal * CameraScrollSpeed * Time.deltaTime;
             }
         }
     }
@@ -231,10 +238,14 @@ public class EditorManager : MonoBehaviour {
         Vector3 heading = (target - startPos).normalized;
         //Calculate how far away we want to be from the target on that heading
         Vector3 endPos = target - (heading * cameraAnimationTargetOffset);
-        float angle = Vector3.Angle(endPos - target, Vector3.up);
-        //endPos = Quaternion.AngleAxis(50f - angle, Vector3.forward) * endPos;
-        endPos = Quaternion.Euler(50f - angle, 0, 0) * endPos;
-        Debug.Log(Vector3.Angle(endPos - target, Vector3.up));
+        //Position the camera above the sensor so that we are always looking down on it
+        if (endPos.y < target.y + cameraPosYSensorRelative)
+        {
+            //SIDE-EFFECT: Multiple double-clicks reposition the camera a bit - the new Quaternion calculations will be slightly different (since we manually changed the y position)
+            //             This is something we can live with.
+            endPos.y = target.y + cameraPosYSensorRelative;
+        }
+
         isAnimatingCameraPos = true;
 
         while (lerpTime > 0)
