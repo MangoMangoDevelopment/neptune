@@ -7,7 +7,6 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/inertial"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    /// <seealso cref="InertialOrigin"/>
     public class Inertial
     {
         /// <summary>

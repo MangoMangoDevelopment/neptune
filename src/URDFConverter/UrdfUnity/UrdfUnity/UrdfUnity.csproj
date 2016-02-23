@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Urdf\Models\LinkElements\Collision.cs" />
+    <Compile Include="Urdf\Models\LinkElements\Geometry.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Box.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Cylinder.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Mesh.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Inertia.cs" />
     <Compile Include="Urdf\Models\LinkElements\Inertial.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Mass.cs" />
+    <Compile Include="Urdf\Models\LinkElements\Visual.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Color.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Material.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttribute.cs" />

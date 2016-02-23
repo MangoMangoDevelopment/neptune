@@ -58,6 +58,9 @@
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\CylinderTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\SphereTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\MeshTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\GeometryTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\CollisionTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\VisualTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\ColorTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\MaterialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttributeTest.cs" />
