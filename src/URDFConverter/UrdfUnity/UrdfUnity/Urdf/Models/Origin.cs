@@ -1,13 +1,13 @@
 ﻿namespace UrdfUnity.Urdf.Models
 {
     /// <summary>
-    /// Abstract base class representing the URDF element's reference frame, as per its &lt;origin&gt; element.
+    /// Base class representing the URDF element's reference frame, as per its &lt;origin&gt; element.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="XyzAttribute"/>
     /// <seealso cref="RpyAttribute"/>
-    public abstract class AbstractOrigin
+    public class Origin
     {
         /// <summary>
         /// The origin element's x, y, z offset.
@@ -25,7 +25,7 @@
         /// <summary>
         /// Creates a new instance of AbstractOrigin with the default xyz and rpy attribute values.
         /// </summary>
-        public AbstractOrigin() : this(new XyzAttribute(), new RpyAttribute())
+        public Origin() : this(new XyzAttribute(), new RpyAttribute())
         {
             // Invoke the overloaded constructor.
         }
@@ -34,7 +34,7 @@
         /// Creates a new instance of AbstractOrigin with the specified xyz attribute and default rpy attribute value.
         /// </summary>
         /// <param name="xyz">The origin element's x, y, z offset.</param>
-        public AbstractOrigin(XyzAttribute xyz) : this(xyz, new RpyAttribute())
+        public Origin(XyzAttribute xyz) : this(xyz, new RpyAttribute())
         {
             // Invoke the overloaded constructor.
         }
@@ -43,7 +43,7 @@
         /// Creates a new instance of AbstractOrigin with the specified rpy attribute and default xyz attribute value.
         /// </summary>
         /// <param name="rpy">The origin element's fixed axis roll, pitch and yaw.</param>
-        public AbstractOrigin(RpyAttribute rpy) : this(new XyzAttribute(), rpy)
+        public Origin(RpyAttribute rpy) : this(new XyzAttribute(), rpy)
         {
             // Invoke the overloaded constructor.
         }
@@ -53,7 +53,7 @@
         /// </summary>
         /// <param name="xyz">The origin element's x, y, z offset.</param>
         /// <param name="rpy">The origin element's fixed axis roll, pitch and yaw.</param>
-        public AbstractOrigin(XyzAttribute xyz, RpyAttribute rpy)
+        public Origin(XyzAttribute xyz, RpyAttribute rpy)
         {
             this.Xyz = xyz;
             this.Rpy = rpy;

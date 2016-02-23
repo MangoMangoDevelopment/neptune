@@ -4,37 +4,14 @@ using UrdfUnity.Urdf.Models;
 namespace UrdfUnityTest.Urdf.Models
 {
     [TestClass]
-    public class AbstractOriginTest
+    public class OriginTest
     {
-        private class NonAbstractOrigin : AbstractOrigin
-        {
-            public NonAbstractOrigin() : base()
-            {
-                // Invoke base constructor.
-            }
-
-            public NonAbstractOrigin(XyzAttribute xyz) : base(xyz)
-            {
-                // Invoke base constructor.
-            }
-
-            public NonAbstractOrigin(RpyAttribute rpy) : base(rpy)
-            {
-                // Invoke base constructor.
-            }
-
-            public NonAbstractOrigin(XyzAttribute xyz, RpyAttribute rpy) : base(xyz, rpy)
-            {
-                // Invoke base constructor.
-            }
-        }
-
         [TestMethod]
         public void ConstructOrigin()
         {
             XyzAttribute xyz = new XyzAttribute(1, 2, 3);
             RpyAttribute rpy = new RpyAttribute(4, 5, 6);
-            AbstractOrigin origin = new NonAbstractOrigin(xyz, rpy);
+            Origin origin = new Origin(xyz, rpy);
 
             Assert.AreEqual(xyz, origin.Xyz);
             Assert.AreEqual(rpy, origin.Rpy);
@@ -44,7 +21,7 @@ namespace UrdfUnityTest.Urdf.Models
         public void ConstructXyzOrigin()
         {
             XyzAttribute xyz = new XyzAttribute(1, 2, 3);
-            AbstractOrigin origin = new NonAbstractOrigin(xyz);
+            Origin origin = new Origin(xyz);
 
             Assert.AreEqual(xyz, origin.Xyz);
             Assert.AreEqual(0, origin.Rpy.R);
@@ -56,7 +33,7 @@ namespace UrdfUnityTest.Urdf.Models
         public void ConstructRpyOrigin()
         {
             RpyAttribute rpy = new RpyAttribute(4, 5, 6);
-            AbstractOrigin origin = new NonAbstractOrigin(rpy);
+            Origin origin = new Origin(rpy);
             
             Assert.AreEqual(rpy, origin.Rpy);
             Assert.AreEqual(0, origin.Xyz.X);
@@ -67,7 +44,7 @@ namespace UrdfUnityTest.Urdf.Models
         [TestMethod]
         public void ConstructDefaultOrigin()
         {
-            AbstractOrigin origin = new NonAbstractOrigin();
+            Origin origin = new Origin();
 
             Assert.AreEqual(0, origin.Xyz.X);
             Assert.AreEqual(0, origin.Xyz.Y);

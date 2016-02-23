@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the x, y, z offset.
     /// </summary>
-    /// <seealso cref="AbstractOrigin"/>
+    /// <seealso cref="Origin"/>
     /// <seealso cref="RpyAttribute"/>
     /// <
     public class XyzAttribute

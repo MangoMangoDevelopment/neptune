@@ -52,8 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Urdf\Models\AbstractOriginTest.cs" />
-    <Compile Include="Urdf\Models\LinkElements\InertialElements\InertialOriginTest.cs" />
+    <Compile Include="Urdf\Models\OriginTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\MassTest.cs" />

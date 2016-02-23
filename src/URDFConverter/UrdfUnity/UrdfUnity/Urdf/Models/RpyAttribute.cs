@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the fixed axis roll, pitch and yaw angles in radians.
     /// </summary>
-    /// <seealso cref="AbstractOrigin"/>
+    /// <seealso cref="Origin"/>
     /// <seealso cref="XyzAttribute"/>
     public class RpyAttribute
     {
