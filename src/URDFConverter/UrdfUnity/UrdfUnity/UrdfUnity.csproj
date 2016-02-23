@@ -51,6 +51,7 @@
     <Compile Include="Urdf\Models\LinkElements\Inertial.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Mass.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Color.cs" />
+    <Compile Include="Urdf\Models\LinkElements\VisualElements\Material.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttribute.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Texture.cs" />
     <Compile Include="Urdf\Models\Origin.cs" />
