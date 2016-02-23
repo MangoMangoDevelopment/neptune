@@ -52,6 +52,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Urdf\Models\JointElements\AxisTest.cs" />
+    <Compile Include="Urdf\Models\JointElements\CalibrationTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\BoxTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\ScaleAttributeTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttributeTest.cs" />

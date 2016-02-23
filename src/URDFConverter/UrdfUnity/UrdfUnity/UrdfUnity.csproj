@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Urdf\Models\JointElements\Axis.cs" />
+    <Compile Include="Urdf\Models\JointElements\Calibration.cs" />
     <Compile Include="Urdf\Models\Link.cs" />
     <Compile Include="Urdf\Models\LinkElements\Collision.cs" />
     <Compile Include="Urdf\Models\LinkElements\Geometry.cs" />
