@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\BoxTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttributeTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\GeometryElements\CylinderTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\GeometryElements\SphereTest.cs" />
     <Compile Include="Urdf\Models\OriginTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
