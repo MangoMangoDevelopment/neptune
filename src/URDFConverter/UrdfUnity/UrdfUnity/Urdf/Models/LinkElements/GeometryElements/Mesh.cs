@@ -1,4 +1,4 @@
-﻿using UrdfUnity.Util.Preconditions;
+﻿using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
 {
@@ -72,8 +72,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
         /// <param name="size">The size of the mesh object. MAY BE NULL</param>
         public Mesh(string fileName, ScaleAttribute scale, SizeAttribute size)
         {
-            Assert.IsNotEmpty(fileName);
-            Assert.IsNotNull(scale);
+            Preconditions.IsNotEmpty(fileName, "fileName");
+            Preconditions.IsNotNull(scale, "scale");
             this.FileName = fileName;
             this.Scale = scale;
             this.Size = size;

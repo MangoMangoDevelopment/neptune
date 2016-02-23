@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace UrdfUnity.Util.Preconditions
+namespace UrdfUnity.Util
 {
     /// <summary>
     /// Utility class for parameter validation.
     /// </summary>
-    public static class Assert
+    public static class Preconditions
     {
         /// <summary>
         /// Asserts that the object is not null, throwing an <c>ArgumentNullException</c> otherwise.
@@ -50,6 +50,40 @@ namespace UrdfUnity.Util.Preconditions
         public static void IsNotEmpty(string str, string paramName)
         {
             if (str == null || str.Length == 0 || str.Equals(String.Empty))
+            {
+                throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Asserts that the value is within the range of the specified lower and upper boundaries inclusive.
+        /// </summary>
+        /// <param name="value">The value being validated as in the range [lowerBound, upperBound]</param>
+        /// <param name="lowerBound">The lower boundary of the range being checked</param>
+        /// <param name="upperBound">The upper boundary of the range being checked</param>
+        /// <exception cref="System.Exception">Thrown when the lowerBound parameter is greater than the upperBound parameter</exception>"
+        /// <exception cref="System.ArgumentException">Thrown when the value is outside the specified range</exception>
+        public static void IsWithinRange(double value, double lowerBound, double upperBound)
+        {
+            IsWithinRange(value, lowerBound, upperBound, null);
+        }
+
+        /// <summary>
+        /// Asserts that the value is within the range of the specified lower and upper boundaries inclusive.
+        /// </summary>
+        /// <param name="value">The value being validated as in the range [lowerBound, upperBound]</param>
+        /// <param name="lowerBound">The lower boundary of the range being checked</param>
+        /// <param name="upperBound">The upper boundary of the range being checked</param>
+        /// <param name="paramName">The name of the parameter being validated</param>
+        /// <exception cref="System.Exception">Thrown when the lowerBound parameter is greater than the upperBound parameter</exception>"
+        /// <exception cref="System.ArgumentException">Thrown when the value is outside the specified range</exception>
+        public static void IsWithinRange(double value, double lowerBound, double upperBound, string paramName)
+        {
+            if (lowerBound > upperBound)
+            {
+                throw new Exception("Range validation cannot have lower bound that is greater than upper bound");
+            }
+            if (value < lowerBound || value > upperBound)
             {
                 throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
             }

@@ -65,7 +65,7 @@
     <Compile Include="Urdf\Models\RpyAttributeTest.cs" />
     <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\Preconditions\AssertTest.cs" />
+    <Compile Include="Util\PreconditionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UrdfUnity\UrdfUnity.csproj">

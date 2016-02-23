@@ -4,6 +4,7 @@
     /// Represents the scale attribute of a trimesh element.
     /// </summary>
     /// <seealso cref="Mesh"/>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     public class ScaleAttribute
     {
         /// <summary>

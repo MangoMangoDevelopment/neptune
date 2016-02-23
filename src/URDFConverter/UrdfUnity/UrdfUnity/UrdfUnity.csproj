@@ -53,7 +53,7 @@
     <Compile Include="Urdf\Models\Origin.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
-    <Compile Include="Util\Preconditions\Assert.cs" />
+    <Compile Include="Util\Preconditions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Urdf\Models\LinkElements\VisualElements\" />
