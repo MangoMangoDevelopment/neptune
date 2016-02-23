@@ -9,16 +9,97 @@ namespace UrdfUnityTest.Preconditions.Util
         [TestMethod]
         public void IsNotNullTrue()
         {
-            String str = "Oh, hello";
-            UrdfUnity.Util.Preconditions.Assert.IsNotNull(str, "str");
+            string str = "Oh, hello";
+            UrdfUnity.Util.Preconditions.Assert.IsNotNull(str);
+            UrdfUnity.Util.Preconditions.Assert.IsNotNull(str, "paramName");
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ArgumentNullException))]
-        public void IsNotNullFalse()
+        public void IsNotNullFalseNoParamName()
         {
-            String str = null;
-            UrdfUnity.Util.Preconditions.Assert.IsNotNull(str, "str");
+            UrdfUnity.Util.Preconditions.Assert.IsNotNull(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentNullException))]
+        public void IsNotNullFalseWithParamName()
+        {
+            UrdfUnity.Util.Preconditions.Assert.IsNotNull(null, "paramName");
+        }
+
+        [TestMethod]
+        public void IsNotEmptyStringTrue()
+        {
+            string str = "Oh, hello";
+            UrdfUnity.Util.Preconditions.Assert.IsNotEmpty(str);
+            UrdfUnity.Util.Preconditions.Assert.IsNotEmpty(str, "paramName");
+        }
+
+        [TestMethod]
+        public void IsNotEmptyStringFalseNoParamName()
+        {
+            int exceptionCount = 0;
+
+            try
+            {
+                UrdfUnity.Util.Preconditions.Assert.IsNotEmpty(null);
+            }
+            catch (ArgumentException)
+            {
+                exceptionCount++;
+            }
+            try
+            {
+                UrdfUnity.Util.Preconditions.Assert.IsNotEmpty("");
+            }
+            catch (ArgumentException)
+            {
+                exceptionCount++;
+            }
+            try
+            {
+                UrdfUnity.Util.Preconditions.Assert.IsNotEmpty(String.Empty);
+            }
+            catch (ArgumentException)
+            {
+                exceptionCount++;
+            }
+
+            Assert.AreEqual(3, exceptionCount);
+        }
+
+        [TestMethod]
+        public void IsNotEmptyStringFalseWithParamName()
+        {
+            int exceptionCount = 0;
+
+            try
+            {
+                UrdfUnity.Util.Preconditions.Assert.IsNotEmpty(null, "paramName");
+            }
+            catch (ArgumentException)
+            {
+                exceptionCount++;
+            }
+            try
+            {
+                UrdfUnity.Util.Preconditions.Assert.IsNotEmpty("", "paramName");
+            }
+            catch (ArgumentException)
+            {
+                exceptionCount++;
+            }
+            try
+            {
+                UrdfUnity.Util.Preconditions.Assert.IsNotEmpty(String.Empty, "paramName");
+            }
+            catch (ArgumentException)
+            {
+                exceptionCount++;
+            }
+
+            Assert.AreEqual(3, exceptionCount);
         }
     }
 }
