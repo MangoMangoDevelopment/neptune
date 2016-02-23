@@ -52,6 +52,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Urdf\Models\LinkElements\GeometryElements\BoxTest.cs" />
+    <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttributeTest.cs" />
     <Compile Include="Urdf\Models\OriginTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
@@ -67,6 +69,7 @@
       <Name>UrdfUnity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
