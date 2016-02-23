@@ -10,7 +10,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         [TestMethod]
         public void ConstructInertial()
         {
-            InertialOrigin origin = new InertialOrigin();
+            Origin origin = new Origin();
             Mass mass = new Mass(1);
             Inertia inertia = new Inertia(0, 0, 0, 0, 0, 0);
             Inertial inertial = new Inertial(origin, mass, inertia);

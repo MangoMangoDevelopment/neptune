@@ -44,15 +44,15 @@
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Inertia.cs" />
     <Compile Include="Urdf\Models\LinkElements\Inertial.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Mass.cs" />
-    <Compile Include="Urdf\Models\LinkElements\InertialElements\InertialOrigin.cs" />
     <Compile Include="Urdf\Models\Link.cs" />
     <Compile Include="Urdf\Models\Origin.cs" />
-    <Compile Include="Urdf\Models\LinkElements\VisualElements\VisualOrigin.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
     <Compile Include="Util\Preconditions\Assert.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Urdf\Models\LinkElements\VisualElements\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

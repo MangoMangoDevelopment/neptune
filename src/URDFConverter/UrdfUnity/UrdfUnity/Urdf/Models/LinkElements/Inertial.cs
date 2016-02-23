@@ -13,7 +13,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <summary>
         /// The pose of the inertial reference frame, relative to the link reference frame.
         /// </summary>
-        public InertialOrigin Origin { get; set; }
+        public Origin Origin { get; set; }
 
         /// <summary>
         /// The mass of the link in kiligrams.
@@ -31,7 +31,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// </summary>
         /// <param name="mass">The link's mass</param>
         /// <param name="inertia">The link's inertia matrix</param>
-        public Inertial(Mass mass, Inertia inertia) : this(new InertialOrigin(), mass, inertia)
+        public Inertial(Mass mass, Inertia inertia) : this(new Origin(), mass, inertia)
         {
             // Invoke overloaded constructor.
         }
@@ -42,7 +42,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <param name="origin">The link's inertial reference frame</param>
         /// <param name="mass">The link's mass</param>
         /// <param name="inertia">The link's inertia matrix</param>
-        public Inertial(InertialOrigin origin, Mass mass, Inertia inertia)
+        public Inertial(Origin origin, Mass mass, Inertia inertia)
         {
             this.Origin = origin;
             this.Mass = mass;
