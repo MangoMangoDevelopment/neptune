@@ -7,6 +7,7 @@ TagManager:
   - AxisHandle
   - EditorManager
   - Manipulatable
+  - UIManager
   layers:
   - Default
   - TransparentFX
