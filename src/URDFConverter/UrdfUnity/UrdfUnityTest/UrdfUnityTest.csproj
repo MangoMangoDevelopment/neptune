@@ -65,6 +65,7 @@
     <Compile Include="Urdf\Models\LinkElements\VisualElements\MaterialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttributeTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\TextureTest.cs" />
+    <Compile Include="Urdf\Models\LinkTest.cs" />
     <Compile Include="Urdf\Models\OriginTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
