@@ -61,17 +61,18 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data">
-      <HintPath>Assets\Plugins\System.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>Assets\Plugins\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>Assets\Plugins\System.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Expanded.cs" />
-    <Compile Include="Assets\Scripts\DbEngine.cs" />
+    <Compile Include="Assets\Scripts\DB\DbEngine.cs" />
     <Compile Include="Assets\Scripts\DbItem.cs" />
+    <Compile Include="Assets\Scripts\Models\urdfModel.cs" />
     <Compile Include="Assets\Scripts\Tweening\FloatTween.cs" />
     <Compile Include="Assets\Scripts\Tweening\ITweenValue.cs" />
     <Compile Include="Assets\Scripts\Tweening\TweenRunner.cs" />
