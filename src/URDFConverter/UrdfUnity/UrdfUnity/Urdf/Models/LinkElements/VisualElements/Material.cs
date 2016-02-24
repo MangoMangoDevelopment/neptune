@@ -5,6 +5,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// <summary>
     /// Represents the material of a visual element, including its colour and texture.
     /// </summary>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     public class Material
     {
         /// <summary>
