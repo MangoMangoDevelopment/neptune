@@ -35,22 +35,91 @@ namespace UrdfUnity.Urdf.Models
         /// </summary>
         /// <value>Optional. MAY BE NULL.</value>
         public List<Collision> Collision { get; }
-        
+
 
         /// <summary>
-        /// Creates a new instance of Link with the specified properties.
+        /// Creates a new instance of Link with the specified properties. 
+        /// A Link.Builder must be used to create a link to enforce required and default properties.
         /// </summary>
         /// <param name="name">The name of the link</param>
         /// <param name="inertial">The inertial properties of the link</param>
         /// <param name="visual">The visual properties of the link</param>
         /// <param name="collision">The collision properties of the link</param>
-        public Link(string name, Inertial inertial, List<Visual> visual, List<Collision> collision)
+        private Link(string name, Inertial inertial, List<Visual> visual, List<Collision> collision)
         {
-            Preconditions.IsNotEmpty(name);
+            Preconditions.IsNotEmpty(name, "name");
             this.Name = name;
             this.Inertial = inertial;
             this.Visual = visual;
             this.Collision = collision;
+        }
+
+        /// <summary>
+        /// Helper class to build a new instance of link with its defined properties.
+        /// </summary>
+        public class Builder
+        {
+            private string name;
+            private Inertial inertial;
+            private List<Visual> visual;
+            private List<Collision> collision;
+
+
+            /// <summary>
+            /// Creates a new instance of Builder with the required Link properties.
+            /// </summary>
+            /// <param name="name">The name of the link</param>
+            public Builder(string name)
+            {
+                Preconditions.IsNotEmpty(name, "name");
+                this.name = name;
+            }
+
+            /// <summary>
+            /// Creates a new instance of Link with the specified properties.
+            /// </summary>
+            /// <returns>A Link object with the properties set</returns>
+            public Link Build()
+            {
+                return new Link(this.name, this.inertial, this.visual, this.collision);
+            }
+
+            public Builder SetInertial(Inertial inertial)
+            {
+                Preconditions.IsNotNull(inertial);
+                this.inertial = inertial;
+                return this;
+            }
+
+            public Builder SetVisual(Visual visual)
+            {
+                Preconditions.IsNotNull(visual);
+                this.visual = new List<Visual>();
+                this.visual.Add(visual);
+                return this;
+            }
+
+            public Builder SetVisual(List<Visual> visual)
+            {
+                Preconditions.IsNotNull(visual);
+                this.visual = visual;
+                return this;
+            }
+
+            public Builder SetCollision(Collision collision)
+            {
+                Preconditions.IsNotNull(collision);
+                this.collision = new List<Collision>();
+                this.collision.Add(collision);
+                return this;
+            }
+
+            public Builder SetCollision(List<Collision> collision)
+            {
+                Preconditions.IsNotNull(collision);
+                this.collision = collision;
+                return this;
+            }
         }
     }
 }

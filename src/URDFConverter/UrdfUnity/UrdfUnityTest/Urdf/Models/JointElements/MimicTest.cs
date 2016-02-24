@@ -8,7 +8,7 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
     public class MimicTest
     {
         private static readonly Joint TEST_JOINT = new Joint.Builder("joint", Joint.JointType.Fixed, 
-            new Link("parent", null, null, null), new Link("child", null, null, null)).Build();
+            new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
 
         [TestMethod]
         public void ConstructMimic()

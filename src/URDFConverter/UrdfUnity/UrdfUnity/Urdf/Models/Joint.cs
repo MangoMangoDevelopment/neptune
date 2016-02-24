@@ -179,46 +179,53 @@ namespace UrdfUnity.Urdf.Models
                     this.calibration, this.dynamics, this.limit, this.mimic, this.safteyController);
             }
 
-            public void SetOrigin(Origin origin)
+            public Builder SetOrigin(Origin origin)
             {
                 Preconditions.IsNotNull(origin, "origin");
                 this.origin = origin;
+                return this;
             }
 
-            public void SetAxis(Axis axis)
+            public Builder SetAxis(Axis axis)
             {
                 Preconditions.IsNotNull(axis, "axis");
                 this.axis = axis;
+                return this;
             }
 
-            public void SetCalibration(Calibration calibration)
+            public Builder SetCalibration(Calibration calibration)
             {
                 Preconditions.IsNotNull(calibration, "calibration");
                 this.calibration = calibration;
+                return this;
             }
 
-            public void SetDynamics(Dynamics dynamics)
+            public Builder SetDynamics(Dynamics dynamics)
             {
                 Preconditions.IsNotNull(dynamics, "dynamics");
                 this.dynamics = dynamics;
+                return this;
             }
 
-            public void SetLimit(Limit limit)
+            public Builder SetLimit(Limit limit)
             {
                 Preconditions.IsNotNull(limit, "limit");
                 this.limit = limit;
+                return this;
             }
 
-            public void SetMimic(Mimic mimic)
+            public Builder SetMimic(Mimic mimic)
             {
                 Preconditions.IsNotNull(mimic, "mimic");
                 this.mimic = mimic;
+                return this;
             }
 
-            public void SetSafetyController(SafetyController safteyController)
+            public Builder SetSafetyController(SafetyController safteyController)
             {
                 Preconditions.IsNotNull(safteyController, "safetyController");
                 this.safteyController = safteyController;
+                return this;
             }
         }
     }

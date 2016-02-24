@@ -10,8 +10,8 @@ namespace UrdfUnityTest.Urdf.Models
     {
         private static readonly string TEST_JOINT_NAME = "joint";
         private static readonly Joint.JointType TEST_JOINT_TYPE = Joint.JointType.Fixed;
-        private static readonly Link TEST_PARENT_LINK = new Link("parent", null, null, null);
-        private static readonly Link TEST_CHILD_LINK = new Link("child", null, null, null);
+        private static readonly Link TEST_PARENT_LINK = new Link.Builder("parent").Build();
+        private static readonly Link TEST_CHILD_LINK = new Link.Builder("child").Build();
         private static readonly Joint.Builder TEST_BUILDER = new Joint.Builder(TEST_JOINT_NAME,
             TEST_JOINT_TYPE, TEST_PARENT_LINK, TEST_CHILD_LINK);
 
@@ -110,6 +110,26 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.AreEqual(safetyController.SoftUpperLimit, joint.SafetyController.SoftUpperLimit);
             Assert.AreEqual(safetyController.KPostition, joint.SafetyController.KPostition);
             Assert.AreEqual(safetyController.KVelocity, joint.SafetyController.KVelocity);
+        }
+
+        [TestMethod]
+        public void ConstructJointChainBuilderSetters()
+        {
+            Axis axis = new Axis(new XyzAttribute(1, 2, 3));
+            Origin origin = new Origin(new XyzAttribute(1, 2, 3), new RpyAttribute(1, 2, 3));
+            SafetyController safetyController = new SafetyController(1);
+
+            Joint.Builder builder = new Joint.Builder(TEST_JOINT_NAME, TEST_JOINT_TYPE, TEST_PARENT_LINK, TEST_CHILD_LINK);
+            builder.SetAxis(axis).SetOrigin(origin).SetSafetyController(safetyController);
+            Joint joint = builder.Build();
+
+            Assert.AreEqual(TEST_JOINT_NAME, joint.Name);
+            Assert.AreEqual(TEST_JOINT_TYPE, joint.Type);
+            Assert.AreEqual(TEST_PARENT_LINK, joint.Parent);
+            Assert.AreEqual(TEST_CHILD_LINK, joint.Child);
+            Assert.AreEqual(axis, joint.Axis);
+            Assert.AreEqual(origin, joint.Origin);
+            Assert.AreEqual(safetyController, joint.SafetyController);
         }
 
         [TestMethod]
