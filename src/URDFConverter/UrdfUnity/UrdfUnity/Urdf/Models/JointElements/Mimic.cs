@@ -6,6 +6,7 @@
     /// <remarks>
     /// The value of a joint can be computed as <c>value = multiplier * other_joint_value + offset</c>.
     /// </remarks>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     public class Mimic
     {
         private static readonly double DEFAULT_MULTIPLIER = 1d;

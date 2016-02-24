@@ -47,6 +47,7 @@
     <Compile Include="Urdf\Models\JointElements\Dynamics.cs" />
     <Compile Include="Urdf\Models\JointElements\Limit.cs" />
     <Compile Include="Urdf\Models\JointElements\Mimic.cs" />
+    <Compile Include="Urdf\Models\JointElements\SafetyController.cs" />
     <Compile Include="Urdf\Models\Link.cs" />
     <Compile Include="Urdf\Models\LinkElements\Collision.cs" />
     <Compile Include="Urdf\Models\LinkElements\Geometry.cs" />

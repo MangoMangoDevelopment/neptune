@@ -6,6 +6,7 @@
     /// <remarks>
     /// The limit is required only for revolute and prismatic joints.
     /// </remarks>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     public class Limit
     {
         private static readonly double DEFAULT_VALUE = 0d;
