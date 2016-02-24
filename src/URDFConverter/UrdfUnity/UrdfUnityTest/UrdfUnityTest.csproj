@@ -56,6 +56,8 @@
     <Compile Include="Urdf\Models\JointElements\CalibrationTest.cs" />
     <Compile Include="Urdf\Models\JointElements\DynamicsTest.cs" />
     <Compile Include="Urdf\Models\JointElements\LimitTest.cs" />
+    <Compile Include="Urdf\Models\JointElements\MimicTest.cs" />
+    <Compile Include="Urdf\Models\JointElements\SafetyControllerTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\BoxTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\ScaleAttributeTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttributeTest.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\MassTest.cs" />
     <Compile Include="Urdf\Models\RpyAttributeTest.cs" />
+    <Compile Include="Urdf\Models\JointTest.cs" />
+    <Compile Include="Urdf\Models\RobotTest.cs" />
     <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\PreconditionsTest.cs" />

@@ -6,6 +6,7 @@
     /// <remarks>
     /// The limit is required only for revolute and prismatic joints.
     /// </remarks>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     public class Limit
     {
         private static readonly double DEFAULT_VALUE = 0d;
@@ -25,7 +26,7 @@
         /// <summary>
         /// The maximum joint effort that should be enforced.
         /// </summary>
-        /// <value>Required. |applied effort| &lt; |effort|</value>
+        /// <value>Required. <c>|applied effort| &lt; |effort|</c></value>
         public double Effort { get; }
 
         /// <summary>

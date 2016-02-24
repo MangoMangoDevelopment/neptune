@@ -3,7 +3,7 @@
 namespace UrdfUnity.Urdf.Models.JointElements
 {
     /// <summary>
-    /// Represents the joint axis specified in the joint frame. 
+    /// Represents the joint axis specified in the joint frame of reference. 
     /// </summary>
     /// <remarks>
     /// This is the axis of rotation for revolute joints, the axis of translation for 
@@ -18,12 +18,12 @@ namespace UrdfUnity.Urdf.Models.JointElements
         /// </summary>
         /// <value>Required. The vector should be normalized.</value>
         public XyzAttribute Xyz { get; }
-
+        
 
         /// <summary>
         /// Creates a new instance of Axis.
         /// </summary>
-        /// <param name="xyz">The x, y, z components of the axis vecor</param>
+        /// <param name="xyz">The x, y, z components of the axis vector</param>
         public Axis(XyzAttribute xyz)
         {
             Preconditions.IsNotNull(xyz);
