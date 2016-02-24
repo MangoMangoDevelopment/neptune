@@ -13,7 +13,8 @@ public class EditorManager : MonoBehaviour {
         Rotate,
         Select,
         CameraControl,
-        CameraPan
+        CameraPan,
+        Orbit
     }
 
     //Public Variables
@@ -30,6 +31,7 @@ public class EditorManager : MonoBehaviour {
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
     public float CameraScrollSpeed = 1f;
+    public float CameraOrbitSpeed = 1f;
     public Mode mode = Mode.Translate;
 
     //Private Variables
@@ -61,6 +63,7 @@ public class EditorManager : MonoBehaviour {
 
     void Update ()
     {
+        //Toggle modes
         if (Input.GetKeyDown(KeyCode.T))
         {
             mode = Mode.Translate;
@@ -145,8 +148,10 @@ public class EditorManager : MonoBehaviour {
             //Camera is being animated, let's not allow for interference.
             return;
         }
+        //Hold modes
         if (Input.GetMouseButtonDown(1))
         {
+            Cursor.visible = false;
             //Don't track other camera mode as mode to return to
             if (mode != Mode.CameraPan)
                 lastMode = mode;
@@ -158,6 +163,7 @@ public class EditorManager : MonoBehaviour {
         else if (Input.GetMouseButtonUp(1))
         {
             mode = lastMode;
+            Cursor.visible = true;
         }
         else if (Input.GetMouseButtonDown(2))
         {
@@ -169,6 +175,19 @@ public class EditorManager : MonoBehaviour {
             lastCameraMousePos = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(2))
+        {
+            mode = lastMode;
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (mode != Mode.CameraPan && mode != Mode.CameraControl)
+                lastMode = mode;
+            mode = Mode.Orbit;
+            lastCameraPos = Camera.main.transform.position;
+            lastCameraRot = Camera.main.transform.rotation;
+            lastCameraMousePos = Input.mousePosition;
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
         {
             mode = lastMode;
         }
@@ -219,6 +238,22 @@ public class EditorManager : MonoBehaviour {
                 lastCameraMousePos = Input.mousePosition;
                 lastCameraPos = Camera.main.transform.position;
             }
+            else if (mode == Mode.Orbit)    //E presed (Orbit modifier)
+            {
+                if (selectedObject != null)
+                {
+                    Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
+                    Vector3 cameraPos = posOffset * CameraOrbitSpeed * Time.deltaTime;
+
+                    //Rotate around the up axis for the mouse x delta
+                    Camera.main.transform.RotateAround(selectedObject.transform.position, Vector3.up, cameraPos.x);
+                    //For the mouse y delta, we need to find a vector perpendicular to the camera's forward. That will give us the correct axis on which to rotate
+                    Vector3 perpendicular = Vector3.Cross(Camera.main.transform.forward, Vector3.up);
+                    Camera.main.transform.RotateAround(selectedObject.transform.position, perpendicular, cameraPos.y);
+                    lastCameraMousePos = Input.mousePosition;
+                    lastCameraPos = Camera.main.transform.position;
+                }
+            }
             else    //No camera modifiers held
             {
                 float scrollVal = Input.GetAxis("Mouse ScrollWheel");
@@ -226,6 +261,21 @@ public class EditorManager : MonoBehaviour {
             }
         }
     }
+
+    public Vector3 RotatePointAboutPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = Quaternion.Euler(angles) * (point - pivot);
+        point = dir + pivot;
+        return point;
+    }
+    /*
+    function RotatePointAroundPivot(point: Vector3, pivot: Vector3, angles: Vector3): Vector3 {
+   var dir: Vector3 = point - pivot; // get point direction relative to pivot
+   dir = Quaternion.Euler(angles) * dir; // rotate it
+   point = dir + pivot; // calculate rotated point
+   return point; // return it
+ }
+   */
 
     public IEnumerator MoveCameraPosCoroutine(Vector3 target)
     {
