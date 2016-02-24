@@ -10,7 +10,7 @@ public class DBManager {
     //      of representation to the URDF or to the output of Amber's converter that needn't necessarily be passed in.
 	public void GetSensorList (UIManager uiManager, GameObject testObject)
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             uiManager.AddSensor("Sensor " + i, testObject);
         }

@@ -11,17 +11,25 @@ public class UIManager : MonoBehaviour {
     public GameObject SensorsContent;
     public GameObject PartsContent;
     public GameObject TextPrefab;
+    public Text ModeText;
 
     //TODO: Remove this. This should be superseeded by a combination of Brian and Amber's work. See DBManager.GetSensorList() for more info.
     public GameObject TestGO;
 
     //Private Variables
     private DBManager dbManager;
+    private EditorManager editorManager;
 
     void Start()
     {
         dbManager = new DBManager();
         dbManager.GetSensorList(this, TestGO);
+        editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
+    }
+
+    void Update()
+    {
+        ModeText.text = "Mode: " + editorManager.GetMode().ToString();
     }
 
     public void AddSensor(string text, GameObject go)

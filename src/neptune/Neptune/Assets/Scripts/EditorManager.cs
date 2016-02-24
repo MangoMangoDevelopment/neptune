@@ -151,9 +151,8 @@ public class EditorManager : MonoBehaviour {
         //Hold modes
         if (Input.GetMouseButtonDown(1))
         {
-            Cursor.visible = false;
             //Don't track other camera mode as mode to return to
-            if (mode != Mode.CameraPan)
+            if (mode != Mode.CameraPan && mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.CameraControl;
             lastCameraPos = Camera.main.transform.position;
@@ -163,12 +162,11 @@ public class EditorManager : MonoBehaviour {
         else if (Input.GetMouseButtonUp(1))
         {
             mode = lastMode;
-            Cursor.visible = true;
         }
         else if (Input.GetMouseButtonDown(2))
         {
             //Don't track other camera mode as mode to return to
-            if (mode != Mode.CameraControl)
+            if (mode != Mode.CameraControl && mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.CameraPan;
             lastCameraPos = Camera.main.transform.position;
@@ -180,7 +178,7 @@ public class EditorManager : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            if (mode != Mode.CameraPan && mode != Mode.CameraControl)
+            if (mode != Mode.CameraPan && mode != Mode.CameraControl && mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.Orbit;
             lastCameraPos = Camera.main.transform.position;
@@ -233,7 +231,7 @@ public class EditorManager : MonoBehaviour {
             {
                 Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
                 Vector3 cameraPos = posOffset * CameraPosMoveSpeed * Time.deltaTime;
-                Camera.main.transform.position += cameraPos;
+                Camera.main.transform.position -= cameraPos;
 
                 lastCameraMousePos = Input.mousePosition;
                 lastCameraPos = Camera.main.transform.position;
@@ -250,6 +248,8 @@ public class EditorManager : MonoBehaviour {
                     //For the mouse y delta, we need to find a vector perpendicular to the camera's forward. That will give us the correct axis on which to rotate
                     Vector3 perpendicular = Vector3.Cross(Camera.main.transform.forward, Vector3.up);
                     Camera.main.transform.RotateAround(selectedObject.transform.position, perpendicular, cameraPos.y);
+                    Camera.main.transform.LookAt(selectedObject.transform.position);
+
                     lastCameraMousePos = Input.mousePosition;
                     lastCameraPos = Camera.main.transform.position;
                 }
@@ -268,14 +268,6 @@ public class EditorManager : MonoBehaviour {
         point = dir + pivot;
         return point;
     }
-    /*
-    function RotatePointAroundPivot(point: Vector3, pivot: Vector3, angles: Vector3): Vector3 {
-   var dir: Vector3 = point - pivot; // get point direction relative to pivot
-   dir = Quaternion.Euler(angles) * dir; // rotate it
-   point = dir + pivot; // calculate rotated point
-   return point; // return it
- }
-   */
 
     public IEnumerator MoveCameraPosCoroutine(Vector3 target)
     {
@@ -373,9 +365,10 @@ public class EditorManager : MonoBehaviour {
         }
     }
 
-    public void AnimateCameraToSelection()
+    public void AnimateCameraToSelection(bool moveCamera = true)
     {
-        StartCoroutine(MoveCameraPosCoroutine(selectedObject.transform.position));
+        if (moveCamera)
+            StartCoroutine(MoveCameraPosCoroutine(selectedObject.transform.position));
         StartCoroutine(MoveCameraRotCoroutine(selectedObject.transform.position));
     }
 
