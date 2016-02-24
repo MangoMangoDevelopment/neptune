@@ -25,7 +25,7 @@
         /// <summary>
         /// The maximum joint effort that should be enforced.
         /// </summary>
-        /// <value>Required. |applied effort| &lt; |effort|</value>
+        /// <value>Required. <c>|applied effort| &lt; |effort|</c></value>
         public double Effort { get; }
 
         /// <summary>

@@ -9,13 +9,13 @@
         /// <summary>
         /// The physical damping value of the joint.
         /// </summary>
-        /// <value>Optional. (N*s/m) for prismatic joints; (N*m*s/rad) for revolute joints.</value>
+        /// <value>Optional. <c>N*s/m</c> for prismatic joints; <c>N*m*s/rad</c> for revolute joints.</value>
         public double Damping { get; }
 
         /// <summary>
         /// The physical static friction value of the joint.
         /// </summary>
-        /// <value>Optional. (N) for prismatic joints; (N*m) for revolute joints.</value>
+        /// <value>Optional. <c>N</c> for prismatic joints; <c>N*m</c> for revolute joints.</value>
         public double Friction { get; }
 
 
