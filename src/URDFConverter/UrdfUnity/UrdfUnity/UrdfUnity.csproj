@@ -66,6 +66,7 @@
     <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttribute.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Texture.cs" />
     <Compile Include="Urdf\Models\Origin.cs" />
+    <Compile Include="Urdf\Models\Robot.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
     <Compile Include="Util\Preconditions.cs" />
