@@ -7,16 +7,18 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
     [TestClass]
     public class MimicTest
     {
+        private static readonly Joint TEST_JOINT = new Joint.Builder("joint", Joint.JointType.Fixed, 
+            new Link("parent", null, null, null), new Link("child", null, null, null)).Build();
+
         [TestMethod]
         public void ConstructMimic()
         {
-            Joint joint = new Joint("joint");
             double multiplier = 10;
             double offest = 10;
-            Mimic mimic = new Mimic(joint, multiplier, offest);
+            Mimic mimic = new Mimic(TEST_JOINT, multiplier, offest);
 
-            Assert.AreEqual(joint, mimic.Joint);
-            Assert.AreEqual(joint.Name, mimic.Joint.Name);
+            Assert.AreEqual(TEST_JOINT, mimic.Joint);
+            Assert.AreEqual(TEST_JOINT.Name, mimic.Joint.Name);
             Assert.AreEqual(multiplier, mimic.Multiplier);
             Assert.AreEqual(offest, mimic.Offset);
         }
@@ -24,10 +26,9 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         [TestMethod]
         public void ConstructMimicNoMultiplierOffset()
         {
-            Joint joint = new Joint("joint");
-            Mimic mimic = new Mimic(joint);
+            Mimic mimic = new Mimic(TEST_JOINT);
 
-            Assert.AreEqual(joint, mimic.Joint);
+            Assert.AreEqual(TEST_JOINT, mimic.Joint);
             Assert.AreEqual(1, mimic.Multiplier);
             Assert.AreEqual(0, mimic.Offset);
         }
