@@ -44,6 +44,7 @@
     <Compile Include="Urdf\Models\JointElements\Axis.cs" />
     <Compile Include="Urdf\Models\JointElements\Calibration.cs" />
     <Compile Include="Urdf\Models\JointElements\Dynamics.cs" />
+    <Compile Include="Urdf\Models\JointElements\Limit.cs" />
     <Compile Include="Urdf\Models\Link.cs" />
     <Compile Include="Urdf\Models\LinkElements\Collision.cs" />
     <Compile Include="Urdf\Models\LinkElements\Geometry.cs" />
