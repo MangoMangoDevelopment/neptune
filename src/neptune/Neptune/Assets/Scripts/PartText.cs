@@ -29,6 +29,11 @@ public class PartText : MonoBehaviour {
         GO = go;
     }
 
+    public GameObject GetGO()
+    {
+        return GO;
+    }
+
     public void SetState(State state)
     {
         this.state = state;
@@ -50,6 +55,7 @@ public class PartText : MonoBehaviour {
                     if (GO != null)
                     {
                         editorManager.SelectPart(GO);
+                        uiManager.SelectPart(gameObject.GetComponent<Button>());
                     }
                 }
                 break;

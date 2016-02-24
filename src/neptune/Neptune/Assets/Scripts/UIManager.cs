@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour {
     //Private Variables
     private DBManager dbManager;
     private EditorManager editorManager;
+    private Button selectedPart;
 
     void Start()
     {
@@ -51,4 +52,30 @@ public class UIManager : MonoBehaviour {
         partText.GetComponent<PartText>().SetGO(go);
         partText.GetComponent<PartText>().SetState(PartText.State.SelectExistingSensor);
     }
+
+    public void SelectPart(Button part)
+    {
+        if (selectedPart != null)
+        {
+            ColorBlock c = selectedPart.colors;
+            c.normalColor = Color.white;
+            selectedPart.colors = c;
+        }
+        selectedPart = part;
+        ColorBlock c2 = selectedPart.colors;
+        c2.normalColor = Color.gray;
+        selectedPart.colors = c2;
+    }
+    
+    public void SelectPart(GameObject go)
+    {
+        foreach (Transform part in PartsContent.transform)
+        {
+            if (part.GetComponent<PartText>().GetGO() == go)
+            {
+                SelectPart(part.GetComponent<Button>());
+            }
+        }
+    }
+
 }

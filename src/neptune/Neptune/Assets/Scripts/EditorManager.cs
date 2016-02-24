@@ -32,7 +32,11 @@ public class EditorManager : MonoBehaviour {
     public float CameraPosMoveSpeed= 1f;
     public float CameraScrollSpeed = 1f;
     public float CameraOrbitSpeed = 1f;
+    public float HandleCameraDistance = 5f;
     public Mode mode = Mode.Translate;
+    //Cameras
+    public Camera MainCamera;
+    public Camera HandleCamera;
 
     //Private Variables
     private GameObject selectedObject;
@@ -40,6 +44,7 @@ public class EditorManager : MonoBehaviour {
     private Vector3 lastCameraMousePos;
     private Quaternion lastCameraRot;
     private Vector3 lastCameraPos;
+    private UIManager uiManager;
     //Camera Animation
     private bool isAnimatingCameraPos = false;
     private bool isAnimatingCameraRot = false;
@@ -49,6 +54,7 @@ public class EditorManager : MonoBehaviour {
 
     void Start()
     {
+        uiManager = GameObject.FindGameObjectWithTag(UIManager.TAG).GetComponent<UIManager>();
         XYZHandles.SetActive(false);
         RPYHandles.SetActive(false);
     }
@@ -59,6 +65,7 @@ public class EditorManager : MonoBehaviour {
             selectedObject.GetComponent<Manipulatable>().Deselect();
         selectedObject = go;
         selectedObject.GetComponent<Manipulatable>().Select();
+        uiManager.SelectPart(selectedObject);
     }
 
     void Update ()
@@ -80,19 +87,41 @@ public class EditorManager : MonoBehaviour {
         UpdateSelection();
         UpdateHandles();
         UpdateCameraControl();
-	}
+
+        //Regardless of where the current camera is, we want to update the Handle camera's position so that the handles are always the same size
+        if (selectedObject)
+        {
+            HandleCamera.transform.rotation = MainCamera.transform.rotation;
+            Vector3 heading = (selectedObject.transform.position - MainCamera.transform.position).normalized;
+            Vector3 endPos = selectedObject.transform.position - (heading * HandleCameraDistance);
+            HandleCamera.transform.position = endPos;
+        }
+    }
 
     private void UpdateSelection()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(mouseRay, out hit, 100))
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                if (hit.transform.gameObject.tag == Manipulatable.TAG)
+                //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
+                return;
+            }
+            Ray uiRay = HandleCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            //Check if we hit UI elements (Axis handles) first.
+            //If we hit an axis handle, do nothing since the Manipulatable code will handle axis handles
+            LayerMask UIMask = (1 << LayerMask.NameToLayer("UI"));
+            if (!Physics.Raycast(uiRay, out hit, 100, UIMask))
+            {
+                Ray mouseRay = MainCamera.ScreenPointToRay(Input.mousePosition);
+                LayerMask ObjectMask = ~(Physics.IgnoreRaycastLayer | (1 << LayerMask.NameToLayer("UI")));
+                if (Physics.Raycast(mouseRay, out hit, 100, ObjectMask))
                 {
-                    SetSelectedObject(hit.transform.gameObject);
+                    if (hit.transform.gameObject.tag == Manipulatable.TAG)
+                    {
+                        SetSelectedObject(hit.transform.gameObject);
+                    }
                 }
             }
         }
@@ -155,8 +184,8 @@ public class EditorManager : MonoBehaviour {
             if (mode != Mode.CameraPan && mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.CameraControl;
-            lastCameraPos = Camera.main.transform.position;
-            lastCameraRot = Camera.main.transform.rotation;
+            lastCameraPos = MainCamera.transform.position;
+            lastCameraRot = MainCamera.transform.rotation;
             lastCameraMousePos = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(1))
@@ -169,7 +198,7 @@ public class EditorManager : MonoBehaviour {
             if (mode != Mode.CameraControl && mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.CameraPan;
-            lastCameraPos = Camera.main.transform.position;
+            lastCameraPos = MainCamera.transform.position;
             lastCameraMousePos = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(2))
@@ -181,8 +210,8 @@ public class EditorManager : MonoBehaviour {
             if (mode != Mode.CameraPan && mode != Mode.CameraControl && mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.Orbit;
-            lastCameraPos = Camera.main.transform.position;
-            lastCameraRot = Camera.main.transform.rotation;
+            lastCameraPos = MainCamera.transform.position;
+            lastCameraRot = MainCamera.transform.rotation;
             lastCameraMousePos = Input.mousePosition;
         }
         else if (Input.GetKeyUp(KeyCode.E))
@@ -195,12 +224,12 @@ public class EditorManager : MonoBehaviour {
             {
                 Vector3 rotOffset = new Vector3(-(Input.mousePosition - lastCameraMousePos).y, (Input.mousePosition - lastCameraMousePos).x, 0);
                 Vector3 cameraRot = rotOffset * CameraRotScaleFactor * Time.deltaTime;
-                Camera.main.transform.rotation = Quaternion.Euler(lastCameraRot.eulerAngles + cameraRot);
+                MainCamera.transform.rotation = Quaternion.Euler(lastCameraRot.eulerAngles + cameraRot);
 
                 lastCameraMousePos = Input.mousePosition;
-                lastCameraRot = Camera.main.transform.rotation;
+                lastCameraRot = MainCamera.transform.rotation;
 
-                Vector3 cameraPos = Camera.main.transform.position;
+                Vector3 cameraPos = MainCamera.transform.position;
 
                 float posSpeed = CameraPosMoveSpeed;
                 if (Input.GetKey(KeyCode.LeftShift))
@@ -209,32 +238,32 @@ public class EditorManager : MonoBehaviour {
                 }
                 if (Input.GetKey(KeyCode.W))
                 {
-                    cameraPos += Camera.main.transform.forward * posSpeed * Time.deltaTime;
+                    cameraPos += MainCamera.transform.forward * posSpeed * Time.deltaTime;
                 }
                 if (Input.GetKey(KeyCode.S))
                 {
-                    cameraPos += -Camera.main.transform.forward * posSpeed * Time.deltaTime;
+                    cameraPos += -MainCamera.transform.forward * posSpeed * Time.deltaTime;
                 }
                 if (Input.GetKey(KeyCode.A))
                 {
-                    cameraPos += -Camera.main.transform.right * posSpeed * Time.deltaTime;
+                    cameraPos += -MainCamera.transform.right * posSpeed * Time.deltaTime;
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
-                    cameraPos += Camera.main.transform.right * posSpeed * Time.deltaTime;
+                    cameraPos += MainCamera.transform.right * posSpeed * Time.deltaTime;
                 }
 
-                Camera.main.transform.position = cameraPos;
+                MainCamera.transform.position = cameraPos;
                 lastCameraPos = cameraPos;
             }
             else if (mode == Mode.CameraPan)    //Middle click
             {
                 Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
                 Vector3 cameraPos = posOffset * CameraPosMoveSpeed * Time.deltaTime;
-                Camera.main.transform.position -= cameraPos;
+                MainCamera.transform.position -= cameraPos;
 
                 lastCameraMousePos = Input.mousePosition;
-                lastCameraPos = Camera.main.transform.position;
+                lastCameraPos = MainCamera.transform.position;
             }
             else if (mode == Mode.Orbit)    //E presed (Orbit modifier)
             {
@@ -244,20 +273,20 @@ public class EditorManager : MonoBehaviour {
                     Vector3 cameraPos = posOffset * CameraOrbitSpeed * Time.deltaTime;
 
                     //Rotate around the up axis for the mouse x delta
-                    Camera.main.transform.RotateAround(selectedObject.transform.position, Vector3.up, cameraPos.x);
+                    MainCamera.transform.RotateAround(selectedObject.transform.position, Vector3.up, cameraPos.x);
                     //For the mouse y delta, we need to find a vector perpendicular to the camera's forward. That will give us the correct axis on which to rotate
-                    Vector3 perpendicular = Vector3.Cross(Camera.main.transform.forward, Vector3.up);
-                    Camera.main.transform.RotateAround(selectedObject.transform.position, perpendicular, cameraPos.y);
-                    Camera.main.transform.LookAt(selectedObject.transform.position);
+                    Vector3 perpendicular = Vector3.Cross(MainCamera.transform.forward, Vector3.up);
+                    MainCamera.transform.RotateAround(selectedObject.transform.position, perpendicular, cameraPos.y);
+                    MainCamera.transform.LookAt(selectedObject.transform.position);
 
                     lastCameraMousePos = Input.mousePosition;
-                    lastCameraPos = Camera.main.transform.position;
+                    lastCameraPos = MainCamera.transform.position;
                 }
             }
             else    //No camera modifiers held
             {
                 float scrollVal = Input.GetAxis("Mouse ScrollWheel");
-                Camera.main.transform.position += Camera.main.transform.forward * scrollVal * CameraScrollSpeed * Time.deltaTime;
+                MainCamera.transform.position += MainCamera.transform.forward * scrollVal * CameraScrollSpeed * Time.deltaTime;
             }
         }
     }
@@ -274,7 +303,7 @@ public class EditorManager : MonoBehaviour {
         float lerpTime = cameraAnimationLerpTime;
         float currentLerpTime = 0f;
 
-        Vector3 startPos = Camera.main.transform.localPosition;
+        Vector3 startPos = MainCamera.transform.localPosition;
 
         //Pretend we are above the sensor, so that we get the heading we want
         Vector3 heading = (target - startPos).normalized;
@@ -303,7 +332,7 @@ public class EditorManager : MonoBehaviour {
             float t = currentLerpTime / lerpTime;
             //Lerp equation pulled from http://stackoverflow.com/questions/32208980/use-lerp-position-and-slerp-rotation-together-unity/32224625#32224625
             t = t * t * t * (t * (6f * t - 15f) + 10f);
-            Camera.main.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+            MainCamera.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
 
             yield return null;
         }
@@ -318,9 +347,9 @@ public class EditorManager : MonoBehaviour {
 
         isAnimatingCameraRot = true;
 
-        Vector3 relativePos =  target - Camera.main.transform.localPosition;
+        Vector3 relativePos =  target - MainCamera.transform.localPosition;
         Quaternion rotation = Quaternion.LookRotation(relativePos);
-        Quaternion current = Camera.main.transform.localRotation;
+        Quaternion current = MainCamera.transform.localRotation;
 
         while (lerpTime > 0)
         {
@@ -330,13 +359,13 @@ public class EditorManager : MonoBehaviour {
             if (currentLerpTime > lerpTime)
                 currentLerpTime = lerpTime;
 
-            relativePos = target - Camera.main.transform.position;
+            relativePos = target - MainCamera.transform.position;
             rotation = Quaternion.LookRotation(relativePos);
 
             float t = currentLerpTime / lerpTime;
             //Lerp equation pulled from http://stackoverflow.com/questions/32208980/use-lerp-position-and-slerp-rotation-together-unity/32224625#32224625
             t = t * t * t * (t * (6f * t - 15f) + 10f);
-            Camera.main.transform.localRotation = Quaternion.Slerp(current, rotation, t);
+            MainCamera.transform.localRotation = Quaternion.Slerp(current, rotation, t);
 
             yield return null;
         }

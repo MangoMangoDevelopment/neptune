@@ -202,10 +202,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22474604}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.029580636, y: -0.20241743}
-  m_AnchorMax: {x: 0.97457224, y: 1.3081577}
-  m_AnchoredPosition: {x: 0, y: -1.5860894}
-  m_SizeDelta: {x: 0, y: -15.317}
+  m_AnchorMin: {x: 0.055830635, y: 0.16916013}
+  m_AnchorMax: {x: 0.93582225, y: 0.83083963}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22474604
 RectTransform:
