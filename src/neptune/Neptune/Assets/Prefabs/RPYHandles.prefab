@@ -80,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 189942}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409340}
   m_RootOrder: 2
@@ -107,7 +107,7 @@ Transform:
   m_GameObject: {fileID: 126400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409340}
   m_RootOrder: 0
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 150796}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409340}
   m_RootOrder: 1
@@ -207,21 +207,21 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189942}
-  m_Mesh: {fileID: 4300000, guid: 749157c787a3b4b40926b33335946962, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 749157c787a3b4b40926b33335946962, type: 3}
 --- !u!33 &3323072
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150796}
-  m_Mesh: {fileID: 4300000, guid: 749157c787a3b4b40926b33335946962, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 749157c787a3b4b40926b33335946962, type: 3}
 --- !u!33 &3352530
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126400}
-  m_Mesh: {fileID: 4300000, guid: 749157c787a3b4b40926b33335946962, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 749157c787a3b4b40926b33335946962, type: 3}
 --- !u!64 &6417022
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -269,6 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c303c5802e7b2af4a9e1269c780a2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 0}
+  stem: {fileID: 0}
   axis: 5
 --- !u!114 &11452982
 MonoBehaviour:
@@ -281,6 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c303c5802e7b2af4a9e1269c780a2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 0}
+  stem: {fileID: 0}
   axis: 3
 --- !u!114 &11486512
 MonoBehaviour:
@@ -293,6 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c303c5802e7b2af4a9e1269c780a2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 0}
+  stem: {fileID: 0}
   axis: 4
 --- !u!1001 &100100000
 Prefab:

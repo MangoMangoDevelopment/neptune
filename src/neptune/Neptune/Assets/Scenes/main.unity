@@ -1053,6 +1053,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6417022, guid: 3a6b55c20f40a594cb168f0e2fda41bb, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 749157c787a3b4b40926b33335946962, type: 3}
+    - target: {fileID: 6449700, guid: 3a6b55c20f40a594cb168f0e2fda41bb, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 749157c787a3b4b40926b33335946962, type: 3}
+    - target: {fileID: 6466694, guid: 3a6b55c20f40a594cb168f0e2fda41bb, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 749157c787a3b4b40926b33335946962, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a6b55c20f40a594cb168f0e2fda41bb, type: 2}
   m_IsPrefabParent: 0
@@ -1656,7 +1668,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &1221343976
 GameObject:
   m_ObjectHideFlags: 0

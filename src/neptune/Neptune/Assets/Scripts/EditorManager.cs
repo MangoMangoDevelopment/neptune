@@ -164,6 +164,30 @@ public class EditorManager : MonoBehaviour {
 
         XYZHandles.transform.position = selectedObject.transform.position;
         RPYHandles.transform.position = selectedObject.transform.position;
+
+        //Update RPY Rotations
+        /*
+        RRotHandle.transform.LookAt(HandleCamera.transform.position);
+        Vector3 rRotRot = RRotHandle.transform.rotation.eulerAngles;
+        rRotRot.x = 0;
+        rRotRot.y = 0;
+        rRotRot.z = 0;
+        RRotHandle.transform.rotation = Quaternion.Euler(rRotRot);
+        
+        PRotHandle.transform.LookAt(HandleCamera.transform.position);
+        Vector3 pRotRot = PRotHandle.transform.rotation.eulerAngles;
+        pRotRot.x = 0;
+        pRotRot.y = 90;
+        pRotRot.z = 0;
+        PRotHandle.transform.rotation = Quaternion.Euler(pRotRot);
+        */
+
+        YRotHandle.transform.LookAt(HandleCamera.transform.position);
+        Vector3 yRotRot = YRotHandle.transform.rotation.eulerAngles;
+        yRotRot.x = 90;
+        yRotRot.y -= 90;
+        yRotRot.z = 0;
+        YRotHandle.transform.rotation = Quaternion.Euler(yRotRot);
     }
 
     private void UpdateCameraControl()

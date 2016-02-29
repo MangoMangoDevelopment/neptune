@@ -208,7 +208,7 @@ public class Manipulatable : MonoBehaviour {
                     case AxisHandle.Axis.YRot:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
                         offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
-                        rot.y = lastDragObjectPos + offset;
+                        rot.y = lastDragObjectPos - offset;
                         lastDragObjectPos = rot.y;
                         transform.localRotation = Quaternion.Euler(rot);
                         break;
