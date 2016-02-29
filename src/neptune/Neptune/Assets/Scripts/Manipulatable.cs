@@ -23,12 +23,13 @@ public class Manipulatable : MonoBehaviour {
     public bool YRotManipulation = true;
 
     //Private Variables
+    private bool lastSelected = false;
     private bool isDragging = false;
     private AxisHandle.Axis draggedAxis;
     private float lastDragObjectPos;
     private Vector3 lastDragMousePos;
-    private Vector3 startingMousePos;
     private float offsetMultiplier;
+    private AxisHandle.Axis mouseAxisModifier;
     private EditorManager editorManager;
 
     void Start()
@@ -38,11 +39,13 @@ public class Manipulatable : MonoBehaviour {
 
     public void Select ()
     {
+        lastSelected = isSelected;
         isSelected = true;
     }
 
     public void Deselect()
     {
+        lastSelected = isSelected;
         isSelected = false;
     }
 
@@ -50,7 +53,19 @@ public class Manipulatable : MonoBehaviour {
     {
         if (isSelected)
         {
-            UpdateDrag();
+            //Force skip this frame if we just clicked. Let the Editor manager handle its click first
+            if (!lastSelected)
+            {
+                lastSelected = true;
+            }
+            else
+            {
+                UpdateDrag();
+            }
+        }
+        else
+        {
+            lastSelected = isSelected;
         }
     }
 
@@ -82,9 +97,9 @@ public class Manipulatable : MonoBehaviour {
                                 isDragging = true;
                                 lastDragObjectPos = transform.position.x;
                                 lastDragMousePos = Input.mousePosition;
-                                startingMousePos = lastDragMousePos;
                                 if (editorManager.HandleCamera.transform.position.z > transform.position.z)
                                     offsetMultiplier = -1f;
+                                mouseAxisModifier = handle.GetMouseAxisModifier();
                             }
                             break;
                         case AxisHandle.Axis.YPos:
@@ -94,7 +109,6 @@ public class Manipulatable : MonoBehaviour {
                                 isDragging = true;
                                 lastDragObjectPos = transform.position.y;
                                 lastDragMousePos = Input.mousePosition;
-                                startingMousePos = lastDragMousePos;
                             }
                             break;
                         case AxisHandle.Axis.ZPos:
@@ -104,9 +118,9 @@ public class Manipulatable : MonoBehaviour {
                                 isDragging = true;
                                 lastDragObjectPos = transform.position.z;
                                 lastDragMousePos = Input.mousePosition;
-                                startingMousePos = lastDragMousePos;
                                 if (editorManager.HandleCamera.transform.position.x < transform.position.x)
                                     offsetMultiplier = -1f;
+                                mouseAxisModifier = handle.GetMouseAxisModifier();
                             }
                             break;
                         case AxisHandle.Axis.RRot:
@@ -116,7 +130,6 @@ public class Manipulatable : MonoBehaviour {
                                 isDragging = true;
                                 lastDragObjectPos = transform.localRotation.eulerAngles.z;
                                 lastDragMousePos = Input.mousePosition;
-                                startingMousePos = lastDragMousePos;
                             }
                             break;
                         case AxisHandle.Axis.PRot:
@@ -126,7 +139,6 @@ public class Manipulatable : MonoBehaviour {
                                 isDragging = true;
                                 lastDragObjectPos = transform.localRotation.eulerAngles.x;
                                 lastDragMousePos = Input.mousePosition;
-                                startingMousePos = lastDragMousePos;
                             }
                             break;
                         case AxisHandle.Axis.YRot:
@@ -136,7 +148,6 @@ public class Manipulatable : MonoBehaviour {
                                 isDragging = true;
                                 lastDragObjectPos = transform.localRotation.eulerAngles.y;
                                 lastDragMousePos = Input.mousePosition;
-                                startingMousePos = lastDragMousePos;
                             }
                             break;
                     }
@@ -157,14 +168,12 @@ public class Manipulatable : MonoBehaviour {
                 Vector3 currentPoint = Input.mousePosition;
                 float xOffset = (currentPoint - startingPoint).x;
                 float yOffset = (currentPoint - startingPoint).y;
-                float xGlobalOffset = (currentPoint - startingMousePos).x;    //Offsets from when
-                float yGlobalOffset = (currentPoint - startingMousePos).y;    //the mouse was first clicked
                 float offset = 0;
                 switch (draggedAxis)
                 {
                     case AxisHandle.Axis.XPos:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the X axis
-                        offset = (Mathf.Abs(xGlobalOffset) > Mathf.Abs(yGlobalOffset) - 10 ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime * offsetMultiplier;
+                        offset = (mouseAxisModifier == AxisHandle.Axis.XPos ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime * offsetMultiplier;
                         pos.x = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.x;
                         transform.position = pos;
@@ -177,7 +186,7 @@ public class Manipulatable : MonoBehaviour {
                         break;
                     case AxisHandle.Axis.ZPos:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the Z axis
-                        offset = (Mathf.Abs(xGlobalOffset) > Mathf.Abs(yGlobalOffset) - 10 ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime * offsetMultiplier;
+                        offset = (mouseAxisModifier == AxisHandle.Axis.XPos ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime * offsetMultiplier;
                         pos.z = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.z;
                         transform.position = pos;

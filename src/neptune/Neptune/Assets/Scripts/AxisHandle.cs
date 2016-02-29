@@ -94,6 +94,21 @@ public class AxisHandle : MonoBehaviour {
         }
     }
 
+    public Axis GetMouseAxisModifier()
+    {
+        Vector3 stemViewportPoint = editorManager.HandleCamera.WorldToViewportPoint(stem.transform.position);
+        Vector3 headViewportPoint = editorManager.HandleCamera.WorldToViewportPoint(head.transform.position);
+
+        float xDiff = Mathf.Max(stemViewportPoint.x, headViewportPoint.x) - Mathf.Min(stemViewportPoint.x, headViewportPoint.x);
+        float yDiff = Mathf.Max(stemViewportPoint.y, headViewportPoint.y) - Mathf.Min(stemViewportPoint.y, headViewportPoint.y);
+
+        if (xDiff > yDiff)
+        {
+            return Axis.XPos;
+        }
+        return Axis.YPos;
+    }
+
     void Update()
     {
         if (editorManager)
