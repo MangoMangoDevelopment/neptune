@@ -11,9 +11,7 @@ public class EditorManager : MonoBehaviour {
     {
         Translate,
         Rotate,
-        Select,
         CameraControl,
-        CameraPan,
         Orbit
     }
 
@@ -43,7 +41,6 @@ public class EditorManager : MonoBehaviour {
     private Mode lastMode = Mode.Translate;
     private Vector3 lastCameraMousePos;
     private Quaternion lastCameraRot;
-    private Vector3 lastCameraPos;
     private UIManager uiManager;
     //Camera Animation
     private bool isAnimatingCameraPos = false;
@@ -64,8 +61,15 @@ public class EditorManager : MonoBehaviour {
         if (selectedObject != null)
             selectedObject.GetComponent<Manipulatable>().Deselect();
         selectedObject = go;
-        selectedObject.GetComponent<Manipulatable>().Select();
-        uiManager.SelectPart(selectedObject);
+        if (selectedObject != null)
+        {
+            selectedObject.GetComponent<Manipulatable>().Select();
+            uiManager.SelectPart(selectedObject);
+        }
+        else
+        {
+            uiManager.Deselect();
+        }
     }
 
     void Update ()
@@ -81,7 +85,7 @@ public class EditorManager : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            mode = Mode.Select;
+            SetSelectedObject(null);
         }
 
         UpdateSelection();
@@ -156,14 +160,6 @@ public class EditorManager : MonoBehaviour {
                 PRotHandle.SetActive(part.PRotManipulation);
                 YRotHandle.SetActive(part.YRotManipulation);
                 break;
-            case EditorManager.Mode.Select:
-                XPosHandle.SetActive(false);
-                YPosHandle.SetActive(false);
-                ZPosHandle.SetActive(false);
-                RRotHandle.SetActive(false);
-                PRotHandle.SetActive(false);
-                YRotHandle.SetActive(false);
-                break;
         }
 
         XYZHandles.transform.position = selectedObject.transform.position;
@@ -181,10 +177,9 @@ public class EditorManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(1))
         {
             //Don't track other camera mode as mode to return to
-            if (mode != Mode.CameraPan && mode != Mode.Orbit)
+            if (mode != Mode.Orbit)
                 lastMode = mode;
             mode = Mode.CameraControl;
-            lastCameraPos = MainCamera.transform.position;
             lastCameraRot = MainCamera.transform.rotation;
             lastCameraMousePos = Input.mousePosition;
         }
@@ -194,33 +189,19 @@ public class EditorManager : MonoBehaviour {
         }
         else if (Input.GetMouseButtonDown(2))
         {
-            //Don't track other camera mode as mode to return to
             if (mode != Mode.CameraControl && mode != Mode.Orbit)
                 lastMode = mode;
-            mode = Mode.CameraPan;
-            lastCameraPos = MainCamera.transform.position;
+            mode = Mode.Orbit;
+            lastCameraRot = MainCamera.transform.rotation;
             lastCameraMousePos = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(2))
         {
             mode = lastMode;
         }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (mode != Mode.CameraPan && mode != Mode.CameraControl && mode != Mode.Orbit)
-                lastMode = mode;
-            mode = Mode.Orbit;
-            lastCameraPos = MainCamera.transform.position;
-            lastCameraRot = MainCamera.transform.rotation;
-            lastCameraMousePos = Input.mousePosition;
-        }
-        else if (Input.GetKeyUp(KeyCode.E))
-        {
-            mode = lastMode;
-        }
         else
         {
-            if (mode == Mode.CameraControl) //Right-click
+            if (mode == Mode.CameraControl) //Right-click (FPS Modifier)
             {
                 Vector3 rotOffset = new Vector3(-(Input.mousePosition - lastCameraMousePos).y, (Input.mousePosition - lastCameraMousePos).x, 0);
                 Vector3 cameraRot = rotOffset * CameraRotScaleFactor * Time.deltaTime;
@@ -254,18 +235,8 @@ public class EditorManager : MonoBehaviour {
                 }
 
                 MainCamera.transform.position = cameraPos;
-                lastCameraPos = cameraPos;
             }
-            else if (mode == Mode.CameraPan)    //Middle click
-            {
-                Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
-                Vector3 cameraPos = posOffset * CameraPosMoveSpeed * Time.deltaTime;
-                MainCamera.transform.position -= cameraPos;
-
-                lastCameraMousePos = Input.mousePosition;
-                lastCameraPos = MainCamera.transform.position;
-            }
-            else if (mode == Mode.Orbit)    //E presed (Orbit modifier)
+            else if (mode == Mode.Orbit)    //Middle-Click (Orbit modifier)
             {
                 if (selectedObject != null)
                 {
@@ -280,7 +251,6 @@ public class EditorManager : MonoBehaviour {
                     MainCamera.transform.LookAt(selectedObject.transform.position);
 
                     lastCameraMousePos = Input.mousePosition;
-                    lastCameraPos = MainCamera.transform.position;
                 }
             }
             else    //No camera modifiers held

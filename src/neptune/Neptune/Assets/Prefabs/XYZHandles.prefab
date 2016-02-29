@@ -543,6 +543,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 0
+  head: {fileID: 162876}
+  stem: {fileID: 189676}
 --- !u!114 &11437440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -555,6 +557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 1
+  head: {fileID: 173266}
+  stem: {fileID: 153662}
 --- !u!114 &11439866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -567,6 +571,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 2
+  head: {fileID: 131116}
+  stem: {fileID: 136134}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

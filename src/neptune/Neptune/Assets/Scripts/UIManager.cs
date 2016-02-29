@@ -55,12 +55,7 @@ public class UIManager : MonoBehaviour {
 
     public void SelectPart(Button part)
     {
-        if (selectedPart != null)
-        {
-            ColorBlock c = selectedPart.colors;
-            c.normalColor = Color.white;
-            selectedPart.colors = c;
-        }
+        Deselect();
         selectedPart = part;
         ColorBlock c2 = selectedPart.colors;
         c2.normalColor = Color.gray;
@@ -76,6 +71,17 @@ public class UIManager : MonoBehaviour {
                 SelectPart(part.GetComponent<Button>());
             }
         }
+    }
+
+    public void Deselect()
+    {
+        if (selectedPart != null)
+        {
+            ColorBlock c = selectedPart.colors;
+            c.normalColor = Color.white;
+            selectedPart.colors = c;
+        }
+        selectedPart = null;
     }
 
 }
