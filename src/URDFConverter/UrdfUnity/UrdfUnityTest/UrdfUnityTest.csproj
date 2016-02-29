@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Parse\UrdfParserTest.cs" />
     <Compile Include="Urdf\Models\JointElements\AxisTest.cs" />
     <Compile Include="Urdf\Models\JointElements\CalibrationTest.cs" />
     <Compile Include="Urdf\Models\JointElements\DynamicsTest.cs" />

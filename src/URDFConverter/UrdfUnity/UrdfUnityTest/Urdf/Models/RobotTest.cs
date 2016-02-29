@@ -11,9 +11,10 @@ namespace UrdfUnityTest.Urdf.Models
         [TestMethod]
         public void ConstructRobot()
         {
+            string name = "robot";
             List<Link> links = new List<Link>();
             List<Joint> joints = new List<Joint>();
-            Robot robot = new Robot(links, joints);
+            Robot robot = new Robot(name, links, joints);
 
             links.Add(new Link.Builder("link1").Build());
             links.Add(new Link.Builder("link2").Build());
@@ -21,6 +22,7 @@ namespace UrdfUnityTest.Urdf.Models
             joints.Add(new Joint.Builder("joint1", Joint.JointType.Continuous, links[0], links[1]).Build());
             joints.Add(new Joint.Builder("joint2", Joint.JointType.Continuous, links[0], links[2]).Build());
 
+            Assert.AreEqual(name, robot.Name);
             Assert.AreEqual(links, robot.Links);
             Assert.AreEqual(joints, robot.Joints);
 
@@ -34,8 +36,10 @@ namespace UrdfUnityTest.Urdf.Models
         [TestMethod]
         public void ConstructEmptyRobot()
         {
-            Robot robot = new Robot();
+            string name = "robot";
+            Robot robot = new Robot(name);
 
+            Assert.AreEqual(name, robot.Name);
             Assert.IsNotNull(robot.Links);
             Assert.IsNotNull(robot.Joints);
             Assert.IsTrue(robot.Links.Count == 0);
@@ -46,14 +50,14 @@ namespace UrdfUnityTest.Urdf.Models
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructRobotNullLinks()
         {
-            Robot robot = new Robot(null, new List<Joint>());
+            Robot robot = new Robot("robot", null, new List<Joint>());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructRobotNullJointks()
         {
-            Robot robot = new Robot(new List<Link>(), null);
+            Robot robot = new Robot("robot", new List<Link>(), null);
         }
     }
 }

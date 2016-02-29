@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parse\Parser.cs" />
+    <Compile Include="Parse\UrdfParser.cs" />
+    <Compile Include="Parse\XmlParser.cs" />
+    <Compile Include="Parse\Xml\Joints\ParentParser.cs" />
+    <Compile Include="Parse\Xml\Links\CollisionParser.cs" />
+    <Compile Include="Parse\Xml\Links\InertialParser.cs" />
+    <Compile Include="Parse\Xml\LinkParser.cs" />
+    <Compile Include="Parse\Xml\Links\VisualParser.cs" />
+    <Compile Include="Parse\Xml\OriginParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Urdf\Models\Joint.cs" />
     <Compile Include="Urdf\Models\JointElements\Axis.cs" />
@@ -69,6 +78,11 @@
     <Compile Include="Urdf\Models\Robot.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
+    <Compile Include="Urdf\Spec\InertialChildren.cs" />
+    <Compile Include="Urdf\Spec\JointChildren.cs" />
+    <Compile Include="Urdf\Spec\LinkChildren.cs" />
+    <Compile Include="Urdf\Spec\RobotChildren.cs" />
+    <Compile Include="Urdf\Spec\RobotElementsOld.cs" />
     <Compile Include="Util\Preconditions.cs" />
   </ItemGroup>
   <ItemGroup />
