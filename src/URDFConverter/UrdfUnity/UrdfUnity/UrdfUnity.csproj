@@ -43,6 +43,13 @@
     <Compile Include="Parse\Parser.cs" />
     <Compile Include="Parse\UrdfParser.cs" />
     <Compile Include="Parse\XmlParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\AxisParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\CalibrationParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\ChildParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\DynamicsParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\LimitParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\MimicParser.cs" />
+    <Compile Include="Parse\Xml\JointElements\SafetyControllerParser.cs" />
     <Compile Include="Parse\Xml\JointParser.cs" />
     <Compile Include="Parse\Xml\JointElements\ParentParser.cs" />
     <Compile Include="Parse\Xml\LinkElements\CollisionParser.cs" />
