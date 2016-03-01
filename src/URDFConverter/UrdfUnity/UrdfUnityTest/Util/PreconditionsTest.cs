@@ -18,14 +18,14 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void IsNotNullFalseNoParamName()
         {
             Preconditions.IsNotNull(null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void IsNotNullFalseWithParamName()
         {
             Preconditions.IsNotNull(null, "paramName");
@@ -131,7 +131,7 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.ArgumentException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void IsWithinRangeFalseBelowLower()
         {
             int lowerBound = 0;
@@ -143,7 +143,7 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.ArgumentException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void IsWithinRangeFalseAboveUpper()
         {
             int lowerBound = 0;
@@ -155,7 +155,7 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.Exception))]
+        [ExpectedException(typeof(Exception))]
         public void IsWithinRangeBadBounds()
         {
             int lowerBound = 100;
@@ -163,6 +163,30 @@ namespace UrdfUnityTest.Util
 
             Assert.IsTrue(lowerBound > upperBound);
             Preconditions.IsWithinRange(0, lowerBound, upperBound);
+        }
+
+        #endregion
+        #region IsTrue tests
+
+        [TestMethod]
+        public void IsTrue()
+        {
+            Preconditions.IsTrue(true);
+            Preconditions.IsTrue(true, "paramName");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsTrueFalse()
+        {
+            Preconditions.IsTrue(false);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsTrueFalseWithParamName()
+        {
+            Preconditions.IsTrue(false, "paramName");
         }
 
         #endregion

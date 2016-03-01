@@ -56,7 +56,8 @@ namespace UrdfUnity.Util
         }
 
         /// <summary>
-        /// Asserts that the value is within the range of the specified lower and upper boundaries inclusive.
+        /// Asserts that the value is within the range of the specified lower and upper boundaries inclusive,
+        /// throwing an <c>ArgumentException</c> with the provided parameter name otherwise.
         /// </summary>
         /// <param name="value">The value being validated as in the range [lowerBound, upperBound]</param>
         /// <param name="lowerBound">The lower boundary of the range being checked</param>
@@ -69,7 +70,8 @@ namespace UrdfUnity.Util
         }
 
         /// <summary>
-        /// Asserts that the value is within the range of the specified lower and upper boundaries inclusive.
+        /// Asserts that the value is within the range of the specified lower and upper boundaries inclusive,
+        /// throwing an <c>ArgumentException</c> otherwise.
         /// </summary>
         /// <param name="value">The value being validated as in the range [lowerBound, upperBound]</param>
         /// <param name="lowerBound">The lower boundary of the range being checked</param>
@@ -84,6 +86,30 @@ namespace UrdfUnity.Util
                 throw new Exception("Range validation cannot have lower bound that is greater than upper bound");
             }
             if (value < lowerBound || value > upperBound)
+            {
+                throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Asserts that the value is <c>true</c>, throwing an <c>ArgumentException</c> otherwise.
+        /// </summary>
+        /// <param name="value">The value being validated as true</param>
+        /// <exception cref="System.ArgumentException">Thrown when the value is false</exception>
+        public static void IsTrue(bool statement)
+        {
+            IsTrue(statement, null);
+        }
+
+        /// <summary>
+        /// Asserts that the value is <c>true</c>, throwing an <c>ArgumentException</c> with the provided parameter name otherwise.
+        /// </summary>
+        /// <param name="value">The value being validated as true</param>
+        /// <param name="paramName">The name of the parameter being validated</param>
+        /// <exception cref="System.ArgumentException">Thrown when the value is false</exception>
+        public static void IsTrue(bool value, string paramName)
+        {
+            if (!value)
             {
                 throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
             }
