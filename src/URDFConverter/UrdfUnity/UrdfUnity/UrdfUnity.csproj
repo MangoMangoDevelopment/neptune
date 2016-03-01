@@ -103,6 +103,7 @@
     <Compile Include="Urdf\Spec\RobotChildren.cs" />
     <Compile Include="Urdf\Spec\RobotElementsOld.cs" />
     <Compile Include="Util\Preconditions.cs" />
+    <Compile Include="Util\RegexUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
