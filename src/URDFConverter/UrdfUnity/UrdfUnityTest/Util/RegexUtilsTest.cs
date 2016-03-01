@@ -10,7 +10,7 @@ namespace UrdfUnityTest.Util
         [TestMethod]
         public void RealNumberPattern()
         {
-            Assert.AreEqual(@"-?\d+\.?\d*", RegexUtils.REAL_NUMBER_PATTERN);
+            Assert.AreEqual(@"-?\d*\.?\d+", RegexUtils.REAL_NUMBER_PATTERN);
         }
 
         [TestMethod]
@@ -20,6 +20,7 @@ namespace UrdfUnityTest.Util
             Assert.AreEqual(0d, RegexUtils.MatchDouble("0.000"));
             Assert.AreEqual(2d, RegexUtils.MatchDouble("2"));
             Assert.AreEqual(-12345.6789d, RegexUtils.MatchDouble("-12345.6789"));
+            Assert.AreEqual(.25d, RegexUtils.MatchDouble(".25"));
         }
 
         [TestMethod]

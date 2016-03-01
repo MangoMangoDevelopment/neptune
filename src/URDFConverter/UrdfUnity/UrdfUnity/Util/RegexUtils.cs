@@ -11,7 +11,7 @@ namespace UrdfUnity.Util
         /// <summary>
         /// The Regex pattern for matching real numbers (such as <c>float</c>s and <c>double</c>s) from a string.
         /// </summary>
-        public static readonly string REAL_NUMBER_PATTERN = @"-?\d+\.?\d*";
+        public static readonly string REAL_NUMBER_PATTERN = @"-?\d*\.?\d+";
 
         /// <summary>
         /// A Regex object used for matching real numbers as per <c>REAL_NUMBER_PATTERN</c>.

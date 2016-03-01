@@ -54,7 +54,7 @@ namespace UrdfUnityTest.Urdf.Models
             Dynamics dynamics = new Dynamics(1, 2);
             Limit limit = new Limit(1, 2);
             Mimic mimic = new Mimic(new Joint.Builder("mimic", TEST_JOINT_TYPE, TEST_PARENT_LINK, TEST_CHILD_LINK).Build());
-            Origin origin = new Origin(new XyzAttribute(1, 2, 3), new RpyAttribute(1, 2, 3));
+            Origin origin = new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).SetRpy(new RpyAttribute(1, 2, 3)).Build();
             SafetyController safetyController = new SafetyController(1);
 
             Joint.Builder builder = new Joint.Builder(TEST_JOINT_NAME, TEST_JOINT_TYPE, TEST_PARENT_LINK, TEST_CHILD_LINK);
@@ -116,7 +116,7 @@ namespace UrdfUnityTest.Urdf.Models
         public void ConstructJointChainBuilderSetters()
         {
             Axis axis = new Axis(new XyzAttribute(1, 2, 3));
-            Origin origin = new Origin(new XyzAttribute(1, 2, 3), new RpyAttribute(1, 2, 3));
+            Origin origin = new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).SetRpy(new RpyAttribute(1, 2, 3)).Build();
             SafetyController safetyController = new SafetyController(1);
 
             Joint.Builder builder = new Joint.Builder(TEST_JOINT_NAME, TEST_JOINT_TYPE, TEST_PARENT_LINK, TEST_CHILD_LINK);
