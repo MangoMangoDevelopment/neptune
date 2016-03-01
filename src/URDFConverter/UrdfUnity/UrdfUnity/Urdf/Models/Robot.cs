@@ -7,6 +7,8 @@ namespace UrdfUnity.Urdf.Models
     /// Represents a robot model that consists of a set of link and joint elements.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/model"/>
+    /// <seealso cref="Link"/>
+    /// <seealso cref="Joint"/>
     public class Robot
     {
         /// <summary>
@@ -31,6 +33,7 @@ namespace UrdfUnity.Urdf.Models
         /// <summary>
         /// Creates a new instance of Robot with empty lists of Links and Joints.
         /// </summary>
+        /// <param name="name">The name of the robot model</param>
         public Robot(string name) : this(name, new List<Link>(), new List<Joint>())
         {
             // Invoke overloaded constructor.
@@ -39,6 +42,7 @@ namespace UrdfUnity.Urdf.Models
         /// <summary>
         /// Creates a new instance of Robot with the specified links and joints.
         /// </summary>
+        /// <param name="name">The name of the robot model</param>
         /// <param name="links">A list of the robot model's Links</param>
         /// <param name="joints">A list of the robot model's Joints</param>
         public Robot(string name, List<Link> links, List<Joint> joints)
