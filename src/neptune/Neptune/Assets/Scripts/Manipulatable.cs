@@ -28,7 +28,7 @@ public class Manipulatable : MonoBehaviour {
     private AxisHandle.Axis draggedAxis;
     private float lastDragObjectPos;
     private Vector3 lastDragMousePos;
-    private float offsetMultiplier;
+    private Vector2 offsetMultiplier;
     private AxisHandle.Axis mouseAxisModifier;
     private EditorManager editorManager;
 
@@ -73,7 +73,7 @@ public class Manipulatable : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            offsetMultiplier = 1;
+            offsetMultiplier = Vector2.one;
             if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
@@ -98,7 +98,7 @@ public class Manipulatable : MonoBehaviour {
                                 lastDragObjectPos = transform.position.x;
                                 lastDragMousePos = Input.mousePosition;
                                 if (editorManager.HandleCamera.transform.position.z > transform.position.z)
-                                    offsetMultiplier = -1f;
+                                    offsetMultiplier = -Vector2.one;
                                 mouseAxisModifier = handle.GetMouseAxisModifier();
                             }
                             break;
@@ -119,7 +119,7 @@ public class Manipulatable : MonoBehaviour {
                                 lastDragObjectPos = transform.position.z;
                                 lastDragMousePos = Input.mousePosition;
                                 if (editorManager.HandleCamera.transform.position.x < transform.position.x)
-                                    offsetMultiplier = -1f;
+                                    offsetMultiplier = -Vector2.one;
                                 mouseAxisModifier = handle.GetMouseAxisModifier();
                             }
                             break;
@@ -128,8 +128,13 @@ public class Manipulatable : MonoBehaviour {
                             {
                                 draggedAxis = AxisHandle.Axis.RRot;
                                 isDragging = true;
-                                lastDragObjectPos = transform.localRotation.eulerAngles.z;
+                                lastDragObjectPos = transform.rotation.eulerAngles.z;
                                 lastDragMousePos = Input.mousePosition;
+                                //Check where the raycast hit the torus. This changes the directions of mouse y and x
+                                if (hit.point.x < transform.position.x)
+                                    offsetMultiplier.y *= -1;
+                                if (hit.point.y > transform.position.y)
+                                    offsetMultiplier.x *= -1;
                             }
                             break;
                         case AxisHandle.Axis.PRot:
@@ -137,8 +142,13 @@ public class Manipulatable : MonoBehaviour {
                             {
                                 draggedAxis = AxisHandle.Axis.PRot;
                                 isDragging = true;
-                                lastDragObjectPos = transform.localRotation.eulerAngles.x;
+                                lastDragObjectPos = transform.rotation.eulerAngles.x;
                                 lastDragMousePos = Input.mousePosition;
+                                //Check where the raycast hit the torus. This changes the directions of mouse y and x
+                                if (hit.point.z > transform.position.z)
+                                    offsetMultiplier.y *= -1;
+                                if (hit.point.y < transform.position.y)
+                                    offsetMultiplier.x *= -1;
                             }
                             break;
                         case AxisHandle.Axis.YRot:
@@ -146,8 +156,23 @@ public class Manipulatable : MonoBehaviour {
                             {
                                 draggedAxis = AxisHandle.Axis.YRot;
                                 isDragging = true;
-                                lastDragObjectPos = transform.localRotation.eulerAngles.y;
+                                lastDragObjectPos = transform.rotation.eulerAngles.y;
                                 lastDragMousePos = Input.mousePosition;
+                                //Check if the camera is above or below the Y torus
+                                if (editorManager.HandleCamera.transform.position.y < transform.position.y)
+                                    offsetMultiplier.y *= -1;
+                                //Check where the raycast hit the torus. This changes the directions of mouse y and x
+                                //This is a little trickier than R and P rotations. The idea is as follows:
+                                //Given the camera's forward vector, you can determine which side (left or right) the raycast hit the torus
+                                //This comes from taking the perpendicular vector and checking if the raycast hit to the left or right of said vector
+                                //This can be done by Crossing the forward vector and the up vector to get a plane. The Dot product then gets you the side of the plane you're on
+                                Vector3 targetDirection = hit.point - editorManager.HandleCamera.transform.position;
+                                Vector3 perpendicular = Vector3.Cross(editorManager.HandleCamera.transform.forward, targetDirection);
+                                float side = Vector3.Dot(perpendicular, Vector3.up);
+
+                                //We only care about inverting the Y multiplier if on the left side
+                                if (side < 0f)
+                                    offsetMultiplier.y *= -1;
                             }
                             break;
                     }
@@ -163,7 +188,7 @@ public class Manipulatable : MonoBehaviour {
             if (isDragging)
             {
                 Vector3 pos = transform.position;
-                Vector3 rot = transform.rotation.eulerAngles;
+                float rot = 0;
                 Vector3 startingPoint = lastDragMousePos;
                 Vector3 currentPoint = Input.mousePosition;
                 float xOffset = (currentPoint - startingPoint).x;
@@ -173,7 +198,7 @@ public class Manipulatable : MonoBehaviour {
                 {
                     case AxisHandle.Axis.XPos:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the X axis
-                        offset = (mouseAxisModifier == AxisHandle.Axis.XPos ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime * offsetMultiplier;
+                        offset = (mouseAxisModifier == AxisHandle.Axis.XPos ? xOffset * offsetMultiplier.x : yOffset * offsetMultiplier.y) * XYZDragScaleFactor * Time.deltaTime;
                         pos.x = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.x;
                         transform.position = pos;
@@ -186,31 +211,31 @@ public class Manipulatable : MonoBehaviour {
                         break;
                     case AxisHandle.Axis.ZPos:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the Z axis
-                        offset = (mouseAxisModifier == AxisHandle.Axis.XPos ? xOffset : yOffset) * XYZDragScaleFactor * Time.deltaTime * offsetMultiplier;
+                        offset = (mouseAxisModifier == AxisHandle.Axis.XPos ? xOffset * offsetMultiplier.x : yOffset * offsetMultiplier.y) * XYZDragScaleFactor * Time.deltaTime;
                         pos.z = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.z;
                         transform.position = pos;
                         break;
                     case AxisHandle.Axis.RRot:
                         //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
-                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
-                        rot.z = lastDragObjectPos + offset;
-                        lastDragObjectPos = rot.z;
-                        transform.localRotation = Quaternion.Euler(rot);
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset * offsetMultiplier.x : yOffset * offsetMultiplier.y) * RPYDragScaleFactor * Time.deltaTime;
+                        rot = lastDragObjectPos - offset;
+                        transform.Rotate(0, 0, lastDragObjectPos - rot, Space.World);
+                        lastDragObjectPos = rot;
                         break;
                     case AxisHandle.Axis.PRot:
-                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
-                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
-                        rot.x = lastDragObjectPos + offset;
-                        lastDragObjectPos = rot.x;
-                        transform.localRotation = Quaternion.Euler(rot);
+                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the P axis
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset * offsetMultiplier.x : yOffset * offsetMultiplier.y) * RPYDragScaleFactor * Time.deltaTime;
+                        rot = lastDragObjectPos - offset;
+                        transform.Rotate(lastDragObjectPos - rot, 0, 0, Space.World);
+                        lastDragObjectPos = rot;
                         break;
                     case AxisHandle.Axis.YRot:
-                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the R axis
-                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset : yOffset) * RPYDragScaleFactor * Time.deltaTime;
-                        rot.y = lastDragObjectPos - offset;
-                        lastDragObjectPos = rot.y;
-                        transform.localRotation = Quaternion.Euler(rot);
+                        //Get the larger offset (either X or Y axis) and use that difference to manipulate on the Y axis
+                        offset = (Mathf.Abs(xOffset) > Mathf.Abs(yOffset) ? xOffset * offsetMultiplier.x : yOffset * offsetMultiplier.y) * RPYDragScaleFactor * Time.deltaTime;
+                        rot = lastDragObjectPos + offset;
+                        transform.Rotate(0, lastDragObjectPos - rot, 0, Space.World);
+                        lastDragObjectPos = rot;
                         break;
                 }
                 lastDragMousePos = currentPoint;

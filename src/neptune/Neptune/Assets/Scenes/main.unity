@@ -128,7 +128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &22864366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 883795827}
   m_HandleRect: {fileID: 883795826}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1571,7 +1571,7 @@ MonoBehaviour:
   CameraPosMoveSpeed: 1
   CameraScrollSpeed: 150
   CameraOrbitSpeed: 10
-  HandleCameraDistance: 10
+  HandleCameraDistance: 7
   mode: 0
   MainCamera: {fileID: 1585015247}
   HandleCamera: {fileID: 1798519154}
@@ -1668,7 +1668,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1221343976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,8 +1776,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 246722097}
   m_HandleRect: {fileID: 246722096}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.9999998
+  m_Value: 0.8
+  m_Size: 0.9999996
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
