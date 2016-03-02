@@ -14,31 +14,37 @@
         /// <summary>
         /// The IXX component of the inertia matrix of the link.
         /// </summary>
+        /// <value>Required.</value>
         public double Ixx { get; set; }
 
         /// <summary>
         /// The IXY component of the inertia matrix of the link.
         /// </summary>
+        /// <value>Required.</value>
         public double Ixy { get; set; }
 
         /// <summary>
         /// The IXZ component of the inertia matrix of the link.
         /// </summary>
+        /// <value>Required.</value>
         public double Ixz { get; set; }
 
         /// <summary>
         /// The IYY component of the inertia matrix of the link.
         /// </summary>
+        /// <value>Required.</value>
         public double Iyy { get; set; }
 
         /// <summary>
         /// The IYZ component of the inertia matrix of the link.
         /// </summary>
+        /// <value>Required.</value>
         public double Iyz { get; set; }
 
         /// <summary>
         /// The IZZ component of the inertia matrix of the link.
         /// </summary>
+        /// <value>Required.</value>
         public double Izz { get; set; }
 
 

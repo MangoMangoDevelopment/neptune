@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Parse\Xml\LinkElements\InertialElements\MassParserTest.cs" />
+    <Compile Include="Parse\Xml\LinkElements\InertialElements\InertiaParserTest.cs" />
     <Compile Include="Parse\Xml\OriginParserTest.cs" />
     <Compile Include="Urdf\Models\JointElements\AxisTest.cs" />
     <Compile Include="Urdf\Models\JointElements\CalibrationTest.cs" />
