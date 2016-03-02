@@ -24,10 +24,12 @@ namespace UrdfUnity.Parse.Xml
         /// <summary>
         /// Parses a URDF &lt;origin&gt; element from XML.
         /// </summary>
-        /// <param name="node">The XML node of a &lt;origin&gt; element</param>
+        /// <param name="node">The XML node of a &lt;origin&gt; element. MUST NOT BE NULL</param>
         /// <returns>An Origin object parsed from the XML</returns>
         public Origin Parse(XmlNode node)
         {
+            Preconditions.IsNotNull(node, "node");
+
             XmlAttributeCollection attributes = node.Attributes;
             XmlAttribute xyzAttribute = (XmlAttribute)attributes.GetNamedItem("xyz");
             XmlAttribute rpyAttribute = (XmlAttribute)attributes.GetNamedItem("rpy");

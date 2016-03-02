@@ -24,6 +24,15 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
+        public void MatchDoubleDefaultValue()
+        {
+            double defaultValue = 0d;
+            Assert.AreEqual(defaultValue, RegexUtils.MatchDouble("", defaultValue));
+            Assert.AreEqual(defaultValue, RegexUtils.MatchDouble("no numbers", defaultValue));
+            Assert.AreNotEqual(defaultValue, RegexUtils.MatchDouble("2"), defaultValue);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void MatchDoubleNoMatch()
         {

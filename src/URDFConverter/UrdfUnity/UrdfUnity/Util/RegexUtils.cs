@@ -33,10 +33,26 @@ namespace UrdfUnity.Util
         }
 
         /// <summary>
+        /// Converts the first instance of a real number value in a string into a <c>double</c>.
+        /// </summary>
+        /// <param name="input">The string being matched as a double value. MUST BE A VALID MATCH</param>
+        /// <param name="defaultValue">A default value to return if the input string doesn't contain a number</param>
+        /// <returns>The double value if found in the input string, otherwise the specified default value</returns>
+        public static double MatchDouble(string input, double defaultValue)
+        {
+            if(!REAL_NUMBER_REGEX.IsMatch(input))
+            {
+                return defaultValue;
+            }
+            
+            return MatchDouble(input);
+        }
+
+        /// <summary>
         /// Converts all instances of a real number value in a string into a <c>double</c> array.
         /// </summary>
         /// <param name="input">The string being matched as a double values</param>
-        /// <returns>An array of double values found in the input string</returns>
+        /// <returns>An array of double values if found in the input string, otherwise an empty array</returns>
         public static double[] MatchDoubles(string input)
         {
             MatchCollection matches = REAL_NUMBER_REGEX.Matches(input);
