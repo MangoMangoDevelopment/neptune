@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class Manipulatable : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class Manipulatable : MonoBehaviour {
 
     //Public Variables
     public bool isSelected = false;
+    public Material OutlineMaterial;
 
     //XYZ Translation
     public float XYZDragScaleFactor = 1f;
@@ -31,6 +33,7 @@ public class Manipulatable : MonoBehaviour {
     private Vector2 offsetMultiplier;
     private AxisHandle.Axis mouseAxisModifier;
     private EditorManager editorManager;
+    private GameObject outline;
 
     void Start()
     {
@@ -41,12 +44,28 @@ public class Manipulatable : MonoBehaviour {
     {
         lastSelected = isSelected;
         isSelected = true;
+        if (outline == null)
+        {
+            outline = Instantiate(gameObject);
+            Destroy(outline.GetComponent<Manipulatable>());
+            outline.transform.SetParent(transform);
+            outline.transform.localPosition = Vector3.zero;
+            outline.transform.localRotation = Quaternion.identity;
+            //This is so that the EditorManager ignores the outline (since it's technically in front of the object)
+            outline.layer = LayerMask.NameToLayer("Ignore Raycast");
+            outline.GetComponent<Renderer>().material = OutlineMaterial;
+            outline.transform.localScale = transform.localScale * 1.1f;
+            Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
+            mesh.triangles = mesh.triangles.Reverse().ToArray();
+        }
     }
 
     public void Deselect()
     {
         lastSelected = isSelected;
         isSelected = false;
+        Destroy(outline);
+        outline = null;
     }
 
     void Update()

@@ -58,17 +58,20 @@ public class EditorManager : MonoBehaviour {
 
 	public void SetSelectedObject(GameObject go)
     {
-        if (selectedObject != null)
-            selectedObject.GetComponent<Manipulatable>().Deselect();
-        selectedObject = go;
-        if (selectedObject != null)
+        if (selectedObject != go)
         {
-            selectedObject.GetComponent<Manipulatable>().Select();
-            uiManager.SelectPart(selectedObject);
-        }
-        else
-        {
-            uiManager.Deselect();
+            if (selectedObject != null)
+                selectedObject.GetComponent<Manipulatable>().Deselect();
+            selectedObject = go;
+            if (selectedObject != null)
+            {
+                selectedObject.GetComponent<Manipulatable>().Select();
+                uiManager.SelectPart(selectedObject);
+            }
+            else
+            {
+                uiManager.Deselect();
+            }
         }
     }
 
@@ -126,6 +129,11 @@ public class EditorManager : MonoBehaviour {
                     {
                         SetSelectedObject(hit.transform.gameObject);
                     }
+                }
+                else
+                {
+                    //Hit nothing. Let's deselect.
+                    SetSelectedObject(null);
                 }
             }
         }

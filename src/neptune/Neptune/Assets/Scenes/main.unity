@@ -128,7 +128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &22864366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,7 +1929,6 @@ GameObject:
   - 92: {fileID: 1585015246}
   - 124: {fileID: 1585015245}
   - 81: {fileID: 1585015244}
-  - 114: {fileID: 1585015249}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2004,20 +2003,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1585015249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1585015243}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -768656878, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EventMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &1594849511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,7 +2286,6 @@ GameObject:
   - 124: {fileID: 1798519153}
   - 92: {fileID: 1798519152}
   - 81: {fileID: 1798519151}
-  - 114: {fileID: 1798519155}
   m_Layer: 0
   m_Name: HandleCamera
   m_TagString: Untagged
@@ -2376,20 +2360,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!114 &1798519155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1798519149}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -768656878, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EventMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &1856158232 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 151476, guid: 20b00625ee8fee14997b9ef6d612ccf6, type: 2}
