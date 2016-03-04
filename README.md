@@ -4,7 +4,7 @@
 
 **Project Neptune** is the code name for an online robot configurator project developed for [Clearpath Robotics](http://www.clearpathrobotics.com/).  The primary deliverable for the project is a web application that allows Clearpath's customers to drag and drop sensors on a robot base.  After customizing the robot, the web app will output the configuration in [Unified Robot Description Format (URDF)](http://wiki.ros.org/urdf) that Clearpath will use as the basis for building the robot.
 
-## Features
+## Subprojects
 
 The Neptune project includes three notable features:
 
@@ -14,15 +14,32 @@ The Neptune project includes three notable features:
 
 ### Neptune Client
 
-The **Neptune Client** is a WebGL application built in Unity that provides the UI for
+The **Neptune Client** is a WebGL application built in Unity that provides the UI for configuring a robot with customized sensors.  The Neptune Client provides extensive support for sensor position manipulation and can also provide updated power usage, labour time and cost ratings for the configuration.
+
+Feature overviews:
+
+* [Object Manipulation in 3D Space](https://github.com/MangoMangoDevelopment/neptune/wiki/FEATURE:-Object-Manipulation-in-3D-Space)
 
 ### DB Maintainance
 
 In addition to the Neptune Client, the **DB Maintainance** subproject is a utility tool for maintaining the centralized database of robot components that is read by the client app.
 
+Feature overviews:
+
+* [Uploading and Displaying URDF file](https://github.com/MangoMangoDevelopment/neptune/wiki/Uploading-and-Displaying-URDF-file)
+
 ### URDF/Unity Converter
 
 The **URDF/Unity Converter** subproject is a class library developed in C# that provides an API for converting between URDF files and Unity game objects.
+
+Feature overviews:
+
+* [URDF/Unity Conversion](https://github.com/MangoMangoDevelopment/neptune/wiki/FEATURE:-URDF-Unity-Conversion)
+
+Developer References:
+
+* [URDF](https://github.com/MangoMangoDevelopment/neptune/wiki/URDF)
+* [XML parsing](https://github.com/MangoMangoDevelopment/neptune/wiki/XML-Parsing)
 
 ## Development Environment
 
@@ -37,7 +54,13 @@ Coming soon!
 
 ## Contribute
 
-Currently, contribution for Project Neptune is closed to members of [Mango Mango Development](Mango-Mango).  Upon delivery of their capstone project, the team intends to open the project to external contributors.
+Currently, contribution for Project Neptune is closed to members of [Mango Mango Development](https://github.com/MangoMangoDevelopment/neptune/wiki/Mango-Mango).  Upon delivery of their capstone project, the team intends to open the project to external contributors.
+
+### Resources for Contributors
+
+* Mango Mango's [scrum process](https://github.com/MangoMangoDevelopment/neptune/wiki/Scrum-Process)
+* [Using Git](https://github.com/MangoMangoDevelopment/neptune/wiki/Git-Workflow)
+* [URDF/Unity Converter code style](https://github.com/MangoMangoDevelopment/neptune/wiki/Code-Style)
 
 ## Deployment
 
