@@ -73,7 +73,13 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.InertialElements
             Assert.AreEqual(1, inertia.Ixz);
             Assert.AreEqual(1, inertia.Iyy);
             Assert.AreEqual(1, inertia.Iyz);
-            Assert.AreEqual(Double.NaN, inertia.Izz);
+            Assert.AreEqual(InertiaParser.DEFAULT_VALUE, inertia.Izz);
+        }
+
+        [TestMethod]
+        public void DefaultValue()
+        {
+            Assert.AreEqual(Double.NaN, InertiaParser.DEFAULT_VALUE);
         }
     }
 }

@@ -11,7 +11,12 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
     /// <seealso cref="Urdf.Models.LinkElements.InertialElements.Mass"/>
     public class MassParser : XmlParser<Mass>
     {
-        private static readonly double DEFAULT_MASS = 0d;
+        /// <summary>
+        /// The default value used if the mass element is missing the required value.
+        /// </summary>
+        public static readonly double DEFAULT_MASS = 0d;
+
+        private static readonly string VALUE_ATTRIBUTE_NAME = "value";
 
 
         /// <summary>
@@ -22,7 +27,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
         public Mass Parse(XmlNode node)
         {
             Preconditions.IsNotNull(node, "node");
-            return new Mass(RegexUtils.MatchDouble(node.InnerText, DEFAULT_MASS));
+
+            XmlAttribute valueAttribute = (XmlAttribute)node.Attributes.GetNamedItem(VALUE_ATTRIBUTE_NAME);
+            return new Mass(RegexUtils.MatchDouble(valueAttribute.Value, DEFAULT_MASS));
         }
     }
 }

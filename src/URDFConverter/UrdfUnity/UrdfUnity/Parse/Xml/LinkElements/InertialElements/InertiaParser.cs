@@ -13,7 +13,11 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
     /// <seealso cref="Urdf.Models.LinkElements.InertialElements.Inertia"/>
     public class InertiaParser : XmlParser<Inertia>
     {
-        private static readonly double DEFAULT_VALUE = Double.NaN;
+        /// <summary>
+        /// The default value used if the inertia element is missing a required attribute.
+        /// </summary>
+        public static readonly double DEFAULT_VALUE = Double.NaN;
+
         private static readonly string IXX_ATTRIBUTE_NAME = "ixx";
         private static readonly string IXY_ATTRIBUTE_NAME = "ixy";
         private static readonly string IXZ_ATTRIBUTE_NAME = "ixz";

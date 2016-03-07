@@ -10,7 +10,7 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.InertialElements
     [TestClass]
     public class MassParserTest
     {
-        private static readonly string FORMAT_STRING = "<mass>{0}</mass>";
+        private static readonly string FORMAT_STRING = "<mass value='{0}'/>";
 
         private readonly MassParser parser = new MassParser();
         private readonly XmlDocument xmlDoc = new XmlDocument();
@@ -47,7 +47,13 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.InertialElements
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Mass mass = this.parser.Parse(xmlDoc.DocumentElement);
 
-            Assert.AreEqual(0d, mass.Value);
+            Assert.AreEqual(MassParser.DEFAULT_MASS, mass.Value);
+        }
+
+        [TestMethod]
+        public void DefaultValue()
+        {
+            Assert.AreEqual(0d, MassParser.DEFAULT_MASS);
         }
     }
 }
