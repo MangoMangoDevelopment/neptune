@@ -28,5 +28,21 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.AreEqual(xyz.Y, y);
             Assert.AreEqual(xyz.Z, z);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            XyzAttribute xyz = new XyzAttribute(1, 2, 3);
+            XyzAttribute same = new XyzAttribute(1, 2, 3);
+            XyzAttribute diff = new XyzAttribute(3, 2, 1);
+
+            Assert.IsTrue(xyz.Equals(xyz));
+            Assert.IsFalse(xyz.Equals(null));
+            Assert.IsTrue(xyz.Equals(same));
+            Assert.IsTrue(same.Equals(xyz));
+            Assert.IsFalse(xyz.Equals(diff));
+            Assert.AreEqual(xyz.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(xyz.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

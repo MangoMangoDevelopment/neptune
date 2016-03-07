@@ -22,5 +22,23 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             Preconditions.IsNotEmpty(fileName);
             this.FileName = fileName;
         }
+
+        protected bool Equals(Texture other)
+        {
+            return string.Equals(FileName, other.FileName);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Texture) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return FileName.GetHashCode();
+        }
     }
 }

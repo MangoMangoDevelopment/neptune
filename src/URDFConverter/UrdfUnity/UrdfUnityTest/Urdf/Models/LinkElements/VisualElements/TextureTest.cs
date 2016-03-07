@@ -22,5 +22,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
         {
             Texture texture = new Texture("");
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Texture texture = new Texture("fileName");
+            Texture same = new Texture("fileName");
+            Texture diff = new Texture("differentFileName");
+
+            Assert.IsTrue(texture.Equals(texture));
+            Assert.IsFalse(texture.Equals(null));
+            Assert.IsTrue(texture.Equals(same));
+            Assert.IsTrue(same.Equals(texture));
+            Assert.IsFalse(texture.Equals(diff));
+            Assert.AreEqual(texture.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(texture.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

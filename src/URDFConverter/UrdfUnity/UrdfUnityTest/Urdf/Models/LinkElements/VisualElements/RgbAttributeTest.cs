@@ -45,5 +45,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
 
             Assert.AreEqual(testCount, exceptionCount);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            RgbAttribute rgb = new RgbAttribute(1, 2, 3);
+            RgbAttribute same = new RgbAttribute(1, 2, 3);
+            RgbAttribute diff = new RgbAttribute(3, 2, 1);
+
+            Assert.IsTrue(rgb.Equals(rgb));
+            Assert.IsFalse(rgb.Equals(null));
+            Assert.IsTrue(rgb.Equals(same));
+            Assert.IsTrue(same.Equals(rgb));
+            Assert.IsFalse(rgb.Equals(diff));
+            Assert.AreEqual(rgb.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(rgb.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

@@ -26,5 +26,26 @@
             this.Radius = radius;
             this.Length = length;
         }
+
+        protected bool Equals(Cylinder other)
+        {
+            return Radius.Equals(other.Radius) && Length.Equals(other.Length);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Cylinder) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Radius.GetHashCode()*397) ^ Length.GetHashCode();
+            }
+        }
     }
 }

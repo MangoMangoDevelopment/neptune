@@ -10,38 +10,33 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
         [TestMethod]
         public void ConstructColorNoAlpha()
         {
-            int r = 255;
-            int g = 255;
-            int b = 255;
-            RgbAttribute rgb = new RgbAttribute(r, g, b);
+            RgbAttribute rgb = new RgbAttribute(255, 255, 255);
             Color colour = new Color(rgb);
 
             Assert.AreEqual(rgb, colour.Rgb);
-            Assert.AreEqual(r, colour.Rgb.R);
-            Assert.AreEqual(g, colour.Rgb.G);
-            Assert.AreEqual(b, colour.Rgb.B);
             Assert.AreEqual(1d, colour.Alpha);
         }
 
         [TestMethod]
         public void ConstructColorWithAlpha()
         {
-            int r = 255;
-            int g = 255;
-            int b = 255;
             double alpha = 0.5;
-            RgbAttribute rgb = new RgbAttribute(r, g, b);
+            RgbAttribute rgb = new RgbAttribute(255, 255, 255);
             Color colour = new Color(rgb, alpha);
 
             Assert.AreEqual(rgb, colour.Rgb);
-            Assert.AreEqual(r, colour.Rgb.R);
-            Assert.AreEqual(g, colour.Rgb.G);
-            Assert.AreEqual(b, colour.Rgb.B);
             Assert.AreEqual(alpha, colour.Alpha);
 
             // Test bounds [0,1]
-            new Color(rgb, 0d);
-            new Color(rgb, 1d);
+            colour = new Color(rgb, 0d);
+            colour = new Color(rgb, 1d);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructColorNullRgb()
+        {
+            Color colour = new Color(null);
         }
 
         [TestMethod]
@@ -66,6 +61,22 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
             }
 
             Assert.AreEqual(testCount, exceptionCount);
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Color colour = new Color(new RgbAttribute(1, 2, 3));
+            Color same = new Color(new RgbAttribute(1, 2, 3), 1);
+            Color diff = new Color(new RgbAttribute(3, 2, 1));
+
+            Assert.IsTrue(colour.Equals(colour));
+            Assert.IsFalse(colour.Equals(null));
+            Assert.IsTrue(colour.Equals(same));
+            Assert.IsTrue(same.Equals(colour));
+            Assert.IsFalse(colour.Equals(diff));
+            Assert.AreEqual(colour.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(colour.GetHashCode(), diff.GetHashCode());
         }
     }
 }

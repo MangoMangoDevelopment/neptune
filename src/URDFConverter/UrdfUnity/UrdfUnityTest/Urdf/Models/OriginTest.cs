@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
 
 namespace UrdfUnityTest.Urdf.Models
@@ -65,6 +66,36 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.AreEqual(0, origin.Rpy.R);
             Assert.AreEqual(0, origin.Rpy.P);
             Assert.AreEqual(0, origin.Rpy.Y);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructDefaultOriginWithBuilderNullXyz()
+        {
+            Origin.Builder builder = new Origin.Builder().SetXyz(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructDefaultOriginWithBuilderNullRpy()
+        {
+            Origin.Builder builder = new Origin.Builder().SetRpy(null);
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Origin origin = new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).Build();
+            Origin same = new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).SetRpy(new RpyAttribute()).Build();
+            Origin diff = new Origin();
+
+            Assert.IsTrue(origin.Equals(origin));
+            Assert.IsFalse(origin.Equals(null));
+            Assert.IsTrue(origin.Equals(same));
+            Assert.IsTrue(same.Equals(origin));
+            Assert.IsFalse(origin.Equals(diff));
+            Assert.AreEqual(origin.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(origin.GetHashCode(), diff.GetHashCode());
         }
     }
 }

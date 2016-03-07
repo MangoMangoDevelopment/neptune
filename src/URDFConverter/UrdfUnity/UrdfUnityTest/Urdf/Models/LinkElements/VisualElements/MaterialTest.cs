@@ -61,5 +61,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
         {
             Material material = new Material("");
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Material material = new Material("name", new Texture("fileName"));
+            Material same = new Material("name", new Texture("fileName"));
+            Material diff = new Material("differentName");
+
+            Assert.IsTrue(material.Equals(material));
+            Assert.IsFalse(material.Equals(null));
+            Assert.IsTrue(material.Equals(same));
+            Assert.IsTrue(same.Equals(material));
+            Assert.IsFalse(material.Equals(diff));
+            Assert.AreEqual(material.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(material.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

@@ -24,5 +24,23 @@ namespace UrdfUnity.Urdf.Models.LinkElements.InertialElements
             Preconditions.IsTrue(value >= 0, "value");
             this.Value = value;
         }
+
+        protected bool Equals(Mass other)
+        {
+            return Value.Equals(other.Value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Mass) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
     }
 }

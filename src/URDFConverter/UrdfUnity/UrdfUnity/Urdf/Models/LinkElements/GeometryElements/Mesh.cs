@@ -13,25 +13,19 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
         /// <summary>
         /// The mesh object file used to represent a geometry.
         /// </summary>
-        /// <value>
-        /// Required.
-        /// </value>
+        /// <value>Required.</value>
         public string FileName { get; }
 
         /// <summary>
         /// The scale of the mesh axis-aligned-bounding-box. 
         /// </summary>
-        /// <value>
-        /// Optional. Default value is <c>DEFAULT_SCALE</c>.
-        /// </value>
+        /// <value>Optional. Default value is <c>DEFAULT_SCALE</c>.</value>
         public ScaleAttribute Scale { get; }
 
         /// <summary>
         /// The size of the mesh axis-aligned-bounding-box. 
         /// </summary>
-        /// <value>
-        /// Optional. Default value is null.
-        /// </value>
+        /// <value>Optional. Default value is null.</value>
         public SizeAttribute Size { get; }
 
 
@@ -77,6 +71,31 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
             this.FileName = fileName;
             this.Scale = scale;
             this.Size = size;
+        }
+
+        protected bool Equals(Mesh other)
+        {
+            return FileName.Equals(other.FileName) && Scale.Equals(other.Scale) 
+                && (Size != null ? Size.Equals(other.Size) : other.Size == null);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Mesh) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = FileName.GetHashCode();
+                hashCode = (hashCode*397) ^ Scale.GetHashCode();
+                hashCode = (hashCode*397) ^ (Size != null ? Size.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

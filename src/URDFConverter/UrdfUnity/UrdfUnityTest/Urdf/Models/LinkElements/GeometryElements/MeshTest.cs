@@ -101,5 +101,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
             Mesh mesh = new Mesh("fileName", (SizeAttribute)null);
             Assert.IsNull(mesh.Size);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Mesh mesh = new Mesh("fileName", new ScaleAttribute(1, 2, 3));
+            Mesh same = new Mesh("fileName", new ScaleAttribute(1, 2, 3));
+            Mesh diff = new Mesh("fileName", new ScaleAttribute(7, 7, 7));
+
+            Assert.IsTrue(mesh.Equals(mesh));
+            Assert.IsFalse(mesh.Equals(null));
+            Assert.IsTrue(mesh.Equals(same));
+            Assert.IsTrue(same.Equals(mesh));
+            Assert.IsFalse(mesh.Equals(diff));
+            Assert.AreEqual(mesh.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(mesh.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

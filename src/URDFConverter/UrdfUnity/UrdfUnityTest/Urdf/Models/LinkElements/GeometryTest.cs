@@ -58,5 +58,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Assert.IsNull(geometry.Cylinder);
             Assert.IsNull(geometry.Sphere);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Geometry geometry = new Geometry(new Sphere(1));
+            Geometry same = new Geometry(new Sphere(1));
+            Geometry diff = new Geometry(new Cylinder(1, 2));
+
+            Assert.IsTrue(geometry.Equals(geometry));
+            Assert.IsFalse(geometry.Equals(null));
+            Assert.IsTrue(geometry.Equals(same));
+            Assert.IsTrue(same.Equals(geometry));
+            Assert.IsFalse(geometry.Equals(diff));
+            Assert.AreEqual(geometry.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(geometry.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

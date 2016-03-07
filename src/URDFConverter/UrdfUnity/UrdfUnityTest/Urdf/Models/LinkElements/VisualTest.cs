@@ -31,12 +31,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
 
             Assert.AreEqual(geometry, visual.Geometry);
             Assert.IsNull(visual.Material);
-            Assert.AreEqual(0, visual.Origin.Xyz.X);
-            Assert.AreEqual(0, visual.Origin.Xyz.Y);
-            Assert.AreEqual(0, visual.Origin.Xyz.Z);
-            Assert.AreEqual(0, visual.Origin.Rpy.R);
-            Assert.AreEqual(0, visual.Origin.Rpy.P);
-            Assert.AreEqual(0, visual.Origin.Rpy.Y);
+            Assert.AreEqual(new Origin(), visual.Origin);
         }
 
         [TestMethod]
@@ -57,15 +52,10 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Geometry geometry = new Geometry(new Sphere(1));
             Material material = new Material("name");
             Visual visual = new Visual(geometry, material);
-            
+
+            Assert.AreEqual(new Origin(), visual.Origin);
             Assert.AreEqual(geometry, visual.Geometry);
             Assert.AreEqual(material, visual.Material);
-            Assert.AreEqual(0, visual.Origin.Xyz.X);
-            Assert.AreEqual(0, visual.Origin.Xyz.Y);
-            Assert.AreEqual(0, visual.Origin.Xyz.Z);
-            Assert.AreEqual(0, visual.Origin.Rpy.R);
-            Assert.AreEqual(0, visual.Origin.Rpy.P);
-            Assert.AreEqual(0, visual.Origin.Rpy.Y);
         }
 
         [TestMethod]
@@ -80,6 +70,22 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         public void ConstructVisualNullOrigin()
         {
             Visual visual = new Visual(null, new Geometry(new Sphere(1)));
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Visual visual = new Visual(new Geometry(new Sphere(1)));
+            Visual same = new Visual(new Geometry(new Sphere(1)));
+            Visual diff = new Visual(new Geometry(new Sphere(2)));
+
+            Assert.IsTrue(visual.Equals(visual));
+            Assert.IsFalse(visual.Equals(null));
+            Assert.IsTrue(visual.Equals(same));
+            Assert.IsTrue(same.Equals(visual));
+            Assert.IsFalse(visual.Equals(diff));
+            Assert.AreEqual(visual.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(visual.GetHashCode(), diff.GetHashCode());
         }
     }
 }

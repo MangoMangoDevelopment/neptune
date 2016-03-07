@@ -26,7 +26,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <summary>
         /// Creates a new instance of RgbAtribute with the specified RGB value.
         /// </summary>
-        /// <param name="rgb">The colour's RGB value</param>
+        /// <param name="rgb">The colour's RGB value. MUST NOT BE NULL</param>
         public Color(RgbAttribute rgb) : this(rgb, DEFAULT_ALPHA)
         {
             // Invoke overloaded constructor.
@@ -35,13 +35,35 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <summary>
         /// Creates a new instance of RgbAttribute with the specified RGB and alpha values.
         /// </summary>
-        /// <param name="rgb">The colour's RGB value</param>
-        /// <param name="alpha">The colour's alpha value</param>
+        /// <param name="rgb">The colour's RGB value. MUST NOT BE NULL</param>
+        /// <param name="alpha">The colour's alpha value. MUST BE WITHIN RANGE [0,1]</param>
         public Color(RgbAttribute rgb, double alpha)
         {
+            Preconditions.IsNotNull(rgb);
             Preconditions.IsWithinRange(alpha, MIN_ALPHA, MAX_ALPHA, "alpha");
             this.Rgb = rgb;
             this.Alpha = alpha;
+        }
+
+        protected bool Equals(Color other)
+        {
+            return Rgb.Equals(other.Rgb) && Alpha.Equals(other.Alpha);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Color) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Rgb.GetHashCode()*397) ^ Alpha.GetHashCode();
+            }
         }
     }
 }

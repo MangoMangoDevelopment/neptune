@@ -27,12 +27,24 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Collision collision = new Collision(geometry);
             
             Assert.AreEqual(geometry, collision.Geometry);
-            Assert.AreEqual(0, collision.Origin.Xyz.X);
-            Assert.AreEqual(0, collision.Origin.Xyz.Y);
-            Assert.AreEqual(0, collision.Origin.Xyz.Z);
-            Assert.AreEqual(0, collision.Origin.Rpy.R);
-            Assert.AreEqual(0, collision.Origin.Rpy.P);
-            Assert.AreEqual(0, collision.Origin.Rpy.Y);
+            Assert.AreEqual(new Origin(), collision.Origin);
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Collision collision = new Collision(new Geometry(new Sphere(1)));
+            Collision same = new Collision(new Geometry(new Sphere(1)));
+            Collision diff = new Collision(new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).Build(), 
+                new Geometry(new Sphere(1)));
+
+            Assert.IsTrue(collision.Equals(collision));
+            Assert.IsFalse(collision.Equals(null));
+            Assert.IsTrue(collision.Equals(same));
+            Assert.IsTrue(same.Equals(collision));
+            Assert.IsFalse(collision.Equals(diff));
+            Assert.AreEqual(collision.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(collision.GetHashCode(), diff.GetHashCode());
         }
     }
 }

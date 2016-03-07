@@ -11,7 +11,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     public class Visual
     {
         /// <summary>
-        /// The reference frame of the visual element with respect to the reference fram of the link.
+        /// The reference frame of the visual element with respect to the reference frame of the link.
         /// </summary>
         /// <value>Optional. Defaults to identity.</value>
         public Origin Origin { get; }
@@ -71,6 +71,31 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             this.Origin = origin;
             this.Geometry = geometry;
             this.Material = material;
+        }
+
+        protected bool Equals(Visual other)
+        {
+            return Origin.Equals(other.Origin) && Geometry.Equals(other.Geometry) 
+                && (Material != null ? Material.Equals(other.Material) : other.Material == null);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Visual) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Origin.GetHashCode();
+                hashCode = (hashCode*397) ^ Geometry.GetHashCode();
+                hashCode = (hashCode*397) ^ (Material != null ? Material.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

@@ -55,5 +55,29 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             this.Mass = mass;
             this.Inertia = inertia;
         }
+
+        protected bool Equals(Inertial other)
+        {
+            return Origin.Equals(other.Origin) && Mass.Equals(other.Mass) && Inertia.Equals(other.Inertia);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Inertial) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Origin.GetHashCode();
+                hashCode = (hashCode*397) ^ Mass.GetHashCode();
+                hashCode = (hashCode*397) ^ Inertia.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }

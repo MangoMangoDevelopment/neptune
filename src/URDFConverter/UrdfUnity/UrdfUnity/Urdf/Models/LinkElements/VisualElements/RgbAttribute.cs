@@ -45,5 +45,29 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             this.G = g;
             this.B = b;
         }
+
+        protected bool Equals(RgbAttribute other)
+        {
+            return R == other.R && G == other.G && B == other.B;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((RgbAttribute) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = R;
+                hashCode = (hashCode*397) ^ G;
+                hashCode = (hashCode*397) ^ B;
+                return hashCode;
+            }
+        }
     }
 }

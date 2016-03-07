@@ -40,7 +40,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// Creates a new instance of Material with the specified name and colour.
         /// </summary>
         /// <param name="name">The name identifier of the material</param>
-        /// <param name="color">The colour of the materialL</param>
+        /// <param name="color">The colour of the material</param>
         public Material(string name, Color color) : this(name, color, null)
         {
             // Invoke overloaded constructor.
@@ -68,6 +68,30 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             this.Name = name;
             this.Color = color;
             this.Texture = texture;
+        }
+
+        protected bool Equals(Material other)
+        {
+            return string.Equals(Name, other.Name) && Equals(Color, other.Color) && Equals(Texture, other.Texture);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Material) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (Color != null ? Color.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (Texture != null ? Texture.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

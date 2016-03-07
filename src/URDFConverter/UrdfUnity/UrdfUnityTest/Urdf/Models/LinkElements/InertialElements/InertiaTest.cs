@@ -24,5 +24,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.InertialElements
             Assert.AreEqual(iyz, inertia.Iyz);
             Assert.AreEqual(izz, inertia.Izz);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Inertia inertia = new Inertia(1, 2, 3, 4, 5, 6);
+            Inertia same = new Inertia(1, 2, 3, 4, 5, 6);
+            Inertia diff = new Inertia(7, 7, 7, 7, 7, 7);
+
+            Assert.IsTrue(inertia.Equals(inertia));
+            Assert.IsFalse(inertia.Equals(null));
+            Assert.IsTrue(inertia.Equals(same));
+            Assert.IsTrue(same.Equals(inertia));
+            Assert.IsFalse(inertia.Equals(diff));
+            Assert.AreEqual(inertia.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(inertia.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

@@ -59,5 +59,21 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         {
             Inertial inertial = new Inertial(new Origin(), new Mass(1), null);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Inertial inertial = new Inertial(new Origin(), new Mass(1), new Inertia(0, 0, 0, 0, 0, 0));
+            Inertial same = new Inertial(new Origin(), new Mass(1), new Inertia(0, 0, 0, 0, 0, 0));
+            Inertial diff = new Inertial(new Origin(), new Mass(2), new Inertia(2, 2, 2, 2, 2, 2));
+
+            Assert.IsTrue(inertial.Equals(inertial));
+            Assert.IsFalse(inertial.Equals(null));
+            Assert.IsTrue(inertial.Equals(same));
+            Assert.IsTrue(same.Equals(inertial));
+            Assert.IsFalse(inertial.Equals(diff));
+            Assert.AreEqual(inertial.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(inertial.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

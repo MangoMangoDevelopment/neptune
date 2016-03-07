@@ -19,5 +19,23 @@
         {
             this.Radius = radius;
         }
+
+        protected bool Equals(Sphere other)
+        {
+            return Radius.Equals(other.Radius);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Sphere) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Radius.GetHashCode();
+        }
     }
 }

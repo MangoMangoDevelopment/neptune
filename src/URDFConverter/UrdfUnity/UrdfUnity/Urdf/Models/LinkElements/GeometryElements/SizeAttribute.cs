@@ -34,5 +34,29 @@
             this.Width = width;
             this.Height = height;
         }
+
+        protected bool Equals(SizeAttribute other)
+        {
+            return Length.Equals(other.Length) && Width.Equals(other.Width) && Height.Equals(other.Height);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((SizeAttribute) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Length.GetHashCode();
+                hashCode = (hashCode*397) ^ Width.GetHashCode();
+                hashCode = (hashCode*397) ^ Height.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }
