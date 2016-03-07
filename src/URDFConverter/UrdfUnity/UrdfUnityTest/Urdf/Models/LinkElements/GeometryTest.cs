@@ -49,7 +49,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         [TestMethod]
         public void ConstructGeometryMesh()
         {
-            Mesh mesh = new Mesh("name");
+            Mesh mesh = new Mesh.Builder("name").Build();
             Geometry geometry = new Geometry(mesh);
 
             Assert.AreEqual(Geometry.Shapes.Mesh, geometry.Shape);

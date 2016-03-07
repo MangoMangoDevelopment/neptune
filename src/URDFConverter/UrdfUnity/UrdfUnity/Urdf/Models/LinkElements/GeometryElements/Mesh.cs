@@ -8,6 +8,11 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     public class Mesh
     {
+        /// <summary>
+        /// The default file name that is assigned when the file name is missing.
+        /// </summary>
+        public static readonly string DEFAULT_FILE_NAME = "missing_file_name";
+
         private static readonly ScaleAttribute DEFAULT_SCALE = new ScaleAttribute(1d, 1d, 1d);
 
         /// <summary>
@@ -30,41 +35,13 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
 
 
         /// <summary>
-        /// Creates a new instance of Mesh with the specified file name, default scale and default size.
-        /// </summary>
-        /// <param name="fileName">The mesh object file name</param>
-        public Mesh(string fileName) : this(fileName, DEFAULT_SCALE)
-        {
-            // Invoke overloaded constructor.
-        }
-
-        /// <summary>
-        /// Creates a new instance of Mesh with the specified file name, specified scale and default size.
-        /// </summary>
-        /// <param name="fileName">The mesh object file name</param>
-        /// <param name="scale">The scale applied to the mesh object</param>
-        public Mesh(string fileName, ScaleAttribute scale) : this(fileName, scale, null)
-        {
-            // Invoke overloaded constructor.
-        }
-
-        /// <summary>
-        /// Creates a new instance of Mesh with the specified file name, default scale and specified size.
-        /// </summary>
-        /// <param name="fileName">The mesh object file name</param>
-        /// <param name="size">The size of the mesh object</param>
-        public Mesh(string fileName, SizeAttribute size) : this(fileName, DEFAULT_SCALE, size)
-        {
-            // Invoke overloaded constructor.
-        }
-
-        /// <summary>
         /// Creates a new instance of Mesh with the specified file name, specified scale and specified size.
+        /// An Mesh.Builder must be used to instantiate a Mesh with optional properties as specified.
         /// </summary>
-        /// <param name="fileName">The mesh object file name</param>
-        /// <param name="scale">The scale of the mesh object</param>
+        /// <param name="fileName">The mesh object file name. MUST NOT BE EMPTY</param>
+        /// <param name="scale">The scale of the mesh object. MUST NOT BE NULL</param>
         /// <param name="size">The size of the mesh object. MAY BE NULL</param>
-        public Mesh(string fileName, ScaleAttribute scale, SizeAttribute size)
+        private Mesh(string fileName, ScaleAttribute scale, SizeAttribute size)
         {
             Preconditions.IsNotEmpty(fileName, "fileName");
             Preconditions.IsNotNull(scale, "scale");
@@ -72,6 +49,52 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
             this.Scale = scale;
             this.Size = size;
         }
+
+
+        /// <summary>
+        /// Helper class to build a new instance of Mesh with the optional properties if specified
+        /// and default property values otherwise.
+        /// </summary>
+        public class Builder
+        {
+            private string fileName;
+            private ScaleAttribute scale = DEFAULT_SCALE;
+            private SizeAttribute size = null;
+
+
+            /// <summary>
+            /// Creates a new instance of Mesh.Builder.
+            /// </summary>
+            /// <param name="fileName">The mesh object file name. MUST NOT BE EMPTY</param>
+            public Builder(string fileName)
+            {
+                Preconditions.IsNotEmpty(fileName);
+                this.fileName = fileName;
+            }
+
+            /// <summary>
+            /// Creates a new instance of Mesh with the specified properties and default properties if not specified.
+            /// </summary>
+            /// <returns>A Mesh object with the properties set</returns>
+            public Mesh Build()
+            {
+                return new Mesh(this.fileName, this.scale, this.size);
+            }
+
+            public Builder SetScale(ScaleAttribute scale)
+            {
+                Preconditions.IsNotNull(scale);
+                this.scale = scale;
+                return this;
+            }
+
+            public Builder SetSize(SizeAttribute size)
+            {
+                this.size = size;
+                return this;
+            }
+        }
+
 
         protected bool Equals(Mesh other)
         {

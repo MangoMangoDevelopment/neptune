@@ -14,6 +14,11 @@ namespace UrdfUnity.Util
         public static readonly string REAL_NUMBER_PATTERN = @"-?\d*\.?\d+";
 
         /// <summary>
+        /// Regex used for parsing URDF element attributes that are formatted as a string with three space-delimited real numbers.
+        /// </summary>
+        public static readonly Regex ATTRIBUTE_REGEX_THREE_REAL_NUMBERS = new Regex(String.Format(@"^{0}\s+{0}\s+{0}$", REAL_NUMBER_PATTERN));
+
+        /// <summary>
         /// A Regex object used for matching real numbers as per <c>REAL_NUMBER_PATTERN</c>.
         /// </summary>
         private static readonly Regex REAL_NUMBER_REGEX = new Regex(REAL_NUMBER_PATTERN);

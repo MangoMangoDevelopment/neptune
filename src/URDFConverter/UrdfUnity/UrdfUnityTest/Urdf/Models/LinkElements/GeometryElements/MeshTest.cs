@@ -10,7 +10,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
         public void ConstructMeshWithFileName()
         {
             string fileName = "fileName";
-            Mesh mesh = new Mesh(fileName);
+            Mesh mesh = new Mesh.Builder(fileName).Build();
 
             Assert.AreEqual(fileName, mesh.FileName);
             Assert.IsNotNull(mesh.Scale);
@@ -28,7 +28,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
             double scaleY = 2;
             double scaleZ = 3;
             ScaleAttribute scale = new ScaleAttribute(scaleX, scaleY, scaleZ);
-            Mesh mesh = new Mesh(fileName, scale);
+            Mesh mesh = new Mesh.Builder(fileName).SetScale(scale).Build();
 
             Assert.AreEqual(fileName, mesh.FileName);
             Assert.AreEqual(scale, mesh.Scale);
@@ -46,7 +46,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
             double width = 2;
             double height = 3;
             SizeAttribute size = new SizeAttribute(length, width, height);
-            Mesh mesh = new Mesh(fileName, size);
+            Mesh mesh = new Mesh.Builder(fileName).SetSize(size).Build();
 
             Assert.AreEqual(fileName, mesh.FileName);
             Assert.IsNotNull(mesh.Scale);
@@ -68,7 +68,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
             double width = 22;
             double height = 33;
             SizeAttribute size = new SizeAttribute(length, width, height);
-            Mesh mesh = new Mesh(fileName, scale, size);
+            Mesh mesh = new Mesh.Builder(fileName).SetScale(scale).SetSize(size).Build();
 
             Assert.AreEqual(fileName, mesh.FileName);
             Assert.AreEqual(scale, mesh.Scale);
@@ -85,29 +85,29 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
         [ExpectedException(typeof(System.ArgumentException))]
         public void ConstructMeshEmptyFileName()
         {
-            Mesh mesh = new Mesh("");
+            Mesh mesh = new Mesh.Builder("").Build();
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ArgumentNullException))]
         public void ConstructMeshNullScale()
         {
-            Mesh mesh = new Mesh("fileName", (ScaleAttribute)null);
+            Mesh mesh = new Mesh.Builder("fileName").SetScale(null).Build();
         }
 
         [TestMethod]
         public void ConstructMeshNullSize()
         {
-            Mesh mesh = new Mesh("fileName", (SizeAttribute)null);
+            Mesh mesh = new Mesh.Builder("fileName").SetSize(null).Build();
             Assert.IsNull(mesh.Size);
         }
 
         [TestMethod]
         public void EqualsAndHash()
         {
-            Mesh mesh = new Mesh("fileName", new ScaleAttribute(1, 2, 3));
-            Mesh same = new Mesh("fileName", new ScaleAttribute(1, 2, 3));
-            Mesh diff = new Mesh("fileName", new ScaleAttribute(7, 7, 7));
+            Mesh mesh = new Mesh.Builder("fileName").SetScale(new ScaleAttribute(1, 2, 3)).Build();
+            Mesh same = new Mesh.Builder("fileName").SetScale(new ScaleAttribute(1, 2, 3)).Build();
+            Mesh diff = new Mesh.Builder("fileName").SetScale(new ScaleAttribute(7, 7, 7)).Build();
 
             Assert.IsTrue(mesh.Equals(mesh));
             Assert.IsFalse(mesh.Equals(null));

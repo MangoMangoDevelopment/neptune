@@ -56,6 +56,7 @@
     <Compile Include="Parse\Xml\LinkElements\GeometryElements\BoxParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\GeometryElements\CylinderParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\GeometryElements\SphereParserTest.cs" />
+    <Compile Include="Parse\Xml\LinkElements\GeometryElements\MeshParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\InertialElements\MassParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\InertialElements\InertiaParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\InertialParserTest.cs" />

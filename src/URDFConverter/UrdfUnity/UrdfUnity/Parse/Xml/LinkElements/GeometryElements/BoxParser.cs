@@ -14,12 +14,6 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     /// <seealso cref="Urdf.Models.LinkElements.GeometryElements.Box"/>
     public class BoxParser : XmlParser<Box>
     {
-        /// <summary>
-        /// Regex used for parsing an &lt;box&gt; element's size attributes.  This
-        /// attribute is formatted as a string with three space-delimited real numbers.
-        /// </summary>
-        private static readonly Regex ATTRIBUTE_REGEX = new Regex(String.Format(@"^{0}\s+{0}\s+{0}$", RegexUtils.REAL_NUMBER_PATTERN));
-
         private static readonly string SIZE_ATTRIBUTE_NAME = "size";
         private static readonly double DEFAULT_VALUE = 0d;
 
@@ -42,7 +36,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
             }
             else
             {
-                if (!ATTRIBUTE_REGEX.IsMatch(sizeAttribute.Value))
+                if (!RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch(sizeAttribute.Value))
                 {
                     // TODO: Log malformed URDF <box> size attribute encountered
                 }

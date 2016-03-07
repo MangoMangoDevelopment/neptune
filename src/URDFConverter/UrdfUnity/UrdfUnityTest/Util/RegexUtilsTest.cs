@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Util;
 
@@ -11,6 +12,17 @@ namespace UrdfUnityTest.Util
         public void RealNumberPattern()
         {
             Assert.AreEqual(@"-?\d*\.?\d+", RegexUtils.REAL_NUMBER_PATTERN);
+        }
+
+        [TestMethod]
+        public void AttributeRegex()
+        {
+            Assert.IsTrue(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("0 0 0"));
+            Assert.IsTrue(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("1 2 3"));
+            Assert.IsTrue(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("1.1 .1 0.1"));
+            Assert.IsFalse(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("a b c"));
+            Assert.IsFalse(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("111"));
+            Assert.IsFalse(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("111 222"));
         }
 
         [TestMethod]

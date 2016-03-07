@@ -45,27 +45,6 @@ namespace UrdfUnity.Urdf.Models
             this.Rpy = rpy;
         }
 
-        protected bool Equals(Origin other)
-        {
-            return Xyz.Equals(other.Xyz) && Rpy.Equals(other.Rpy);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Origin) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (Xyz.GetHashCode()*397) ^ Rpy.GetHashCode();
-            }
-        }
-
 
         /// <summary>
         /// Helper class to build a new instance of Origin with the optional properties if specified
@@ -108,6 +87,27 @@ namespace UrdfUnity.Urdf.Models
                 Preconditions.IsNotNull(rpy, "rpy");
                 this.rpy = rpy;
                 return this;
+            }
+        }
+
+        protected bool Equals(Origin other)
+        {
+            return Xyz.Equals(other.Xyz) && Rpy.Equals(other.Rpy);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Origin)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Xyz.GetHashCode() * 397) ^ Rpy.GetHashCode();
             }
         }
     }
