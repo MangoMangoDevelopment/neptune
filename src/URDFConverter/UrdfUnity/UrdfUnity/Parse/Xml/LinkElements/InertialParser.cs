@@ -36,14 +36,14 @@ namespace UrdfUnity.Parse.Xml.LinkElements
             XmlElement massElement = (XmlElement)node.SelectSingleNode(MASS_ELEMENT_NAME);
             XmlElement inertiaElement = (XmlElement)node.SelectSingleNode(INERTIA_ELEMENT_NAME);
 
-            Origin origin = parseOrigin(originElement);
-            Mass mass = parseMass(massElement);
-            Inertia inertia = parseInertia(inertiaElement);
+            Origin origin = ParseOrigin(originElement);
+            Mass mass = ParseMass(massElement);
+            Inertia inertia = ParseInertia(inertiaElement);
 
             return (origin != null) ? new Inertial(origin, mass, inertia): new Inertial(mass, inertia);
         }
 
-        private Origin parseOrigin(XmlElement originElement)
+        private Origin ParseOrigin(XmlElement originElement)
         {
             if (originElement == null)
             {
@@ -54,7 +54,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
             return this.originParser.Parse(originElement);
         }
 
-        private Mass parseMass(XmlElement massElement)
+        private Mass ParseMass(XmlElement massElement)
         {
             if (massElement == null)
             {
@@ -65,7 +65,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
             return this.massParser.Parse(massElement);
         }
 
-        private Inertia parseInertia(XmlElement inertiaElement)
+        private Inertia ParseInertia(XmlElement inertiaElement)
         {
             if (inertiaElement == null)
             {

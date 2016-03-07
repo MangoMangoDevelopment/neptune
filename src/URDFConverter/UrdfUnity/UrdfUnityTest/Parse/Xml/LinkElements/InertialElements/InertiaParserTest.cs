@@ -62,6 +62,13 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.InertialElements
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ParseInertiaNullNode()
+        {
+            this.parser.Parse(null);
+        }
+
+        [TestMethod]
         public void ParseInertiaMissingAttribute()
         {
             string xml = "<inertia ixx='1' ixy='1' ixz='1' iyy='1' iyz='1'/>"; // No izz attribute

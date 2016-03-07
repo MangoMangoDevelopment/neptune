@@ -32,6 +32,13 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.InertialElements
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ParseMassNullNode()
+        {
+            this.parser.Parse(null);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ParseNegativeMass()
         {

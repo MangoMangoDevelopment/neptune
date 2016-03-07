@@ -1,6 +1,6 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
+using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 {
@@ -10,17 +10,47 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.GeometryElements.Cylinder"/>
-    class CylinderParser : XmlParser<Cylinder>
+    public class CylinderParser : XmlParser<Cylinder>
     {
+        private static readonly string RADIUS_ATTRIBUTE_NAME = "radius";
+        private static readonly string LENGTH_ATTRIBUTE_NAME = "length";
+        private static readonly double DEFAULT_VALUE = 0d;
+
+
         /// <summary>
         /// Parses a URDF &lt;cylinder&gt; element from XML.
         /// </summary>
-        /// <param name="cylinderNode">The XML node of a &lt;cylinder&gt; element</param>
+        /// <param name="node">The XML node of a &lt;cylinder&gt; element. MUST NOT BE NULL</param>
         /// <returns>A Cylinder object parsed from the XML</returns>
-        public Cylinder Parse(XmlNode cylinderNode)
+        public Cylinder Parse(XmlNode node)
         {
-            // TODO: Implement...!
-            throw new NotImplementedException();
+            Preconditions.IsNotNull(node, "node");
+
+            XmlAttribute radiusAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(RADIUS_ATTRIBUTE_NAME) : null;
+            XmlAttribute lengthAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(LENGTH_ATTRIBUTE_NAME) : null;
+
+            double radius = DEFAULT_VALUE;
+            double length = DEFAULT_VALUE;
+
+            if (radiusAttribute == null)
+            {
+                // TODO: Log malformed URDF <cylinder> element encountered
+            }
+            else
+            {
+                radius = RegexUtils.MatchDouble(radiusAttribute.Value, DEFAULT_VALUE);
+            }
+
+            if (lengthAttribute == null)
+            {
+                // TODO: Log malformed URDF <cylinder> element encountered
+            }
+            else
+            {
+                length = RegexUtils.MatchDouble(lengthAttribute.Value, DEFAULT_VALUE);
+            }
+
+            return new Cylinder(radius, length);
         }
     }
 }

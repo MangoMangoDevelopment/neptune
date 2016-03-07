@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Parse.Xml.LinkElements;
@@ -40,6 +41,13 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements
             Assert.AreEqual(100, inertial.Inertia.Iyy);
             Assert.AreEqual(0, inertial.Inertia.Iyz);
             Assert.AreEqual(100, inertial.Inertia.Izz);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ParseInertialNullNode()
+        {
+            this.parser.Parse(null);
         }
 
         [TestMethod]

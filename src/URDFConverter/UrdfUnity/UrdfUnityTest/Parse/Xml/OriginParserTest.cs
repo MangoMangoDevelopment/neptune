@@ -12,7 +12,14 @@ namespace UrdfUnityTest.Parse.Xml
     {
         private readonly OriginParser parser = new OriginParser();
         private readonly XmlDocument xmlDoc = new XmlDocument();
+        
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ParseOriginNullNode()
+        {
+            this.parser.Parse(null);
+        }
 
         [TestMethod]
         public void ParseOriginXyzAndRpy()
