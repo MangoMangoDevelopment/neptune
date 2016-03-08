@@ -8,6 +8,7 @@ TagManager:
   - EditorManager
   - Manipulatable
   - UIManager
+  - Outline
   layers:
   - Default
   - TransparentFX

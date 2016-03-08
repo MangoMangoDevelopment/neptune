@@ -10,7 +10,6 @@ public class Manipulatable : MonoBehaviour {
 
     //Public Variables
     public bool isSelected = false;
-    public Material OutlineMaterial;
 
     //XYZ Translation
     public float XYZDragScaleFactor = 1f;
@@ -47,13 +46,21 @@ public class Manipulatable : MonoBehaviour {
         if (outline == null)
         {
             outline = Instantiate(gameObject);
+            foreach (Transform child in outline.transform)
+            {
+                if (child.name == "Outline")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            outline.name = "Outline";
             Destroy(outline.GetComponent<Manipulatable>());
             outline.transform.SetParent(transform);
             outline.transform.localPosition = Vector3.zero;
             outline.transform.localRotation = Quaternion.identity;
             //This is so that the EditorManager ignores the outline (since it's technically in front of the object)
             outline.layer = LayerMask.NameToLayer("Ignore Raycast");
-            outline.GetComponent<Renderer>().material = OutlineMaterial;
+            outline.GetComponent<Renderer>().material = editorManager.OutlineMaterial;
             outline.transform.localScale = transform.localScale * 1.1f;
             Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
             mesh.triangles = mesh.triangles.Reverse().ToArray();

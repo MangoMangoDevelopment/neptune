@@ -26,6 +26,8 @@ public class EditorManager : MonoBehaviour {
     public GameObject PRotHandle;
     public GameObject YRotHandle;
 
+    public Material OutlineMaterial;
+
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
     public float CameraScrollSpeed = 1f;
@@ -356,7 +358,7 @@ public class EditorManager : MonoBehaviour {
 
     public GameObject AddPart(GameObject go, string name)
     {
-        GameObject sensor = Instantiate<GameObject>(go);
+        GameObject sensor = Instantiate(go);
         sensor.name = name;
         sensor.transform.position = Vector3.zero;
         sensor.transform.SetParent(PartsContainer.transform);
