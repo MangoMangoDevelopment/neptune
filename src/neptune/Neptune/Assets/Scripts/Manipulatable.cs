@@ -43,27 +43,50 @@ public class Manipulatable : MonoBehaviour {
     {
         lastSelected = isSelected;
         isSelected = true;
-        if (outline == null)
-        {
-            outline = Instantiate(gameObject);
-            outline.name = "Outline";
-            Destroy(outline.GetComponent<Manipulatable>());
-            outline.transform.SetParent(transform);
-            outline.transform.localPosition = Vector3.zero;
-            outline.transform.localRotation = Quaternion.identity;
-            //This is so that the EditorManager ignores the outline (since it's technically in front of the object)
-            outline.layer = LayerMask.NameToLayer("Ignore Raycast");
-            outline.GetComponent<Renderer>().material = editorManager.OutlineMaterial;
-            outline.transform.localScale = transform.localScale * 1.1f;
-            Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
-            mesh.triangles = mesh.triangles.Reverse().ToArray();
-        }
+        ShowOutline(editorManager.OutlineMaterial);
     }
 
     public void Deselect()
     {
         lastSelected = isSelected;
         isSelected = false;
+        ClearOutline();
+    }
+
+    public void ShowOutline(Material mat)
+    {
+        ClearOutline();
+        outline = Instantiate(gameObject);
+        foreach (Transform child in outline.transform)
+        {
+            if (child.name == "Outline")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        outline.name = "Outline";
+        Destroy(outline.GetComponent<Manipulatable>());
+        outline.tag = "Outline";
+        outline.transform.SetParent(transform);
+        outline.transform.localPosition = Vector3.zero;
+        outline.transform.localRotation = Quaternion.identity;
+        //This is so that the EditorManager ignores the outline (since it's technically in front of the object)
+        outline.layer = LayerMask.NameToLayer("Ignore Raycast");
+        outline.GetComponent<Renderer>().material = mat;
+        outline.transform.localScale = transform.localScale * 1.1f;
+        Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
+        mesh.triangles = mesh.triangles.Reverse().ToArray();
+    }
+
+    public void ClearOutline()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "Outline")
+            {
+                Destroy(child.gameObject);
+            }
+        }
         Destroy(outline);
         outline = null;
     }
@@ -86,8 +109,10 @@ public class Manipulatable : MonoBehaviour {
         {
             lastSelected = isSelected;
         }
-    }
 
+        UpdateOutline();
+    }
+    
     private void UpdateDrag()
     {
         if (Input.GetMouseButtonDown(0))
@@ -258,6 +283,44 @@ public class Manipulatable : MonoBehaviour {
                         break;
                 }
                 lastDragMousePos = currentPoint;
+            }
+        }
+    }
+
+    public void UpdateOutline()
+    {
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
+            return;
+        }
+        if (!isSelected)
+        {
+            Ray uiRay = editorManager.HandleCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            //Check if we hit UI elements (Axis handles) first.
+            LayerMask UIMask = (1 << LayerMask.NameToLayer("UI"));
+            //If we hit an Axis Handle, do nothing. It's own raycast code will deal with its own outline
+            if (!Physics.Raycast(uiRay, out hit, 100, UIMask))
+            {
+                Ray mouseRay = editorManager.MainCamera.ScreenPointToRay(Input.mousePosition);
+                LayerMask ObjectMask = ~(Physics.IgnoreRaycastLayer | (1 << LayerMask.NameToLayer("UI")));
+                if (Physics.Raycast(mouseRay, out hit, 100, ObjectMask))
+                {
+                    if (hit.transform.gameObject == gameObject)
+                    {
+                        if (outline == null)
+                            ShowOutline(editorManager.HoverOutline);
+                    }
+                    else
+                    {
+                        ClearOutline();
+                    }
+                }
+                else
+                {
+                    ClearOutline();
+                }
             }
         }
     }

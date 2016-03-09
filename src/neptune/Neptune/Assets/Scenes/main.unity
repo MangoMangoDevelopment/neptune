@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1122440613}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1568,6 +1568,8 @@ MonoBehaviour:
   PRotHandle: {fileID: 632755832}
   YRotHandle: {fileID: 632755831}
   OutlineMaterial: {fileID: 2100000, guid: 1d20621704edcf147afee8eef519da1e, type: 2}
+  HoverOutline: {fileID: 2100000, guid: 567e18a7d7e10ab4c9b5d8ededeffb18, type: 2}
+  HandleOutline: {fileID: 2100000, guid: 5455644f3ac11b847ae0b5de0d0e4a44, type: 2}
   CameraRotScaleFactor: 5
   CameraPosMoveSpeed: 1
   CameraScrollSpeed: 150
@@ -1777,7 +1779,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 246722097}
   m_HandleRect: {fileID: 246722096}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

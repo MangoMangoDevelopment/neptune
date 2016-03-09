@@ -27,6 +27,8 @@ public class EditorManager : MonoBehaviour {
     public GameObject YRotHandle;
 
     public Material OutlineMaterial;
+    public Material HoverOutline;
+    public Material HandleOutline;
 
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
@@ -359,13 +361,7 @@ public class EditorManager : MonoBehaviour {
     public GameObject AddPart(GameObject go, string name)
     {
         GameObject sensor = Instantiate(go);
-        foreach (Transform child in sensor.transform)
-        {
-            if (child.name == "Outline")
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        sensor.GetComponent<Manipulatable>().ClearOutline();
         sensor.name = name;
         sensor.transform.position = Vector3.zero;
         sensor.transform.SetParent(PartsContainer.transform);

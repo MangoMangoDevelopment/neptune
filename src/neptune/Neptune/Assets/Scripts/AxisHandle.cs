@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class AxisHandle : MonoBehaviour {
 
@@ -26,6 +28,9 @@ public class AxisHandle : MonoBehaviour {
     private float LeftViewportLimit;
     private float RightViewportLimit;
     private EditorManager editorManager;
+    private Material originalMaterial;
+    private bool highlighted;
+    private Dictionary<Transform, Material> materials;
 
     void Start()
     {
@@ -34,6 +39,66 @@ public class AxisHandle : MonoBehaviour {
         BotViewportLimit = 0.15f;
         LeftViewportLimit = 0.3f;
         RightViewportLimit = 0.7f;
+        highlighted = false;
+        materials = new Dictionary<Transform, Material>();
+        foreach (Transform child in transform)
+        {
+            materials.Add(child, child.gameObject.GetComponent<Renderer>().material);
+        }
+    }
+
+    private void Highlight()
+    {
+        if (!highlighted)
+        {
+            highlighted = true;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.GetComponent<Renderer>().material = editorManager.HandleOutline;
+            }
+        }
+    }
+
+    private void ClearHighlight()
+    {
+        if (highlighted)
+        {
+            highlighted = false;
+            foreach (Transform child in transform)
+            {
+                Material material;
+                materials.TryGetValue(child, out material);
+                child.gameObject.GetComponent<Renderer>().material = material;
+            }
+        }
+    }
+
+    public void UpdateHighlight()
+    {
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
+            return;
+        }
+        Ray uiRay = editorManager.HandleCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        LayerMask UIMask = (1 << LayerMask.NameToLayer("UI"));
+        //Only bother checking if we hit UI elements (Axis Handles)
+        if (Physics.Raycast(uiRay, out hit, 100, UIMask))
+        {
+            if (hit.transform.gameObject == gameObject)
+            {
+                Highlight();
+            }
+            else
+            {
+                ClearHighlight();
+            }
+        }
+        else
+        {
+            ClearHighlight();
+        }
     }
 
     public Axis GetAxis()
@@ -113,7 +178,6 @@ public class AxisHandle : MonoBehaviour {
     {
         if (editorManager)
         {
-
             switch (axis)
             {
                 case Axis.YPos:
@@ -158,6 +222,7 @@ public class AxisHandle : MonoBehaviour {
                     }
                     break;
             }
+            UpdateHighlight();
         }
     }
 }
