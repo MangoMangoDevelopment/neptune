@@ -73,7 +73,6 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.GeometryElements
         [TestMethod]
         public void ParseMeshNoFileName()
         {
-            string fileName = "fileName";
             ScaleAttribute scale = new ScaleAttribute(1, 2, 3);
             SizeAttribute size = new SizeAttribute(4, 5, 6);
             string xml = String.Format("<mesh scale='{0} {1} {2}' size='{3} {4} {5}'/>",

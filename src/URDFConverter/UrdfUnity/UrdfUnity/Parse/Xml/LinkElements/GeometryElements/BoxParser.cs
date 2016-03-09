@@ -36,7 +36,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
             }
             else
             {
-                if (!RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch(sizeAttribute.Value))
+                if (!RegexUtils.IsMatchNDoubles(sizeAttribute.Value, 3))
                 {
                     // TODO: Log malformed URDF <box> size attribute encountered
                 }

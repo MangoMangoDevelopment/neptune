@@ -21,6 +21,19 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
         }
 
         [TestMethod]
+        public void ConstructRgbAttributeDoubles()
+        {
+            double r = 0.5d;
+            double g = 0.75d;
+            double b = 0d;
+            RgbAttribute rgb = new RgbAttribute(r, g, b);
+
+            Assert.AreEqual((int)(255 * r), rgb.R);
+            Assert.AreEqual((int)(255 * g), rgb.G);
+            Assert.AreEqual((int)(255 * b), rgb.B);
+        }
+
+        [TestMethod]
         public void ConstructRgbAttributeBadValues()
         {
             int testCount = 0;

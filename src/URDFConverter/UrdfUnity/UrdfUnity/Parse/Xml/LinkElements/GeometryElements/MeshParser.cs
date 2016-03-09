@@ -69,7 +69,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
             }
             else
             {
-                if (!RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch(scaleAttribute.Value))
+                if (!RegexUtils.IsMatchNDoubles(scaleAttribute.Value, 3))
                 {
                     // TODO: Log malformed URDF <mesh> scale attribute encountered
                 }
@@ -93,7 +93,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
             }
             else
             {
-                if (!RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch(sizeAttribute.Value))
+                if (!RegexUtils.IsMatchNDoubles(sizeAttribute.Value, 3))
                 {
                     // TODO: Log malformed URDF <mesh> size attribute encountered
                 }

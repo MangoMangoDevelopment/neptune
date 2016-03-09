@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Util;
 
@@ -14,11 +12,8 @@ namespace UrdfUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Origin"/>
     public class OriginParser : XmlParser<Origin>
     {
-        /// <summary>
-        /// Regex used for parsing an &lt;origin&gt; element's xyz and rpy attributes.  These
-        /// attributes are formatted as a string with three space-delimited real numbers.
-        /// </summary>
-        private static readonly Regex ATTRIBUTE_REGEX = new Regex(String.Format(@"^{0}\s+{0}\s+{0}$", RegexUtils.REAL_NUMBER_PATTERN));
+        private static readonly string XYZ_ATTRIBUTE_NAME = "xyz";
+        private static readonly string RPY_ATTRIBUTE_NAME = "rpy";
 
 
         /// <summary>
@@ -31,14 +26,14 @@ namespace UrdfUnity.Parse.Xml
             Preconditions.IsNotNull(node, "node");
 
             XmlAttributeCollection attributes = node.Attributes;
-            XmlAttribute xyzAttribute = (XmlAttribute)attributes.GetNamedItem("xyz");
-            XmlAttribute rpyAttribute = (XmlAttribute)attributes.GetNamedItem("rpy");
+            XmlAttribute xyzAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(XYZ_ATTRIBUTE_NAME) : null);
+            XmlAttribute rpyAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(RPY_ATTRIBUTE_NAME) : null);
 
             Origin.Builder originBuilder = new Origin.Builder();
 
             if (xyzAttribute != null)
             {
-                if (!ATTRIBUTE_REGEX.IsMatch(xyzAttribute.Value))
+                if (!RegexUtils.IsMatchNDoubles(xyzAttribute.Value, 3))
                 {
                     // TODO: Log malformed URDF <origin> xyz attribute encountered
                 }
@@ -51,7 +46,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (rpyAttribute != null)
             {
-                if (!ATTRIBUTE_REGEX.IsMatch(rpyAttribute.Value))
+                if (!RegexUtils.IsMatchNDoubles(rpyAttribute.Value, 3))
                 {
                     // TODO: Log malformed URDF <origin> rpy attribute encountered
                 }

@@ -1,4 +1,5 @@
-﻿using UrdfUnity.Util;
+﻿using System;
+using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
 {
@@ -33,6 +34,17 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <summary>
         /// Creates a new instance of RgbAttribute.
         /// </summary>
+        /// <param name="r">The RGB attribute's red value as a double. MUST BE WITHIN RANGE [0.0,1.0]</param>
+        /// <param name="g">The RGB attribute's green value as a double. MUST BE WITHIN RANGE [0.0,1.0]</param>
+        /// <param name="b">The RGB attribute's blue value as a double. MUST BE WITHIN RANGE [0.0,1.0]</param>
+        public RgbAttribute(double r, double g, double b) : this((int)(r * RGB_UPPER_BOUND), (int)(g * RGB_UPPER_BOUND), (int)(b * RGB_UPPER_BOUND))
+        {
+            // Invoke overloaded constructor.
+        }
+
+        /// <summary>
+        /// Creates a new instance of RgbAttribute.
+        /// </summary>
         /// <param name="r">The RGB attribute's red value</param>
         /// <param name="g">The RGB attribute's green value</param>
         /// <param name="b">The RGB attribute's blue value</param>
@@ -56,7 +68,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((RgbAttribute) obj);
+            return Equals((RgbAttribute)obj);
         }
 
         public override int GetHashCode()
@@ -64,8 +76,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             unchecked
             {
                 var hashCode = R;
-                hashCode = (hashCode*397) ^ G;
-                hashCode = (hashCode*397) ^ B;
+                hashCode = (hashCode * 397) ^ G;
+                hashCode = (hashCode * 397) ^ B;
                 return hashCode;
             }
         }

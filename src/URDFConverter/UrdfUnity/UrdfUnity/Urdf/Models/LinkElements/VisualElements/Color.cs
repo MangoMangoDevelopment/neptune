@@ -5,6 +5,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// <summary>
     /// Represents the colour specification of a visual element.
     /// </summary>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
+    /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     public class Color
     {
         private static readonly double MIN_ALPHA = 0d;
@@ -14,12 +16,13 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <summary>
         /// The RGB value of the visual element's colour.
         /// </summary>
+        /// <value>Required.</value>
         public RgbAttribute Rgb { get; }
 
         /// <summary>
         /// The alpha value of the visual element's colour.
         /// </summary>
-        /// <value>Optional. [0,1]</value>
+        /// <value>Optional. MUST BE IN RANGE [0,1]. Default value is 1.</value>
         public double Alpha { get; }
 
 

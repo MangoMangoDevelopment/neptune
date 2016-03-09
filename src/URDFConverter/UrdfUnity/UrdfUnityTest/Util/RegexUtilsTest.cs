@@ -15,14 +15,25 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
-        public void AttributeRegex()
+        public void IsMatchNDoubles()
         {
-            Assert.IsTrue(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("0 0 0"));
-            Assert.IsTrue(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("1 2 3"));
-            Assert.IsTrue(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("1.1 .1 0.1"));
-            Assert.IsFalse(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("a b c"));
-            Assert.IsFalse(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("111"));
-            Assert.IsFalse(RegexUtils.ATTRIBUTE_REGEX_THREE_REAL_NUMBERS.IsMatch("111 222"));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("0 0 0", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1 2 3", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("-1 -2 -3", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1 .1 0.1", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1 .1 0.1 0", 4));
+
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("1.1 .1 0.1", 1));
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("a b c", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("111", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("111 222", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("1.1 .1 0.1", 4));
+
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1 2 3", 3, " "));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1-2-3", 3, "-"));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1 then 2 then 3", 3, " then "));
+            Assert.IsFalse(RegexUtils.IsMatchNDoubles("1 then 2 then 3", 3, " and "));
         }
 
         [TestMethod]
@@ -68,6 +79,75 @@ namespace UrdfUnityTest.Util
         public void MatchDoublesNoMatch()
         {
             double[] result = RegexUtils.MatchDoubles("no numbers");
+
+            Assert.IsTrue(result.Length == 0);
+        }
+
+        [TestMethod]
+        public void IsMatchNInts()
+        {
+            Assert.IsTrue(RegexUtils.IsMatchNInts("0 0 0", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNInts("1 2 3", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNInts("-1 -2 -3", 3));
+            Assert.IsTrue(RegexUtils.IsMatchNInts("-1 0 1 0", 4));
+
+            Assert.IsFalse(RegexUtils.IsMatchNInts("1 2 3", 1));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("1.1 .1 0.1", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("a b c", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("111", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("111 222", 3));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("1 1 1", 4));
+
+            Assert.IsTrue(RegexUtils.IsMatchNInts("1 2 3", 3, " "));
+            Assert.IsTrue(RegexUtils.IsMatchNInts("1-2-3", 3, "-"));
+            Assert.IsTrue(RegexUtils.IsMatchNInts("1 then 2 then 3", 3, " then "));
+            Assert.IsFalse(RegexUtils.IsMatchNInts("1 then 2 then 3", 3, " and "));
+        }
+
+        [TestMethod]
+        public void MatchInt()
+        {
+            Assert.AreEqual(3141592, RegexUtils.MatchInt("3141592"));
+            Assert.AreEqual(0, RegexUtils.MatchInt("0"));
+            Assert.AreEqual(2, RegexUtils.MatchInt("2"));
+            Assert.AreEqual(-12345, RegexUtils.MatchInt("-12345"));
+            Assert.AreEqual(-2, RegexUtils.MatchInt("-2.2"));
+        }
+
+        [TestMethod]
+        public void MatchIntDefaultValue()
+        {
+            int defaultValue = 0;
+            Assert.AreEqual(defaultValue, RegexUtils.MatchInt("", defaultValue));
+            Assert.AreEqual(defaultValue, RegexUtils.MatchInt("no numbers", defaultValue));
+            Assert.AreNotEqual(defaultValue, RegexUtils.MatchInt("2"), defaultValue);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void MatchIntNoMatch()
+        {
+            RegexUtils.MatchInt("not a number");
+        }
+
+        [TestMethod]
+        public void MatchInts()
+        {
+            double three = 3;
+            double six = 6;
+            string numbersAsString = three.ToString() + " " + six.ToString();
+            int[] results = RegexUtils.MatchInts(numbersAsString);
+
+            Assert.IsTrue(results.Length == 2);
+            Assert.AreEqual(three, results[0]);
+            Assert.AreEqual(six, results[1]);
+        }
+
+        [TestMethod]
+        public void MatchIntsNoMatch()
+        {
+            int[] result = RegexUtils.MatchInts("no numbers");
 
             Assert.IsTrue(result.Length == 0);
         }
