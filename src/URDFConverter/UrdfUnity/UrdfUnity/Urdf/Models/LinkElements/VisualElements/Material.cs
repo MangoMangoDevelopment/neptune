@@ -8,6 +8,9 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     public class Material
     {
+        public static readonly string DEFAULT_NAME = "missing_name";
+
+
         /// <summary>
         /// The name identifier of the material.
         /// </summary>

@@ -8,6 +8,12 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     public class Texture
     {
         /// <summary>
+        /// The default file name that is assigned when the file name is missing.
+        /// </summary>
+        public static readonly string DEFAULT_FILE_NAME = "missing_file_name";
+
+
+        /// <summary>
         /// The file name of the texture for the visual element.
         /// </summary>
         public string FileName { get; }

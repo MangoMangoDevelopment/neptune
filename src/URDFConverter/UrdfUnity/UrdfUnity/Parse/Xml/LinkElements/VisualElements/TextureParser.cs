@@ -1,6 +1,6 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
+using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 {
@@ -10,17 +10,32 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.VisualElements.Texture"/>
-    class TextureParser : XmlParser<Texture>
+    public class TextureParser : XmlParser<Texture>
     {
+        private static readonly string FILE_NAME_ATTRIBUTE_NAME = "filename";
+
         /// <summary>
         /// Parses a URDF &lt;texture&gt; element from XML.
         /// </summary>
-        /// <param name="textureNode">The XML node of a &lt;texture&gt; element</param>
+        /// <param name="node">The XML node of a &lt;texture&gt; element</param>
         /// <returns>A Texture object parsed from the XML</returns>
-        public Texture Parse(XmlNode textureNode)
+        public Texture Parse(XmlNode node)
         {
-            // TODO: Implement...!
-            throw new NotImplementedException();
+            Preconditions.IsNotNull(node, "node");
+
+            XmlAttribute fileNameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(FILE_NAME_ATTRIBUTE_NAME) : null;
+            string filename = Texture.DEFAULT_FILE_NAME;
+
+            if (fileNameAttribute == null || fileNameAttribute.Value == null)
+            {
+                // TODO: Log malformed <texture> filename attribute encountered
+            }
+            else
+            {
+                filename = fileNameAttribute.Value;
+            }
+
+            return new Texture(filename);
         }
     }
 }
