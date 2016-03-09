@@ -359,6 +359,13 @@ public class EditorManager : MonoBehaviour {
     public GameObject AddPart(GameObject go, string name)
     {
         GameObject sensor = Instantiate(go);
+        foreach (Transform child in sensor.transform)
+        {
+            if (child.name == "Outline")
+            {
+                Destroy(child.gameObject);
+            }
+        }
         sensor.name = name;
         sensor.transform.position = Vector3.zero;
         sensor.transform.SetParent(PartsContainer.transform);

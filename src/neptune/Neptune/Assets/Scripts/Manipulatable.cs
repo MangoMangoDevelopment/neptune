@@ -46,13 +46,6 @@ public class Manipulatable : MonoBehaviour {
         if (outline == null)
         {
             outline = Instantiate(gameObject);
-            foreach (Transform child in outline.transform)
-            {
-                if (child.name == "Outline")
-                {
-                    Destroy(child.gameObject);
-                }
-            }
             outline.name = "Outline";
             Destroy(outline.GetComponent<Manipulatable>());
             outline.transform.SetParent(transform);
