@@ -22,39 +22,57 @@ public class UIManager : MonoBehaviour {
     }
     UIState currState;
 
-    public GameObject sensorViewPort;      // This is the game object that contains the list of sensor
-    public GameObject form;             // This is the game object that holds the form elements (input fields)
+    public GameObject sensorViewPort;       // This is the game object that contains the list of sensor
+    public GameObject form;                 // This is the game object that holds the form elements (input fields)
     public GameObject deleteBtn;
     public GameObject categoryContainerPrefab;
     public GameObject sensorBtnPrefab;
 
     private UrdfModel urdf;
     private InputField[] inputs;
-    private Text[] sensors;
+    private List<GameObject> sensors;
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
-    void Start ()
+    void Start()
     {
-        string connString = "URI=file:" + Application.dataPath + "/db/neptune.db";
-        urdf = new UrdfModel(connString);
+        urdf = new UrdfModel();
         currState = UIState.Create; // assume that the default is to add a sensor right away
+        sensors = new List<GameObject>();
+        SensorPanelSetup();
+    }
 
-        List<UrdfItem> sensorList = urdf.GetSensors();
+    void SensorPanelSetup()
+    {
+        List<SensorCategoriesModel> categories = urdf.GetSensorCategories();
+        List<UrdfItemModel> sensorList = urdf.GetSensors();
         GameObject sensorBtn;
-        GameObject categoryHolder = GameObject.Instantiate(categoryContainerPrefab);
+        GameObject categoryHolder;
+        Dictionary<int, GameObject> categoryHolderList = new Dictionary<int, GameObject>();
 
-        foreach (UrdfItem item in sensorList)
+        foreach (SensorCategoriesModel category in categories)
+        {
+            categoryHolder = GameObject.Instantiate(categoryContainerPrefab);
+            SensorCategoriesModel urdfCat = categoryHolder.GetComponent<SensorCategoriesModel>();
+            Text value = categoryHolder.GetComponentInChildren<Text>();
+            urdfCat = category;
+            value.text = category.name;
+            categoryHolder.transform.SetParent(sensorViewPort.transform, false);
+            categoryHolderList.Add(category.uid, categoryHolder);
+        }
+
+        foreach (UrdfItemModel item in sensorList)
         {
             sensorBtn = GameObject.Instantiate(sensorBtnPrefab);
             Text value = sensorBtn.GetComponentInChildren<Text>();
+            UrdfItemModel urdfItem = sensorBtn.GetComponent<UrdfItemModel>();
+            urdfItem = item;
             value.text = item.name;
-            sensorBtn.transform.SetParent(categoryHolder.transform, false);
+            sensorBtn.name = item.name.ToLower();
+            sensorBtn.transform.SetParent(categoryHolderList[item.fk_category_id].transform, false);
+            this.sensors.Add(sensorBtn);
         }
-
-        categoryHolder.transform.SetParent(sensorViewPort.transform, false);
-
     }
 
     /// <summary>
@@ -112,7 +130,7 @@ public class UIManager : MonoBehaviour {
             this.inputs = form.GetComponentsInChildren<InputField>();
         }
 
-        UrdfItem item = new UrdfItem();
+        UrdfItemModel item = new UrdfItemModel();
 
         foreach(InputField input in inputs)
         {
@@ -178,14 +196,9 @@ public class UIManager : MonoBehaviour {
     /// <param name="value"></param>
     public void SearchFunction (string value)
     {
-        if (sensors == null)
+        foreach (GameObject item in this.sensors)
         {
-            this.sensors = sensorViewPort.GetComponentsInChildren<Text>();
-        }
-        foreach (Text name in this.sensors)
-        {
-            if (name.text != "Heading")
-                name.transform.parent.gameObject.SetActive(name.text.ToLower().Contains(value.ToLower()));
+            item.transform.gameObject.SetActive(item.name.Contains(value.ToLower()));
         }
     }
 

@@ -61,3 +61,11 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Set the merge driver for unity scene
+#
+# Since Unity scene files can be treated as a binary file when merging the 
+# lastest file on the remote machine should be taken always.
+###############################################################################
+*.unity       merge=binary

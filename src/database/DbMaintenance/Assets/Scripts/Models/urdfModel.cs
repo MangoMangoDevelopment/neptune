@@ -5,53 +5,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 
-/// <summary>
-/// This is a model of urdfs stored in the database
-/// </summary>
-public class UrdfItem
-{
-    public int uid;
-    public string name;
-    public string modelNumber;
-    public float internalCost;
-    public float externalCost;
-    public float weight;
-    public float powerUsage;
-    public int fk_type_id;
-    public int fk_category_id;
-    public int usable;
-    public string urdfFilename;
-    public string prefabFilename;
-    public float time;
-    // TODO: Add validation code
-}
-
-/// <summary>
-/// This is a model of urdf types within the database
-/// </summary>
-public class UrdfType
-{
-    public int uid;
-    public string name;
-    // TODO: Add validation code
-}
-
-/// <summary>
-/// This is a model of sensor categories within the database
-/// </summary>
-public class SensorCategories
-{
-    public int uid;
-    public string name;
-    // TODO: Add validation code here for setting data
-}
 
 /// <summary>
 /// This is the model for URDF interactions which contains actions to interact with the DB
 /// </summary>
 public class UrdfModel
 {
+    private string CONN_STRING = "URI=file:../../../db/neptune.db";
     private DbEngine _engine;
+
+    /// <summary>
+    /// Constructor for the urdf model using the default connection string
+    /// </summary>
+    /// <param name="connString">string representation to connect to the sqlite db</param>
+    public UrdfModel()
+    {
+        _engine = new DbEngine(CONN_STRING);
+    }
 
     /// <summary>
     /// Constructor for the urdf model by providing a connection string
@@ -83,20 +53,20 @@ public class UrdfModel
     /// This will query for all sensors in the database
     /// </summary>
     /// <returns>A list of all sensors/urdfs in the database.</returns>
-    public List<UrdfItem> GetSensors()
+    public List<UrdfItemModel> GetSensors()
     {
-        List<UrdfItem> list = new List<UrdfItem>();
+        List<UrdfItemModel> list = new List<UrdfItemModel>();
 
         string sql = "SELECT `uid`, `name`, `modelNumber`, `internalCost`, `externalCost`, `weight`, `powerUsage`, `fk_type_id`, `fk_category_id`, `usable`, `urdfFilename`, `prefabFilename`, `time` FROM `tblUrdfs`;";
         SqliteCommand cmd = _engine.conn.CreateCommand();
         cmd.CommandText = sql;
         SqliteDataReader reader = cmd.ExecuteReader();
-        UrdfItem item;
+        UrdfItemModel item;
         try
         {
             while(reader.Read())
             {
-                item = new UrdfItem();
+                item = new UrdfItemModel();
                 item.uid = reader.GetInt32(0);
                 item.name = (!reader.IsDBNull(1) ? reader.GetString(1) : String.Empty);
                 item.modelNumber = (!reader.IsDBNull(2) ?  reader.GetString(2) : String.Empty);
@@ -172,20 +142,20 @@ public class UrdfModel
     /// 
     /// </summary>
     /// <returns></returns>
-    public List<SensorCategories> GetSensorCategories()
+    public List<SensorCategoriesModel> GetSensorCategories()
     {
-        List<SensorCategories> list = new List<SensorCategories>();
+        List<SensorCategoriesModel> list = new List<SensorCategoriesModel>();
 
         string sql = "SELECT `uid`, `name` FROM `tblSensorCategories`;";
         IDbCommand cmd = _engine.conn.CreateCommand();
         cmd.CommandText = sql;
         IDataReader reader = cmd.ExecuteReader();
-        SensorCategories item;
+        SensorCategoriesModel item;
         try
         {
             while (reader.Read())
             {
-                item = new SensorCategories();
+                item = new SensorCategoriesModel();
                 item.uid = reader.GetInt32(0);
                 item.name = reader.GetString(1);
 
@@ -208,11 +178,11 @@ public class UrdfModel
     }
 
     /// <summary>
-    /// This will add a given UrdfItem into the database with provided details.
+    /// This will add a given UrdfItemModel into the database with provided details.
     /// </summary>
-    /// <param name="item">UrdfItem to be added into the database</param>
+    /// <param name="item">UrdfItemModel to be added into the database</param>
     /// <returns>The insert id of the newely added id. 0 if it was not added successfully.</returns>
-    public int AddSensor(UrdfItem item)
+    public int AddSensor(UrdfItemModel item)
     {
         long lastId = 0;
         string sql = "INSERT INTO `tblUrdfs` (`name`, `modelNumber`, `internalCost`, `externalCost`, `weight`, `powerUsage`, `fk_type_id`, `fk_category_id`, `usable`, `urdfFilename`, `prefabFilename`) VALUES (@name, @modelNumber, @internalCost, @externalCost, @weight, @powerUsage, @fk_type_id, @fk_category_id, @usable, @urdfFilename, @prefabFilename);";
@@ -251,11 +221,11 @@ public class UrdfModel
     }
 
     /// <summary>
-    /// Update the given UrdfItem in the database with the given values.
+    /// Update the given UrdfItemModel in the database with the given values.
     /// </summary>
-    /// <param name="item">The UrdfItem that is to be updated in the database.</param>
+    /// <param name="item">The UrdfItemModel that is to be updated in the database.</param>
     /// <returns>The number of rows affected by the update. 0 if the id was not found.</returns>
-    public int UpdateSensor(UrdfItem item)
+    public int UpdateSensor(UrdfItemModel item)
     {
         string sql = "UPDATE `tblUrdfs` SET `name` = @name, `modelNumber` = @modelNumber, `internalCost` = @internalCost, `externalCost` = @externalCost, `weight` = @weight, `powerUsage` = @powerUsage, `fk_type_id` = @fk_type_id, `fk_category_id` = @fk_category_id, `usable` = @usable, `urdfFilename` = @urdfFilename, `prefabFilename` = @prefabFilename WHERE `uid` = @uid;";
         SqliteCommand cmd = _engine.conn.CreateCommand();
@@ -293,11 +263,11 @@ public class UrdfModel
     }
 
     /// <summary>
-    /// This allows for flexibilty of deleting a UrdfItem with the object
+    /// This allows for flexibilty of deleting a UrdfItemModel with the object
     /// </summary>
-    /// <param name="item">UrdfItem that is to be removed in the database</param>
+    /// <param name="item">UrdfItemModel that is to be removed in the database</param>
     /// <returns>The number of rows affected. 0 if the id was not found</returns>
-    public int DeleteSensor(UrdfItem item)
+    public int DeleteSensor(UrdfItemModel item)
     {
         return DeleteSensor(item.uid);
     }
@@ -305,15 +275,15 @@ public class UrdfModel
     /// <summary>
     /// Give the unique id of the sensor this method will remove it from the DB if it exists.
     /// </summary>
-    /// <param name="urdfItemId">int representation of the sensor id in the database</param>
+    /// <param name="UrdfItemModelId">int representation of the sensor id in the database</param>
     /// <returns>The number of rows there were affected by the delete statement, 0 if the id was not found</returns>
-    public int DeleteSensor(int urdfItemId)
+    public int DeleteSensor(int UrdfItemModelId)
     {
         int affectedRows = 0;
         string sql = "DELETE FROM `tblUrdfs` WHERE `uid` = @uid";
         SqliteCommand cmd = _engine.conn.CreateCommand();
         cmd.CommandText = sql;
-        cmd.Parameters.AddWithValue("@uid", urdfItemId);
+        cmd.Parameters.AddWithValue("@uid", UrdfItemModelId);
 
         try
         {
