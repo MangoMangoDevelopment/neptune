@@ -15,12 +15,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements
     /// <seealso cref="Urdf.Models.LinkElements.Geometry"/>
     public class GeometryParser : XmlParser<Geometry>
     {
+        public static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
+
         private static readonly string BOX_ELEMENT_NAME = "box";
         private static readonly string CYLINDER_ELEMENT_NAME = "cylinder";
         private static readonly string SPHERE_ELEMENT_NAME = "sphere";
         private static readonly string MESH_ELEMENT_NAME = "mesh";
-        private static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
-
+        
         private readonly BoxParser boxParser = new BoxParser();
         private readonly CylinderParser cylinderParser = new CylinderParser();
         private readonly SphereParser sphereParser = new SphereParser();

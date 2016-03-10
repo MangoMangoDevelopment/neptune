@@ -82,17 +82,12 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements
         [TestMethod]
         public void ParseGeometryMalformed()
         {
-            Box defaultBox = new Box(new SizeAttribute(1, 1, 1));
             string xml = "<geometry></geometry>"; // No shape
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Geometry geometry = this.parser.Parse(this.xmlDoc.DocumentElement);
-
-            Assert.AreEqual(Geometry.Shapes.Box, geometry.Shape);
-            Assert.AreEqual(defaultBox, geometry.Box);
-            Assert.IsNull(geometry.Cylinder);
-            Assert.IsNull(geometry.Sphere);
-            Assert.IsNull(geometry.Mesh);
+            
+            Assert.AreEqual(GeometryParser.DEFAULT_GEOMETRY, geometry);
         }
     }
 }

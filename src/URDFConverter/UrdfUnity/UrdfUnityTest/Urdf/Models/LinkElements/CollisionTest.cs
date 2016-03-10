@@ -12,10 +12,12 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         [TestMethod]
         public void ConstructCollision()
         {
+            String name = "name";
             Origin origin = new Origin();
             Geometry geometry = new Geometry(new Sphere(1));
-            Collision collision = new Collision(origin, geometry);
+            Collision collision = new Collision.Builder(name).SetOrigin(origin).SetGeometry(geometry).Build();
 
+            Assert.AreEqual(name, collision.Name);
             Assert.AreEqual(origin, collision.Origin);
             Assert.AreEqual(geometry, collision.Geometry);
         }
@@ -24,19 +26,52 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         public void ConstructCollisionNoOrigin()
         {
             Geometry geometry = new Geometry(new Sphere(1));
-            Collision collision = new Collision(geometry);
-            
+            Collision collision = new Collision.Builder().SetGeometry(geometry).Build();
+
+            Assert.IsNull(collision.Name);
             Assert.AreEqual(geometry, collision.Geometry);
             Assert.AreEqual(new Origin(), collision.Origin);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructCollisionNoGeometry()
+        {
+            Collision collision = new Collision.Builder().Build();
+        }
+
+        [TestMethod]
+        public void ConstructCollisionNullName()
+        {
+            Geometry geometry = new Geometry(new Sphere(1));
+            Collision collision = new Collision.Builder(null).SetGeometry(geometry).Build();
+
+            Assert.IsNull(collision.Name);
+            Assert.AreEqual(geometry, collision.Geometry);
+            Assert.AreEqual(new Origin(), collision.Origin);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructCollisionNullGeometry()
+        {
+            Collision collision = new Collision.Builder().SetGeometry(null).Build();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructCollisionNullOrigin()
+        {
+            Collision collision = new Collision.Builder().SetOrigin(null).Build();
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
-            Collision collision = new Collision(new Geometry(new Sphere(1)));
-            Collision same = new Collision(new Geometry(new Sphere(1)));
-            Collision diff = new Collision(new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).Build(), 
-                new Geometry(new Sphere(1)));
+            Collision collision = new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build();
+            Collision same = new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build();
+            Collision diff = new Collision.Builder().SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).Build()) 
+                .SetGeometry(new Geometry(new Sphere(1))).Build();
 
             Assert.IsTrue(collision.Equals(collision));
             Assert.IsFalse(collision.Equals(null));

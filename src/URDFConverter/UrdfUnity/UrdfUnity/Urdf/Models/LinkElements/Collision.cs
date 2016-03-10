@@ -14,6 +14,12 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     public class Collision
     {
         /// <summary>
+        /// The name identifier of the collision's geometry.
+        /// </summary>
+        /// <value>Optional. May be null</value>
+        public string Name { get; }
+
+        /// <summary>
         /// The reference frame of the collision element, relative to the reference frame of the link.
         /// </summary>
         /// <value>Optional. Defaults to identity</value>
@@ -27,26 +33,71 @@ namespace UrdfUnity.Urdf.Models.LinkElements
 
 
         /// <summary>
-        /// Creates a new instance of Collision with the specified geometry.
-        /// </summary>
-        /// <param name="geometry">The shape of the collision element. MUST NOT BE NULL</param>
-        public Collision(Geometry geometry) : this(new Origin(), geometry)
-        {
-            // Invoke overloaded constructor.
-        }
-
-        /// <summary>
         /// Creates a new instance of Collision with the specified origin and geometry.
+        /// A Collision.Builder must be used to create a collision to enforce required and default properties.
         /// </summary>
         /// <param name="origin">The reference frame of the collision element. MUST NOT BE NULL</param>
         /// <param name="geometry">The shape of the collision element. MUST NOT BE NULL</param>
-        public Collision(Origin origin, Geometry geometry)
+        private Collision(string name, Origin origin, Geometry geometry)
         {
             Preconditions.IsNotNull(origin);
             Preconditions.IsNotNull(geometry);
+            this.Name = name;
             this.Origin = origin;
             this.Geometry = geometry;
         }
+
+
+        /// <summary>
+        /// Helper class to build a new instance of collision with its defined properties.
+        /// </summary>
+        public class Builder
+        {
+            private string name = null;
+            private Origin origin = new Origin();
+            private Geometry geometry = null;
+
+            /// <summary>
+            /// Creates a new instance of Builder.
+            /// </summary>
+            public Builder() : this(null)
+            {
+                // Invoke overloaded constructor.
+            }
+
+            /// <summary>
+            /// Creates a new instance of Builder.
+            /// </summary>
+            /// <param name="name">The name of the collision element</param>
+            public Builder(string name)
+            {
+                this.name = name;
+            }
+
+            /// <summary>
+            /// Creates a new instance of Collision with the specified properties.
+            /// </summary>
+            /// <returns>A Collision object with the properties set</returns>
+            public Collision Build()
+            {
+                return new Collision(name, origin, geometry);
+            }
+
+            public Builder SetOrigin(Origin origin)
+            {
+                Preconditions.IsNotNull(origin);
+                this.origin = origin;
+                return this;
+            }
+
+            public Builder SetGeometry(Geometry geometry)
+            {
+                Preconditions.IsNotNull(geometry);
+                this.geometry = geometry;
+                return this;
+            }
+        }
+
 
         protected bool Equals(Collision other)
         {
