@@ -60,6 +60,7 @@
     <Compile Include="Parse\Xml\LinkElements\InertialElements\MassParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\InertialElements\InertiaParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\InertialParserTest.cs" />
+    <Compile Include="Parse\Xml\LinkElements\GeometryParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\VisualElements\ColorParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\VisualElements\TextureParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\VisualElements\MaterialParserTest.cs" />
