@@ -17,7 +17,7 @@ namespace UrdfUnityTest.Urdf.Models
             string name = "linkName";
             Inertial inertial = new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1));
             List<Visual> visuals = new List<Visual>();
-            visuals.Add(new Visual(new Geometry(new Sphere(1))));
+            visuals.Add(new Visual.Builder(new Geometry(new Sphere(1))).Build());
             List<Collision> collisions = new List<Collision>();
 
             Link.Builder builder = new Link.Builder(name);
@@ -38,7 +38,7 @@ namespace UrdfUnityTest.Urdf.Models
         {
             string name = "linkName";
             Inertial inertial = new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1));
-            Visual visual = new Visual(new Geometry(new Sphere(1)));
+            Visual visual = new Visual.Builder(new Geometry(new Sphere(1))).Build();
             List<Collision> collisions = new List<Collision>();
             Link link = new Link.Builder(name).SetInertial(inertial).SetVisual(visual).SetCollision(collisions).Build();
 

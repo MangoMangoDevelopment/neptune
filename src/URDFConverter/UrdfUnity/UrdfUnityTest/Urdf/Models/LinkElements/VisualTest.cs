@@ -16,7 +16,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Origin origin = new Origin();
             Geometry geometry = new Geometry(new Sphere(1));
             Material material = new Material("name");
-            Visual visual = new Visual(origin, geometry, material);
+            Visual visual = new Visual.Builder(geometry).SetOrigin(origin).SetMaterial(material).Build();
 
             Assert.AreEqual(origin, visual.Origin);
             Assert.AreEqual(geometry, visual.Geometry);
@@ -27,7 +27,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         public void ConstructVisualOnlyGeometry()
         {
             Geometry geometry = new Geometry(new Sphere(1));
-            Visual visual = new Visual(geometry);
+            Visual visual = new Visual.Builder(geometry).Build();
 
             Assert.AreEqual(geometry, visual.Geometry);
             Assert.IsNull(visual.Material);
@@ -39,7 +39,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         {
             Origin origin = new Origin();
             Geometry geometry = new Geometry(new Sphere(1));
-            Visual visual = new Visual(origin, geometry);
+            Visual visual = new Visual.Builder(geometry).SetOrigin(origin).Build();
 
             Assert.AreEqual(origin, visual.Origin);
             Assert.AreEqual(geometry, visual.Geometry);
@@ -51,7 +51,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         {
             Geometry geometry = new Geometry(new Sphere(1));
             Material material = new Material("name");
-            Visual visual = new Visual(geometry, material);
+            Visual visual = new Visual.Builder(geometry).SetMaterial(material).Build();
 
             Assert.AreEqual(new Origin(), visual.Origin);
             Assert.AreEqual(geometry, visual.Geometry);
@@ -62,22 +62,22 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructVisualNullGeometry()
         {
-            Visual visual = new Visual(null);
+            Visual visual = new Visual.Builder(null).Build();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructVisualNullOrigin()
         {
-            Visual visual = new Visual(null, new Geometry(new Sphere(1)));
+            Visual visual = new Visual.Builder(new Geometry(new Sphere(1))).SetOrigin(null).Build();
         }
 
         [TestMethod]
         public void EqualsAndHash()
         {
-            Visual visual = new Visual(new Geometry(new Sphere(1)));
-            Visual same = new Visual(new Geometry(new Sphere(1)));
-            Visual diff = new Visual(new Geometry(new Sphere(2)));
+            Visual visual = new Visual.Builder(new Geometry(new Sphere(1))).Build();
+            Visual same = new Visual.Builder(new Geometry(new Sphere(1))).Build();
+            Visual diff = new Visual.Builder(new Geometry(new Sphere(2))).Build();
 
             Assert.IsTrue(visual.Equals(visual));
             Assert.IsFalse(visual.Equals(null));
