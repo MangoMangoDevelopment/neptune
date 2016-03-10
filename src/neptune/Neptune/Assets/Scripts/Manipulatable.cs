@@ -91,6 +91,55 @@ public class Manipulatable : MonoBehaviour {
         outline = null;
     }
 
+    public void ResetAxis(AxisHandle.Axis axis)
+    {
+        switch(axis)
+        {
+            case AxisHandle.Axis.XPos:
+                {
+                    Vector3 pos = transform.position;
+                    pos.x = 0;
+                    transform.position = pos;
+                }
+                break;
+            case AxisHandle.Axis.YPos:
+                {
+                    Vector3 pos = transform.position;
+                    pos.y = 0;
+                    transform.position = pos;
+                }
+                break;
+            case AxisHandle.Axis.ZPos:
+                {
+                    Vector3 pos = transform.position;
+                    pos.z = 0;
+                    transform.position = pos;
+                }
+                break;
+            case AxisHandle.Axis.RRot:
+                {
+                    Vector3 rot = transform.rotation.eulerAngles;
+                    rot.z = 0;
+                    transform.rotation = Quaternion.Euler(rot);
+                }
+                break;
+            case AxisHandle.Axis.PRot:
+                {
+                    Vector3 rot = transform.rotation.eulerAngles;
+                    rot.x = 0;
+                    transform.rotation = Quaternion.Euler(rot);
+                }
+                break;
+            case AxisHandle.Axis.YRot:
+                {
+                    Vector3 rot = transform.rotation.eulerAngles;
+                    rot.y = 0;
+                    transform.rotation = Quaternion.Euler(rot);
+                }
+                break;
+        }
+    }
+
     void Update()
     {
         if (isSelected)

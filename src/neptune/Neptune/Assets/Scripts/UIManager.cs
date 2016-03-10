@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour {
     public GameObject SensorsContent;
     public GameObject PartsContent;
     public GameObject TextPrefab;
+    public GameObject ResetAxesPanel;
+    public GameObject ResetAxesPanelMask;
+    public float ResetAxesPanelSpeed;
     public Text ModeText;
 
     //TODO: Remove this. This should be superseeded by a combination of Brian and Amber's work. See DBManager.GetSensorList() for more info.
@@ -20,17 +23,26 @@ public class UIManager : MonoBehaviour {
     private DBManager dbManager;
     private EditorManager editorManager;
     private Button selectedPart;
+    private Vector3 hiddenResetAxesPanelPos;
+    private Vector3 shownResetAxesPanelPos;
+    private bool resetAxesPanelShown = false;
 
     void Start()
     {
         dbManager = new DBManager();
         dbManager.GetSensorList(this, TestGO);
         editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
+        hiddenResetAxesPanelPos = ResetAxesPanel.transform.position;
+        shownResetAxesPanelPos = ResetAxesPanelMask.transform.position;
     }
 
     void Update()
     {
         ModeText.text = "Mode: " + editorManager.GetMode().ToString();
+        if (resetAxesPanelShown)
+            ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, shownResetAxesPanelPos, ResetAxesPanelSpeed * Time.deltaTime);
+        else
+            ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, hiddenResetAxesPanelPos, ResetAxesPanelSpeed * Time.deltaTime);
     }
 
     public void AddSensor(string text, GameObject go)
@@ -82,6 +94,46 @@ public class UIManager : MonoBehaviour {
             selectedPart.colors = c;
         }
         selectedPart = null;
+    }
+
+    public void ShowResetAxesPanel()
+    {
+        resetAxesPanelShown = true;
+    }
+
+    public void HideResetAxesPanel()
+    {
+        resetAxesPanelShown = false;
+    }
+
+    public void ResetXPosAxis()
+    {
+        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.XPos);
+    }
+
+    public void ResetYPosAxis()
+    {
+        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YPos);
+    }
+
+    public void ResetZPosAxis()
+    {
+        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.ZPos);
+    }
+
+    public void ResetRRotAxis()
+    {
+        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.RRot);
+    }
+
+    public void ResetPRotAxis()
+    {
+        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.PRot);
+    }
+
+    public void ResetYRotAxis()
+    {
+        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YRot);
     }
 
 }

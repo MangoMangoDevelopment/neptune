@@ -79,6 +79,11 @@ public class EditorManager : MonoBehaviour {
         }
     }
 
+    public GameObject GetSelectedObject()
+    {
+        return selectedObject;
+    }
+
     void Update ()
     {
         //Toggle modes
