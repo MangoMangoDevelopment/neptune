@@ -41,9 +41,17 @@ public class AxisHandle : MonoBehaviour {
         RightViewportLimit = 0.7f;
         highlighted = false;
         materials = new Dictionary<Transform, Material>();
-        foreach (Transform child in transform)
+
+        if (axis == Axis.XPos || axis == Axis.YPos || axis == Axis.ZPos)
         {
-            materials.Add(child, child.gameObject.GetComponent<Renderer>().material);
+            foreach (Transform child in transform)
+            {
+                materials.Add(child, child.gameObject.GetComponent<Renderer>().material);
+            }
+        }
+        else
+        {
+            materials.Add(transform, gameObject.GetComponent<Renderer>().material);
         }
     }
 
@@ -52,9 +60,16 @@ public class AxisHandle : MonoBehaviour {
         if (!highlighted)
         {
             highlighted = true;
-            foreach (Transform child in transform)
+            if (axis == Axis.XPos || axis == Axis.YPos || axis == Axis.ZPos)
             {
-                child.gameObject.GetComponent<Renderer>().material = editorManager.HandleOutline;
+                foreach (Transform child in transform)
+                {
+                    child.gameObject.GetComponent<Renderer>().material = editorManager.HandleOutline;
+                }
+            }
+            else
+            {
+                gameObject.GetComponent<Renderer>().material = editorManager.HandleOutline;
             }
         }
     }
@@ -64,11 +79,20 @@ public class AxisHandle : MonoBehaviour {
         if (highlighted)
         {
             highlighted = false;
-            foreach (Transform child in transform)
+            if (axis == Axis.XPos || axis == Axis.YPos || axis == Axis.ZPos)
+            {
+                foreach (Transform child in transform)
+                {
+                    Material material;
+                    materials.TryGetValue(child, out material);
+                    child.gameObject.GetComponent<Renderer>().material = material;
+                }
+            }
+            else
             {
                 Material material;
-                materials.TryGetValue(child, out material);
-                child.gameObject.GetComponent<Renderer>().material = material;
+                materials.TryGetValue(transform, out material);
+                gameObject.GetComponent<Renderer>().material = material;
             }
         }
     }
@@ -84,7 +108,7 @@ public class AxisHandle : MonoBehaviour {
         RaycastHit hit;
         LayerMask UIMask = (1 << LayerMask.NameToLayer("UI"));
         //Only bother checking if we hit UI elements (Axis Handles)
-        if (Physics.Raycast(uiRay, out hit, 100, UIMask))
+        if (Physics.Raycast(uiRay, out hit, editorManager.HandleCamera.farClipPlane, UIMask))
         {
             if (hit.transform.gameObject == gameObject)
             {

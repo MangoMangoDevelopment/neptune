@@ -30,6 +30,8 @@ public class EditorManager : MonoBehaviour {
     public Material HoverOutline;
     public Material HandleOutline;
 
+    public GameObject CubeoidPrefab;
+
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
     public float CameraScrollSpeed = 1f;
@@ -82,6 +84,14 @@ public class EditorManager : MonoBehaviour {
     public GameObject GetSelectedObject()
     {
         return selectedObject;
+    }
+
+    public GameObject CreateCustomCubeoid(string name, Color color, float width, float height, float depth)
+    {
+        GameObject cubeoid = AddPart(CubeoidPrefab, name);
+        cubeoid.transform.localScale = new Vector3(width, height, depth);
+        cubeoid.GetComponent<Renderer>().material.color = color;
+        return cubeoid;
     }
 
     void Update ()

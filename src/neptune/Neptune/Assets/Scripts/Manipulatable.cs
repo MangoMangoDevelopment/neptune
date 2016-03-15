@@ -73,7 +73,7 @@ public class Manipulatable : MonoBehaviour {
         //This is so that the EditorManager ignores the outline (since it's technically in front of the object)
         outline.layer = LayerMask.NameToLayer("Ignore Raycast");
         outline.GetComponent<Renderer>().material = mat;
-        outline.transform.localScale = transform.localScale * 1.1f;
+        outline.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
         Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
         mesh.triangles = mesh.triangles.Reverse().ToArray();
     }
@@ -191,7 +191,21 @@ public class Manipulatable : MonoBehaviour {
                                 lastDragObjectPos = transform.position.x;
                                 lastDragMousePos = Input.mousePosition;
                                 if (editorManager.HandleCamera.transform.position.z > transform.position.z)
-                                    offsetMultiplier = -Vector2.one;
+                                    offsetMultiplier.x = -1;
+
+                                if (editorManager.HandleCamera.transform.position.x > transform.position.x)
+                                {
+                                    offsetMultiplier.y = 1;
+                                    if (editorManager.HandleCamera.transform.position.y > transform.position.y)
+                                        offsetMultiplier.y = -1;
+                                }
+                                else
+                                {
+                                    if (editorManager.HandleCamera.transform.position.y < transform.position.y)
+                                        offsetMultiplier.y = -1;
+                                    else
+                                        offsetMultiplier.y = 1;
+                                }
                                 mouseAxisModifier = handle.GetMouseAxisModifier();
                             }
                             break;
@@ -212,7 +226,20 @@ public class Manipulatable : MonoBehaviour {
                                 lastDragObjectPos = transform.position.z;
                                 lastDragMousePos = Input.mousePosition;
                                 if (editorManager.HandleCamera.transform.position.x < transform.position.x)
-                                    offsetMultiplier = -Vector2.one;
+                                    offsetMultiplier.x = -1;
+                                if (editorManager.HandleCamera.transform.position.z > transform.position.z)
+                                {
+                                    offsetMultiplier.y = 1;
+                                    if (editorManager.HandleCamera.transform.position.y > transform.position.y)
+                                        offsetMultiplier.y = -1;
+                                }
+                                else
+                                {
+                                    if (editorManager.HandleCamera.transform.position.y < transform.position.y)
+                                        offsetMultiplier.y = -1;
+                                    else
+                                        offsetMultiplier.y = 1;
+                                }
                                 mouseAxisModifier = handle.GetMouseAxisModifier();
                             }
                             break;
@@ -228,6 +255,8 @@ public class Manipulatable : MonoBehaviour {
                                     offsetMultiplier.y *= -1;
                                 if (hit.point.y > transform.position.y)
                                     offsetMultiplier.x *= -1;
+                                if (editorManager.HandleCamera.transform.position.z > transform.position.z)
+                                    offsetMultiplier.x *= -1;
                             }
                             break;
                         case AxisHandle.Axis.PRot:
@@ -241,6 +270,8 @@ public class Manipulatable : MonoBehaviour {
                                 if (hit.point.z > transform.position.z)
                                     offsetMultiplier.y *= -1;
                                 if (hit.point.y < transform.position.y)
+                                    offsetMultiplier.x *= -1;
+                                if (editorManager.HandleCamera.transform.position.x < transform.position.x)
                                     offsetMultiplier.x *= -1;
                             }
                             break;

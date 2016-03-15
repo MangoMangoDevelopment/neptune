@@ -13,7 +13,14 @@ public class UIManager : MonoBehaviour {
     public GameObject TextPrefab;
     public GameObject ResetAxesPanel;
     public GameObject ResetAxesPanelMask;
-    public float ResetAxesPanelSpeed;
+    public GameObject CustomCubeoidPanel;
+    public GameObject CustomCubeoidPanelMask;
+    public InputField CustomCubeoidNameText;
+    public Dropdown CustomCubeoidColorDropdown;
+    public InputField CustomCubeoidWidthText;
+    public InputField CustomCubeoidHeightText;
+    public InputField CustomCubeoidDepthText;
+    public float PanelSpeed;
     public Text ModeText;
 
     //TODO: Remove this. This should be superseeded by a combination of Brian and Amber's work. See DBManager.GetSensorList() for more info.
@@ -26,6 +33,9 @@ public class UIManager : MonoBehaviour {
     private Vector3 hiddenResetAxesPanelPos;
     private Vector3 shownResetAxesPanelPos;
     private bool resetAxesPanelShown = false;
+    private Vector3 hiddenCustomCubeoidPanelPos;
+    private Vector3 shownCustomCubeoidPanelPos;
+    private bool customCubeoidPanelShown = false;
 
     void Start()
     {
@@ -34,15 +44,22 @@ public class UIManager : MonoBehaviour {
         editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
         hiddenResetAxesPanelPos = ResetAxesPanel.transform.position;
         shownResetAxesPanelPos = ResetAxesPanelMask.transform.position;
+        hiddenCustomCubeoidPanelPos = CustomCubeoidPanel.transform.position;
+        shownCustomCubeoidPanelPos = CustomCubeoidPanelMask.transform.position;
     }
 
     void Update()
     {
         ModeText.text = "Mode: " + editorManager.GetMode().ToString();
         if (resetAxesPanelShown)
-            ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, shownResetAxesPanelPos, ResetAxesPanelSpeed * Time.deltaTime);
+            ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, shownResetAxesPanelPos, PanelSpeed * Time.deltaTime);
         else
-            ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, hiddenResetAxesPanelPos, ResetAxesPanelSpeed * Time.deltaTime);
+            ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, hiddenResetAxesPanelPos, PanelSpeed * Time.deltaTime);
+
+        if (customCubeoidPanelShown)
+            CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, shownCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
+        else
+            CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
     }
 
     public void AddSensor(string text, GameObject go)
@@ -106,6 +123,16 @@ public class UIManager : MonoBehaviour {
         resetAxesPanelShown = false;
     }
 
+    public void ShowCustomCubeoidPanel()
+    {
+        customCubeoidPanelShown = true;
+    }
+
+    public void HideCustomCubeoidPanel()
+    {
+        customCubeoidPanelShown = false;
+    }
+
     public void ResetXPosAxis()
     {
         editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.XPos);
@@ -134,6 +161,49 @@ public class UIManager : MonoBehaviour {
     public void ResetYRotAxis()
     {
         editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YRot);
+    }
+
+    private Color GetCubeoidDropdownColor()
+    {
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Red"))
+        {
+            return Color.red;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Green"))
+        {
+            return Color.green;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Blue"))
+        {
+            return Color.blue;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Yellow"))
+        {
+            return Color.yellow;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Cyan"))
+        {
+            return Color.cyan;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Magenta"))
+        {
+            return Color.magenta;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("Black"))
+        {
+            return Color.black;
+        }
+        if (CustomCubeoidColorDropdown.captionText.text.Equals("White"))
+        {
+            return Color.white;
+        }
+        return Color.gray;
+    }
+
+    public void CreateCustomCubeoid()
+    {
+        GameObject cubeoid = editorManager.CreateCustomCubeoid(CustomCubeoidNameText.text, GetCubeoidDropdownColor(), float.Parse(CustomCubeoidWidthText.text), float.Parse(CustomCubeoidHeightText.text), float.Parse(CustomCubeoidDepthText.text));
+        AddPart(CustomCubeoidNameText.text, cubeoid);
     }
 
 }
