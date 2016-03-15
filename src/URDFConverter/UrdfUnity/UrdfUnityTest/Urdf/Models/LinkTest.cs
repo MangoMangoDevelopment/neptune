@@ -124,7 +124,6 @@ namespace UrdfUnityTest.Urdf.Models
         [TestMethod]
         public void EqualsAndHash()
         {
-            string name = "linkName";
             Inertial inertial = new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1));
             Visual visual = new Visual.Builder(new Geometry(new Sphere(1))).Build();
             List<Visual> visualList = new List<Visual>();

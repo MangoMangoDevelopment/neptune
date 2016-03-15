@@ -19,8 +19,14 @@ namespace UrdfUnity.Urdf.Models
         /// <li>fixed - This is not really a joint because it cannot move. All degrees of freedom are locked. This type of joint does not require the axis, calibration, dynamics, limits or safety_controller.</li>
         /// <li>floating - This joint allows motion for all 6 degrees of freedom.</li>
         /// <li>planar - This joint allows motion in a plane perpendicular to the axis.</li>
+        /// <li>unknown - The joint type is not specified.</li>
         /// </summary>
-        public enum JointType { Revolute, Continuous, Prismatic, Fixed, Floating, Planar };
+        public enum JointType { Revolute, Continuous, Prismatic, Fixed, Floating, Planar, Unknown };
+
+        /// <summary>
+        /// The default name used when a Joint needs to be instantiated without a name.
+        /// </summary>
+        public static readonly string DEFAULT_NAME = "missing_name";
 
 
         /// <summary>

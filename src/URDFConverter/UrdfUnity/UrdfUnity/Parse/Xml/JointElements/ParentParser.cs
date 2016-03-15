@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Xml;
+using UrdfUnity.Urdf.Models;
+using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.JointElements
 {
@@ -8,17 +10,33 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.Joint"/>
-    class ParentParser : XmlParser<string>
+    public class ParentParser : XmlParser<string>
     {
+        private static readonly string LINK_ATTRIBUTE_NAME = "link";
+
+
         /// <summary>
         /// Parses a URDF &lt;parent&gt; element from XML.
         /// </summary>
-        /// <param name="parentNode">The XML node of a &lt;parent&gt; element</param>
+        /// <param name="node">The XML node of a &lt;parent&gt; element</param>
         /// <returns>A string object with the name of the parent link parsed from the XML</returns>
-        public string Parse(XmlNode parentNode)
+        public string Parse(XmlNode node)
         {
-            // TODO: Implement...!
-            throw new NotImplementedException();
+            Preconditions.IsNotNull(node, "node");
+
+            XmlAttribute linkAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(LINK_ATTRIBUTE_NAME) : null);
+            string parentName = Link.DEFAULT_NAME;
+
+            if (linkAttribute == null)
+            {
+                // TODO: Log missing required <childe> name attribute encountered
+            }
+            else
+            {
+                parentName = linkAttribute.Value;
+            }
+
+            return parentName;
         }
     }
 }

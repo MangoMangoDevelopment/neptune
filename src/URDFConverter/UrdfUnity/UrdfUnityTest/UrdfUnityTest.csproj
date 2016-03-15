@@ -53,6 +53,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Parse\Xml\JointElements\AxisParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\CalibrationParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\ChildParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\ParentParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\DynamicsParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\LimitParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\SafetyControllerParserTest.cs" />
+    <Compile Include="Parse\Xml\JointElements\MimicParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\GeometryElements\BoxParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\GeometryElements\CylinderParserTest.cs" />
     <Compile Include="Parse\Xml\LinkElements\GeometryElements\SphereParserTest.cs" />

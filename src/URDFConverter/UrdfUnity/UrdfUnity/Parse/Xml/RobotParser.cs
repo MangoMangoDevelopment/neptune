@@ -14,9 +14,9 @@ namespace UrdfUnity.Parse.Xml
         /// <summary>
         /// Parses a URDF &lt;robot&gt; element from XML.
         /// </summary>
-        /// <param name="robotNode">The XML node of a &lt;robot&gt; element</param>
+        /// <param name="node">The XML node of a &lt;robot&gt; element</param>
         /// <returns>A Robot object parsed from the XML</returns>
-        public Robot Parse(XmlNode robotNode)
+        public Robot Parse(XmlNode node)
         {
             // TODO: Implement...!
             throw new NotImplementedException();

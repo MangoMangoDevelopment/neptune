@@ -11,6 +11,9 @@ namespace UrdfUnity.Urdf.Models
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     public class Link
     {
+        /// <summary>
+        /// The default name used when a Link needs to be instantiated without a name.
+        /// </summary>
         public static readonly string DEFAULT_NAME = "missing_name";
 
 
