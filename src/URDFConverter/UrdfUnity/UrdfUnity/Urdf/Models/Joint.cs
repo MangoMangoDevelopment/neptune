@@ -169,7 +169,7 @@ namespace UrdfUnity.Urdf.Models
             /// <returns>A joint object with the properties set</returns>
             public Joint Build()
             {
-                if((this.type == JointType.Prismatic || this.type == JointType.Revolute) && this.limit == null)
+                if ((this.type == JointType.Prismatic || this.type == JointType.Revolute) && this.limit == null)
                 {
                     // Limit property is required for prismatic and revolute joint types.
                     throw new System.ArgumentNullException("limit");
@@ -226,6 +226,41 @@ namespace UrdfUnity.Urdf.Models
                 Preconditions.IsNotNull(safteyController, "safetyController");
                 this.safteyController = safteyController;
                 return this;
+            }
+        }
+
+        protected bool Equals(Joint other)
+        {
+            return string.Equals(Name, other.Name) && Type == other.Type && Equals(Parent, other.Parent)
+                && Equals(Child, other.Child) && Equals(Origin, other.Origin) && Equals(Axis, other.Axis)
+                && Equals(Calibration, other.Calibration) && Equals(Dynamics, other.Dynamics) && Equals(Limit, other.Limit)
+                && Equals(Mimic, other.Mimic) && Equals(SafetyController, other.SafetyController);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Joint)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (int)Type;
+                hashCode = (hashCode * 397) ^ (Parent != null ? Parent.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Child != null ? Child.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Origin != null ? Origin.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Axis != null ? Axis.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Calibration != null ? Calibration.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Dynamics != null ? Dynamics.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Limit != null ? Limit.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Mimic != null ? Mimic.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (SafetyController != null ? SafetyController.GetHashCode() : 0);
+                return hashCode;
             }
         }
     }

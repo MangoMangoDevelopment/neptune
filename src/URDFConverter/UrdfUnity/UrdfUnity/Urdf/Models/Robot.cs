@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models
@@ -53,6 +54,36 @@ namespace UrdfUnity.Urdf.Models
             this.Name = name;
             this.Links = links;
             this.Joints = joints;
+        }
+
+        protected bool Equals(Robot other)
+        {
+            return string.Equals(Name, other.Name) && Links.SequenceEqual(other.Links) && Joints.SequenceEqual(other.Joints);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Robot)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                foreach (var link in Links)
+                {
+                    hashCode = (hashCode * 397) ^ link.GetHashCode();
+                }
+                foreach (var joint in Joints)
+                {
+                    hashCode = (hashCode * 397) ^ joint.GetHashCode();
+                }
+                return hashCode;
+            }
         }
     }
 }

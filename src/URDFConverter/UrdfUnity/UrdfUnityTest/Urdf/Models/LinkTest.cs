@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
@@ -58,7 +59,7 @@ namespace UrdfUnityTest.Urdf.Models
 
             Assert.AreEqual(name, link.Name);
             Assert.AreEqual(inertial, link.Inertial);
-            Assert.IsNull(link.Visual);
+            Assert.AreEqual(0, link.Visual.Count);
             Assert.AreEqual(collisions, link.Collision);
         }
 
@@ -67,11 +68,11 @@ namespace UrdfUnityTest.Urdf.Models
         {
             string name = "linkName";
             Link link = new Link.Builder(name).Build();
-            
+
             Assert.AreEqual(name, link.Name);
             Assert.IsNull(link.Inertial);
-            Assert.IsNull(link.Visual);
-            Assert.IsNull(link.Collision);
+            Assert.AreEqual(0, link.Visual.Count);
+            Assert.AreEqual(0, link.Collision.Count);
         }
 
         [TestMethod]
@@ -118,6 +119,55 @@ namespace UrdfUnityTest.Urdf.Models
         {
             List<Collision> collision = null;
             Link link = new Link.Builder("link").SetCollision(collision).Build();
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            string name = "linkName";
+            Inertial inertial = new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1));
+            Visual visual = new Visual.Builder(new Geometry(new Sphere(1))).Build();
+            List<Visual> visualList = new List<Visual>();
+            List<Visual> diffVisualList = new List<Visual>();
+            List<Collision> collisionList = new List<Collision>();
+
+            visualList.Add(visual);
+            diffVisualList.Add(visual);
+            diffVisualList.Add(new Visual.Builder(new Geometry(new Box(new SizeAttribute(1, 2, 3)))).Build());
+
+            Link link = new Link.Builder("link").SetInertial(inertial).SetVisual(visual).SetCollision(collisionList).Build();
+            Link same1 = new Link.Builder("link").SetInertial(inertial).SetVisual(visual).SetCollision(collisionList).Build();
+            Link same2 = new Link.Builder("link").SetInertial(inertial).SetVisual(visualList).SetCollision(collisionList).Build();
+            Link same3 = new Link.Builder("link").SetInertial(inertial).SetVisual(visualList).Build();
+            Link diff1 = new Link.Builder("different_link").SetInertial(inertial).SetVisual(visual).SetCollision(collisionList).Build();
+            Link diff2 = new Link.Builder("link").SetVisual(visual).SetCollision(collisionList).Build();
+            Link diff3 = new Link.Builder("link").SetInertial(inertial).SetCollision(collisionList).Build();
+            Link diff4 = new Link.Builder("link").SetInertial(inertial).SetVisual(diffVisualList).SetCollision(collisionList).Build();
+            Link diff5 = new Link.Builder("link").Build();
+
+
+            Assert.IsTrue(link.Equals(link));
+            Assert.IsFalse(link.Equals(null));
+            Assert.IsTrue(link.Equals(same1));
+            Assert.IsTrue(link.Equals(same2));
+            Assert.IsTrue(link.Equals(same3));
+            Assert.IsTrue(same1.Equals(link));
+            Assert.IsTrue(same2.Equals(link));
+            Assert.IsTrue(same3.Equals(link));
+            Assert.IsFalse(link.Equals(diff1));
+            Assert.IsFalse(link.Equals(diff2));
+            Assert.IsFalse(link.Equals(diff3));
+            Assert.IsFalse(link.Equals(diff4));
+            Assert.IsFalse(link.Equals(diff5));
+            Assert.AreEqual(link.GetHashCode(), link.GetHashCode());
+            Assert.AreEqual(link.GetHashCode(), same1.GetHashCode());
+            Assert.AreEqual(link.GetHashCode(), same2.GetHashCode());
+            Assert.AreEqual(link.GetHashCode(), same3.GetHashCode());
+            Assert.AreNotEqual(link.GetHashCode(), diff1.GetHashCode());
+            Assert.AreNotEqual(link.GetHashCode(), diff2.GetHashCode());
+            Assert.AreNotEqual(link.GetHashCode(), diff3.GetHashCode());
+            Assert.AreNotEqual(link.GetHashCode(), diff4.GetHashCode());
+            Assert.AreNotEqual(link.GetHashCode(), diff5.GetHashCode());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Util;
 
@@ -29,14 +30,14 @@ namespace UrdfUnity.Urdf.Models
         /// The visual properties of the link. The union of geometry defined by each list item 
         /// forms the visual representation of the link.
         /// </summary>
-        /// <value>Optional. MAY BE NULL.</value>
+        /// <value>Optional. MAY BE EMPTY.</value>
         public List<Visual> Visual { get; }
 
         /// <summary>
         /// The collision properties of the link. The union of geometry defined by each list item 
         /// forms the collision representation of the link.
         /// </summary>
-        /// <value>Optional. MAY BE NULL.</value>
+        /// <value>Optional. MAY BE EMPTY.</value>
         public List<Collision> Collision { get; }
 
 
@@ -46,15 +47,17 @@ namespace UrdfUnity.Urdf.Models
         /// </summary>
         /// <param name="name">The name of the link</param>
         /// <param name="inertial">The inertial properties of the link</param>
-        /// <param name="visual">The visual properties of the link</param>
-        /// <param name="collision">The collision properties of the link</param>
-        private Link(string name, Inertial inertial, List<Visual> visual, List<Collision> collision)
+        /// <param name="visual">The visual properties of the link. MUST NOT BE NULL</param>
+        /// <param name="collision">The collision properties of the link. MUST NOT BE NULL</param>
+        private Link(string name, Inertial inertial, List<Visual> visuals, List<Collision> collisions)
         {
             Preconditions.IsNotEmpty(name, "name");
+            Preconditions.IsNotNull(visuals, "name");
+            Preconditions.IsNotNull(collisions, "name");
             this.Name = name;
             this.Inertial = inertial;
-            this.Visual = visual;
-            this.Collision = collision;
+            this.Visual = visuals;
+            this.Collision = collisions;
         }
 
         /// <summary>
@@ -63,9 +66,9 @@ namespace UrdfUnity.Urdf.Models
         public class Builder
         {
             private string name;
-            private Inertial inertial;
-            private List<Visual> visual;
-            private List<Collision> collision;
+            private Inertial inertial = null;
+            private List<Visual> visual = new List<Visual>();
+            private List<Collision> collision = new List<Collision>();
 
 
             /// <summary>
@@ -122,6 +125,38 @@ namespace UrdfUnity.Urdf.Models
                 Preconditions.IsNotNull(collision);
                 this.collision = collision;
                 return this;
+            }
+        }
+
+        protected bool Equals(Link other)
+        {
+            return string.Equals(Name, other.Name) && Equals(Inertial, other.Inertial)
+                && Visual.SequenceEqual(other.Visual) && Collision.SequenceEqual(other.Collision);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Link)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Inertial != null ? Inertial.GetHashCode() : 0);
+                foreach (var visual in Visual)
+                {
+                    hashCode = (hashCode * 397) ^ visual.GetHashCode();
+                }
+                foreach (var collision in Collision)
+                {
+                    hashCode = (hashCode * 397) ^ collision.GetHashCode();
+                }
+                return hashCode;
             }
         }
     }

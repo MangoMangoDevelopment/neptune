@@ -72,7 +72,7 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.AreEqual(TEST_JOINT_TYPE, joint.Type);
             Assert.AreEqual(TEST_PARENT_LINK, joint.Parent);
             Assert.AreEqual(TEST_CHILD_LINK, joint.Child);
-            
+
             Assert.AreEqual(axis, joint.Axis);
             Assert.AreEqual(axis.Xyz.X, joint.Axis.Xyz.X);
             Assert.AreEqual(axis.Xyz.Y, joint.Axis.Xyz.Y);
@@ -216,6 +216,32 @@ namespace UrdfUnityTest.Urdf.Models
         {
             Joint.Builder builder = new Joint.Builder(TEST_JOINT_NAME, Joint.JointType.Revolute, TEST_PARENT_LINK, TEST_CHILD_LINK);
             builder.Build();
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Joint joint = new Joint.Builder("joint", Joint.JointType.Continuous, new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
+            Joint same = new Joint.Builder("joint", Joint.JointType.Continuous, new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
+            Joint diff1 = new Joint.Builder("different_joint", Joint.JointType.Continuous, new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
+            Joint diff2 = new Joint.Builder("joint", Joint.JointType.Fixed, new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
+            Joint diff3 = new Joint.Builder("joint", Joint.JointType.Continuous, new Link.Builder("differnt_parent").Build(), new Link.Builder("child").Build()).Build();
+            Joint diff4 = new Joint.Builder("joint", Joint.JointType.Continuous, new Link.Builder("parent").Build(), new Link.Builder("different_child").Build()).Build();
+
+            Assert.IsTrue(joint.Equals(joint));
+            Assert.IsFalse(joint.Equals(null));
+            Assert.IsTrue(joint.Equals(same));
+            Assert.IsTrue(same.Equals(joint));
+            Assert.IsFalse(joint.Equals(diff1));
+            Assert.IsFalse(joint.Equals(diff2));
+            Assert.IsFalse(joint.Equals(diff3));
+            Assert.IsFalse(joint.Equals(diff4));
+            Assert.AreEqual(joint.GetHashCode(), joint.GetHashCode());
+            Assert.AreEqual(joint.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(joint.GetHashCode(), diff1.GetHashCode());
+            Assert.AreNotEqual(joint.GetHashCode(), diff2.GetHashCode());
+            Assert.AreNotEqual(joint.GetHashCode(), diff3.GetHashCode());
+            Assert.AreNotEqual(joint.GetHashCode(), diff4.GetHashCode());
         }
     }
 }
