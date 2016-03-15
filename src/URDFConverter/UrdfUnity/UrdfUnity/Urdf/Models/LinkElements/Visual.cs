@@ -35,35 +35,6 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         public Material Material { get; }
 
 
-        ///// <summary>
-        ///// Creates a new instance of Visual with the specified geometry.
-        ///// </summary>
-        ///// <param name="geometry">The shape of the visual element</param>
-        //public Visual(Geometry geometry) : this(new Origin(), geometry)
-        //{
-        //    // Invoke overloaded constructor.
-        //}
-
-        ///// <summary>
-        ///// Creates a new instance of Visual with the specified origin and geometry.
-        ///// </summary>
-        ///// <param name="origin">The reference frame of the visual element</param>
-        ///// <param name="geometry">The shape of the visual element</param>
-        //public Visual(Origin origin, Geometry geometry) : this(origin, geometry, null)
-        //{
-        //    // Invoke overloaded constructor.
-        //}
-
-        ///// <summary>
-        ///// Creates a new instance of Visual with the specified geometry and material.
-        ///// </summary>
-        ///// <param name="geometry">The shape of the visual element</param>
-        ///// <param name="material">The material of the visual element</param>
-        //public Visual(Geometry geometry, Material material) : this(new Origin(), geometry, material)
-        //{
-        //    // Invoke overloaded constructor.
-        //}
-
         /// <summary>
         /// Creates a new instance of Visual with the specified origin, geometry and material.
         /// A Visual.Builder must be used to create a visual to enforce required and default properties.

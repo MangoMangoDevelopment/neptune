@@ -10,6 +10,9 @@ namespace UrdfUnity.Urdf.Models
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     public class Link
     {
+        public static readonly string DEFAULT_NAME = "missing_name";
+
+
         /// <summary>
         /// The name of the link.
         /// </summary>
