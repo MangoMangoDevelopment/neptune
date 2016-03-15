@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
     public GameObject SensorsContent;
     public GameObject PartsContent;
     public GameObject TextPrefab;
+    public GameObject RobotBaseSelectPanel;
     public GameObject ResetAxesPanel;
     public GameObject ResetAxesPanelMask;
     public GameObject CustomCubeoidPanel;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour {
     public InputField CustomCubeoidWidthText;
     public InputField CustomCubeoidHeightText;
     public InputField CustomCubeoidDepthText;
+    public Button RobotBaseButton;
     public float PanelSpeed;
     public Text ModeText;
 
@@ -62,12 +64,13 @@ public class UIManager : MonoBehaviour {
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
     }
 
-    public void AddSensor(string text, GameObject go)
+    public void AddSensor(string text, GameObject go, float scale = 1)
     {
         GameObject sensorText = Instantiate<GameObject>(TextPrefab);
         sensorText.name = text;
         sensorText.GetComponentInChildren<Text>().text = text;
         sensorText.transform.SetParent(SensorsContent.transform);
+        go.transform.localScale *= scale;
         sensorText.GetComponent<PartText>().SetGO(go);
         sensorText.GetComponent<PartText>().SetState(PartText.State.AddNewSensor);
     }
@@ -202,8 +205,98 @@ public class UIManager : MonoBehaviour {
 
     public void CreateCustomCubeoid()
     {
-        GameObject cubeoid = editorManager.CreateCustomCubeoid(CustomCubeoidNameText.text, GetCubeoidDropdownColor(), float.Parse(CustomCubeoidWidthText.text), float.Parse(CustomCubeoidHeightText.text), float.Parse(CustomCubeoidDepthText.text));
-        AddPart(CustomCubeoidNameText.text, cubeoid);
+        bool valid = true;
+        if (CustomCubeoidNameText.text.Equals(""))
+        {
+            ColorBlock c = CustomCubeoidNameText.colors;
+            c.normalColor = Color.red;
+            CustomCubeoidNameText.colors = c;
+            valid = false;
+        }
+        else
+        {
+            ColorBlock c = CustomCubeoidNameText.colors;
+            c.normalColor = Color.white;
+            CustomCubeoidNameText.colors = c;
+        }
+        if (CustomCubeoidWidthText.text.Equals(""))
+        {
+            ColorBlock c = CustomCubeoidWidthText.colors;
+            c.normalColor = Color.red;
+            CustomCubeoidWidthText.colors = c;
+            valid = false;
+        }
+        else
+        {
+            ColorBlock c = CustomCubeoidWidthText.colors;
+            c.normalColor = Color.white;
+            CustomCubeoidWidthText.colors = c;
+        }
+        if (CustomCubeoidHeightText.text.Equals(""))
+        {
+            ColorBlock c = CustomCubeoidHeightText.colors;
+            c.normalColor = Color.red;
+            CustomCubeoidHeightText.colors = c;
+            valid = false;
+        }
+        else
+        {
+            ColorBlock c = CustomCubeoidHeightText.colors;
+            c.normalColor = Color.white;
+            CustomCubeoidHeightText.colors = c;
+        }
+        if (CustomCubeoidDepthText.text.Equals(""))
+        {
+            ColorBlock c = CustomCubeoidDepthText.colors;
+            c.normalColor = Color.red;
+            CustomCubeoidDepthText.colors = c;
+            valid = false;
+        }
+        else
+        {
+            ColorBlock c = CustomCubeoidDepthText.colors;
+            c.normalColor = Color.white;
+            CustomCubeoidDepthText.colors = c;
+        }
+
+        if (valid)
+        {
+            customCubeoidPanelShown = false;
+            GameObject cubeoid = editorManager.CreateCustomCubeoid(CustomCubeoidNameText.text, GetCubeoidDropdownColor(), float.Parse(CustomCubeoidWidthText.text), float.Parse(CustomCubeoidHeightText.text), float.Parse(CustomCubeoidDepthText.text));
+            AddPart(CustomCubeoidNameText.text, cubeoid);
+            CustomCubeoidNameText.text = "";
+            CustomCubeoidWidthText.text = "";
+            CustomCubeoidHeightText.text = "";
+            CustomCubeoidDepthText.text = "";
+        }
     }
 
+    public void SelectJackalBase()
+    {
+        EditorManager.RobotBase robotBase = EditorManager.RobotBase.Jackal;
+        editorManager.SelectRobotBase(robotBase);
+        RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
+        RobotBaseButton.GetComponentInChildren<Text>().text = robotBase.ToString();
+    }
+
+    public void SelectHuskyBase()
+    {
+        EditorManager.RobotBase robotBase = EditorManager.RobotBase.Husky;
+        editorManager.SelectRobotBase(robotBase);
+        RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
+        RobotBaseButton.GetComponentInChildren<Text>().text = robotBase.ToString();
+    }
+
+    public void SelectGrizzlyBase()
+    {
+        EditorManager.RobotBase robotBase = EditorManager.RobotBase.Grizzly;
+        editorManager.SelectRobotBase(robotBase);
+        RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
+        RobotBaseButton.GetComponentInChildren<Text>().text = robotBase.ToString();
+    }
+
+    public void SelectRobotBaseObject()
+    {
+        editorManager.SelectPart(editorManager.GetRobotBaseObject());
+    }
 }

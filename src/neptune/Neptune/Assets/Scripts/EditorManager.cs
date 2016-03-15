@@ -15,6 +15,13 @@ public class EditorManager : MonoBehaviour {
         Orbit
     }
 
+    public enum RobotBase
+    {
+        Jackal,
+        Husky,
+        Grizzly
+    }
+
     //Public Variables
     public GameObject PartsContainer;
     public GameObject XYZHandles;
@@ -26,12 +33,14 @@ public class EditorManager : MonoBehaviour {
     public GameObject PRotHandle;
     public GameObject YRotHandle;
 
+    public float OutlineThickness;
     public Material OutlineMaterial;
     public Material HoverOutline;
     public Material HandleOutline;
 
     public GameObject CubeoidPrefab;
 
+    public float ShiftSpeedModifier = 0.5f;
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
     public float CameraScrollSpeed = 1f;
@@ -43,6 +52,8 @@ public class EditorManager : MonoBehaviour {
     public Camera HandleCamera;
 
     //Private Variables
+    private RobotBase robotBase;
+    private GameObject robotBaseObject;
     private GameObject selectedObject;
     private Mode lastMode = Mode.Translate;
     private Vector3 lastCameraMousePos;
@@ -72,7 +83,9 @@ public class EditorManager : MonoBehaviour {
             if (selectedObject != null)
             {
                 selectedObject.GetComponent<Manipulatable>().Select();
-                uiManager.SelectPart(selectedObject);
+                //Can't select the base since it's not in the part list
+                if (selectedObject != robotBaseObject)
+                    uiManager.SelectPart(selectedObject);
             }
             else
             {
@@ -86,12 +99,48 @@ public class EditorManager : MonoBehaviour {
         return selectedObject;
     }
 
+    public GameObject GetRobotBaseObject()
+    {
+        return robotBaseObject;
+    }
+
     public GameObject CreateCustomCubeoid(string name, Color color, float width, float height, float depth)
     {
         GameObject cubeoid = AddPart(CubeoidPrefab, name);
-        cubeoid.transform.localScale = new Vector3(width, height, depth);
+        cubeoid.transform.localScale = new Vector3(depth, height, width);
+        cubeoid.transform.position = Vector3.zero + new Vector3(0, cubeoid.transform.localScale.y / 2, 0);
         cubeoid.GetComponent<Renderer>().material.color = color;
         return cubeoid;
+    }
+
+    public void SelectRobotBase(RobotBase robotBase)
+    {
+        //Create custom cubeoids for now..
+        //TODO: Replace this with loading the actual URDFs
+        this.robotBase = robotBase;
+        switch (robotBase)
+        {
+            case RobotBase.Jackal:
+                robotBaseObject = CreateCustomCubeoid(robotBase.ToString(), Color.cyan, 3, 1, 2);
+                break;
+            case RobotBase.Husky:
+                robotBaseObject = CreateCustomCubeoid(robotBase.ToString(), Color.cyan, 4, 1, 3);
+                break;
+            case RobotBase.Grizzly:
+                robotBaseObject = CreateCustomCubeoid(robotBase.ToString(), Color.cyan, 5, 1.5f, 3);
+                break;
+        }
+        if (robotBaseObject != null)
+        {
+            Manipulatable robotManipulatable = robotBaseObject.GetComponent<Manipulatable>();
+            robotManipulatable.XPosManipulation = false;
+            robotManipulatable.YPosManipulation = false;
+            robotManipulatable.ZPosManipulation = false;
+            robotManipulatable.RRotManipulation = false;
+            robotManipulatable.PRotManipulation = false;
+            robotManipulatable.YRotManipulation = false;
+            robotBaseObject.transform.position = Vector3.zero - new Vector3(0, robotBaseObject.transform.localScale.y/2, 0);
+        }
     }
 
     void Update ()
@@ -376,9 +425,32 @@ public class EditorManager : MonoBehaviour {
     public GameObject AddPart(GameObject go, string name)
     {
         GameObject sensor = Instantiate(go);
-        sensor.GetComponent<Manipulatable>().ClearOutline();
+        
+        if (sensor.GetComponent<MeshFilter>() == null)
+        {
+            foreach (Transform child in sensor.transform)
+            {
+                if (child.GetComponent<MeshFilter>() != null)
+                {
+                    sensor = child.gameObject;
+                    break;
+                }
+            }
+        }
+        
+        sensor.tag = Manipulatable.TAG;
+        Manipulatable m = sensor.GetComponent<Manipulatable>();
+        if (m != null)
+            m.ClearOutline();
+        else
+            sensor.AddComponent<Manipulatable>();
+        
+        sensor.AddComponent<MeshCollider>();
+        MeshCollider mc = sensor.GetComponent<MeshCollider>();
+        mc.sharedMesh = sensor.GetComponent<MeshFilter>().mesh;
+        
         sensor.name = name;
-        sensor.transform.position = Vector3.zero;
+        sensor.transform.position = Vector3.zero + new Vector3(0, sensor.transform.localScale.y/2, 0);
         sensor.transform.SetParent(PartsContainer.transform);
         return sensor;
     }

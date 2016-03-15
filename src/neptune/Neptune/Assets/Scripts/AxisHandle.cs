@@ -28,7 +28,6 @@ public class AxisHandle : MonoBehaviour {
     private float LeftViewportLimit;
     private float RightViewportLimit;
     private EditorManager editorManager;
-    private Material originalMaterial;
     private bool highlighted;
     private Dictionary<Transform, Material> materials;
 

@@ -67,13 +67,13 @@ public class Manipulatable : MonoBehaviour {
         outline.name = "Outline";
         Destroy(outline.GetComponent<Manipulatable>());
         outline.tag = "Outline";
-        outline.transform.SetParent(transform);
-        outline.transform.localPosition = Vector3.zero;
-        outline.transform.localRotation = Quaternion.identity;
         //This is so that the EditorManager ignores the outline (since it's technically in front of the object)
         outline.layer = LayerMask.NameToLayer("Ignore Raycast");
         outline.GetComponent<Renderer>().material = mat;
-        outline.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+        outline.transform.localScale = transform.localScale + new Vector3(editorManager.OutlineThickness * transform.localScale.x, editorManager.OutlineThickness * transform.localScale.x, editorManager.OutlineThickness * transform.localScale.x);
+        outline.transform.SetParent(transform);
+        outline.transform.localPosition = Vector3.zero;
+        outline.transform.localRotation = Quaternion.identity;
         Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
         mesh.triangles = mesh.triangles.Reverse().ToArray();
     }
@@ -311,6 +311,14 @@ public class Manipulatable : MonoBehaviour {
         {
             if (isDragging)
             {
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    offsetMultiplier *= editorManager.ShiftSpeedModifier;
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    offsetMultiplier *= 1/editorManager.ShiftSpeedModifier;
+                }
                 Vector3 pos = transform.position;
                 float rot = 0;
                 Vector3 startingPoint = lastDragMousePos;
