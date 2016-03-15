@@ -76,6 +76,7 @@
     <Compile Include="Parse\Xml\LinkElements\VisualElements\MaterialParserTest.cs" />
     <Compile Include="Parse\Xml\OriginParserTest.cs" />
     <Compile Include="Parse\Xml\LinkParserTest.cs" />
+    <Compile Include="Parse\Xml\JointParserTest.cs" />
     <Compile Include="Urdf\Models\JointElements\AxisTest.cs" />
     <Compile Include="Urdf\Models\JointElements\CalibrationTest.cs" />
     <Compile Include="Urdf\Models\JointElements\DynamicsTest.cs" />

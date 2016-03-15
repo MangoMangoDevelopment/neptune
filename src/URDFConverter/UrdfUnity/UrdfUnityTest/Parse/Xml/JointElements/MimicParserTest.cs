@@ -47,6 +47,13 @@ namespace UrdfUnityTest.Parse.Xml.JointElements
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ParseMimicNullNode()
+        {
+            this.parser.Parse(null);
+        }
+
+        [TestMethod]
         public void ParseMimicJointOnly()
         {
             string joint = "joint2";
