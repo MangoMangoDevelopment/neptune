@@ -45,7 +45,7 @@
         {
             // Invoke overloaded constructor.
         }
-        
+
         /// <summary>
         /// Creates a new instance of Limit.
         /// </summary>
@@ -59,6 +59,31 @@
             this.Upper = upper;
             this.Effort = effort;
             this.Velocity = velocity;
+        }
+
+        protected bool Equals(Limit other)
+        {
+            return Lower.Equals(other.Lower) && Upper.Equals(other.Upper) && Effort.Equals(other.Effort) && Velocity.Equals(other.Velocity);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Limit)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Lower.GetHashCode();
+                hashCode = (hashCode * 397) ^ Upper.GetHashCode();
+                hashCode = (hashCode * 397) ^ Effort.GetHashCode();
+                hashCode = (hashCode * 397) ^ Velocity.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }

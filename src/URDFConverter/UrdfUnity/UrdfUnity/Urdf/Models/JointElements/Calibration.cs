@@ -29,5 +29,26 @@
             this.Rising = rising;
             this.Falling = falling;
         }
+
+        protected bool Equals(Calibration other)
+        {
+            return Rising.Equals(other.Rising) && Falling.Equals(other.Falling);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Calibration)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Rising.GetHashCode() * 397) ^ Falling.GetHashCode();
+            }
+        }
     }
 }

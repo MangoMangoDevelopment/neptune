@@ -29,5 +29,21 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         {
             Axis axis = new Axis(null);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Axis axis = new Axis(new XyzAttribute(1, 2, 3));
+            Axis same = new Axis(new XyzAttribute(1, 2, 3));
+            Axis diff = new Axis(new XyzAttribute(4, 5, 6));
+
+            Assert.IsTrue(axis.Equals(axis));
+            Assert.IsFalse(axis.Equals(null));
+            Assert.IsTrue(axis.Equals(same));
+            Assert.IsTrue(same.Equals(axis));
+            Assert.IsFalse(axis.Equals(diff));
+            Assert.AreEqual(axis.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(axis.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

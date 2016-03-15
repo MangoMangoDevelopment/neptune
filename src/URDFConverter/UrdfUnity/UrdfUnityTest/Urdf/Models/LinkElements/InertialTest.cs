@@ -28,7 +28,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Mass mass = new Mass(1);
             Inertia inertia = new Inertia(0, 0, 0, 0, 0, 0);
             Inertial inertial = new Inertial(mass, inertia);
-            
+
             Assert.AreEqual(mass, inertial.Mass);
             Assert.AreEqual(inertia, inertial.Inertia);
             Assert.AreEqual(0, inertial.Origin.Xyz.X);

@@ -7,7 +7,7 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
     [TestClass]
     public class MimicTest
     {
-        private static readonly Joint TEST_JOINT = new Joint.Builder("joint", Joint.JointType.Fixed, 
+        private static readonly Joint TEST_JOINT = new Joint.Builder("joint", Joint.JointType.Fixed,
             new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
 
         [TestMethod]
@@ -31,6 +31,23 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
             Assert.AreEqual(TEST_JOINT, mimic.Joint);
             Assert.AreEqual(1, mimic.Multiplier);
             Assert.AreEqual(0, mimic.Offset);
+        }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Joint joint = new Joint.Builder("joint", Joint.JointType.Continuous, new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();
+            Mimic mimic = new Mimic(joint);
+            Mimic same = new Mimic(joint);
+            Mimic diff = new Mimic(joint, 1, 2);
+
+            Assert.IsTrue(mimic.Equals(mimic));
+            Assert.IsFalse(mimic.Equals(null));
+            Assert.IsTrue(mimic.Equals(same));
+            Assert.IsTrue(same.Equals(mimic));
+            Assert.IsFalse(mimic.Equals(diff));
+            Assert.AreEqual(mimic.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(mimic.GetHashCode(), diff.GetHashCode());
         }
     }
 }

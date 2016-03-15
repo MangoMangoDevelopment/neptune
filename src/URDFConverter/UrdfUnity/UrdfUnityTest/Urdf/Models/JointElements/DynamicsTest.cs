@@ -16,5 +16,21 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
             Assert.AreEqual(damping, dynamics.Damping);
             Assert.AreEqual(friction, dynamics.Friction);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Dynamics dynamics = new Dynamics(1, 2);
+            Dynamics same = new Dynamics(1, 2);
+            Dynamics diff = new Dynamics(3, 4);
+
+            Assert.IsTrue(dynamics.Equals(dynamics));
+            Assert.IsFalse(dynamics.Equals(null));
+            Assert.IsTrue(dynamics.Equals(same));
+            Assert.IsTrue(same.Equals(dynamics));
+            Assert.IsFalse(dynamics.Equals(diff));
+            Assert.AreEqual(dynamics.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(dynamics.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

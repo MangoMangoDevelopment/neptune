@@ -32,5 +32,21 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
             Assert.AreEqual(0, safetyController.KPostition);
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            SafetyController safetyController = new SafetyController(1, 2, 3, 4);
+            SafetyController same = new SafetyController(1, 2, 3, 4);
+            SafetyController diff = new SafetyController(5, 6, 7, 8);
+
+            Assert.IsTrue(safetyController.Equals(safetyController));
+            Assert.IsFalse(safetyController.Equals(null));
+            Assert.IsTrue(safetyController.Equals(same));
+            Assert.IsTrue(same.Equals(safetyController));
+            Assert.IsFalse(safetyController.Equals(diff));
+            Assert.AreEqual(safetyController.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(safetyController.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

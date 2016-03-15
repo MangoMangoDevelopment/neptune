@@ -33,5 +33,21 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
             Assert.AreEqual(effort, limit.Effort);
             Assert.AreEqual(velocity, limit.Velocity);
         }
+
+        [TestMethod]
+        public void EqualsAndHash()
+        {
+            Limit limit = new Limit(1, 2);
+            Limit same = new Limit(0, 0, 1, 2);
+            Limit diff = new Limit(3, 4);
+
+            Assert.IsTrue(limit.Equals(limit));
+            Assert.IsFalse(limit.Equals(null));
+            Assert.IsTrue(limit.Equals(same));
+            Assert.IsTrue(same.Equals(limit));
+            Assert.IsFalse(limit.Equals(diff));
+            Assert.AreEqual(limit.GetHashCode(), same.GetHashCode());
+            Assert.AreNotEqual(limit.GetHashCode(), diff.GetHashCode());
+        }
     }
 }

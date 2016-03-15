@@ -18,16 +18,34 @@ namespace UrdfUnity.Urdf.Models.JointElements
         /// </summary>
         /// <value>Required. The vector should be normalized.</value>
         public XyzAttribute Xyz { get; }
-        
+
 
         /// <summary>
         /// Creates a new instance of Axis.
         /// </summary>
-        /// <param name="xyz">The x, y, z components of the axis vector</param>
+        /// <param name="xyz">The x, y, z components of the axis vector. MUST NOT BE NULL</param>
         public Axis(XyzAttribute xyz)
         {
             Preconditions.IsNotNull(xyz);
             this.Xyz = xyz;
+        }
+
+        protected bool Equals(Axis other)
+        {
+            return Xyz.Equals(other.Xyz);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Axis)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Xyz.GetHashCode();
         }
     }
 }

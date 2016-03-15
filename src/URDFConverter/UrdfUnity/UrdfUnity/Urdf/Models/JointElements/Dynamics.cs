@@ -29,5 +29,26 @@
             this.Damping = damping;
             this.Friction = friction;
         }
+
+        protected bool Equals(Dynamics other)
+        {
+            return Damping.Equals(other.Damping) && Friction.Equals(other.Friction);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Dynamics)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Damping.GetHashCode() * 397) ^ Friction.GetHashCode();
+            }
+        }
     }
 }

@@ -64,5 +64,31 @@
             this.KPostition = kPosition;
             this.KVelocity = kVelocity;
         }
+
+        protected bool Equals(SafetyController other)
+        {
+            return SoftLowerLimit.Equals(other.SoftLowerLimit) && SoftUpperLimit.Equals(other.SoftUpperLimit)
+                && KPostition.Equals(other.KPostition) && KVelocity.Equals(other.KVelocity);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((SafetyController)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = SoftLowerLimit.GetHashCode();
+                hashCode = (hashCode * 397) ^ SoftUpperLimit.GetHashCode();
+                hashCode = (hashCode * 397) ^ KPostition.GetHashCode();
+                hashCode = (hashCode * 397) ^ KVelocity.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }
