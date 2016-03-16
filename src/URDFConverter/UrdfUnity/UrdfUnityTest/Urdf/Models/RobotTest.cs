@@ -9,27 +9,39 @@ namespace UrdfUnityTest.Urdf.Models
     public class RobotTest
     {
         [TestMethod]
+        public void DefaultName()
+        {
+            Assert.AreEqual("missing_name", Robot.DEFAULT_NAME);
+        }
+
+        [TestMethod]
         public void ConstructRobot()
         {
             string name = "robot";
-            List<Link> links = new List<Link>();
-            List<Joint> joints = new List<Joint>();
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
             Robot robot = new Robot(name, links, joints);
 
-            links.Add(new Link.Builder("link1").Build());
-            links.Add(new Link.Builder("link2").Build());
-            links.Add(new Link.Builder("link3").Build());
-            joints.Add(new Joint.Builder("joint1", Joint.JointType.Continuous, links[0], links[1]).Build());
-            joints.Add(new Joint.Builder("joint2", Joint.JointType.Continuous, links[0], links[2]).Build());
+            Link link1 = new Link.Builder("link1").Build();
+            Link link2 = new Link.Builder("link2").Build();
+            Link link3 = new Link.Builder("link3").Build();
+            Joint joint1 = new Joint.Builder("joint1", Joint.JointType.Continuous, link1, link2).Build();
+            Joint joint2 = new Joint.Builder("joint2", Joint.JointType.Continuous, link1, link3).Build();
+
+            links.Add(link1.Name, link1);
+            links.Add(link2.Name, link2);
+            links.Add(link3.Name, link3);
+            joints.Add(joint1.Name, joint1);
+            joints.Add(joint2.Name, joint2);
 
             Assert.AreEqual(name, robot.Name);
             Assert.AreEqual(links, robot.Links);
             Assert.AreEqual(joints, robot.Joints);
 
-            foreach (Joint joint in robot.Joints)
+            foreach (Joint joint in robot.Joints.Values)
             {
-                Assert.IsTrue(robot.Links.Contains(joint.Parent));
-                Assert.IsTrue(robot.Links.Contains(joint.Child));
+                Assert.IsTrue(robot.Links.ContainsValue(joint.Parent));
+                Assert.IsTrue(robot.Links.ContainsValue(joint.Child));
             }
         }
 
@@ -50,41 +62,51 @@ namespace UrdfUnityTest.Urdf.Models
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructRobotNullLinks()
         {
-            Robot robot = new Robot("robot", null, new List<Joint>());
+            Robot robot = new Robot("robot", null, new Dictionary<string, Joint>());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructRobotNullJointks()
         {
-            Robot robot = new Robot("robot", new List<Link>(), null);
+            Robot robot = new Robot("robot", new Dictionary<string, Link>(), null);
         }
 
         [TestMethod]
         public void EqualsAndHash()
         {
-            List<Link> links = new List<Link>();
-            List<Link> differentLinks = new List<Link>();
-            List<Link> mostlySameLinks = new List<Link>();
-            List<Joint> joints = new List<Joint>();
-            List<Joint> mostlySameJoints = new List<Joint>();
-            List<Joint> differentJoints = new List<Joint>();
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Link> differentLinks = new Dictionary<string, Link>();
+            Dictionary<string, Link> mostlySameLinks = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Dictionary<string, Joint> mostlySameJoints = new Dictionary<string, Joint>();
+            Dictionary<string, Joint> differentJoints = new Dictionary<string, Joint>();
 
-            links.Add(new Link.Builder("link1").Build());
-            links.Add(new Link.Builder("link2").Build());
-            links.Add(new Link.Builder("link3").Build());
-            joints.Add(new Joint.Builder("joint1", Joint.JointType.Continuous, links[0], links[1]).Build());
-            joints.Add(new Joint.Builder("joint2", Joint.JointType.Continuous, links[0], links[2]).Build());
-            mostlySameLinks.Add(links[0]);
-            mostlySameLinks.Add(links[1]);
-            mostlySameJoints.Add(joints[0]);
-            differentLinks.Add(new Link.Builder("different_link1").Build());
-            differentLinks.Add(new Link.Builder("different_link2").Build());
-            differentJoints.Add(new Joint.Builder("differnt_joint", Joint.JointType.Continuous, differentLinks[0], differentLinks[1]).Build());
+
+            Link link1 = new Link.Builder("link1").Build();
+            Link link2 = new Link.Builder("link2").Build();
+            Link link3 = new Link.Builder("link3").Build();
+            Joint joint1 = new Joint.Builder("joint1", Joint.JointType.Continuous, link1, link2).Build();
+            Joint joint2 = new Joint.Builder("joint2", Joint.JointType.Continuous, link1, link3).Build();
+            Link differentLink1 = new Link.Builder("different_link1").Build();
+            Link differentLink2 = new Link.Builder("different_link2").Build();
+            Joint differentJoint = new Joint.Builder("differnt_joint", Joint.JointType.Continuous, differentLink1, differentLink2).Build();
+
+            links.Add(link1.Name, link1);
+            links.Add(link2.Name, link2);
+            links.Add(link3.Name, link3);
+            joints.Add(joint1.Name, joint1);
+            joints.Add(joint2.Name, joint2);
+            mostlySameLinks.Add(link1.Name, link1);
+            mostlySameLinks.Add(link2.Name, link2);
+            mostlySameJoints.Add(joint1.Name, joint1);
+            differentLinks.Add(differentLink1.Name, differentLink1);
+            differentLinks.Add(differentLink2.Name, differentLink2);
+            differentJoints.Add(differentJoint.Name, differentJoint);
 
             Robot robot = new Robot("robot", links, joints);
             Robot same1 = new Robot("robot", links, joints);
-            Robot same2 = new Robot("robot", new List<Link>(links), new List<Joint>(joints));
+            Robot same2 = new Robot("robot", new Dictionary<string, Link>(links), new Dictionary<string, Joint>(joints));
             Robot diff1 = new Robot("different_robot", links, joints);
             Robot diff2 = new Robot("robot", differentLinks, differentJoints);
             Robot diff3 = new Robot("robot", links, mostlySameJoints);

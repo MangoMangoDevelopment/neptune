@@ -17,6 +17,12 @@ namespace UrdfUnityTest.Urdf.Models
 
 
         [TestMethod]
+        public void DefaultName()
+        {
+            Assert.AreEqual("missing_name", Joint.DEFAULT_NAME);
+        }
+
+        [TestMethod]
         public void ConstructJointRequiredProperties()
         {
             Joint.Builder builder = new Joint.Builder(TEST_JOINT_NAME, TEST_JOINT_TYPE, TEST_PARENT_LINK, TEST_CHILD_LINK);

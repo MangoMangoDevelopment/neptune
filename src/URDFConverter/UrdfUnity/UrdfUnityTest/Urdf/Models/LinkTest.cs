@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
@@ -8,10 +7,15 @@ using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Urdf.Models.LinkElements.InertialElements;
 
 namespace UrdfUnityTest.Urdf.Models
-{
-    [TestClass]
+{[TestClass]
     public class LinkTest
     {
+        [TestMethod]
+        public void DefaultName()
+        {
+            Assert.AreEqual("missing_name", Link.DEFAULT_NAME);
+        }
+
         [TestMethod]
         public void ConstructLink()
         {

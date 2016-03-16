@@ -3,6 +3,7 @@ using System.Xml;
 using UrdfUnity.Parse.Xml.LinkElements;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
+using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml
@@ -20,9 +21,18 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string COLLISION_ELEMENT_NAME = "collision";
 
         private readonly InertialParser inertialParser = new InertialParser();
-        private readonly VisualParser visualParser = new VisualParser();
+        private readonly VisualParser visualParser;
         private readonly CollisionParser collisionParser = new CollisionParser();
 
+
+        /// <summary>
+        /// Creates a new instance of LinkParser.
+        /// </summary>
+        /// <param name="materialDictionary"></param>
+        public LinkParser(Dictionary<string, Material> materialDictionary)
+        {
+            this.visualParser = new VisualParser(materialDictionary);
+        }
 
         /// <summary>
         /// Parses a URDF &lt;link&gt; element from XML.

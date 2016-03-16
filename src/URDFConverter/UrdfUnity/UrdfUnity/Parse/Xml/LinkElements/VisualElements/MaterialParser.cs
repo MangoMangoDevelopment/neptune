@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
 
@@ -19,7 +20,17 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 
         private readonly ColorParser colorParser = new ColorParser();
         private readonly TextureParser textureParser = new TextureParser();
+        private readonly Dictionary<string, Material> materialDictionary;
 
+
+        /// <summary>
+        /// Creates a new instance of MaterialParser.
+        /// </summary>
+        /// <param name="materialDictionary">A dictionary of defined materials with material names as keys</param>
+        public MaterialParser(Dictionary<string, Material> materialDictionary)
+        {
+            this.materialDictionary = materialDictionary;
+        }
 
         /// <summary>
         /// Parses a URDF &lt;material&gt; element from XML.
@@ -38,19 +49,34 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
             Color color = ParseColor(colorElement);
             Texture texture = ParseTexture(textureElement);
 
+            if (!name.Equals(Material.DEFAULT_NAME) && color == null && texture == null)
+            {
+                if (!this.materialDictionary.ContainsKey(name))
+                {
+                    // TODO: Log unknown material referenced by <material> name attribute
+                    return new Material(name);
+                }
+                else
+                {
+                    return this.materialDictionary[name];
+                }
+            }
+
+            if (colorElement != null && textureElement != null)
+            {
+                return new Material(name, color, texture);
+            }
             if (textureElement != null)
             {
                 return new Material(name, texture);
             }
-            else if (colorElement != null)
+            if (colorElement != null)
             {
                 return new Material(name, color);
             }
-            else
-            {
-                // TODO: Log malformed <material> element
-                return new Material(name, new Color(new RgbAttribute(DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE)));
-            }
+                
+            // TODO: Log malformed <material> element
+            return new Material(name, new Color(new RgbAttribute(DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE)));
         }
 
         private string ParseName(XmlAttribute nameAttribute)

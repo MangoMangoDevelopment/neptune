@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,7 +14,7 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements
     [TestClass]
     public class VisualParserTest
     {
-        private readonly VisualParser parser = new VisualParser();
+        private readonly VisualParser parser = new VisualParser(new Dictionary<string, Material>());
         private readonly XmlDocument xmlDoc = new XmlDocument();
 
 

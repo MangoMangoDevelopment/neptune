@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,13 +8,14 @@ using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Urdf.Models.LinkElements.InertialElements;
+using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 
 namespace UrdfUnityTest.Parse.Xml
 {
     [TestClass]
     public class LinkParserTest
     {
-        private readonly LinkParser parser = new LinkParser();
+        private readonly LinkParser parser = new LinkParser(new Dictionary<string, Material>());
         private readonly XmlDocument xmlDoc = new XmlDocument();
 
 

@@ -8,6 +8,12 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
     public class MaterialTest
     {
         [TestMethod]
+        public void DefaultName()
+        {
+            Assert.AreEqual("missing_name", Material.DEFAULT_NAME);
+        }
+
+        [TestMethod]
         public void ConstructMaterial()
         {
             string name = "name";

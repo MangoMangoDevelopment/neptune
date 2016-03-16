@@ -1,6 +1,8 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using UrdfUnity.Parse.Xml.LinkElements.VisualElements;
 using UrdfUnity.Urdf.Models.LinkElements;
+using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.LinkElements
@@ -20,8 +22,17 @@ namespace UrdfUnity.Parse.Xml.LinkElements
 
         private readonly OriginParser originParser = new OriginParser();
         private readonly GeometryParser geometryParser = new GeometryParser();
-        private readonly MaterialParser materialParser = new MaterialParser();
+        private readonly MaterialParser materialParser;
 
+
+        /// <summary>
+        /// Creates a new instance of VisualParser.
+        /// </summary>
+        /// <param name="materialDictionary"></param>
+        public VisualParser(Dictionary<string, Material> materialDictionary)
+        {
+            this.materialParser = new MaterialParser(materialDictionary);
+        }
         
         /// <summary>
         /// Parses a URDF &lt;visual&gt; element from XML.

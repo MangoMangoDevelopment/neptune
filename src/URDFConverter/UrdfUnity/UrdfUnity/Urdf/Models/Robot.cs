@@ -13,29 +13,37 @@ namespace UrdfUnity.Urdf.Models
     public class Robot
     {
         /// <summary>
+        /// The default name used when a Robot needs to be instantiated without a name.
+        /// </summary>
+        public static readonly string DEFAULT_NAME = "missing_name";
+
+
+        /// <summary>
         /// The name of the robot model.
         /// </summary>
         /// <value>Required.</value>
         public string Name { get; }
 
         /// <summary>
-        /// The robot's links that are connected by its joints.
+        /// The robot's links that are connected by its links stored as key/value pairs with the
+        /// link's name as the key and the link object as the value.
         /// </summary>
         /// <value>Required.</value>
-        public List<Link> Links { get; }
+        public Dictionary<string, Link> Links { get; }
 
         /// <summary>
-        /// The robot's joints that connect its links together.
+        /// The robot's joints that connect its links together stored as key/value pairs with the
+        /// joint's name as the key and the joint object as the value.
         /// </summary>
         /// <value>Required.</value>
-        public List<Joint> Joints { get; }
+        public Dictionary<string, Joint> Joints { get; }
 
 
         /// <summary>
         /// Creates a new instance of Robot with empty lists of Links and Joints.
         /// </summary>
         /// <param name="name">The name of the robot model</param>
-        public Robot(string name) : this(name, new List<Link>(), new List<Joint>())
+        public Robot(string name) : this(name, new Dictionary<string, Link>(), new Dictionary<string, Joint>())
         {
             // Invoke overloaded constructor.
         }
@@ -46,7 +54,7 @@ namespace UrdfUnity.Urdf.Models
         /// <param name="name">The name of the robot model</param>
         /// <param name="links">A list of the robot model's Links</param>
         /// <param name="joints">A list of the robot model's Joints</param>
-        public Robot(string name, List<Link> links, List<Joint> joints)
+        public Robot(string name, Dictionary<string, Link> links, Dictionary<string, Joint> joints)
         {
             Preconditions.IsNotEmpty(name, "name");
             Preconditions.IsNotNull(links, "links");
