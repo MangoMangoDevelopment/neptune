@@ -27,10 +27,10 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute lowerLimitAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(LOWER_LIMIT_ATTRIBUTE_NAME) : null);
-            XmlAttribute upperLimitAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(UPPER_LIMIT_ATTRIBUTE_NAME) : null);
-            XmlAttribute positionAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(K_POSITION_ATTRIBUTE_NAME) : null);
-            XmlAttribute velocityAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(K_VELOCITY_ATTRIBUTE_NAME) : null);
+            XmlAttribute lowerLimitAttribute = XmlParsingUtils.GetAttributeFromNode(node, LOWER_LIMIT_ATTRIBUTE_NAME);
+            XmlAttribute upperLimitAttribute = XmlParsingUtils.GetAttributeFromNode(node, UPPER_LIMIT_ATTRIBUTE_NAME);
+            XmlAttribute positionAttribute = XmlParsingUtils.GetAttributeFromNode(node, K_POSITION_ATTRIBUTE_NAME);
+            XmlAttribute velocityAttribute = XmlParsingUtils.GetAttributeFromNode(node, K_VELOCITY_ATTRIBUTE_NAME);
             double lowerLimit = ParseAttribute(lowerLimitAttribute);
             double upperLimit = ParseAttribute(upperLimitAttribute);
             double position = ParseAttribute(positionAttribute);

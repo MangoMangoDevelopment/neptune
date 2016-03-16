@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -28,10 +27,10 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute lowerAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(LOWER_ATTRIBUTE_NAME) : null);
-            XmlAttribute upperAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(UPPER_ATTRIBUTE_NAME) : null);
-            XmlAttribute effortAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(EFFORT_ATTRIBUTE_NAME) : null);
-            XmlAttribute velocityAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(VELOCITY_ATTRIBUTE_NAME) : null);
+            XmlAttribute lowerAttribute = XmlParsingUtils.GetAttributeFromNode(node, LOWER_ATTRIBUTE_NAME);
+            XmlAttribute upperAttribute = XmlParsingUtils.GetAttributeFromNode(node, UPPER_ATTRIBUTE_NAME);
+            XmlAttribute effortAttribute = XmlParsingUtils.GetAttributeFromNode(node, EFFORT_ATTRIBUTE_NAME);
+            XmlAttribute velocityAttribute = XmlParsingUtils.GetAttributeFromNode(node, VELOCITY_ATTRIBUTE_NAME);
             double lower = ParseAttribute(lowerAttribute);
             double upper = ParseAttribute(upperAttribute);
             double effort = ParseAttribute(effortAttribute);

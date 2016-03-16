@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -25,8 +24,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute risingAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(RISING_ATTRIBUTE_NAME) : null);
-            XmlAttribute fallingAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(FALLING_ATTRIBUTE_NAME) : null);
+            XmlAttribute risingAttribute = XmlParsingUtils.GetAttributeFromNode(node, RISING_ATTRIBUTE_NAME);
+            XmlAttribute fallingAttribute = XmlParsingUtils.GetAttributeFromNode(node, FALLING_ATTRIBUTE_NAME);
             double rising = DEFAULT_VALUE;
             double falling = DEFAULT_VALUE;
 

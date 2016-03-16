@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -26,8 +25,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute dampingAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(DAMPING_ATTRIBUTE_NAME) : null);
-            XmlAttribute frictionAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(FRICTION_ATTRIBUTE_NAME) : null);
+            XmlAttribute dampingAttribute = XmlParsingUtils.GetAttributeFromNode(node, DAMPING_ATTRIBUTE_NAME);
+            XmlAttribute frictionAttribute = XmlParsingUtils.GetAttributeFromNode(node, FRICTION_ATTRIBUTE_NAME);
             double damping = DEFAULT_VALUE;
             double friction = DEFAULT_VALUE;
 

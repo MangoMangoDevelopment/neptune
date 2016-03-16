@@ -23,7 +23,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute linkAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(LINK_ATTRIBUTE_NAME) : null);
+            XmlAttribute linkAttribute = XmlParsingUtils.GetAttributeFromNode(node, LINK_ATTRIBUTE_NAME);
             string childName = Link.DEFAULT_NAME;
 
             if (linkAttribute == null)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Xml;
+﻿using System.Xml;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 
@@ -27,7 +25,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute sizeAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(SIZE_ATTRIBUTE_NAME) : null);
+            XmlAttribute sizeAttribute = XmlParsingUtils.GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
             SizeAttribute size = new SizeAttribute(DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE);
 
             if (sizeAttribute == null)

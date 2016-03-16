@@ -45,9 +45,9 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute jointAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(JOINT_ATTRIBUTE_NAME) : null);
-            XmlAttribute multiplierAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(MULTIPLIER_ATTRIBUTE_NAME) : null);
-            XmlAttribute offsetAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(OFFSET_ATTRIBUTE_NAME) : null);
+            XmlAttribute jointAttribute = XmlParsingUtils.GetAttributeFromNode(node, JOINT_ATTRIBUTE_NAME);
+            XmlAttribute multiplierAttribute = XmlParsingUtils.GetAttributeFromNode(node, MULTIPLIER_ATTRIBUTE_NAME);
+            XmlAttribute offsetAttribute = XmlParsingUtils.GetAttributeFromNode(node, OFFSET_ATTRIBUTE_NAME);
             Joint joint = DEFAULT_JOINT;
             double multiplier = (multiplierAttribute != null) ? RegexUtils.MatchDouble(multiplierAttribute.Value, DEFAULT_MULTIPLIER) : DEFAULT_MULTIPLIER;
             double offset = (offsetAttribute != null) ? RegexUtils.MatchDouble(offsetAttribute.Value, DEFAULT_OFFSET) : DEFAULT_OFFSET;

@@ -27,7 +27,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute xyzAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(XYZ_ATTRIBUTE_NAME) : null);
+            XmlAttribute xyzAttribute = XmlParsingUtils.GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
             XyzAttribute xyz = new XyzAttribute(DEFAULT_X_VALUE, DEFAULT_Y_VALUE, DEFAULT_Z_VALUE);
 
             if (xyzAttribute == null)

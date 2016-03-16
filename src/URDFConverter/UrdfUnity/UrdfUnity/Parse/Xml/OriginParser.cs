@@ -25,9 +25,8 @@ namespace UrdfUnity.Parse.Xml
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttributeCollection attributes = node.Attributes;
-            XmlAttribute xyzAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(XYZ_ATTRIBUTE_NAME) : null);
-            XmlAttribute rpyAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(RPY_ATTRIBUTE_NAME) : null);
+            XmlAttribute xyzAttribute = XmlParsingUtils.GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
+            XmlAttribute rpyAttribute = XmlParsingUtils.GetAttributeFromNode(node, RPY_ATTRIBUTE_NAME);
 
             Origin.Builder originBuilder = new Origin.Builder();
 

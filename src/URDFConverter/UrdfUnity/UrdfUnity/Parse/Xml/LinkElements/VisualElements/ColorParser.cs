@@ -30,9 +30,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute rgbAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(RGB_ATTRIBUTE_NAME) : null);
-            XmlAttribute alphaAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(ALPHA_ATTRIBUTE_NAME) : null);
-            XmlAttribute rgbaAttribute = (node.Attributes != null ? (XmlAttribute)node.Attributes.GetNamedItem(RGBA_ATTRIBUTE_NAME) : null);
+            XmlAttribute rgbAttribute = XmlParsingUtils.GetAttributeFromNode(node, RGB_ATTRIBUTE_NAME);
+            XmlAttribute alphaAttribute = XmlParsingUtils.GetAttributeFromNode(node, ALPHA_ATTRIBUTE_NAME);
+            XmlAttribute rgbaAttribute = XmlParsingUtils.GetAttributeFromNode(node, RGBA_ATTRIBUTE_NAME);
 
             RgbAttribute rgb;
             double alpha;
