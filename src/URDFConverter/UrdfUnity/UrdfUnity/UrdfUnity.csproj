@@ -99,6 +99,7 @@
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
     <Compile Include="Util\Preconditions.cs" />
     <Compile Include="Util\RegexUtils.cs" />
+    <Compile Include="Util\XmlParsingUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
