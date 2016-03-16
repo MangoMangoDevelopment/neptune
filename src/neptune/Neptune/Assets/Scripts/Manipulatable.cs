@@ -336,7 +336,7 @@ public class Manipulatable : MonoBehaviour {
                         transform.position = pos;
                         break;
                     case AxisHandle.Axis.YPos:
-                        offset = (currentPoint - startingPoint).y * XYZDragScaleFactor * Time.deltaTime;
+                        offset = (currentPoint - startingPoint).y * XYZDragScaleFactor * offsetMultiplier.y * Time.deltaTime;
                         pos.y = lastDragObjectPos + offset;
                         lastDragObjectPos = pos.y;
                         transform.position = pos;
