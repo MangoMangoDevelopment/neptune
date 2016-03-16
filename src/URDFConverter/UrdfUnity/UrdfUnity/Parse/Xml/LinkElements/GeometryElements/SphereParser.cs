@@ -25,9 +25,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute radiusAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(RADIUS_ATTRIBUTE_NAME) : null;
+            XmlAttribute radiusAttribute = XmlParsingUtils.GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
             double radius = DEFAULT_VALUE;
-            
+
             if (radiusAttribute == null)
             {
                 // TODO: Log malformed URDF <sphere> element encountered

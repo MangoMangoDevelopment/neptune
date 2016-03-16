@@ -27,9 +27,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute fileNameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(FILE_NAME_ATTRIBUTE_NAME) : null;
-            XmlAttribute scaleAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(SCALE_ATTRIBUTE_NAME) : null;
-            XmlAttribute sizeAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(SIZE_ATTRIBUTE_NAME) : null;
+            XmlAttribute fileNameAttribute = XmlParsingUtils.GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
+            XmlAttribute scaleAttribute = XmlParsingUtils.GetAttributeFromNode(node, SCALE_ATTRIBUTE_NAME);
+            XmlAttribute sizeAttribute = XmlParsingUtils.GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
 
             string fileName = ParseFileName(fileNameAttribute);
             ScaleAttribute scale = ParseScaleAttribute(scaleAttribute);

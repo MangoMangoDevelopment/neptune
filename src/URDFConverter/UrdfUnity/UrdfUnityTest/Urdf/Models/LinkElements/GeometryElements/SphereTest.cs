@@ -4,7 +4,7 @@ using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
 {
     [TestClass]
-    class SphereTest
+    public class SphereTest
     {
         [TestMethod]
         public void ConstructSphere()

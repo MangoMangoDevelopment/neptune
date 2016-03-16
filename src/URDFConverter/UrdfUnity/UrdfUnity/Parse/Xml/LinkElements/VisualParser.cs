@@ -33,7 +33,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             this.materialParser = new MaterialParser(materialDictionary);
         }
-        
+
         /// <summary>
         /// Parses a URDF &lt;visual&gt; element from XML.
         /// </summary>
@@ -43,10 +43,10 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             Preconditions.IsNotNull(node);
 
-            XmlAttribute nameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(NAME_ATTRIBUTE_NAME) : null;
-            XmlElement originElement = (XmlElement)node.SelectSingleNode(ORIGIN_ELEMENT_NAME);
-            XmlElement geometryElement = (XmlElement)node.SelectSingleNode(GEOMETRY_ELEMENT_NAME);
-            XmlElement materialElement = (XmlElement)node.SelectSingleNode(MATERIAL_ELEMENT_NAME);
+            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement originElement = XmlParsingUtils.GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
+            XmlElement geometryElement = XmlParsingUtils.GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
+            XmlElement materialElement = XmlParsingUtils.GetElementFromNode(node, MATERIAL_ELEMENT_NAME);
 
             Visual.Builder builder;
 

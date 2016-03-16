@@ -38,7 +38,7 @@ namespace UrdfUnity.Parse.Xml
 
         private readonly Dictionary<string, Link> linkDictionary;
         private readonly Dictionary<string, Joint> jointDictionary;
-        
+
 
         /// <summary>
         /// Creates a new instance of JointParser with the provided dictionary of joints.
@@ -62,17 +62,17 @@ namespace UrdfUnity.Parse.Xml
         {
             Preconditions.IsNotNull(node);
 
-            XmlAttribute nameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(NAME_ATTRIBUTE_NAME) : null;
-            XmlAttribute typeAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(TYPE_ATTRIBUTE_NAME) : null;
-            XmlElement originElement = (XmlElement)node.SelectSingleNode(ORIGIN_ELEMENT_NAME);
-            XmlElement parentElement = (XmlElement)node.SelectSingleNode(PARENT_ELEMENT_NAME);
-            XmlElement childElement = (XmlElement)node.SelectSingleNode(CHILD_ELEMENT_NAME);
-            XmlElement axisElement = (XmlElement)node.SelectSingleNode(AXIS_ELEMENT_NAME);
-            XmlElement calibrationElement = (XmlElement)node.SelectSingleNode(CALIBRATION_ELEMENT_NAME);
-            XmlElement dynamicsElement = (XmlElement)node.SelectSingleNode(DYNAMICS_ELEMENT_NAME);
-            XmlElement limitElement = (XmlElement)node.SelectSingleNode(LIMIT_ELEMENT_NAME);
-            XmlElement mimicElement = (XmlElement)node.SelectSingleNode(MIMIC_ELEMENT_NAME);
-            XmlElement safetyControllerElement = (XmlElement)node.SelectSingleNode(SAFETY_CONTROLLER_ELEMENT_NAME);
+            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlAttribute typeAttribute = XmlParsingUtils.GetAttributeFromNode(node, TYPE_ATTRIBUTE_NAME);
+            XmlElement originElement = XmlParsingUtils.GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
+            XmlElement parentElement = XmlParsingUtils.GetElementFromNode(node, PARENT_ELEMENT_NAME);
+            XmlElement childElement = XmlParsingUtils.GetElementFromNode(node, CHILD_ELEMENT_NAME);
+            XmlElement axisElement = XmlParsingUtils.GetElementFromNode(node, AXIS_ELEMENT_NAME);
+            XmlElement calibrationElement = XmlParsingUtils.GetElementFromNode(node, CALIBRATION_ELEMENT_NAME);
+            XmlElement dynamicsElement = XmlParsingUtils.GetElementFromNode(node, DYNAMICS_ELEMENT_NAME);
+            XmlElement limitElement = XmlParsingUtils.GetElementFromNode(node, LIMIT_ELEMENT_NAME);
+            XmlElement mimicElement = XmlParsingUtils.GetElementFromNode(node, MIMIC_ELEMENT_NAME);
+            XmlElement safetyControllerElement = XmlParsingUtils.GetElementFromNode(node, SAFETY_CONTROLLER_ELEMENT_NAME);
 
             Joint.Builder builder = ConstructBuilder(nameAttribute, typeAttribute, parentElement, childElement);
 
@@ -201,7 +201,7 @@ namespace UrdfUnity.Parse.Xml
                     child = this.linkDictionary[childLinkName];
                 }
             }
-            
+
             return new Joint.Builder(name, type, parent, child);
         }
     }

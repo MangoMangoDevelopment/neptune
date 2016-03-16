@@ -21,7 +21,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private static readonly string CYLINDER_ELEMENT_NAME = "cylinder";
         private static readonly string SPHERE_ELEMENT_NAME = "sphere";
         private static readonly string MESH_ELEMENT_NAME = "mesh";
-        
+
         private readonly BoxParser boxParser = new BoxParser();
         private readonly CylinderParser cylinderParser = new CylinderParser();
         private readonly SphereParser sphereParser = new SphereParser();
@@ -37,10 +37,10 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             Preconditions.IsNotNull(node);
 
-            XmlElement boxElement = (XmlElement)node.SelectSingleNode(BOX_ELEMENT_NAME);
-            XmlElement cylinderElement = (XmlElement)node.SelectSingleNode(CYLINDER_ELEMENT_NAME);
-            XmlElement sphereElement = (XmlElement)node.SelectSingleNode(SPHERE_ELEMENT_NAME);
-            XmlElement meshElement = (XmlElement)node.SelectSingleNode(MESH_ELEMENT_NAME);
+            XmlElement boxElement = XmlParsingUtils.GetElementFromNode(node, BOX_ELEMENT_NAME);
+            XmlElement cylinderElement = XmlParsingUtils.GetElementFromNode(node, CYLINDER_ELEMENT_NAME);
+            XmlElement sphereElement = XmlParsingUtils.GetElementFromNode(node, SPHERE_ELEMENT_NAME);
+            XmlElement meshElement = XmlParsingUtils.GetElementFromNode(node, MESH_ELEMENT_NAME);
 
             Geometry geometry = null;
 

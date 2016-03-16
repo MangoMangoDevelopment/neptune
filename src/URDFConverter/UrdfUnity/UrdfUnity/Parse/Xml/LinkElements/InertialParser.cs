@@ -32,15 +32,15 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlElement originElement = (XmlElement)node.SelectSingleNode(ORIGIN_ELEMENT_NAME);
-            XmlElement massElement = (XmlElement)node.SelectSingleNode(MASS_ELEMENT_NAME);
-            XmlElement inertiaElement = (XmlElement)node.SelectSingleNode(INERTIA_ELEMENT_NAME);
+            XmlElement originElement = XmlParsingUtils.GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
+            XmlElement massElement = XmlParsingUtils.GetElementFromNode(node, MASS_ELEMENT_NAME);
+            XmlElement inertiaElement = XmlParsingUtils.GetElementFromNode(node, INERTIA_ELEMENT_NAME);
 
             Origin origin = ParseOrigin(originElement);
             Mass mass = ParseMass(massElement);
             Inertia inertia = ParseInertia(inertiaElement);
 
-            return (origin != null) ? new Inertial(origin, mass, inertia): new Inertial(mass, inertia);
+            return (origin != null) ? new Inertial(origin, mass, inertia) : new Inertial(mass, inertia);
         }
 
         private Origin ParseOrigin(XmlElement originElement)

@@ -43,8 +43,8 @@ namespace UrdfUnity.Parse.Xml
         {
             Preconditions.IsNotNull(node);
 
-            XmlAttribute nameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(NAME_ATTRIBUTE_NAME) : null;
-            XmlElement inertialElement = (XmlElement) node.SelectSingleNode(INERTIAL_ELEMENT_NAME);
+            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement inertialElement = XmlParsingUtils.GetElementFromNode(node, INERTIAL_ELEMENT_NAME);
             XmlNodeList visualElements = node.SelectNodes(VISUAL_ELEMENT_NAME);
             XmlNodeList collisionElements = node.SelectNodes(COLLISION_ELEMENT_NAME);
 

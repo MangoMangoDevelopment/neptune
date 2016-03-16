@@ -28,7 +28,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute valueAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(VALUE_ATTRIBUTE_NAME) : null;
+            XmlAttribute valueAttribute = XmlParsingUtils.GetAttributeFromNode(node, VALUE_ATTRIBUTE_NAME);
             return new Mass(RegexUtils.MatchDouble(valueAttribute.Value, DEFAULT_MASS));
         }
     }

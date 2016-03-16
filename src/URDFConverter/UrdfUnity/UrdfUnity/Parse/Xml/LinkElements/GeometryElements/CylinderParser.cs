@@ -26,8 +26,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute radiusAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(RADIUS_ATTRIBUTE_NAME) : null;
-            XmlAttribute lengthAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(LENGTH_ATTRIBUTE_NAME) : null;
+            XmlAttribute radiusAttribute = XmlParsingUtils.GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
+            XmlAttribute lengthAttribute = XmlParsingUtils.GetAttributeFromNode(node, LENGTH_ATTRIBUTE_NAME);
 
             double radius = DEFAULT_VALUE;
             double length = DEFAULT_VALUE;

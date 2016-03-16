@@ -38,15 +38,12 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
             Dictionary<string, XmlAttribute> attributes = new Dictionary<string, XmlAttribute>();
             Dictionary<string, double> values = new Dictionary<string, double>();
 
-            if (node.Attributes != null)
-            {
-                attributes.Add(IXX_ATTRIBUTE_NAME, (XmlAttribute)node.Attributes.GetNamedItem(IXX_ATTRIBUTE_NAME));
-                attributes.Add(IXY_ATTRIBUTE_NAME, (XmlAttribute)node.Attributes.GetNamedItem(IXY_ATTRIBUTE_NAME));
-                attributes.Add(IXZ_ATTRIBUTE_NAME, (XmlAttribute)node.Attributes.GetNamedItem(IXZ_ATTRIBUTE_NAME));
-                attributes.Add(IYY_ATTRIBUTE_NAME, (XmlAttribute)node.Attributes.GetNamedItem(IYY_ATTRIBUTE_NAME));
-                attributes.Add(IYZ_ATTRIBUTE_NAME, (XmlAttribute)node.Attributes.GetNamedItem(IYZ_ATTRIBUTE_NAME));
-                attributes.Add(IZZ_ATTRIBUTE_NAME, (XmlAttribute)node.Attributes.GetNamedItem(IZZ_ATTRIBUTE_NAME));
-            }
+            attributes.Add(IXX_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IXX_ATTRIBUTE_NAME));
+            attributes.Add(IXY_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IXY_ATTRIBUTE_NAME));
+            attributes.Add(IXZ_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IXZ_ATTRIBUTE_NAME));
+            attributes.Add(IYY_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IYY_ATTRIBUTE_NAME));
+            attributes.Add(IYZ_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IYZ_ATTRIBUTE_NAME));
+            attributes.Add(IZZ_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IZZ_ATTRIBUTE_NAME));
 
             foreach (string key in attributes.Keys)
             {

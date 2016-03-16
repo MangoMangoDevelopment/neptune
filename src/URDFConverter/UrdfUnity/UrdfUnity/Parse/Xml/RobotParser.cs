@@ -20,8 +20,8 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string MATERIAL_ELEMENT_NAME = "material";
 
         private readonly Dictionary<string, Link> links = new Dictionary<string, Link>();
-        private readonly Dictionary<string, Joint> joints = new Dictionary<string, Joint>(); 
-        private readonly Dictionary<string, Material> materials = new Dictionary<string, Material>(); 
+        private readonly Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+        private readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
 
         private readonly LinkParser linkParser;
         private readonly JointParser jointParser;
@@ -48,7 +48,7 @@ namespace UrdfUnity.Parse.Xml
         {
             Preconditions.IsNotNull(node);
 
-            XmlAttribute nameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(NAME_ATTRIBUTE_NAME) : null;
+            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
             XmlNodeList linkElements = node.SelectNodes(LINK_ELEMENT_NAME);
             XmlNodeList jointElements = node.SelectNodes(JOINT_ELEMENT_NAME);
             XmlNodeList materialElements = node.SelectNodes(MATERIAL_ELEMENT_NAME);

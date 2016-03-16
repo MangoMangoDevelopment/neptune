@@ -23,7 +23,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute fileNameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(FILE_NAME_ATTRIBUTE_NAME) : null;
+            XmlAttribute fileNameAttribute = XmlParsingUtils.GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
             string filename = Texture.DEFAULT_FILE_NAME;
 
             if (fileNameAttribute == null || fileNameAttribute.Value == null)

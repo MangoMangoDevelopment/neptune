@@ -7,7 +7,7 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements
     public class SizeAttributeTest
     {
         [TestMethod]
-        public void ConsructSizeAttribute()
+        public void ConstructSizeAttribute()
         {
             double length = 1;
             double width = 2;

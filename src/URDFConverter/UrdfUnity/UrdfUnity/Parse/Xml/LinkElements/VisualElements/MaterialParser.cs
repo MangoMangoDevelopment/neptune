@@ -41,9 +41,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         {
             Preconditions.IsNotNull(node, "node");
 
-            XmlAttribute nameAttribute = (node.Attributes != null) ? (XmlAttribute)node.Attributes.GetNamedItem(NAME_ATTRIBUTE_NAME) : null;
-            XmlElement colorElement = (XmlElement)node.SelectSingleNode(COLOR_ELEMENT_NAME);
-            XmlElement textureElement = (XmlElement)node.SelectSingleNode(TEXTURE_ELEMENT_NAME);
+            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement colorElement = XmlParsingUtils.GetElementFromNode(node, COLOR_ELEMENT_NAME);
+            XmlElement textureElement = XmlParsingUtils.GetElementFromNode(node, TEXTURE_ELEMENT_NAME);
 
             string name = ParseName(nameAttribute);
             Color color = ParseColor(colorElement);
@@ -74,7 +74,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
             {
                 return new Material(name, color);
             }
-                
+
             // TODO: Log malformed <material> element
             return new Material(name, new Color(new RgbAttribute(DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE)));
         }
