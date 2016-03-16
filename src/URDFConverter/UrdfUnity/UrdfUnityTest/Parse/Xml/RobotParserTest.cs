@@ -44,9 +44,11 @@ namespace UrdfUnityTest.Parse.Xml
             Assert.IsTrue(robot.Links.ContainsKey("right_tip"));
             Assert.IsTrue(robot.Links.ContainsKey("head"));
             Assert.IsTrue(robot.Links.ContainsKey("box"));
+            Assert.IsTrue(robot.Joints.ContainsKey("base_to_right_leg"));
             Assert.IsTrue(robot.Joints.ContainsKey("right_base_joint"));
             Assert.IsTrue(robot.Joints.ContainsKey("right_front_wheel_joint"));
             Assert.IsTrue(robot.Joints.ContainsKey("right_back_wheel_joint"));
+            Assert.IsTrue(robot.Joints.ContainsKey("base_to_left_leg"));
             Assert.IsTrue(robot.Joints.ContainsKey("left_base_joint"));
             Assert.IsTrue(robot.Joints.ContainsKey("left_front_wheel_joint"));
             Assert.IsTrue(robot.Joints.ContainsKey("left_back_wheel_joint"));
