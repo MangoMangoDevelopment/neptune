@@ -19,6 +19,25 @@ public class UrdfItemModel : MonoBehaviour
     public int usable;
     public string urdfFilename;
     public string prefabFilename;
+    public string notes;
     public float time;
     // TODO: Add validation code
+
+    public void copy(UrdfItemModel model)
+    {
+        this.uid = model.uid;
+        this.name = model.name;
+        this.modelNumber = model.modelNumber;
+        this.internalCost = model.internalCost;
+        this.externalCost = model.externalCost;
+        this.weight = model.weight;
+        this.powerUsage = model.powerUsage;
+        this.fk_type_id = model.fk_type_id;
+        this.fk_category_id = model.fk_category_id;
+        this.usable = model.usable;
+        this.urdfFilename = model.urdfFilename;
+        this.prefabFilename = model.prefabFilename;
+        this.notes = model.notes;
+        this.time = model.time;
+    }
 }

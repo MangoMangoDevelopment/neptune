@@ -10,5 +10,9 @@ public class SensorCategoriesModel : MonoBehaviour
     public new string name;
     // TODO: Add validation code here for setting data
 
-
+    public void copy(SensorCategoriesModel model)
+    {
+        this.uid = model.uid;
+        this.name = model.name;
+    }
 }

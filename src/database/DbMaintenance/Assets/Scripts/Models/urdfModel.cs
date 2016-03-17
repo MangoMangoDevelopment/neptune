@@ -57,7 +57,7 @@ public class UrdfModel
     {
         List<UrdfItemModel> list = new List<UrdfItemModel>();
 
-        string sql = "SELECT `uid`, `name`, `modelNumber`, `internalCost`, `externalCost`, `weight`, `powerUsage`, `fk_type_id`, `fk_category_id`, `usable`, `urdfFilename`, `prefabFilename`, `time` FROM `tblUrdfs`;";
+        string sql = "SELECT `uid`, `name`, `modelNumber`, `internalCost`, `externalCost`, `weight`, `powerUsage`, `notes`, `fk_type_id`, `fk_category_id`, `usable`, `urdfFilename`, `prefabFilename`, `time` FROM `tblUrdfs`;";
         SqliteCommand cmd = _engine.conn.CreateCommand();
         cmd.CommandText = sql;
         SqliteDataReader reader = cmd.ExecuteReader();
@@ -74,12 +74,13 @@ public class UrdfModel
                 item.externalCost = (!reader.IsDBNull(4) ?  reader.GetFloat(4) : 0.0f);
                 item.weight = (!reader.IsDBNull(5) ?  reader.GetFloat(5) : 0.0f);
                 item.powerUsage = (!reader.IsDBNull(6) ?  reader.GetFloat(6) : 0.0f);
-                item.fk_type_id = (!reader.IsDBNull(7) ?  reader.GetInt32(7) : 0);
-                item.fk_category_id = (!reader.IsDBNull(8) ?  reader.GetInt32(8) : 0);
-                item.usable = (!reader.IsDBNull(9) ?  reader.GetInt32(9) : 0);
-                item.urdfFilename = (!reader.IsDBNull(10) ?  reader.GetString(10) : String.Empty);
-                item.prefabFilename = (!reader.IsDBNull(11) ?  reader.GetString(11) : String.Empty);
-                item.time = (!reader.IsDBNull(12) ? reader.GetFloat(12) : 0.0f);
+                item.notes = (!reader.IsDBNull(7) ? reader.GetString(7) : String.Empty);
+                item.fk_type_id = (!reader.IsDBNull(8) ?  reader.GetInt32(8) : 0);
+                item.fk_category_id = (!reader.IsDBNull(9) ?  reader.GetInt32(9) : 0);
+                item.usable = (!reader.IsDBNull(10) ?  reader.GetInt32(10) : 0);
+                item.urdfFilename = (!reader.IsDBNull(11) ?  reader.GetString(11) : String.Empty);
+                item.prefabFilename = (!reader.IsDBNull(12) ?  reader.GetString(12) : String.Empty);
+                item.time = (!reader.IsDBNull(13) ? reader.GetFloat(13) : 0.0f);
 
                 list.Add(item);
             }
@@ -103,20 +104,20 @@ public class UrdfModel
     /// This will grab all the urdf types that is known in the database
     /// </summary>
     /// <returns>A list of type of urdf in the database.</returns>
-    public List<UrdfType> GetUrdfTypes()
+    public List<UrdfTypeModel> GetUrdfTypes()
     {
-        List<UrdfType> list = new List<UrdfType>();
+        List<UrdfTypeModel> list = new List<UrdfTypeModel>();
 
         string sql = "SELECT `uid`, `name` FROM `tblUrdfType`;";
         SqliteCommand cmd = _engine.conn.CreateCommand();
         cmd.CommandText = sql;
         SqliteDataReader reader = cmd.ExecuteReader();
-        UrdfType item;
+        UrdfTypeModel item;
         try
         {
             while (reader.Read())
             {
-                item = new UrdfType();
+                item = new UrdfTypeModel();
                 item.uid = reader.GetInt32(0);
                 item.name = reader.GetString(1);
 
