@@ -71,7 +71,6 @@
   <ItemGroup>
     <Compile Include="Assets\Expanded.cs" />
     <Compile Include="Assets\Scripts\DB\DbEngine.cs" />
-    <Compile Include="Assets\Scripts\Helpers\ObjImporter.cs" />
     <Compile Include="Assets\Scripts\Models\SensorCategoriesModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfItemModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfTypeModel.cs" />

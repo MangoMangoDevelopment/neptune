@@ -8,6 +8,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// This class is the controller for the UI management
@@ -243,7 +244,15 @@ public class UIManager : MonoBehaviour {
             Destroy(currentObject);
         }
 
-        currentObject = Instantiate(Resources.Load(item.prefabFilename, typeof(GameObject))) as GameObject;
+        try
+        {
+            currentObject = Instantiate(Resources.Load(item.prefabFilename, typeof(GameObject))) as GameObject;
+        }
+        catch (Exception ex)
+        {
+            currentObject = Instantiate(emptyGameObject);
+        }
+
     }
 
     public void PreviewButton_click()
