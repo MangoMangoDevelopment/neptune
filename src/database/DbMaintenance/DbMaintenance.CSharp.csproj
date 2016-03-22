@@ -69,8 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Expanded.cs" />
+    <Compile Include="Assets\Scripts\Controllers\headingController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\modelPreview.cs" />
     <Compile Include="Assets\Scripts\DB\DbEngine.cs" />
+    <Compile Include="Assets\Scripts\Expanded.cs" />
     <Compile Include="Assets\Scripts\Models\SensorCategoriesModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfItemModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfTypeModel.cs" />
@@ -80,7 +82,6 @@
     <Compile Include="Assets\Scripts\Tweening\TweenRunner.cs" />
     <Compile Include="Assets\Scripts\UICollapsible.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\modelPreview.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />

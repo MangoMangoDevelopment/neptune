@@ -26,12 +26,14 @@ namespace UnityEngine.UI
 		[SerializeField] private Transition m_Transition = Transition.Tween;
 		[SerializeField] private float m_TransitionDuration = 0.3f;
 		[SerializeField] private State m_CurrentState = State.Expanded;
-		
-		/// <summary>
-		/// Gets or sets the transition.
-		/// </summary>
-		/// <value>The transition.</value>
-		public Transition transition
+
+        private Sprite[] sprites;
+
+        /// <summary>
+        /// Gets or sets the transition.
+        /// </summary>
+        /// <value>The transition.</value>
+        public Transition transition
 		{
 			get { return this.m_Transition; }
 			set { this.m_Transition = value; }
@@ -71,7 +73,9 @@ namespace UnityEngine.UI
 			{
 				this.m_Toggle.onValueChanged.AddListener(OnValueChanged);
 			}
-		}
+
+            
+        }
 		
 		protected virtual void OnValidate()
 		{
@@ -87,9 +91,21 @@ namespace UnityEngine.UI
 		{
 			if (!this.enabled || !this.gameObject.activeInHierarchy)
 				return;
-			
-			this.TransitionToState(state ? State.Expanded : State.Collapsed);
-		}
+            Animator gear = gameObject.GetComponentInChildren<Animator>();
+
+            gear.SetBool("isHidden", state);
+            //if(state)
+            //{
+            //    gameObject.GetComponentInChildren<Image>().sprite = sprites[0];
+            //}
+            //else
+            //{
+
+            //    gameObject.GetComponentInChildren<Image>().sprite = sprites[1];
+            //}
+
+            this.TransitionToState(state ? State.Expanded : State.Collapsed);
+        }
 		
 		public void TransitionToState(State state)
 		{

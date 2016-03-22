@@ -2,6 +2,8 @@
 
 Reference:
     http://forum.unity3d.com/threads/accordion-type-layout.271818/
+    Rotating Gear
+    https://www.raywenderlich.com/114828/introduction-unity-ui-part-3
 */
 using UnityEngine;
 using System.Collections;
@@ -37,6 +39,7 @@ public class UIManager : MonoBehaviour {
 
     private UrdfModel urdf;
     private Dictionary<string, InputField> inputs;
+    private Dictionary<int, GameObject> categoryHolderList;
     private List<GameObject> sensors;
 
     /// <summary>
@@ -47,6 +50,7 @@ public class UIManager : MonoBehaviour {
         this.urdf = new UrdfModel();
         this.currState = UIState.Create; // assume that the default is to add a sensor right away
         this.sensors = new List<GameObject>();
+        categoryHolderList = new Dictionary<int, GameObject>();
         setupInputFieldList();
         SensorPanelSetup();
 
@@ -88,17 +92,16 @@ public class UIManager : MonoBehaviour {
     {
         List<SensorCategoriesModel> categories = urdf.GetSensorCategories();
         List<UrdfItemModel> sensorList = urdf.GetSensors();
-        Dictionary<int, GameObject> categoryHolderList = new Dictionary<int, GameObject>();
+        List<headingController> headingControllers = new List<headingController>();
 
         foreach (SensorCategoriesModel category in categories)
         {
             GameObject categoryHolder = GameObject.Instantiate(categoryContainerPrefab);
             SensorCategoriesModel urdfCat = categoryHolder.GetComponent<SensorCategoriesModel>();
-            Text value = categoryHolder.GetComponentInChildren<Text>();
-            //categoryHolder. //on.AddListener(() => CategoryOnClick(categoryHolder));
+            headingController controller = categoryHolder.GetComponentInChildren<headingController>();
+            controller.SetHeadingName(category.name);
+            headingControllers.Add(controller);
             urdfCat.copy(category);
-            value.text = category.name;
-            categoryHolder.name = category.name;
             categoryHolder.transform.SetParent(sensorViewPort.transform, false);
             categoryHolderList.Add(category.uid, categoryHolder);
         }
@@ -113,9 +116,15 @@ public class UIManager : MonoBehaviour {
             urdfItem.copy(item);
             value.text = item.name;
             sensorBtn.name = item.name.ToLower();
+            headingControllers[item.fk_category_id - 1].AddSensor();
             sensorBtn.transform.SetParent(categoryHolderList[item.fk_category_id].transform, false);
             btn.onClick.AddListener(() => SensorOnClick(sensorBtn));
             this.sensors.Add(sensorBtn);
+        }
+
+        foreach (headingController controller in headingControllers)
+        {
+            controller.UpdateSensorCount();
         }
     }
 
@@ -226,9 +235,27 @@ public class UIManager : MonoBehaviour {
     /// <param name="value"></param>
     public void SearchFunction (string value)
     {
+        bool inName = false;
         foreach (GameObject item in this.sensors)
         {
-            item.transform.gameObject.SetActive(item.name.Contains(value.ToLower()));
+            inName = item.name.Contains(value.ToLower());
+            headingController controller = item.transform.parent.GetComponentInChildren<headingController>();
+            // advoid double count sensors
+            if (inName && !item.transform.gameObject.activeInHierarchy)
+            {
+                controller.AddSensor();
+            }
+            else if (!inName && item.transform.gameObject.activeInHierarchy)
+            {
+                controller.RemoveSensor();
+            }
+            item.transform.gameObject.SetActive(inName);
+        }
+        foreach(KeyValuePair<int, GameObject> category in categoryHolderList)
+        {
+            headingController controller = category.Value.GetComponentInChildren<headingController>();
+            controller.UpdateSensorCount();
+            category.Value.SetActive(controller.hasSensors());
         }
     }
 
