@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour {
     public Button RobotBaseButton;
     public float PanelSpeed;
     public Text ModeText;
+    public Button DeleteSelectedObjectButton;
 
     //TODO: Remove this. This should be superseeded by a combination of Brian and Amber's work. See DBManager.GetSensorList() for more info.
     public GameObject TestGO;
@@ -62,11 +63,13 @@ public class UIManager : MonoBehaviour {
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, shownCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
         else
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
+
+        DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null;
     }
 
     public void AddSensor(string text, GameObject go, float scale = 1)
     {
-        GameObject sensorText = Instantiate<GameObject>(TextPrefab);
+        GameObject sensorText = Instantiate(TextPrefab);
         sensorText.name = text;
         sensorText.GetComponentInChildren<Text>().text = text;
         sensorText.transform.SetParent(SensorsContent.transform);
@@ -77,7 +80,7 @@ public class UIManager : MonoBehaviour {
 
     public void AddPart(string text, GameObject go)
     {
-        GameObject partText = Instantiate<GameObject>(TextPrefab);
+        GameObject partText = Instantiate(TextPrefab);
         partText.name = text;
         partText.GetComponentInChildren<Text>().text = text;
         partText.transform.SetParent(PartsContent.transform);
@@ -115,6 +118,22 @@ public class UIManager : MonoBehaviour {
             selectedPart.colors = c;
         }
         selectedPart = null;
+    }
+
+    public void TryDeleteSelectedObject()
+    {
+        if (selectedPart != null)
+        {
+            DialogManager.instance.ShowDialog("Are you sure you want to delete \"" + selectedPart.name + "\"?", "Deleting sensor!", DialogManager.ButtonType.YesNo, DeleteSelectedObject);
+        }
+    }
+
+    private void DeleteSelectedObject()
+    {
+        if (selectedPart != null)
+        {
+            selectedPart.GetComponent<PartText>().DestroyPart();
+        }
     }
 
     public void ShowResetAxesPanel()
@@ -298,6 +317,6 @@ public class UIManager : MonoBehaviour {
 
     public void SelectRobotBaseObject()
     {
-        editorManager.SelectPart(editorManager.GetRobotBaseObject());
+        SelectPart(RobotBaseButton);
     }
 }

@@ -34,6 +34,12 @@ public class PartText : MonoBehaviour {
         return GO;
     }
 
+    public void DestroyPart()
+    {
+        Destroy(GO);
+        Destroy(gameObject);
+    }
+
     public void SetState(State state)
     {
         this.state = state;
@@ -46,8 +52,7 @@ public class PartText : MonoBehaviour {
             case State.AddNewSensor:
                 {
                     //Get the instance of the prefab back from the Editor Manager so that we can reference it when selecting
-                    GO = editorManager.AddPart(GO, name);
-                    uiManager.AddPart(name, GO);
+                    uiManager.AddPart(name, editorManager.AddPart(GO, name));
                 }
                 break;
             case State.SelectExistingSensor:

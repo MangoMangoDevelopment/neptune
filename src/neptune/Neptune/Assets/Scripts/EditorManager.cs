@@ -172,6 +172,12 @@ public class EditorManager : MonoBehaviour {
         {
             SetSelectedObject(null);
         }
+        else if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            //Delete it through the UI manager since it has the copy - we have the original
+            if (selectedObject != null)
+                uiManager.TryDeleteSelectedObject();
+        }
 
         UpdateSelection();
         UpdateHandles();
