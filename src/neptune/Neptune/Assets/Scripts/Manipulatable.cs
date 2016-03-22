@@ -463,4 +463,13 @@ public class Manipulatable : MonoBehaviour {
             }
         }
     }
+
+    public void Die()
+    {
+        if (bridge != null)
+        {
+            Destroy(bridge);
+        }
+        Destroy(gameObject);
+    }
 }

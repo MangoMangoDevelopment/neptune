@@ -36,7 +36,7 @@ public class PartText : MonoBehaviour {
 
     public void DestroyPart()
     {
-        Destroy(GO);
+        GO.GetComponent<Manipulatable>().Die();
         Destroy(gameObject);
     }
 
