@@ -23,6 +23,7 @@ public class EditorManager : MonoBehaviour {
     }
 
     //Public Variables
+    //Handles
     public GameObject PartsContainer;
     public GameObject XYZHandles;
     public GameObject XPosHandle;
@@ -32,14 +33,15 @@ public class EditorManager : MonoBehaviour {
     public GameObject RRotHandle;
     public GameObject PRotHandle;
     public GameObject YRotHandle;
-
+    //Outline
     public float OutlineThickness;
     public Material OutlineMaterial;
     public Material HoverOutline;
     public Material HandleOutline;
-
+    //Prefabs
     public GameObject CubeoidPrefab;
-
+    public GameObject BridgePrefab;
+    //Values
     public float ShiftSpeedModifier = 0.5f;
     public float CameraRotScaleFactor = 1f;
     public float CameraPosMoveSpeed= 1f;
@@ -47,9 +49,11 @@ public class EditorManager : MonoBehaviour {
     public float CameraOrbitSpeed = 1f;
     public float HandleCameraDistance = 5f;
     public Mode mode = Mode.Translate;
+    public float BridgeSpawnHeight = 1f;
     //Cameras
     public Camera MainCamera;
     public Camera HandleCamera;
+    public LayerMask IgnoreLayers;
 
     //Private Variables
     private RobotBase robotBase;
@@ -86,6 +90,16 @@ public class EditorManager : MonoBehaviour {
                 //Can't select the base since it's not in the part list
                 if (selectedObject != robotBaseObject)
                     uiManager.SelectPart(selectedObject);
+                else
+                {
+                    //Update this here so that it gets picked up on orbit
+                    XPosHandle.SetActive(false);
+                    YPosHandle.SetActive(false);
+                    ZPosHandle.SetActive(false);
+                    RRotHandle.SetActive(false);
+                    PRotHandle.SetActive(false);
+                    YRotHandle.SetActive(false);
+                }
             }
             else
             {
@@ -190,7 +204,7 @@ public class EditorManager : MonoBehaviour {
             if (!Physics.Raycast(uiRay, out hit, 100, UIMask))
             {
                 Ray mouseRay = MainCamera.ScreenPointToRay(Input.mousePosition);
-                LayerMask ObjectMask = ~(Physics.IgnoreRaycastLayer | (1 << LayerMask.NameToLayer("UI")));
+                LayerMask ObjectMask = ~IgnoreLayers;
                 if (Physics.Raycast(mouseRay, out hit, 100, ObjectMask))
                 {
                     if (hit.transform.gameObject.tag == Manipulatable.TAG)
@@ -317,6 +331,11 @@ public class EditorManager : MonoBehaviour {
             }
             else if (mode == Mode.Orbit)    //Middle-Click (Orbit modifier)
             {
+                if (selectedObject == null)
+                {
+                    SetSelectedObject(robotBaseObject);
+                    UpdateHandles();
+                }
                 if (selectedObject != null)
                 {
                     Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
@@ -334,6 +353,11 @@ public class EditorManager : MonoBehaviour {
             }
             else    //No camera modifiers held
             {
+                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                {
+                    //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
+                    return;
+                }
                 float scrollVal = Input.GetAxis("Mouse ScrollWheel");
                 MainCamera.transform.position += MainCamera.transform.forward * scrollVal * CameraScrollSpeed * Time.deltaTime;
             }

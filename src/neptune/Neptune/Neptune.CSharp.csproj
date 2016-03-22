@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AxisHandle.cs" />
+    <Compile Include="Assets\Scripts\Bridge.cs" />
     <Compile Include="Assets\Scripts\DBManager.cs" />
     <Compile Include="Assets\Scripts\EditorManager.cs" />
     <Compile Include="Assets\Scripts\Manipulatable.cs" />

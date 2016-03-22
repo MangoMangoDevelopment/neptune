@@ -61,7 +61,7 @@ GameObject:
   - 4: {fileID: 495044}
   m_Layer: 5
   m_Name: XYZHandles
-  m_TagString: AxisHandle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -542,9 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c303c5802e7b2af4a9e1269c780a2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: 0
   head: {fileID: 162876}
   stem: {fileID: 189676}
+  axis: 0
 --- !u!114 &11437440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -556,9 +556,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c303c5802e7b2af4a9e1269c780a2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: 1
   head: {fileID: 173266}
   stem: {fileID: 153662}
+  axis: 1
 --- !u!114 &11439866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,16 +570,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c303c5802e7b2af4a9e1269c780a2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: 2
   head: {fileID: 131116}
   stem: {fileID: 136134}
+  axis: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151476}

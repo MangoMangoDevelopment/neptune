@@ -101,6 +101,7 @@ public class UIManager : MonoBehaviour {
             if (part.GetComponent<PartText>().GetGO() == go)
             {
                 SelectPart(part.GetComponent<Button>());
+                break;
             }
         }
     }

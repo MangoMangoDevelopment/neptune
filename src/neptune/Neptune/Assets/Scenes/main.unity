@@ -5094,6 +5094,7 @@ MonoBehaviour:
   HoverOutline: {fileID: 2100000, guid: 567e18a7d7e10ab4c9b5d8ededeffb18, type: 2}
   HandleOutline: {fileID: 2100000, guid: 5455644f3ac11b847ae0b5de0d0e4a44, type: 2}
   CubeoidPrefab: {fileID: 104168, guid: ea12353c2f8d4444585285609fd7596a, type: 2}
+  BridgePrefab: {fileID: 103274, guid: 5b6b7968632cc844db5153b4facf5681, type: 2}
   ShiftSpeedModifier: 0.2
   CameraRotScaleFactor: 5
   CameraPosMoveSpeed: 1
@@ -5101,8 +5102,12 @@ MonoBehaviour:
   CameraOrbitSpeed: 10
   HandleCameraDistance: 7
   mode: 0
+  BridgeSpawnHeight: 1
   MainCamera: {fileID: 1585015247}
   HandleCamera: {fileID: 1798519154}
+  IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 292
 --- !u!1 &1038406117
 GameObject:
   m_ObjectHideFlags: 0
@@ -6342,7 +6347,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 246722096}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6910,7 +6915,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 0, y: 150}
+  m_SizeDelta: {x: 0, y: 179.2}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1588986471
 MonoBehaviour:
@@ -7065,7 +7070,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 30
   m_Viewport: {fileID: 22864367}
   m_HorizontalScrollbar: {fileID: 840619587}
   m_VerticalScrollbar: {fileID: 701242992}
@@ -7495,7 +7500,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 30
   m_Viewport: {fileID: 1973175198}
   m_HorizontalScrollbar: {fileID: 1494576889}
   m_VerticalScrollbar: {fileID: 231822883}

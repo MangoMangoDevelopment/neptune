@@ -33,6 +33,8 @@ public class Manipulatable : MonoBehaviour {
     private AxisHandle.Axis mouseAxisModifier;
     private EditorManager editorManager;
     private GameObject outline;
+    private GameObject bridge;
+    private bool bridgeShown;
 
     void Start()
     {
@@ -371,6 +373,7 @@ public class Manipulatable : MonoBehaviour {
                         break;
                 }
                 lastDragMousePos = currentPoint;
+                UpdateBridge();
             }
         }
     }
@@ -392,7 +395,7 @@ public class Manipulatable : MonoBehaviour {
             if (!Physics.Raycast(uiRay, out hit, 100, UIMask))
             {
                 Ray mouseRay = editorManager.MainCamera.ScreenPointToRay(Input.mousePosition);
-                LayerMask ObjectMask = ~(Physics.IgnoreRaycastLayer | (1 << LayerMask.NameToLayer("UI")));
+                LayerMask ObjectMask = ~editorManager.IgnoreLayers;
                 if (Physics.Raycast(mouseRay, out hit, 100, ObjectMask))
                 {
                     if (hit.transform.gameObject == gameObject)
@@ -409,6 +412,54 @@ public class Manipulatable : MonoBehaviour {
                 {
                     ClearOutline();
                 }
+            }
+        }
+    }
+
+    private void UpdateBridge()
+    {
+        GameObject robotBase = editorManager.GetRobotBaseObject();
+        if (transform.position.y - (transform.localScale.y / 2) > robotBase.transform.position.y + (robotBase.transform.localScale.y / 2) + editorManager.BridgeSpawnHeight)
+        {
+            if (bridge == null)
+            {
+                bridge = Instantiate(editorManager.BridgePrefab);
+                bridgeShown = true;
+            }
+            Vector3 bridgePos = robotBase.transform.position;
+            bridgePos.z = transform.position.z;
+            bridge.transform.position = bridgePos;
+
+            bridge.GetComponent<Bridge>().SetObjectGO(gameObject);
+            bridge.GetComponent<Bridge>().SetDimensions(robotBase.transform.localScale.x, transform.position.y - (transform.localScale.y / 2));
+        }
+        else
+        {
+            Destroy(bridge);
+            bridgeShown = false;
+        }
+    }
+
+    public void ShowBridge()
+    {
+        if (!bridgeShown && bridge != null)
+        {
+            bridgeShown = true;
+            foreach (Transform child in bridge.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void HideBridge()
+    {
+        if (bridgeShown && bridge != null)
+        {
+            bridgeShown = false;
+            foreach(Transform child in bridge.transform)
+            {
+                child.gameObject.SetActive(false);
             }
         }
     }
