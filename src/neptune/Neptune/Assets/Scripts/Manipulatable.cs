@@ -464,6 +464,11 @@ public class Manipulatable : MonoBehaviour {
         }
     }
 
+    public bool BridgeShown()
+    {
+        return bridgeShown;
+    }
+
     public void Die()
     {
         if (bridge != null)

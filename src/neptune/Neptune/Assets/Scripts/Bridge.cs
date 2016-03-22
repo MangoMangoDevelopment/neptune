@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Bridge : MonoBehaviour {
 
@@ -12,7 +12,24 @@ public class Bridge : MonoBehaviour {
 
     //Private variables
     private GameObject objectGO;
-    private int bridgesColliding = 0;
+    private List<Collider> colliders;
+
+    void Start()
+    {
+        colliders = new List<Collider>();
+    }
+
+    void Update()
+    {
+        foreach (Collider col in colliders)
+        {
+            if (col == null)
+            {
+                colliders.Remove(col);
+                ShowBridge();
+            }
+        }
+    }
 
     public void SetObjectGO(GameObject go)
     {
@@ -62,7 +79,7 @@ public class Bridge : MonoBehaviour {
         {
             if (col.tag.Equals(TAG))
             {
-                bridgesColliding++;
+                colliders.Add(col);
                 Manipulatable manipulatable = objectGO.GetComponent<Manipulatable>();
                 if (manipulatable.isSelected)
                 {
@@ -80,16 +97,21 @@ public class Bridge : MonoBehaviour {
     {
         if (objectGO != null)
         {
-            bridgesColliding--;
-            if (bridgesColliding == 0)
-            {
-                Manipulatable manipulatable = objectGO.GetComponent<Manipulatable>();
-                manipulatable.ShowBridge();
-            }
+            colliders.Remove(col);
+            ShowBridge();
         }
         else
         {
             Debug.Log("Trigger exited on bridge without it's ObjectGO set");
+        }
+    }
+
+    private void ShowBridge()
+    {
+        if (colliders.Count == 0)
+        {
+            Manipulatable manipulatable = objectGO.GetComponent<Manipulatable>();
+            manipulatable.ShowBridge();
         }
     }
 }
