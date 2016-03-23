@@ -18,6 +18,38 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ConstructCalibrationDefaultValues()
+        {
+            Calibration calibration = new Calibration();
+
+            Assert.AreEqual(0, calibration.Rising);
+            Assert.AreEqual(0, calibration.Falling);
+        }
+
+        [TestMethod]
+        public void ConstructCalibrationRisingOnly()
+        {
+            double rising = 0.5;
+            Calibration calibration = new Calibration(rising);
+            Calibration calibrationNamedArg = new Calibration(rising: rising);
+
+            Assert.AreEqual(rising, calibration.Rising);
+            Assert.AreEqual(0, calibration.Falling);
+            Assert.AreEqual(rising, calibrationNamedArg.Rising);
+            Assert.AreEqual(0, calibrationNamedArg.Falling);
+        }
+
+        [TestMethod]
+        public void ConstructCalibrationFallingOnly()
+        {
+            double falling = 0.5;
+            Calibration calibration = new Calibration(falling: falling);
+
+            Assert.AreEqual(0, calibration.Rising);
+            Assert.AreEqual(falling, calibration.Falling);
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Calibration calibration = new Calibration(1, 2);

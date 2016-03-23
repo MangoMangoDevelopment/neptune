@@ -6,7 +6,7 @@
     /// <seealso cref="Origin"/>
     /// <seealso cref="RpyAttribute"/>
     /// <
-    public class XyzAttribute
+    public sealed class XyzAttribute
     {
         /// <summary>
         /// The attribute's X-axis offset value.
@@ -54,7 +54,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((XyzAttribute) obj);
+            return Equals((XyzAttribute)obj);
         }
 
         public override int GetHashCode()
@@ -62,8 +62,8 @@
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode*397) ^ Y.GetHashCode();
-                hashCode = (hashCode*397) ^ Z.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Z.GetHashCode();
                 return hashCode;
             }
         }

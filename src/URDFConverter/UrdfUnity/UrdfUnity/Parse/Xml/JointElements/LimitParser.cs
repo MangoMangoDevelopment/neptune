@@ -9,7 +9,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.JointElements.Limit"/>
-    public class LimitParser : XmlParser<Limit>
+    public sealed class LimitParser : AbstractUrdfXmlParser<Limit>
     {
         private static readonly string LOWER_ATTRIBUTE_NAME = "lower";
         private static readonly string UPPER_ATTRIBUTE_NAME = "upper";
@@ -19,18 +19,24 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "limit";
+
+
+        /// <summary>
         /// Parses a URDF &lt;limit&gt; element from XML.
         /// </summary>
-        /// <param name="node">The XML node of a &lt;limit&gt; element</param>
+        /// <param name="node">The XML node of a &lt;limit&gt; element. MUST NOT BE NULL</param>
         /// <returns>An Limit object parsed from the XML</returns>
-        public Limit Parse(XmlNode node)
+        public override Limit Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute lowerAttribute = XmlParsingUtils.GetAttributeFromNode(node, LOWER_ATTRIBUTE_NAME);
-            XmlAttribute upperAttribute = XmlParsingUtils.GetAttributeFromNode(node, UPPER_ATTRIBUTE_NAME);
-            XmlAttribute effortAttribute = XmlParsingUtils.GetAttributeFromNode(node, EFFORT_ATTRIBUTE_NAME);
-            XmlAttribute velocityAttribute = XmlParsingUtils.GetAttributeFromNode(node, VELOCITY_ATTRIBUTE_NAME);
+            XmlAttribute lowerAttribute = GetAttributeFromNode(node, LOWER_ATTRIBUTE_NAME);
+            XmlAttribute upperAttribute = GetAttributeFromNode(node, UPPER_ATTRIBUTE_NAME);
+            XmlAttribute effortAttribute = GetAttributeFromNode(node, EFFORT_ATTRIBUTE_NAME);
+            XmlAttribute velocityAttribute = GetAttributeFromNode(node, VELOCITY_ATTRIBUTE_NAME);
             double lower = ParseAttribute(lowerAttribute);
             double upper = ParseAttribute(upperAttribute);
             double effort = ParseAttribute(effortAttribute);
@@ -45,7 +51,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
                 // TODO: Log missing required <limit> velocity attribute
             }
 
-            return new Limit(lower, upper, effort, velocity);
+            return new Limit(effort, velocity, lower, upper);
         }
 
         private double ParseAttribute(XmlAttribute attribute)

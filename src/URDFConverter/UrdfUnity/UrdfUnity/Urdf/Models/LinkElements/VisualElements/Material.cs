@@ -6,7 +6,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// Represents the material of a visual element, including its colour and texture.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
-    public class Material
+    public sealed class Material
     {
         public static readonly string DEFAULT_NAME = "missing_name";
 
@@ -67,7 +67,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <param name="texture">The texture of the material. MAY BE NULL</param>
         public Material(string name, Color color, Texture texture)
         {
-            Preconditions.IsNotEmpty(name);
+            Preconditions.IsNotEmpty(name, "Material name property must not be null or empty");
             this.Name = name;
             this.Color = color;
             this.Texture = texture;
@@ -83,7 +83,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Material) obj);
+            return Equals((Material)obj);
         }
 
         public override int GetHashCode()
@@ -91,8 +91,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             unchecked
             {
                 var hashCode = (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Color != null ? Color.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Texture != null ? Texture.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Color != null ? Color.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Texture != null ? Texture.GetHashCode() : 0);
                 return hashCode;
             }
         }

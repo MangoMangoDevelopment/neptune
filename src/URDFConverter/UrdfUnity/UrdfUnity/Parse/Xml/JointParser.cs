@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 using UrdfUnity.Parse.Xml.JointElements;
 using UrdfUnity.Urdf.Models;
@@ -12,7 +11,7 @@ namespace UrdfUnity.Parse.Xml
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.Joint"/>
-    public class JointParser : XmlParser<Joint>
+    public sealed class JointParser : AbstractUrdfXmlParser<Joint>
     {
         private static readonly string NAME_ATTRIBUTE_NAME = "name";
         private static readonly string TYPE_ATTRIBUTE_NAME = "type";
@@ -25,6 +24,13 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string LIMIT_ELEMENT_NAME = "limit";
         private static readonly string MIMIC_ELEMENT_NAME = "mimic";
         private static readonly string SAFETY_CONTROLLER_ELEMENT_NAME = "safety_controller";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "joint";
+
 
         private readonly OriginParser originParser = new OriginParser();
         private readonly ParentParser parentParser = new ParentParser();
@@ -58,21 +64,21 @@ namespace UrdfUnity.Parse.Xml
         /// </summary>
         /// <param name="node">The XML node of a &lt;joint&gt; element</param>
         /// <returns>A Joint object parsed from the XML</returns>
-        public Joint Parse(XmlNode node)
+        public override Joint Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node);
+            ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlAttribute typeAttribute = XmlParsingUtils.GetAttributeFromNode(node, TYPE_ATTRIBUTE_NAME);
-            XmlElement originElement = XmlParsingUtils.GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement parentElement = XmlParsingUtils.GetElementFromNode(node, PARENT_ELEMENT_NAME);
-            XmlElement childElement = XmlParsingUtils.GetElementFromNode(node, CHILD_ELEMENT_NAME);
-            XmlElement axisElement = XmlParsingUtils.GetElementFromNode(node, AXIS_ELEMENT_NAME);
-            XmlElement calibrationElement = XmlParsingUtils.GetElementFromNode(node, CALIBRATION_ELEMENT_NAME);
-            XmlElement dynamicsElement = XmlParsingUtils.GetElementFromNode(node, DYNAMICS_ELEMENT_NAME);
-            XmlElement limitElement = XmlParsingUtils.GetElementFromNode(node, LIMIT_ELEMENT_NAME);
-            XmlElement mimicElement = XmlParsingUtils.GetElementFromNode(node, MIMIC_ELEMENT_NAME);
-            XmlElement safetyControllerElement = XmlParsingUtils.GetElementFromNode(node, SAFETY_CONTROLLER_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlAttribute typeAttribute = GetAttributeFromNode(node, TYPE_ATTRIBUTE_NAME);
+            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
+            XmlElement parentElement = GetElementFromNode(node, PARENT_ELEMENT_NAME);
+            XmlElement childElement = GetElementFromNode(node, CHILD_ELEMENT_NAME);
+            XmlElement axisElement = GetElementFromNode(node, AXIS_ELEMENT_NAME);
+            XmlElement calibrationElement = GetElementFromNode(node, CALIBRATION_ELEMENT_NAME);
+            XmlElement dynamicsElement = GetElementFromNode(node, DYNAMICS_ELEMENT_NAME);
+            XmlElement limitElement = GetElementFromNode(node, LIMIT_ELEMENT_NAME);
+            XmlElement mimicElement = GetElementFromNode(node, MIMIC_ELEMENT_NAME);
+            XmlElement safetyControllerElement = GetElementFromNode(node, SAFETY_CONTROLLER_ELEMENT_NAME);
 
             Joint.Builder builder = ConstructBuilder(nameAttribute, typeAttribute, parentElement, childElement);
 

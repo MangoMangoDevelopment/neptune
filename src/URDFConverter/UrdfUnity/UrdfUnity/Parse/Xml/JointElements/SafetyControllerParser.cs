@@ -9,7 +9,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.JointElements.SafetyController"/>
-    public class SafetyControllerParser : XmlParser<SafetyController>
+    public sealed class SafetyControllerParser : AbstractUrdfXmlParser<SafetyController>
     {
         private static readonly string LOWER_LIMIT_ATTRIBUTE_NAME = "soft_lower_limit";
         private static readonly string UPPER_LIMIT_ATTRIBUTE_NAME = "soft_upper_limit";
@@ -19,18 +19,24 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "safety_controller";
+
+
+        /// <summary>
         /// Parses a URDF &lt;safety_controller&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;safety_controller&gt; element</param>
         /// <returns>An SafetyController object parsed from the XML</returns>
-        public SafetyController Parse(XmlNode node)
+        public override SafetyController Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute lowerLimitAttribute = XmlParsingUtils.GetAttributeFromNode(node, LOWER_LIMIT_ATTRIBUTE_NAME);
-            XmlAttribute upperLimitAttribute = XmlParsingUtils.GetAttributeFromNode(node, UPPER_LIMIT_ATTRIBUTE_NAME);
-            XmlAttribute positionAttribute = XmlParsingUtils.GetAttributeFromNode(node, K_POSITION_ATTRIBUTE_NAME);
-            XmlAttribute velocityAttribute = XmlParsingUtils.GetAttributeFromNode(node, K_VELOCITY_ATTRIBUTE_NAME);
+            XmlAttribute lowerLimitAttribute = GetAttributeFromNode(node, LOWER_LIMIT_ATTRIBUTE_NAME);
+            XmlAttribute upperLimitAttribute = GetAttributeFromNode(node, UPPER_LIMIT_ATTRIBUTE_NAME);
+            XmlAttribute positionAttribute = GetAttributeFromNode(node, K_POSITION_ATTRIBUTE_NAME);
+            XmlAttribute velocityAttribute = GetAttributeFromNode(node, K_VELOCITY_ATTRIBUTE_NAME);
             double lowerLimit = ParseAttribute(lowerLimitAttribute);
             double upperLimit = ParseAttribute(upperLimitAttribute);
             double position = ParseAttribute(positionAttribute);
@@ -41,7 +47,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
                 // TODO: Log missing required <safety_controller> k_velocity attribute
             }
 
-            return new SafetyController(lowerLimit, upperLimit, position, velocity);
+            return new SafetyController(velocity, position, lowerLimit, upperLimit);
         }
 
         private double ParseAttribute(XmlAttribute attribute)

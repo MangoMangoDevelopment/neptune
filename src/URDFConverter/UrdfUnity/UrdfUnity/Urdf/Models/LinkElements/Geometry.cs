@@ -1,4 +1,5 @@
 ﻿using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
+using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models.LinkElements
 {
@@ -9,14 +10,14 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     /// The shape of a visual object can be one of a box, cylinder, sphere or mesh.
     /// </remarks>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    public class Geometry
+    public sealed class Geometry
     {
         /// <summary>
         /// Enumerates the possible shapes that the geometry may be.
         /// </summary>
         public enum Shapes { Box, Cylinder, Sphere, Mesh };
 
-        
+
         /// <summary>
         /// The type of shape that the geometry element contains.
         /// </summary>
@@ -50,9 +51,10 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <summary>
         /// Creates a new instance of Geometry that is a box.
         /// </summary>
-        /// <param name="box">The box shape's attributes</param>
+        /// <param name="box">The box shape's attributes. MUST NOT BE NULL</param>
         public Geometry(Box box)
         {
+            Preconditions.IsNotNull(box, "Geometry box property must not be set to null");
             this.Shape = Shapes.Box;
             this.Box = box;
         }
@@ -63,6 +65,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <param name="box">The cylinder shape's attributes</param>
         public Geometry(Cylinder cylinder)
         {
+            Preconditions.IsNotNull(cylinder, "Geometry cylinder property must not be set to null");
             this.Shape = Shapes.Cylinder;
             this.Cylinder = cylinder;
         }
@@ -73,6 +76,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <param name="box">The sphere shape's attributes</param>
         public Geometry(Sphere sphere)
         {
+            Preconditions.IsNotNull(sphere, "Geometry sphere property must not be set to null");
             this.Shape = Shapes.Sphere;
             this.Sphere = sphere;
         }
@@ -83,13 +87,14 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <param name="box">The mesh shape's attributes</param>
         public Geometry(Mesh mesh)
         {
+            Preconditions.IsNotNull(mesh, "Geometry mesh property must not be set to null");
             this.Shape = Shapes.Mesh;
             this.Mesh = mesh;
         }
 
         protected bool Equals(Geometry other)
         {
-            return Shape == other.Shape && Equals(Box, other.Box) && Equals(Cylinder, other.Cylinder) 
+            return Shape == other.Shape && Equals(Box, other.Box) && Equals(Cylinder, other.Cylinder)
                 && Equals(Sphere, other.Sphere) && Equals(Mesh, other.Mesh);
         }
 
@@ -98,18 +103,18 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Geometry) obj);
+            return Equals((Geometry)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = (int) Shape;
-                hashCode = (hashCode*397) ^ (Box != null ? Box.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Cylinder != null ? Cylinder.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Sphere != null ? Sphere.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Mesh != null ? Mesh.GetHashCode() : 0);
+                var hashCode = (int)Shape;
+                hashCode = (hashCode * 397) ^ (Box != null ? Box.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Cylinder != null ? Cylinder.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Sphere != null ? Sphere.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Mesh != null ? Mesh.GetHashCode() : 0);
                 return hashCode;
             }
         }

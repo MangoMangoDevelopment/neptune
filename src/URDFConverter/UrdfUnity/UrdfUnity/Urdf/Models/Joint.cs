@@ -9,7 +9,7 @@ namespace UrdfUnity.Urdf.Models
     /// <remarks>The joint is located at the origin of the child link.</remarks>
     /// <seealso cref="Link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
-    public class Joint
+    public sealed class Joint
     {
         /// <summary>
         /// The joint type can be one of the following:
@@ -114,11 +114,11 @@ namespace UrdfUnity.Urdf.Models
         private Joint(string name, JointType type, Link parent, Link child, Origin origin, Axis axis,
             Calibration calibration, Dynamics dynamics, Limit limit, Mimic mimic, SafetyController safetyController)
         {
-            Preconditions.IsNotEmpty(name, "name");
-            Preconditions.IsNotNull(parent, "parent");
-            Preconditions.IsNotNull(child, "child");
-            Preconditions.IsNotNull(origin, "origin"); // Default is identity
-            Preconditions.IsNotNull(axis, "axis"); // Default is (1,0,0)
+            Preconditions.IsNotEmpty(name, "Joint name property must not be null or empty");
+            Preconditions.IsNotNull(parent, "Joint parent property must not be null");
+            Preconditions.IsNotNull(child, "Joint child property must not be null");
+            Preconditions.IsNotNull(origin, "Joint origin property must not be null"); // Default is identity
+            Preconditions.IsNotNull(axis, "Joint axis property must not be null"); // Default is (1,0,0)
             this.Name = name;
             this.Type = type;
             this.Parent = parent;
@@ -160,9 +160,9 @@ namespace UrdfUnity.Urdf.Models
             /// <param name="child">The child link of the joint</param>
             public Builder(string name, JointType type, Link parent, Link child)
             {
-                Preconditions.IsNotEmpty(name, "name");
-                Preconditions.IsNotNull(parent, "parent");
-                Preconditions.IsNotNull(child, "child");
+                Preconditions.IsNotEmpty(name, "Joint name property must not be null or empty");
+                Preconditions.IsNotNull(parent, "Joint parent property must not be null");
+                Preconditions.IsNotNull(child, "Joint child property must not be null");
                 this.name = name;
                 this.type = type;
                 this.parent = parent;
@@ -175,10 +175,9 @@ namespace UrdfUnity.Urdf.Models
             /// <returns>A joint object with the properties set</returns>
             public Joint Build()
             {
-                if ((this.type == JointType.Prismatic || this.type == JointType.Revolute) && this.limit == null)
+                if (this.type == JointType.Prismatic || this.type == JointType.Revolute)
                 {
-                    // Limit property is required for prismatic and revolute joint types.
-                    throw new System.ArgumentNullException("limit");
+                    Preconditions.IsNotNull(this.limit, "Joint limit property must not be null for prismatic and revolute joint types");
                 }
 
                 return new Joint(this.name, this.type, this.parent, this.child, this.origin, this.axis,
@@ -187,49 +186,49 @@ namespace UrdfUnity.Urdf.Models
 
             public Builder SetOrigin(Origin origin)
             {
-                Preconditions.IsNotNull(origin, "origin");
+                Preconditions.IsNotNull(origin, "Joint origin property cannot be set to null");
                 this.origin = origin;
                 return this;
             }
 
             public Builder SetAxis(Axis axis)
             {
-                Preconditions.IsNotNull(axis, "axis");
+                Preconditions.IsNotNull(axis, "Joint axis property cannot be set to null");
                 this.axis = axis;
                 return this;
             }
 
             public Builder SetCalibration(Calibration calibration)
             {
-                Preconditions.IsNotNull(calibration, "calibration");
+                Preconditions.IsNotNull(calibration, "Joint calibration property cannot be set to null");
                 this.calibration = calibration;
                 return this;
             }
 
             public Builder SetDynamics(Dynamics dynamics)
             {
-                Preconditions.IsNotNull(dynamics, "dynamics");
+                Preconditions.IsNotNull(dynamics, "Joint dynamics property cannot be set to null");
                 this.dynamics = dynamics;
                 return this;
             }
 
             public Builder SetLimit(Limit limit)
             {
-                Preconditions.IsNotNull(limit, "limit");
+                Preconditions.IsNotNull(limit, "Joint limit property cannot be set to null");
                 this.limit = limit;
                 return this;
             }
 
             public Builder SetMimic(Mimic mimic)
             {
-                Preconditions.IsNotNull(mimic, "mimic");
+                Preconditions.IsNotNull(mimic, "Joint mimic property cannot be set to null");
                 this.mimic = mimic;
                 return this;
             }
 
             public Builder SetSafetyController(SafetyController safteyController)
             {
-                Preconditions.IsNotNull(safteyController, "safetyController");
+                Preconditions.IsNotNull(safteyController, "Joint safety controller property cannot be set to null");
                 this.safteyController = safteyController;
                 return this;
             }

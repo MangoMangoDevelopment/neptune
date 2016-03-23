@@ -7,7 +7,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    public class Color
+    public sealed class Color
     {
         private static readonly double MIN_ALPHA = 0d;
         private static readonly double MAX_ALPHA = 1d;
@@ -42,7 +42,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <param name="alpha">The colour's alpha value. MUST BE WITHIN RANGE [0,1]</param>
         public Color(RgbAttribute rgb, double alpha)
         {
-            Preconditions.IsNotNull(rgb);
+            Preconditions.IsNotNull(rgb, "Color rgb property must not be null");
             Preconditions.IsWithinRange(alpha, MIN_ALPHA, MAX_ALPHA, "alpha");
             this.Rgb = rgb;
             this.Alpha = alpha;
@@ -58,14 +58,14 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Color) obj);
+            return Equals((Color)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (Rgb.GetHashCode()*397) ^ Alpha.GetHashCode();
+                return (Rgb.GetHashCode() * 397) ^ Alpha.GetHashCode();
             }
         }
     }

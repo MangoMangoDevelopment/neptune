@@ -7,7 +7,7 @@ namespace UrdfUnity.Parse
     /// </summary>
     /// <typeparam name="T">The object type being parsed and returned</typeparam>
     /// <seealso cref="Parser{T, E}"/>
-    interface XmlParser<T> : Parser<T, XmlNode>
+    public interface XmlParser<T> : Parser<T, XmlNode>
     {
     }
 }

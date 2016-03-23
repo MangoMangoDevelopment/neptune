@@ -5,7 +5,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// <summary>
     /// Represents the texture of a material of a visual element's material.
     /// </summary>
-    public class Texture
+    public sealed class Texture
     {
         /// <summary>
         /// The default file name that is assigned when the file name is missing.
@@ -25,7 +25,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
         /// <param name="fileName">The file name of the texture</param>
         public Texture(string fileName)
         {
-            Preconditions.IsNotEmpty(fileName);
+            Preconditions.IsNotEmpty(fileName, "Texture file name property must not be null or empty");
             this.FileName = fileName;
         }
 
@@ -39,7 +39,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Texture) obj);
+            return Equals((Texture)obj);
         }
 
         public override int GetHashCode()

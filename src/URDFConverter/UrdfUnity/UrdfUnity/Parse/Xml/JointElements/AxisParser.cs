@@ -10,7 +10,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.JointElements.Axis"/>
-    public class AxisParser : XmlParser<Axis>
+    public sealed class AxisParser : AbstractUrdfXmlParser<Axis>
     {
         private static readonly string XYZ_ATTRIBUTE_NAME = "xyz";
         private static readonly double DEFAULT_X_VALUE = 1;
@@ -19,26 +19,32 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "axis";
+
+
+        /// <summary>
         /// Parses a URDF &lt;axis&gt; element from XML.
         /// </summary>
-        /// <param name="node">The XML node of a &lt;axis&gt; element</param>
+        /// <param name="node">The XML node of a &lt;axis&gt; element. MUST NOT BE NULL</param>
         /// <returns>An Axis object parsed from the XML</returns>
-        public Axis Parse(XmlNode node)
+        public override Axis Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute xyzAttribute = XmlParsingUtils.GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
+            XmlAttribute xyzAttribute = GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
             XyzAttribute xyz = new XyzAttribute(DEFAULT_X_VALUE, DEFAULT_Y_VALUE, DEFAULT_Z_VALUE);
 
             if (xyzAttribute == null)
             {
-                // TODO: Log malformed URDF <box> element encountered
+                // TODO: Log malformed URDF <axis> element encountered
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(xyzAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <box> size attribute encountered
+                    // TODO: Log malformed URDF <axis> xyz attribute encountered
                 }
                 else
                 {

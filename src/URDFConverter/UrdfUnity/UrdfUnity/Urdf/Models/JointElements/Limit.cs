@@ -7,21 +7,10 @@
     /// The limit is required only for revolute and prismatic joints.
     /// </remarks>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
-    public class Limit
+    public sealed class Limit
     {
-        private static readonly double DEFAULT_VALUE = 0d;
+        private const double DEFAULT_VALUE = 0d;
 
-        /// <summary>
-        /// The lower joint limit.
-        /// </summary>
-        /// <value>Optional. In radians for revolute joints; In meters for prismatic joints.</value>
-        public double Lower { get; }
-
-        /// <summary>
-        /// The upper joint limit.
-        /// </summary>
-        /// <value>Optional. In radians for revolute joints; In meters for prismatic joints.</value>
-        public double Upper { get; }
 
         /// <summary>
         /// The maximum joint effort that should be enforced.
@@ -35,30 +24,33 @@
         /// <value>Required.</value>
         public double Velocity { get; }
 
+        /// <summary>
+        /// The lower joint limit.
+        /// </summary>
+        /// <value>Optional. In radians for revolute joints; In meters for prismatic joints.</value>
+        public double Lower { get; }
 
         /// <summary>
-        /// Creates a new instance of Limit.
+        /// The upper joint limit.
+        /// </summary>
+        /// <value>Optional. In radians for revolute joints; In meters for prismatic joints.</value>
+        public double Upper { get; }
+        
+
+        /// <summary>
+        /// Creates a new instance of Limit.  This constructor should be used with named arguments
+        /// if only one of the optional lower or upper limit properties is being specified.
         /// </summary>
         /// <param name="effort">The maximum joint effort</param>
         /// <param name="velocity">The maximum joint velocity</param>
-        public Limit(double effort, double velocity) : this(DEFAULT_VALUE, DEFAULT_VALUE, effort, velocity)
+        /// <param name="lower">The lower joint limit. Default value is 0</param>
+        /// <param name="upper">The upper joint limit. Default value is 0</param>
+        public Limit(double effort, double velocity, double lower = DEFAULT_VALUE, double upper = DEFAULT_VALUE)
         {
-            // Invoke overloaded constructor.
-        }
-
-        /// <summary>
-        /// Creates a new instance of Limit.
-        /// </summary>
-        /// <param name="lower">The lower joint limit</param>
-        /// <param name="upper">The upper joint limit</param>
-        /// <param name="effort">The maximum joint effort</param>
-        /// <param name="velocity">The maximum joint velocity</param>
-        public Limit(double lower, double upper, double effort, double velocity)
-        {
-            this.Lower = lower;
-            this.Upper = upper;
             this.Effort = effort;
             this.Velocity = velocity;
+            this.Lower = lower;
+            this.Upper = upper;
         }
 
         protected bool Equals(Limit other)

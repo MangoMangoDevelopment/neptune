@@ -12,12 +12,19 @@ namespace UrdfUnity.Parse.Xml
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/model"/>
     /// <seealso cref="Urdf.Models.Robot"/>
-    public class RobotParser : XmlParser<Robot>
+    public sealed class RobotParser : AbstractUrdfXmlParser<Robot>
     {
         private static readonly string NAME_ATTRIBUTE_NAME = "name";
         private static readonly string LINK_ELEMENT_NAME = "link";
         private static readonly string JOINT_ELEMENT_NAME = "joint";
         private static readonly string MATERIAL_ELEMENT_NAME = "material";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "robot";
+
 
         private readonly Dictionary<string, Link> links = new Dictionary<string, Link>();
         private readonly Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
@@ -44,11 +51,11 @@ namespace UrdfUnity.Parse.Xml
         /// </summary>
         /// <param name="node">The XML node of a &lt;robot&gt; element</param>
         /// <returns>A Robot object parsed from the XML</returns>
-        public Robot Parse(XmlNode node)
+        public override Robot Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node);
+            ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
             XmlNodeList linkElements = node.SelectNodes(LINK_ELEMENT_NAME);
             XmlNodeList jointElements = node.SelectNodes(JOINT_ELEMENT_NAME);
             XmlNodeList materialElements = node.SelectNodes(MATERIAL_ELEMENT_NAME);

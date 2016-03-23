@@ -18,6 +18,38 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ConstructDynamicsDefaultValues()
+        {
+            Dynamics dynamics = new Dynamics();
+
+            Assert.AreEqual(0, dynamics.Damping);
+            Assert.AreEqual(0, dynamics.Friction);
+        }
+
+        [TestMethod]
+        public void ConstructDynamicsDampingOnly()
+        {
+            double damping = 1;
+            Dynamics dynamics = new Dynamics(damping);
+            Dynamics dynamicsNamedArg = new Dynamics(damping: damping);
+
+            Assert.AreEqual(damping, dynamics.Damping);
+            Assert.AreEqual(0, dynamics.Friction);
+            Assert.AreEqual(damping, dynamicsNamedArg.Damping);
+            Assert.AreEqual(0, dynamicsNamedArg.Friction);
+        }
+
+        [TestMethod]
+        public void ConstructDynamicsFrictionOnly()
+        {
+            double friction = 1;
+            Dynamics dynamics = new Dynamics(friction: friction);
+
+            Assert.AreEqual(0, dynamics.Damping);
+            Assert.AreEqual(friction, dynamics.Friction);
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Dynamics dynamics = new Dynamics(1, 2);

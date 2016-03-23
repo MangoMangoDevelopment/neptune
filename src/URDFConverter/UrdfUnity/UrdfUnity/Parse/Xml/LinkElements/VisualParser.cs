@@ -13,7 +13,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.Visual"/>
-    public class VisualParser : XmlParser<Visual>
+    public sealed class VisualParser : AbstractUrdfXmlParser<Visual>
     {
         private static readonly string NAME_ATTRIBUTE_NAME = "name";
         private static readonly string ORIGIN_ELEMENT_NAME = "origin";
@@ -23,6 +23,12 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private readonly OriginParser originParser = new OriginParser();
         private readonly GeometryParser geometryParser = new GeometryParser();
         private readonly MaterialParser materialParser;
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "visual";
 
 
         /// <summary>
@@ -39,14 +45,14 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;visual&gt; element</param>
         /// <returns>A Visual object parsed from the XML</returns>
-        public Visual Parse(XmlNode node)
+        public override Visual Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node);
+            ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement originElement = XmlParsingUtils.GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement geometryElement = XmlParsingUtils.GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
-            XmlElement materialElement = XmlParsingUtils.GetElementFromNode(node, MATERIAL_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
+            XmlElement geometryElement = GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
+            XmlElement materialElement = GetElementFromNode(node, MATERIAL_ELEMENT_NAME);
 
             Visual.Builder builder;
 

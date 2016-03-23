@@ -8,7 +8,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    public class Visual
+    public sealed class Visual
     {
         /// <summary>
         /// The name identifier of the visual's geometry.
@@ -40,13 +40,13 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// A Visual.Builder must be used to create a visual to enforce required and default properties.
         /// </summary>
         /// <param name="name">The identifier name of the visual element's geometry</param>
-        /// <param name="origin">The reference frame of the visual element</param>
-        /// <param name="geometry">The shape of the visual element</param>
+        /// <param name="origin">The reference frame of the visual element. MUST NOT BE NULL</param>
+        /// <param name="geometry">The shape of the visual element. MUST NOT BE NULL</param>
         /// <param name="material">The material of the visual element</param>
         private Visual(string name, Origin origin, Geometry geometry, Material material)
         {
-            Preconditions.IsNotNull(origin);
-            Preconditions.IsNotNull(geometry);
+            Preconditions.IsNotNull(origin, "Visual origin property must not be null");
+            Preconditions.IsNotNull(geometry, "Visual geometry property must not be null");
             this.Name = name;
             this.Origin = origin;
             this.Geometry = geometry;
@@ -70,7 +70,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             /// <param name="geometry">The shape of the visual element</param>
             public Builder(Geometry geometry)
             {
-                Preconditions.IsNotNull(geometry);
+                Preconditions.IsNotNull(geometry, "Visual geometry property cannot be set to null");
                 this.geometry = geometry;
             }
 
@@ -85,21 +85,21 @@ namespace UrdfUnity.Urdf.Models.LinkElements
 
             public Builder SetName(string name)
             {
-                Preconditions.IsNotNull(name);
+                Preconditions.IsNotEmpty(name, "Visual name property cannot be set to null or empty");
                 this.name = name;
                 return this;
             }
 
             public Builder SetOrigin(Origin origin)
             {
-                Preconditions.IsNotNull(origin);
+                Preconditions.IsNotNull(origin, "Visual origin property cannot be set to null");
                 this.origin = origin;
                 return this;
             }
 
             public Builder SetMaterial(Material material)
             {
-                Preconditions.IsNotNull(material);
+                Preconditions.IsNotNull(material, "Visual material property cannot be set to null");
                 this.material = material;
                 return this;
             }
@@ -108,7 +108,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
 
         protected bool Equals(Visual other)
         {
-            return Origin.Equals(other.Origin) && Geometry.Equals(other.Geometry) 
+            return Origin.Equals(other.Origin) && Geometry.Equals(other.Geometry)
                 && (Material != null ? Material.Equals(other.Material) : other.Material == null);
         }
 
@@ -117,7 +117,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Visual) obj);
+            return Equals((Visual)obj);
         }
 
         public override int GetHashCode()
@@ -125,8 +125,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             unchecked
             {
                 var hashCode = Origin.GetHashCode();
-                hashCode = (hashCode*397) ^ Geometry.GetHashCode();
-                hashCode = (hashCode*397) ^ (Material != null ? Material.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Geometry.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Material != null ? Material.GetHashCode() : 0);
                 return hashCode;
             }
         }

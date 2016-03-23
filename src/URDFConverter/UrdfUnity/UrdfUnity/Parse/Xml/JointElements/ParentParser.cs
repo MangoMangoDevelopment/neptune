@@ -10,9 +10,15 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.Joint"/>
-    public class ParentParser : XmlParser<string>
+    public sealed class ParentParser : AbstractUrdfXmlParser<string>
     {
         private static readonly string LINK_ATTRIBUTE_NAME = "link";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "parent";
 
 
         /// <summary>
@@ -20,11 +26,11 @@ namespace UrdfUnity.Parse.Xml.JointElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;parent&gt; element</param>
         /// <returns>A string object with the name of the parent link parsed from the XML</returns>
-        public string Parse(XmlNode node)
+        public override string Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute linkAttribute = XmlParsingUtils.GetAttributeFromNode(node, LINK_ATTRIBUTE_NAME);
+            XmlAttribute linkAttribute = GetAttributeFromNode(node, LINK_ATTRIBUTE_NAME);
             string parentName = Link.DEFAULT_NAME;
 
             if (linkAttribute == null)

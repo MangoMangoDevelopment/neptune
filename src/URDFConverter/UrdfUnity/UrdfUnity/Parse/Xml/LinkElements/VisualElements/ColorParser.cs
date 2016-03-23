@@ -12,7 +12,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.VisualElements.Color"/>
     /// <seealso cref="Urdf.Models.LinkElements.VisualElements.RgbAttribute"/>
-    public class ColorParser : XmlParser<Color>
+    public class ColorParser : AbstractUrdfXmlParser<Color>
     {
         private static readonly string RGB_ATTRIBUTE_NAME = "rgb";
         private static readonly string ALPHA_ATTRIBUTE_NAME = "alpha";
@@ -22,17 +22,23 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "color";
+
+
+        /// <summary>
         /// Parses a URDF &lt;color&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;color&gt; element</param>
         /// <returns>A Color object parsed from the XML</returns>
-        public Color Parse(XmlNode node)
+        public override Color Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute rgbAttribute = XmlParsingUtils.GetAttributeFromNode(node, RGB_ATTRIBUTE_NAME);
-            XmlAttribute alphaAttribute = XmlParsingUtils.GetAttributeFromNode(node, ALPHA_ATTRIBUTE_NAME);
-            XmlAttribute rgbaAttribute = XmlParsingUtils.GetAttributeFromNode(node, RGBA_ATTRIBUTE_NAME);
+            XmlAttribute rgbAttribute = GetAttributeFromNode(node, RGB_ATTRIBUTE_NAME);
+            XmlAttribute alphaAttribute = GetAttributeFromNode(node, ALPHA_ATTRIBUTE_NAME);
+            XmlAttribute rgbaAttribute = GetAttributeFromNode(node, RGBA_ATTRIBUTE_NAME);
 
             RgbAttribute rgb;
             double alpha;

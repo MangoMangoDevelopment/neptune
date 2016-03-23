@@ -12,12 +12,19 @@ namespace UrdfUnity.Parse.Xml.LinkElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="Urdf.Models.LinkElements.Collision"/>
-    public class CollisionParser : XmlParser<Collision>
+    public sealed class CollisionParser : AbstractUrdfXmlParser<Collision>
     {
         private static readonly string NAME_ATTRIBUTE_NAME = "name";
         private static readonly string ORIGIN_ELEMENT_NAME = "origin";
         private static readonly string GEOMETRY_ELEMENT_NAME = "geometry";
         private static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "collision";
+
 
         private readonly OriginParser originParser = new OriginParser();
         private readonly GeometryParser geometryParser = new GeometryParser();
@@ -28,13 +35,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;collision&gt; element</param>
         /// <returns>A Collision object parsed from the XML</returns>
-        public Collision Parse(XmlNode node)
+        public override Collision Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node);
+            ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement originElement = XmlParsingUtils.GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement geometryElement = XmlParsingUtils.GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
+            XmlElement geometryElement = GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
 
             Collision.Builder builder;
 

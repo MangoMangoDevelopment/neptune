@@ -10,7 +10,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.GeometryElements.Cylinder"/>
-    public class CylinderParser : XmlParser<Cylinder>
+    public sealed class CylinderParser : AbstractUrdfXmlParser<Cylinder>
     {
         private static readonly string RADIUS_ATTRIBUTE_NAME = "radius";
         private static readonly string LENGTH_ATTRIBUTE_NAME = "length";
@@ -18,16 +18,22 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "cylinder";
+
+
+        /// <summary>
         /// Parses a URDF &lt;cylinder&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;cylinder&gt; element. MUST NOT BE NULL</param>
         /// <returns>A Cylinder object parsed from the XML</returns>
-        public Cylinder Parse(XmlNode node)
+        public override Cylinder Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute radiusAttribute = XmlParsingUtils.GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
-            XmlAttribute lengthAttribute = XmlParsingUtils.GetAttributeFromNode(node, LENGTH_ATTRIBUTE_NAME);
+            XmlAttribute radiusAttribute = GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
+            XmlAttribute lengthAttribute = GetAttributeFromNode(node, LENGTH_ATTRIBUTE_NAME);
 
             double radius = DEFAULT_VALUE;
             double length = DEFAULT_VALUE;

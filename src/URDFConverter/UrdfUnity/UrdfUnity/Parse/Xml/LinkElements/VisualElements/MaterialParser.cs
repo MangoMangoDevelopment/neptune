@@ -11,12 +11,19 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.VisualElements.Material"/>
-    public class MaterialParser : XmlParser<Material>
+    public sealed class MaterialParser : AbstractUrdfXmlParser<Material>
     {
         private static readonly string NAME_ATTRIBUTE_NAME = "name";
         private static readonly string COLOR_ELEMENT_NAME = "color";
         private static readonly string TEXTURE_ELEMENT_NAME = "texture";
         private static readonly int DEFAULT_COLOR_VALUE = 0; // Black
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "material";
+
 
         private readonly ColorParser colorParser = new ColorParser();
         private readonly TextureParser textureParser = new TextureParser();
@@ -37,13 +44,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;material&gt; element</param>
         /// <returns>A Material object parsed from the XML</returns>
-        public Material Parse(XmlNode node)
+        public override Material Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement colorElement = XmlParsingUtils.GetElementFromNode(node, COLOR_ELEMENT_NAME);
-            XmlElement textureElement = XmlParsingUtils.GetElementFromNode(node, TEXTURE_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement colorElement = GetElementFromNode(node, COLOR_ELEMENT_NAME);
+            XmlElement textureElement = GetElementFromNode(node, TEXTURE_ELEMENT_NAME);
 
             string name = ParseName(nameAttribute);
             Color color = ParseColor(colorElement);

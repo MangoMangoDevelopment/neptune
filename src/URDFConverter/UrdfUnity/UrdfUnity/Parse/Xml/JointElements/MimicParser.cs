@@ -12,7 +12,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.JointElements.Mimic"/>
-    public class MimicParser : XmlParser<Mimic>
+    public sealed class MimicParser : AbstractUrdfXmlParser<Mimic>
     {
         private static readonly string JOINT_ATTRIBUTE_NAME = "joint";
         private static readonly string MULTIPLIER_ATTRIBUTE_NAME = "multiplier";
@@ -23,6 +23,14 @@ namespace UrdfUnity.Parse.Xml.JointElements
             new Link.Builder(Link.DEFAULT_NAME).Build(), new Link.Builder(Link.DEFAULT_NAME).Build()).Build();
 
 
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "mimic";
+
+        /// <summary>
+        /// The dictionary of joints available to mimic in the top-level URDF robot element.
+        /// </summary>
         private readonly Dictionary<string, Joint> jointDictionary;
 
 
@@ -41,13 +49,13 @@ namespace UrdfUnity.Parse.Xml.JointElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;mimic&gt; element</param>
         /// <returns>An Mimic object parsed from the XML</returns>
-        public Mimic Parse(XmlNode node)
+        public override Mimic Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute jointAttribute = XmlParsingUtils.GetAttributeFromNode(node, JOINT_ATTRIBUTE_NAME);
-            XmlAttribute multiplierAttribute = XmlParsingUtils.GetAttributeFromNode(node, MULTIPLIER_ATTRIBUTE_NAME);
-            XmlAttribute offsetAttribute = XmlParsingUtils.GetAttributeFromNode(node, OFFSET_ATTRIBUTE_NAME);
+            XmlAttribute jointAttribute = GetAttributeFromNode(node, JOINT_ATTRIBUTE_NAME);
+            XmlAttribute multiplierAttribute = GetAttributeFromNode(node, MULTIPLIER_ATTRIBUTE_NAME);
+            XmlAttribute offsetAttribute = GetAttributeFromNode(node, OFFSET_ATTRIBUTE_NAME);
             Joint joint = DEFAULT_JOINT;
             double multiplier = (multiplierAttribute != null) ? RegexUtils.MatchDouble(multiplierAttribute.Value, DEFAULT_MULTIPLIER) : DEFAULT_MULTIPLIER;
             double offset = (offsetAttribute != null) ? RegexUtils.MatchDouble(offsetAttribute.Value, DEFAULT_OFFSET) : DEFAULT_OFFSET;

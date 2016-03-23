@@ -13,12 +13,19 @@ namespace UrdfUnity.Parse.Xml
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="Urdf.Models.Link"/>
-    public class LinkParser : XmlParser<Link>
+    public sealed class LinkParser : AbstractUrdfXmlParser<Link>
     {
         private static readonly string NAME_ATTRIBUTE_NAME = "name";
         private static readonly string INERTIAL_ELEMENT_NAME = "inertial";
         private static readonly string VISUAL_ELEMENT_NAME = "visual";
         private static readonly string COLLISION_ELEMENT_NAME = "collision";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "link";
+
 
         private readonly InertialParser inertialParser = new InertialParser();
         private readonly VisualParser visualParser;
@@ -39,12 +46,12 @@ namespace UrdfUnity.Parse.Xml
         /// </summary>
         /// <param name="node">The XML node of a &lt;link&gt; element</param>
         /// <returns>A Link object parsed from the XML</returns>
-        public Link Parse(XmlNode node)
+        public override Link Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node);
+            ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = XmlParsingUtils.GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement inertialElement = XmlParsingUtils.GetElementFromNode(node, INERTIAL_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
+            XmlElement inertialElement = GetElementFromNode(node, INERTIAL_ELEMENT_NAME);
             XmlNodeList visualElements = node.SelectNodes(VISUAL_ELEMENT_NAME);
             XmlNodeList collisionElements = node.SelectNodes(COLLISION_ELEMENT_NAME);
 

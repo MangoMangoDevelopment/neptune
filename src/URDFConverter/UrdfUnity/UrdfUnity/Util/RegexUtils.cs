@@ -18,7 +18,7 @@ namespace UrdfUnity.Util
         /// The Regex pattern for matching whole numbers (such as <c>int</c>s and <c>short</c>s) from a string.
         /// </summary>
         public static readonly string WHOLE_NUMBER_PATTERN = @"-?\d+.{0}";
-        
+
         /// <summary>
         /// A Regex object used for matching real numbers as per <c>REAL_NUMBER_PATTERN</c>.
         /// </summary>
@@ -66,7 +66,7 @@ namespace UrdfUnity.Util
         /// <returns>The <c>double</c> value found in the input string</returns>
         public static double MatchDouble(string input)
         {
-            Preconditions.IsTrue(REAL_NUMBER_REGEX.IsMatch(input));
+            Preconditions.IsTrue(REAL_NUMBER_REGEX.IsMatch(input), $"Provided input string <{input}> is not a double representation");
 
             Match match = REAL_NUMBER_REGEX.Match(input);
             return Double.Parse(match.Value);
@@ -80,11 +80,11 @@ namespace UrdfUnity.Util
         /// <returns>The <c>double</c> value if found in the input string, otherwise the specified default value</returns>
         public static double MatchDouble(string input, double defaultValue)
         {
-            if(!REAL_NUMBER_REGEX.IsMatch(input))
+            if (!REAL_NUMBER_REGEX.IsMatch(input))
             {
                 return defaultValue;
             }
-            
+
             return MatchDouble(input);
         }
 
@@ -98,7 +98,7 @@ namespace UrdfUnity.Util
             MatchCollection matches = REAL_NUMBER_REGEX.Matches(input);
             double[] doubles = new double[matches.Count];
 
-            for(int i = 0; i < matches.Count; i++)
+            for (int i = 0; i < matches.Count; i++)
             {
                 doubles[i] = Double.Parse(matches[i].Value);
             }
@@ -140,7 +140,7 @@ namespace UrdfUnity.Util
         /// <returns>The <c>int</c> value found in the input string</returns>
         public static int MatchInt(string input)
         {
-            Preconditions.IsTrue(WHOLE_NUMBER_REGEX.IsMatch(input));
+            Preconditions.IsTrue(WHOLE_NUMBER_REGEX.IsMatch(input), $"Provided input string <{input}> is not an int representation");
 
             Match match = WHOLE_NUMBER_REGEX.Match(input);
             return Int32.Parse(match.Value);

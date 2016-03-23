@@ -10,20 +10,27 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.VisualElements.Texture"/>
-    public class TextureParser : XmlParser<Texture>
+    public sealed class TextureParser : AbstractUrdfXmlParser<Texture>
     {
         private static readonly string FILE_NAME_ATTRIBUTE_NAME = "filename";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "texture";
+
 
         /// <summary>
         /// Parses a URDF &lt;texture&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;texture&gt; element</param>
         /// <returns>A Texture object parsed from the XML</returns>
-        public Texture Parse(XmlNode node)
+        public override Texture Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute fileNameAttribute = XmlParsingUtils.GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
+            XmlAttribute fileNameAttribute = GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
             string filename = Texture.DEFAULT_FILE_NAME;
 
             if (fileNameAttribute == null || fileNameAttribute.Value == null)

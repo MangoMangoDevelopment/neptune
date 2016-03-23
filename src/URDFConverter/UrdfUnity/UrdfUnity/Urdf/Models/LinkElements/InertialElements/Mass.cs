@@ -6,7 +6,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.InertialElements
     /// Represents the mass of the link in kilograms.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/inertial"/>
-    public class Mass
+    public sealed class Mass
     {
         /// <summary>
         /// The mass value of the link in kilograms.
@@ -35,7 +35,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.InertialElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Mass) obj);
+            return Equals((Mass)obj);
         }
 
         public override int GetHashCode()

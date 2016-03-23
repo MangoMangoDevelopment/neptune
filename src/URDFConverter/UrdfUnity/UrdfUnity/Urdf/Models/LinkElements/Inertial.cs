@@ -8,7 +8,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/inertial"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    public class Inertial
+    public sealed class Inertial
     {
         /// <summary>
         /// The pose of the inertial reference frame, relative to the link reference frame.
@@ -47,10 +47,10 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <param name="inertia">The link's inertia matrix. MUST NOT BE NULL</param>
         public Inertial(Origin origin, Mass mass, Inertia inertia)
         {
-            Preconditions.IsNotNull(origin);
-            Preconditions.IsNotNull(mass);
-            Preconditions.IsNotNull(inertia);
-            
+            Preconditions.IsNotNull(origin, "Inertial origin property must not be null");
+            Preconditions.IsNotNull(mass, "Inertial mass property must not be null");
+            Preconditions.IsNotNull(inertia, "Inertial inertia property must not be null");
+
             this.Origin = origin;
             this.Mass = mass;
             this.Inertia = inertia;
@@ -66,7 +66,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Inertial) obj);
+            return Equals((Inertial)obj);
         }
 
         public override int GetHashCode()
@@ -74,8 +74,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements
             unchecked
             {
                 var hashCode = Origin.GetHashCode();
-                hashCode = (hashCode*397) ^ Mass.GetHashCode();
-                hashCode = (hashCode*397) ^ Inertia.GetHashCode();
+                hashCode = (hashCode * 397) ^ Mass.GetHashCode();
+                hashCode = (hashCode * 397) ^ Inertia.GetHashCode();
                 return hashCode;
             }
         }

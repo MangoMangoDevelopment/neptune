@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the sphere shape of a link's geometry.
     /// </summary>
-    public class Sphere
+    public sealed class Sphere
     {
         /// <summary>
         /// The radius of the sphere shape.
@@ -30,7 +30,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Sphere) obj);
+            return Equals((Sphere)obj);
         }
 
         public override int GetHashCode()

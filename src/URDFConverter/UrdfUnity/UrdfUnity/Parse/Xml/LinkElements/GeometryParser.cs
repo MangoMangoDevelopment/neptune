@@ -13,7 +13,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.Geometry"/>
-    public class GeometryParser : XmlParser<Geometry>
+    public sealed class GeometryParser : AbstractUrdfXmlParser<Geometry>
     {
         public static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
 
@@ -21,6 +21,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private static readonly string CYLINDER_ELEMENT_NAME = "cylinder";
         private static readonly string SPHERE_ELEMENT_NAME = "sphere";
         private static readonly string MESH_ELEMENT_NAME = "mesh";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "geometry";
+
 
         private readonly BoxParser boxParser = new BoxParser();
         private readonly CylinderParser cylinderParser = new CylinderParser();
@@ -33,14 +40,14 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;geometry&gt; element</param>
         /// <returns>A Geometry object parsed from the XML</returns>
-        public Geometry Parse(XmlNode node)
+        public override Geometry Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node);
+            ValidateXmlNode(node);
 
-            XmlElement boxElement = XmlParsingUtils.GetElementFromNode(node, BOX_ELEMENT_NAME);
-            XmlElement cylinderElement = XmlParsingUtils.GetElementFromNode(node, CYLINDER_ELEMENT_NAME);
-            XmlElement sphereElement = XmlParsingUtils.GetElementFromNode(node, SPHERE_ELEMENT_NAME);
-            XmlElement meshElement = XmlParsingUtils.GetElementFromNode(node, MESH_ELEMENT_NAME);
+            XmlElement boxElement = GetElementFromNode(node, BOX_ELEMENT_NAME);
+            XmlElement cylinderElement = GetElementFromNode(node, CYLINDER_ELEMENT_NAME);
+            XmlElement sphereElement = GetElementFromNode(node, SPHERE_ELEMENT_NAME);
+            XmlElement meshElement = GetElementFromNode(node, MESH_ELEMENT_NAME);
 
             Geometry geometry = null;
 

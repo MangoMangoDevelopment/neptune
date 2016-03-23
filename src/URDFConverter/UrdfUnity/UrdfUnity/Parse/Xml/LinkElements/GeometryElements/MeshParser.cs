@@ -11,7 +11,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.GeometryElements.Mesh"/>
-    public class MeshParser : XmlParser<Mesh>
+    public sealed class MeshParser : AbstractUrdfXmlParser<Mesh>
     {
         private static readonly string FILE_NAME_ATTRIBUTE_NAME = "filename";
         private static readonly string SCALE_ATTRIBUTE_NAME = "scale";
@@ -19,17 +19,23 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "mesh";
+
+
+        /// <summary>
         /// Parses a URDF &lt;mesh&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;mesh&gt; element</param>
         /// <returns>A Mesh object parsed from the XML</returns>
-        public Mesh Parse(XmlNode node)
+        public override Mesh Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute fileNameAttribute = XmlParsingUtils.GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
-            XmlAttribute scaleAttribute = XmlParsingUtils.GetAttributeFromNode(node, SCALE_ATTRIBUTE_NAME);
-            XmlAttribute sizeAttribute = XmlParsingUtils.GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
+            XmlAttribute fileNameAttribute = GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
+            XmlAttribute scaleAttribute = GetAttributeFromNode(node, SCALE_ATTRIBUTE_NAME);
+            XmlAttribute sizeAttribute = GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
 
             string fileName = ParseFileName(fileNameAttribute);
             ScaleAttribute scale = ParseScaleAttribute(scaleAttribute);

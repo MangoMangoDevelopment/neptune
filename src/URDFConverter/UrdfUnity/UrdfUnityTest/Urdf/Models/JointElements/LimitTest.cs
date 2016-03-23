@@ -9,16 +9,16 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         [TestMethod]
         public void ConstructLimit()
         {
-            double lower = 1;
-            double upper = 2;
-            double effort = 3;
-            double velocity = 4;
-            Limit limit = new Limit(lower, upper, effort, velocity);
+            double effort = 1;
+            double velocity = 2;
+            double lower = 3;
+            double upper = 4;
+            Limit limit = new Limit(effort, velocity, lower, upper);
 
-            Assert.AreEqual(lower, limit.Lower);
-            Assert.AreEqual(upper, limit.Upper);
             Assert.AreEqual(effort, limit.Effort);
             Assert.AreEqual(velocity, limit.Velocity);
+            Assert.AreEqual(lower, limit.Lower);
+            Assert.AreEqual(upper, limit.Upper);
         }
 
         [TestMethod]
@@ -28,17 +28,31 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
             double velocity = 2;
             Limit limit = new Limit(effort, velocity);
 
-            Assert.AreEqual(0, limit.Lower);
-            Assert.AreEqual(0, limit.Upper);
             Assert.AreEqual(effort, limit.Effort);
             Assert.AreEqual(velocity, limit.Velocity);
+            Assert.AreEqual(0, limit.Lower);
+            Assert.AreEqual(0, limit.Upper);
+        }
+
+        [TestMethod]
+        public void ConstructLimitWithUpperNoLower()
+        {
+            double effort = 1;
+            double velocity = 2;
+            double upper = 3;
+            Limit limit = new Limit(effort, velocity, upper:upper);
+
+            Assert.AreEqual(effort, limit.Effort);
+            Assert.AreEqual(velocity, limit.Velocity);
+            Assert.AreEqual(0, limit.Lower);
+            Assert.AreEqual(upper, limit.Upper);
         }
 
         [TestMethod]
         public void EqualsAndHash()
         {
             Limit limit = new Limit(1, 2);
-            Limit same = new Limit(0, 0, 1, 2);
+            Limit same = new Limit(1, 2, 0, 0);
             Limit diff = new Limit(3, 4);
 
             Assert.IsTrue(limit.Equals(limit));

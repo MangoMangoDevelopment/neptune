@@ -9,7 +9,7 @@ namespace UrdfUnity.Urdf.Models.JointElements
     /// The value of a joint can be computed as <c>value = multiplier * other_joint_value + offset</c>.
     /// </remarks>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
-    public class Mimic
+    public sealed class Mimic
     {
         private static readonly double DEFAULT_MULTIPLIER = 1d;
         private static readonly double DEFAULT_OFFSET = 0d;
@@ -50,7 +50,7 @@ namespace UrdfUnity.Urdf.Models.JointElements
         /// <param name="offset">The offset to add. Default value is 0</param>
         public Mimic(Joint joint, double multiplier, double offset)
         {
-            Preconditions.IsNotNull(joint, "joint");
+            Preconditions.IsNotNull(joint, "Mimic joint property must not be null");
             this.Joint = joint;
             this.Multiplier = multiplier;
             this.Offset = offset;

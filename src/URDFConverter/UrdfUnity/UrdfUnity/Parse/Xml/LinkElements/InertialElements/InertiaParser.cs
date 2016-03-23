@@ -11,7 +11,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/inertial"/>
     /// <seealso cref="Urdf.Models.LinkElements.InertialElements.Inertia"/>
-    public class InertiaParser : XmlParser<Inertia>
+    public sealed class InertiaParser : AbstractUrdfXmlParser<Inertia>
     {
         /// <summary>
         /// The default value used if the inertia element is missing a required attribute.
@@ -27,23 +27,29 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "inertia";
+
+
+        /// <summary>
         /// Parses a URDF &lt;inertia&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;inertia&gt; element. MUST NOT BE NULL</param>
         /// <returns>A Inertia object with values parsed from the XML, or the default value of <c>Double.NaN</c> for missing attributes</returns>
-        public Inertia Parse(XmlNode node)
+        public override Inertia Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
             Dictionary<string, XmlAttribute> attributes = new Dictionary<string, XmlAttribute>();
             Dictionary<string, double> values = new Dictionary<string, double>();
 
-            attributes.Add(IXX_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IXX_ATTRIBUTE_NAME));
-            attributes.Add(IXY_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IXY_ATTRIBUTE_NAME));
-            attributes.Add(IXZ_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IXZ_ATTRIBUTE_NAME));
-            attributes.Add(IYY_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IYY_ATTRIBUTE_NAME));
-            attributes.Add(IYZ_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IYZ_ATTRIBUTE_NAME));
-            attributes.Add(IZZ_ATTRIBUTE_NAME, XmlParsingUtils.GetAttributeFromNode(node, IZZ_ATTRIBUTE_NAME));
+            attributes.Add(IXX_ATTRIBUTE_NAME, GetAttributeFromNode(node, IXX_ATTRIBUTE_NAME));
+            attributes.Add(IXY_ATTRIBUTE_NAME, GetAttributeFromNode(node, IXY_ATTRIBUTE_NAME));
+            attributes.Add(IXZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, IXZ_ATTRIBUTE_NAME));
+            attributes.Add(IYY_ATTRIBUTE_NAME, GetAttributeFromNode(node, IYY_ATTRIBUTE_NAME));
+            attributes.Add(IYZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, IYZ_ATTRIBUTE_NAME));
+            attributes.Add(IZZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, IZZ_ATTRIBUTE_NAME));
 
             foreach (string key in attributes.Keys)
             {

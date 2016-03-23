@@ -10,7 +10,7 @@ namespace UrdfUnity.Urdf.Models
     /// <seealso cref="http://wiki.ros.org/urdf/XML/model"/>
     /// <seealso cref="Link"/>
     /// <seealso cref="Joint"/>
-    public class Robot
+    public sealed class Robot
     {
         /// <summary>
         /// The default name used when a Robot needs to be instantiated without a name.
@@ -56,9 +56,9 @@ namespace UrdfUnity.Urdf.Models
         /// <param name="joints">A list of the robot model's Joints</param>
         public Robot(string name, Dictionary<string, Link> links, Dictionary<string, Joint> joints)
         {
-            Preconditions.IsNotEmpty(name, "name");
-            Preconditions.IsNotNull(links, "links");
-            Preconditions.IsNotNull(joints, "joints");
+            Preconditions.IsNotEmpty(name, "Robot name property cannot be set to null or empty");
+            Preconditions.IsNotNull(links, "Robot links property cannot be set to null");
+            Preconditions.IsNotNull(joints, "Robot joints property cannot be set to null");
             this.Name = name;
             this.Links = links;
             this.Joints = joints;

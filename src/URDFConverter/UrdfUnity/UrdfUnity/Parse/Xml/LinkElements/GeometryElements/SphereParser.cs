@@ -10,10 +10,16 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.GeometryElements.Sphere"/>
-    public class SphereParser : XmlParser<Sphere>
+    public sealed class SphereParser : AbstractUrdfXmlParser<Sphere>
     {
         private static readonly string RADIUS_ATTRIBUTE_NAME = "radius";
         private static readonly double DEFAULT_VALUE = 0d;
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "sphere";
 
 
         /// <summary>
@@ -21,11 +27,11 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;sphere&gt; element</param>
         /// <returns>A Sphere object parsed from the XML</returns>
-        public Sphere Parse(XmlNode node)
+        public override Sphere Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute radiusAttribute = XmlParsingUtils.GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
+            XmlAttribute radiusAttribute = GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
             double radius = DEFAULT_VALUE;
 
             if (radiusAttribute == null)

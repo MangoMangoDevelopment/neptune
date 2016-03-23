@@ -9,7 +9,7 @@
     /// The inertia parameters are specified with respect to the center of the mass in local link coordinate system.
     /// </remarks>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/inertial"/>
-    public class Inertia
+    public sealed class Inertia
     {
         /// <summary>
         /// The IXX component of the inertia matrix of the link.
@@ -69,7 +69,7 @@
 
         protected bool Equals(Inertia other)
         {
-            return Ixx.Equals(other.Ixx) && Ixy.Equals(other.Ixy) && Ixz.Equals(other.Ixz) 
+            return Ixx.Equals(other.Ixx) && Ixy.Equals(other.Ixy) && Ixz.Equals(other.Ixz)
                 && Iyy.Equals(other.Iyy) && Iyz.Equals(other.Iyz) && Izz.Equals(other.Izz);
         }
 
@@ -78,7 +78,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Inertia) obj);
+            return Equals((Inertia)obj);
         }
 
         public override int GetHashCode()
@@ -86,11 +86,11 @@
             unchecked
             {
                 var hashCode = Ixx.GetHashCode();
-                hashCode = (hashCode*397) ^ Ixy.GetHashCode();
-                hashCode = (hashCode*397) ^ Ixz.GetHashCode();
-                hashCode = (hashCode*397) ^ Iyy.GetHashCode();
-                hashCode = (hashCode*397) ^ Iyz.GetHashCode();
-                hashCode = (hashCode*397) ^ Izz.GetHashCode();
+                hashCode = (hashCode * 397) ^ Ixy.GetHashCode();
+                hashCode = (hashCode * 397) ^ Ixz.GetHashCode();
+                hashCode = (hashCode * 397) ^ Iyy.GetHashCode();
+                hashCode = (hashCode * 397) ^ Iyz.GetHashCode();
+                hashCode = (hashCode * 397) ^ Izz.GetHashCode();
                 return hashCode;
             }
         }

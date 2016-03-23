@@ -43,8 +43,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
         /// <param name="size">The size of the mesh object. MAY BE NULL</param>
         private Mesh(string fileName, ScaleAttribute scale, SizeAttribute size)
         {
-            Preconditions.IsNotEmpty(fileName, "fileName");
-            Preconditions.IsNotNull(scale, "scale");
+            Preconditions.IsNotEmpty(fileName, "Mesh file name property must not be null or empty");
+            Preconditions.IsNotNull(scale, "Mesh scale property must not be null");
             this.FileName = fileName;
             this.Scale = scale;
             this.Size = size;
@@ -68,7 +68,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
             /// <param name="fileName">The mesh object file name. MUST NOT BE EMPTY</param>
             public Builder(string fileName)
             {
-                Preconditions.IsNotEmpty(fileName);
+                Preconditions.IsNotEmpty(fileName, "Mesh file name property cannot be set to null or empty");
                 this.fileName = fileName;
             }
 
@@ -83,7 +83,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
 
             public Builder SetScale(ScaleAttribute scale)
             {
-                Preconditions.IsNotNull(scale);
+                Preconditions.IsNotNull(scale, "Mesh scale property cannot be set to null");
                 this.scale = scale;
                 return this;
             }
@@ -98,7 +98,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
 
         protected bool Equals(Mesh other)
         {
-            return FileName.Equals(other.FileName) && Scale.Equals(other.Scale) 
+            return FileName.Equals(other.FileName) && Scale.Equals(other.Scale)
                 && (Size != null ? Size.Equals(other.Size) : other.Size == null);
         }
 
@@ -107,7 +107,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Mesh) obj);
+            return Equals((Mesh)obj);
         }
 
         public override int GetHashCode()
@@ -115,8 +115,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
             unchecked
             {
                 var hashCode = FileName.GetHashCode();
-                hashCode = (hashCode*397) ^ Scale.GetHashCode();
-                hashCode = (hashCode*397) ^ (Size != null ? Size.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Scale.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Size != null ? Size.GetHashCode() : 0);
                 return hashCode;
             }
         }

@@ -5,7 +5,7 @@
     /// </summary>
     /// <seealso cref="Mesh"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
-    public class ScaleAttribute
+    public sealed class ScaleAttribute
     {
         /// <summary>
         /// The scale of the mesh object's x-dimension.
@@ -46,7 +46,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ScaleAttribute) obj);
+            return Equals((ScaleAttribute)obj);
         }
 
         public override int GetHashCode()
@@ -54,8 +54,8 @@
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode*397) ^ Y.GetHashCode();
-                hashCode = (hashCode*397) ^ Z.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Z.GetHashCode();
                 return hashCode;
             }
         }

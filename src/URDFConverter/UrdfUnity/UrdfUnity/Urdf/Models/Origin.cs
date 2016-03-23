@@ -9,7 +9,7 @@ namespace UrdfUnity.Urdf.Models
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="XyzAttribute"/>
     /// <seealso cref="RpyAttribute"/>
-    public class Origin
+    public sealed class Origin
     {
         /// <summary>
         /// The origin element's x, y, z offset.
@@ -72,7 +72,7 @@ namespace UrdfUnity.Urdf.Models
             /// <returns>This Origin.Builder instance</returns>
             public Builder SetXyz(XyzAttribute xyz)
             {
-                Preconditions.IsNotNull(xyz, "xyz");
+                Preconditions.IsNotNull(xyz, "Origin xyz property cannot be set to null");
                 this.xyz = xyz;
                 return this;
             }
@@ -84,7 +84,7 @@ namespace UrdfUnity.Urdf.Models
             /// <returns>This Origin.Builder instance</returns>
             public Builder SetRpy(RpyAttribute rpy)
             {
-                Preconditions.IsNotNull(rpy, "rpy");
+                Preconditions.IsNotNull(rpy, "Origin rpy property cannot be set to null");
                 this.rpy = rpy;
                 return this;
             }

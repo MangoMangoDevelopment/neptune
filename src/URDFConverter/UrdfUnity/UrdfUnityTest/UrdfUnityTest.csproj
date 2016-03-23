@@ -107,7 +107,7 @@
     <Compile Include="Urdf\Models\RobotTest.cs" />
     <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\PreconditionsTest.cs" />
+    <Compile Include="Util\PreconditionsUtilsTest.cs" />
     <Compile Include="Util\RegexUtilsTest.cs" />
     <Compile Include="Util\XmlParsingUtilsTest.cs" />
   </ItemGroup>

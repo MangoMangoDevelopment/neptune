@@ -9,7 +9,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.JointElements.Dynamics"/>
-    public class DynamicsParser : XmlParser<Dynamics>
+    public sealed class DynamicsParser : AbstractUrdfXmlParser<Dynamics>
     {
         private static readonly string DAMPING_ATTRIBUTE_NAME = "damping";
         private static readonly string FRICTION_ATTRIBUTE_NAME = "friction";
@@ -17,16 +17,22 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "dynamics";
+
+
+        /// <summary>
         /// Parses a URDF &lt;dynamics&gt; element from XML.
         /// </summary>
-        /// <param name="node">The XML node of a &lt;dynamics&gt; element</param>
+        /// <param name="node">The XML node of a &lt;dynamics&gt; element. MUST NOT BE NULL</param>
         /// <returns>An Dynamics object parsed from the XML</returns>
-        public Dynamics Parse(XmlNode node)
+        public override Dynamics Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute dampingAttribute = XmlParsingUtils.GetAttributeFromNode(node, DAMPING_ATTRIBUTE_NAME);
-            XmlAttribute frictionAttribute = XmlParsingUtils.GetAttributeFromNode(node, FRICTION_ATTRIBUTE_NAME);
+            XmlAttribute dampingAttribute = GetAttributeFromNode(node, DAMPING_ATTRIBUTE_NAME);
+            XmlAttribute frictionAttribute = GetAttributeFromNode(node, FRICTION_ATTRIBUTE_NAME);
             double damping = DEFAULT_VALUE;
             double friction = DEFAULT_VALUE;
 

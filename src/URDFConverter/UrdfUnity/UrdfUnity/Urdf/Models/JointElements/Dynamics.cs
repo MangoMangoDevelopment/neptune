@@ -4,8 +4,14 @@
     /// Represents the physical properties used to specify modeling properties of the joint.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
-    public class Dynamics
+    public sealed class Dynamics
     {
+        /// <summary>
+        /// The default value used for the damping and friction properties if not specified.
+        /// </summary>
+        private const double DEFAULT_VALUE = 0d;
+
+
         /// <summary>
         /// The physical damping value of the joint.
         /// </summary>
@@ -20,11 +26,12 @@
 
 
         /// <summary>
-        /// Creates a new instance of Dynamics.
+        /// Creates a new instance of Dynamics.  This constructor should be used with named arguments
+        /// if only one of the optional damping or friction properties is being specified.
         /// </summary>
-        /// <param name="damping">The physical damping value of the joint. Default value should be 0</param>
-        /// <param name="friction">The physical static friction value of the joint. Default value should be 0</param>
-        public Dynamics(double damping, double friction)
+        /// <param name="damping">The physical damping value of the joint. Default value is 0</param>
+        /// <param name="friction">The physical static friction value of the joint. Default value is 0</param>
+        public Dynamics(double damping = DEFAULT_VALUE, double friction = DEFAULT_VALUE)
         {
             this.Damping = damping;
             this.Friction = friction;

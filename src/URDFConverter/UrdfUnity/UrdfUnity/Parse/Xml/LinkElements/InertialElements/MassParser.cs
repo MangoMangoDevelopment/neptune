@@ -9,7 +9,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="Urdf.Models.LinkElements.InertialElements.Mass"/>
-    public class MassParser : XmlParser<Mass>
+    public class MassParser : AbstractUrdfXmlParser<Mass>
     {
         /// <summary>
         /// The default value used if the mass element is missing the required value.
@@ -20,15 +20,21 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
 
 
         /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "mass";
+
+
+        /// <summary>
         /// Parses a URDF &lt;mass&gt; element from XML.
         /// </summary>
         /// <param name="node">The XML node of a &lt;mass&gt; element. MUST NOT BE NULL</param>
         /// <returns>A Mass object with the value parsed from the XML, or the default value of 0 if no mass value parsed</returns>
-        public Mass Parse(XmlNode node)
+        public override Mass Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute valueAttribute = XmlParsingUtils.GetAttributeFromNode(node, VALUE_ATTRIBUTE_NAME);
+            XmlAttribute valueAttribute = GetAttributeFromNode(node, VALUE_ATTRIBUTE_NAME);
             return new Mass(RegexUtils.MatchDouble(valueAttribute.Value, DEFAULT_MASS));
         }
     }

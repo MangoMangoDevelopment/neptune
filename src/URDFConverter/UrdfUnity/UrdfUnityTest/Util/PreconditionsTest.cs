@@ -5,30 +5,42 @@ using UrdfUnity.Util;
 namespace UrdfUnityTest.Util
 {
     [TestClass]
-    public class PreconditionsTest
+    public class PreconditionsUtilsTest
     {
+        private static readonly string ERROR_MESSAGE = "Error!  Error!";
+        private static readonly string PARAM_NAME = "paramName";
+
+        [TestMethod]
+        public void Foo()
+        {
+            // TODO: Delete me!
+            string me = "me";
+            Assert.AreEqual("Hello me", $"Hello {me}");
+        }
+
+
         #region IsNotNull tests
 
         [TestMethod]
         public void IsNotNullTrue()
         {
             string str = "Oh, hello";
-            Preconditions.IsNotNull(str);
-            Preconditions.IsNotNull(str, "paramName");
+            Preconditions.IsNotNull(str, ERROR_MESSAGE);
+            Preconditions.IsNotNull(str, ERROR_MESSAGE, PARAM_NAME);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void IsNotNullFalseNoParamName()
         {
-            Preconditions.IsNotNull(null);
+            Preconditions.IsNotNull(null, ERROR_MESSAGE);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void IsNotNullFalseWithParamName()
         {
-            Preconditions.IsNotNull(null, "paramName");
+            Preconditions.IsNotNull(null, ERROR_MESSAGE, PARAM_NAME);
         }
 
         #endregion
@@ -38,8 +50,8 @@ namespace UrdfUnityTest.Util
         public void IsNotEmptyStringTrue()
         {
             string str = "Oh, hello";
-            Preconditions.IsNotEmpty(str);
-            Preconditions.IsNotEmpty(str, "paramName");
+            Preconditions.IsNotEmpty(str, ERROR_MESSAGE);
+            Preconditions.IsNotEmpty(str, ERROR_MESSAGE, PARAM_NAME);
         }
 
         [TestMethod]
@@ -49,7 +61,7 @@ namespace UrdfUnityTest.Util
 
             try
             {
-                Preconditions.IsNotEmpty(null);
+                Preconditions.IsNotEmpty(null, ERROR_MESSAGE);
             }
             catch (ArgumentException)
             {
@@ -57,7 +69,7 @@ namespace UrdfUnityTest.Util
             }
             try
             {
-                Preconditions.IsNotEmpty("");
+                Preconditions.IsNotEmpty("", ERROR_MESSAGE);
             }
             catch (ArgumentException)
             {
@@ -65,7 +77,7 @@ namespace UrdfUnityTest.Util
             }
             try
             {
-                Preconditions.IsNotEmpty(String.Empty);
+                Preconditions.IsNotEmpty(String.Empty, ERROR_MESSAGE);
             }
             catch (ArgumentException)
             {
@@ -82,7 +94,7 @@ namespace UrdfUnityTest.Util
 
             try
             {
-                Preconditions.IsNotEmpty(null, "paramName");
+                Preconditions.IsNotEmpty(null, ERROR_MESSAGE, PARAM_NAME);
             }
             catch (ArgumentException)
             {
@@ -90,7 +102,7 @@ namespace UrdfUnityTest.Util
             }
             try
             {
-                Preconditions.IsNotEmpty("", "paramName");
+                Preconditions.IsNotEmpty("", ERROR_MESSAGE, PARAM_NAME);
             }
             catch (ArgumentException)
             {
@@ -98,7 +110,7 @@ namespace UrdfUnityTest.Util
             }
             try
             {
-                Preconditions.IsNotEmpty(String.Empty, "paramName");
+                Preconditions.IsNotEmpty(String.Empty, ERROR_MESSAGE, PARAM_NAME);
             }
             catch (ArgumentException)
             {
@@ -117,17 +129,17 @@ namespace UrdfUnityTest.Util
             int lowerBound = 0;
             int upperBound = 255;
 
-            Preconditions.IsWithinRange((lowerBound + upperBound) / 2, lowerBound, upperBound);
-            Preconditions.IsWithinRange(lowerBound, lowerBound, upperBound);
-            Preconditions.IsWithinRange(upperBound, lowerBound, upperBound);
-            Preconditions.IsWithinRange(lowerBound, lowerBound, lowerBound);
-            Preconditions.IsWithinRange(upperBound, upperBound, upperBound);
+            Preconditions.IsWithinRange((lowerBound + upperBound) / 2, lowerBound, upperBound, ERROR_MESSAGE);
+            Preconditions.IsWithinRange(lowerBound, lowerBound, upperBound, ERROR_MESSAGE);
+            Preconditions.IsWithinRange(upperBound, lowerBound, upperBound, ERROR_MESSAGE);
+            Preconditions.IsWithinRange(lowerBound, lowerBound, lowerBound, ERROR_MESSAGE);
+            Preconditions.IsWithinRange(upperBound, upperBound, upperBound, ERROR_MESSAGE);
 
-            Preconditions.IsWithinRange((lowerBound + upperBound) / 2, lowerBound, upperBound, "paramName");
-            Preconditions.IsWithinRange(lowerBound, lowerBound, upperBound, "paramName");
-            Preconditions.IsWithinRange(upperBound, lowerBound, upperBound, "paramName");
-            Preconditions.IsWithinRange(lowerBound, lowerBound, lowerBound, "paramName");
-            Preconditions.IsWithinRange(upperBound, upperBound, upperBound, "paramName");
+            Preconditions.IsWithinRange((lowerBound + upperBound) / 2, lowerBound, upperBound, ERROR_MESSAGE, "paramName");
+            Preconditions.IsWithinRange(lowerBound, lowerBound, upperBound, ERROR_MESSAGE, PARAM_NAME);
+            Preconditions.IsWithinRange(upperBound, lowerBound, upperBound, ERROR_MESSAGE, PARAM_NAME);
+            Preconditions.IsWithinRange(lowerBound, lowerBound, lowerBound, ERROR_MESSAGE, PARAM_NAME);
+            Preconditions.IsWithinRange(upperBound, upperBound, upperBound, ERROR_MESSAGE, PARAM_NAME);
         }
 
         [TestMethod]
@@ -139,7 +151,7 @@ namespace UrdfUnityTest.Util
             double value = lowerBound - 0.000000001;
 
             Assert.IsTrue(value < lowerBound);
-            Preconditions.IsWithinRange(value, lowerBound, upperBound);
+            Preconditions.IsWithinRange(value, lowerBound, upperBound, ERROR_MESSAGE);
         }
 
         [TestMethod]
@@ -151,7 +163,7 @@ namespace UrdfUnityTest.Util
             double value = upperBound + 0.000000001;
 
             Assert.IsTrue(value > upperBound);
-            Preconditions.IsWithinRange(value, lowerBound, upperBound);
+            Preconditions.IsWithinRange(value, lowerBound, upperBound, ERROR_MESSAGE);
         }
 
         [TestMethod]
@@ -162,7 +174,7 @@ namespace UrdfUnityTest.Util
             int upperBound = 0;
 
             Assert.IsTrue(lowerBound > upperBound);
-            Preconditions.IsWithinRange(0, lowerBound, upperBound);
+            Preconditions.IsWithinRange(0, lowerBound, upperBound, ERROR_MESSAGE);
         }
 
         #endregion
@@ -171,22 +183,22 @@ namespace UrdfUnityTest.Util
         [TestMethod]
         public void IsTrue()
         {
-            Preconditions.IsTrue(true);
-            Preconditions.IsTrue(true, "paramName");
+            Preconditions.IsTrue(true, ERROR_MESSAGE);
+            Preconditions.IsTrue(true, ERROR_MESSAGE, PARAM_NAME);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void IsTrueFalse()
         {
-            Preconditions.IsTrue(false);
+            Preconditions.IsTrue(false, ERROR_MESSAGE);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void IsTrueFalseWithParamName()
         {
-            Preconditions.IsTrue(false, "paramName");
+            Preconditions.IsTrue(false, ERROR_MESSAGE, PARAM_NAME);
         }
 
         #endregion

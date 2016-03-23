@@ -57,7 +57,7 @@ namespace UrdfUnityTest.Parse.Xml.JointElements
         public void ParseSafetyControllerVelocityOnly()
         {
             double velocity = 4;
-            string xml = String.Format("<safetyController k_velocity='{0}'/>", velocity);
+            string xml = String.Format("<safety_controller k_velocity='{0}'/>", velocity);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             SafetyController safetyController = this.parser.Parse(this.xmlDoc.DocumentElement);

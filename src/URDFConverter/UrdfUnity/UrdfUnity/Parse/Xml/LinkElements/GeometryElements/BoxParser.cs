@@ -10,10 +10,16 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
     /// <seealso cref="Urdf.Models.LinkElements.GeometryElements.Box"/>
-    public class BoxParser : XmlParser<Box>
+    public sealed class BoxParser : AbstractUrdfXmlParser<Box>
     {
         private static readonly string SIZE_ATTRIBUTE_NAME = "size";
         private static readonly double DEFAULT_VALUE = 0d;
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "box";
 
 
         /// <summary>
@@ -21,11 +27,11 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         /// </summary>
         /// <param name="node">The XML node of a &lt;box&gt; element. MUST NOT BE NULL</param>
         /// <returns>A Box object parsed from the XML</returns>
-        public Box Parse(XmlNode node)
+        public override Box Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute sizeAttribute = XmlParsingUtils.GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
+            XmlAttribute sizeAttribute = GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
             SizeAttribute size = new SizeAttribute(DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE);
 
             if (sizeAttribute == null)

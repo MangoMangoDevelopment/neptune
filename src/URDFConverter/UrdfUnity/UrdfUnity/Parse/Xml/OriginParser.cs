@@ -10,10 +10,16 @@ namespace UrdfUnity.Parse.Xml
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
     /// <seealso cref="Urdf.Models.Origin"/>
-    public class OriginParser : XmlParser<Origin>
+    public sealed class OriginParser : AbstractUrdfXmlParser<Origin>
     {
         private static readonly string XYZ_ATTRIBUTE_NAME = "xyz";
         private static readonly string RPY_ATTRIBUTE_NAME = "rpy";
+
+
+        /// <summary>
+        /// The name of the URDF XML element that this class parses.
+        /// </summary>
+        protected override string ElementName { get; } = "origin";
 
 
         /// <summary>
@@ -21,12 +27,12 @@ namespace UrdfUnity.Parse.Xml
         /// </summary>
         /// <param name="node">The XML node of a &lt;origin&gt; element. MUST NOT BE NULL</param>
         /// <returns>An Origin object parsed from the XML</returns>
-        public Origin Parse(XmlNode node)
+        public override Origin Parse(XmlNode node)
         {
-            Preconditions.IsNotNull(node, "node");
+            ValidateXmlNode(node);
 
-            XmlAttribute xyzAttribute = XmlParsingUtils.GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
-            XmlAttribute rpyAttribute = XmlParsingUtils.GetAttributeFromNode(node, RPY_ATTRIBUTE_NAME);
+            XmlAttribute xyzAttribute = GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
+            XmlAttribute rpyAttribute = GetAttributeFromNode(node, RPY_ATTRIBUTE_NAME);
 
             Origin.Builder originBuilder = new Origin.Builder();
 

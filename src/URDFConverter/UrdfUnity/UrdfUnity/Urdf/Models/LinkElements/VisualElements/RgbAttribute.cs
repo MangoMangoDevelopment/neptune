@@ -1,5 +1,4 @@
-﻿using System;
-using UrdfUnity.Util;
+﻿using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
 {
@@ -7,7 +6,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
     /// Represents the RGB attributes of a colour specification of a visual element.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/visual"/>
-    public class RgbAttribute
+    public sealed class RgbAttribute
     {
         private static readonly int RGB_LOWER_BOUND = 0;
         private static readonly int RGB_UPPER_BOUND = 255;

@@ -11,7 +11,7 @@ namespace UrdfUnity.Urdf.Models.JointElements
     /// joints do not have an axis. 
     /// </remarks>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/joint"/>
-    public class Axis
+    public sealed class Axis
     {
         /// <summary>
         /// The x, y, z components of the axis vector.
@@ -26,7 +26,7 @@ namespace UrdfUnity.Urdf.Models.JointElements
         /// <param name="xyz">The x, y, z components of the axis vector. MUST NOT BE NULL</param>
         public Axis(XyzAttribute xyz)
         {
-            Preconditions.IsNotNull(xyz);
+            Preconditions.IsNotNull(xyz, "Axis xyz property must not be null");
             this.Xyz = xyz;
         }
 

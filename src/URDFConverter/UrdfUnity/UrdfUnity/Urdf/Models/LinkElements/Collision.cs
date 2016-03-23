@@ -11,7 +11,7 @@ namespace UrdfUnity.Urdf.Models.LinkElements
     /// geometry they define forms the collision representation of the link. 
     /// </remarks>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    public class Collision
+    public sealed class Collision
     {
         /// <summary>
         /// The name identifier of the collision's geometry.
@@ -40,8 +40,8 @@ namespace UrdfUnity.Urdf.Models.LinkElements
         /// <param name="geometry">The shape of the collision element. MUST NOT BE NULL</param>
         private Collision(string name, Origin origin, Geometry geometry)
         {
-            Preconditions.IsNotNull(origin);
-            Preconditions.IsNotNull(geometry);
+            Preconditions.IsNotNull(origin, "Collision origin property must not be null");
+            Preconditions.IsNotNull(geometry, "Collision geometry property must not be null");
             this.Name = name;
             this.Origin = origin;
             this.Geometry = geometry;
@@ -85,14 +85,14 @@ namespace UrdfUnity.Urdf.Models.LinkElements
 
             public Builder SetOrigin(Origin origin)
             {
-                Preconditions.IsNotNull(origin);
+                Preconditions.IsNotNull(origin, "Collision origin property cannot be set to null");
                 this.origin = origin;
                 return this;
             }
 
             public Builder SetGeometry(Geometry geometry)
             {
-                Preconditions.IsNotNull(geometry);
+                Preconditions.IsNotNull(geometry, "Collision geometry property cannot be set to null");
                 this.geometry = geometry;
                 return this;
             }

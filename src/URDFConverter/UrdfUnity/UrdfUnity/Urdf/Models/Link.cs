@@ -9,7 +9,7 @@ namespace UrdfUnity.Urdf.Models
     /// Represents a rigid body with inertia, visual features and collision properties.
     /// </summary>
     /// <seealso cref="http://wiki.ros.org/urdf/XML/link"/>
-    public class Link
+    public sealed class Link
     {
         /// <summary>
         /// The default name used when a Link needs to be instantiated without a name.
@@ -54,9 +54,9 @@ namespace UrdfUnity.Urdf.Models
         /// <param name="collision">The collision properties of the link. MUST NOT BE NULL</param>
         private Link(string name, Inertial inertial, List<Visual> visuals, List<Collision> collisions)
         {
-            Preconditions.IsNotEmpty(name, "name");
-            Preconditions.IsNotNull(visuals, "name");
-            Preconditions.IsNotNull(collisions, "name");
+            Preconditions.IsNotEmpty(name, "Link name property cannot be set to null or empty");
+            Preconditions.IsNotNull(visuals, "Link visual property cannot be set to null");
+            Preconditions.IsNotNull(collisions, "Link collision property cannot be set to null");
             this.Name = name;
             this.Inertial = inertial;
             this.Visual = visuals;
@@ -95,14 +95,14 @@ namespace UrdfUnity.Urdf.Models
 
             public Builder SetInertial(Inertial inertial)
             {
-                Preconditions.IsNotNull(inertial);
+                Preconditions.IsNotNull(inertial, "Link inertial property cannot be set to null");
                 this.inertial = inertial;
                 return this;
             }
 
             public Builder SetVisual(Visual visual)
             {
-                Preconditions.IsNotNull(visual);
+                Preconditions.IsNotNull(visual, "Link visual property cannot be set to null");
                 this.visual = new List<Visual>();
                 this.visual.Add(visual);
                 return this;
@@ -110,14 +110,14 @@ namespace UrdfUnity.Urdf.Models
 
             public Builder SetVisual(List<Visual> visual)
             {
-                Preconditions.IsNotNull(visual);
+                Preconditions.IsNotNull(visual, "Link visual property cannot be set to null");
                 this.visual = visual;
                 return this;
             }
 
             public Builder SetCollision(Collision collision)
             {
-                Preconditions.IsNotNull(collision);
+                Preconditions.IsNotNull(collision, "Link collision property cannot be set to null");
                 this.collision = new List<Collision>();
                 this.collision.Add(collision);
                 return this;
@@ -125,7 +125,7 @@ namespace UrdfUnity.Urdf.Models
 
             public Builder SetCollision(List<Collision> collision)
             {
-                Preconditions.IsNotNull(collision);
+                Preconditions.IsNotNull(collision, "Link collision property cannot be set to null");
                 this.collision = collision;
                 return this;
             }

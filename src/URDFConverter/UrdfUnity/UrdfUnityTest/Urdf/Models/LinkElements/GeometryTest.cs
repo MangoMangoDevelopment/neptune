@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 
@@ -21,6 +22,13 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         }
 
         [TestMethod]
+        [ExpectedException(typeof (ArgumentNullException))]
+        public void ConstructGeometryBoxNull()
+        {
+            new Geometry((Box)null);
+        }
+
+        [TestMethod]
         public void ConstructGeometryCylinder()
         {
             Cylinder cylinder = new Cylinder(1, 1);
@@ -31,6 +39,13 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Assert.IsNull(geometry.Box);
             Assert.IsNull(geometry.Sphere);
             Assert.IsNull(geometry.Mesh);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructGeometryCylinderNull()
+        {
+            new Geometry((Cylinder)null);
         }
 
         [TestMethod]
@@ -47,6 +62,13 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructGeometrySphereNull()
+        {
+            new Geometry((Sphere)null);
+        }
+
+        [TestMethod]
         public void ConstructGeometryMesh()
         {
             Mesh mesh = new Mesh.Builder("name").Build();
@@ -57,6 +79,13 @@ namespace UrdfUnityTest.Urdf.Models.LinkElements
             Assert.IsNull(geometry.Box);
             Assert.IsNull(geometry.Cylinder);
             Assert.IsNull(geometry.Sphere);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructGeometryMeshNull()
+        {
+            new Geometry((Mesh)null);
         }
 
         [TestMethod]

@@ -9,28 +9,72 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         [TestMethod]
         public void ConstructSafetyController()
         {
-            double lowerLimit = 1;
-            double upperLimit = 2;
-            double kPosition = 3;
-            double kVelocity = 4;
-            SafetyController safetyController = new SafetyController(lowerLimit, upperLimit, kPosition, kVelocity);
+            double kVelocity = 1;
+            double kPosition = 2;
+            double lowerLimit = 3;
+            double upperLimit = 4;
+            SafetyController safetyController = new SafetyController(kVelocity, kPosition, lowerLimit, upperLimit);
 
+            Assert.AreEqual(kVelocity, safetyController.KVelocity);
+            Assert.AreEqual(kPosition, safetyController.KPostition);
             Assert.AreEqual(lowerLimit, safetyController.SoftLowerLimit);
             Assert.AreEqual(upperLimit, safetyController.SoftUpperLimit);
-            Assert.AreEqual(kPosition, safetyController.KPostition);
-            Assert.AreEqual(kVelocity, safetyController.KVelocity);
         }
 
         [TestMethod]
         public void ConstructSafetyControllerOnlyVelocity()
         {
-            double kVelocity = 4;
+            double kVelocity = 1;
             SafetyController safetyController = new SafetyController(kVelocity);
 
+            Assert.AreEqual(kVelocity, safetyController.KVelocity);
+            Assert.AreEqual(0, safetyController.KPostition);
             Assert.AreEqual(0, safetyController.SoftLowerLimit);
             Assert.AreEqual(0, safetyController.SoftUpperLimit);
-            Assert.AreEqual(0, safetyController.KPostition);
+        }
+
+        [TestMethod]
+        public void ConstructSafetyControllerVelocityAndEffort()
+        {
+            double kVelocity = 1;
+            double kPosition = 2;
+            SafetyController safetyController = new SafetyController(kVelocity, kPosition);
+            SafetyController safetyControllerNamedArg = new SafetyController(kVelocity, kPosition: kPosition);
+
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
+            Assert.AreEqual(kPosition, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.SoftLowerLimit);
+            Assert.AreEqual(0, safetyController.SoftUpperLimit);
+            Assert.AreEqual(kVelocity, safetyControllerNamedArg.KVelocity);
+            Assert.AreEqual(kPosition, safetyControllerNamedArg.KPostition);
+            Assert.AreEqual(0, safetyControllerNamedArg.SoftLowerLimit);
+            Assert.AreEqual(0, safetyControllerNamedArg.SoftUpperLimit);
+        }
+
+        [TestMethod]
+        public void ConstructSafetyControllerVelocityAndLower()
+        {
+            double kVelocity = 1;
+            double lowerLimit = 3;
+            SafetyController safetyController = new SafetyController(kVelocity, lowerLimit: lowerLimit);
+
+            Assert.AreEqual(kVelocity, safetyController.KVelocity);
+            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(lowerLimit, safetyController.SoftLowerLimit);
+            Assert.AreEqual(0, safetyController.SoftUpperLimit);
+        }
+
+        [TestMethod]
+        public void ConstructSafetyControllerVelocityAndUpper()
+        {
+            double kVelocity = 1;
+            double upperLimit = 4;
+            SafetyController safetyController = new SafetyController(kVelocity, upperLimit: upperLimit);
+
+            Assert.AreEqual(kVelocity, safetyController.KVelocity);
+            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.SoftLowerLimit);
+            Assert.AreEqual(upperLimit, safetyController.SoftUpperLimit);
         }
 
         [TestMethod]
