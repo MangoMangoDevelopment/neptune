@@ -10,14 +10,6 @@ namespace UrdfUnityTest.Util
         private static readonly string ERROR_MESSAGE = "Error!  Error!";
         private static readonly string PARAM_NAME = "paramName";
 
-        [TestMethod]
-        public void Foo()
-        {
-            // TODO: Delete me!
-            string me = "me";
-            Assert.AreEqual("Hello me", $"Hello {me}");
-        }
-
 
         #region IsNotNull tests
 

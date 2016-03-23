@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.InertialElements;
 using UrdfUnity.Util;
 
@@ -14,10 +15,12 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
         /// <summary>
         /// The default value used if the mass element is missing the required value.
         /// </summary>
-        public static readonly double DEFAULT_MASS = 0d;
+        private static readonly double DEFAULT_MASS = 0d;
 
         private static readonly string VALUE_ATTRIBUTE_NAME = "value";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

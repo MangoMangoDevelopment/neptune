@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Parse.Xml.LinkElements.InertialElements;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
@@ -17,7 +18,10 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private static readonly string ORIGIN_ELEMENT_NAME = "origin";
         private static readonly string MASS_ELEMENT_NAME = "mass";
         private static readonly string INERTIA_ELEMENT_NAME = "inertia";
+        private static readonly double DEFAULT_MASS = 0d;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -53,7 +57,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             if (originElement == null)
             {
-                // TODO: Log that optional origin was not provided.
+                LogMissingOptionalAttribute(ORIGIN_ELEMENT_NAME);
                 return null;
             }
 
@@ -64,8 +68,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             if (massElement == null)
             {
-                // TODO: Log missing required mass element.
-                return new Mass(MassParser.DEFAULT_MASS);
+                LogMissingRequiredAttribute(MASS_ELEMENT_NAME);
+                return new Mass(DEFAULT_MASS);
             }
 
             return this.massParser.Parse(massElement);
@@ -75,7 +79,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         {
             if (inertiaElement == null)
             {
-                // TODO: Log missing required inertia element.
+                LogMissingRequiredAttribute(INERTIA_ELEMENT_NAME);
                 return new Inertia(InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE,
                     InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE);
             }

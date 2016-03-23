@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -16,6 +17,9 @@ namespace UrdfUnity.Parse.Xml.JointElements
         private static readonly string K_POSITION_ATTRIBUTE_NAME = "k_position";
         private static readonly string K_VELOCITY_ATTRIBUTE_NAME = "k_velocity";
         private static readonly double DEFAULT_VALUE = 0d;
+
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -44,7 +48,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (velocityAttribute == null)
             {
-                // TODO: Log missing required <safety_controller> k_velocity attribute
+                LogMissingRequiredAttribute(K_VELOCITY_ATTRIBUTE_NAME);
             }
 
             return new SafetyController(velocity, position, lowerLimit, upperLimit);

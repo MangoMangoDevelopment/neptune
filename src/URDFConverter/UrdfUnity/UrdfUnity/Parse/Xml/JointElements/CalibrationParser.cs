@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -15,6 +16,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         private static readonly string FALLING_ATTRIBUTE_NAME = "falling";
         private static readonly double DEFAULT_VALUE = 0d;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -38,7 +41,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (risingAttribute == null)
             {
-                // TODO: Log missing optional <calibration> rising attribute
+                LogMissingOptionalAttribute(RISING_ATTRIBUTE_NAME);
             }
             else
             {
@@ -47,7 +50,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (fallingAttribute == null)
             {
-                // TODO: Log missing optional <calibration> falling attribute
+                LogMissingOptionalAttribute(FALLING_ATTRIBUTE_NAME);
             }
             else
             {

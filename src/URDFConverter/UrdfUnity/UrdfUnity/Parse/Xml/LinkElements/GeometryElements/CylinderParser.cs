@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 
@@ -15,6 +16,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         private static readonly string RADIUS_ATTRIBUTE_NAME = "radius";
         private static readonly string LENGTH_ATTRIBUTE_NAME = "length";
         private static readonly double DEFAULT_VALUE = 0d;
+
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -40,20 +44,34 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
             if (radiusAttribute == null)
             {
-                // TODO: Log malformed URDF <cylinder> element encountered
+                LogMissingRequiredAttribute(RADIUS_ATTRIBUTE_NAME);
             }
             else
             {
-                radius = RegexUtils.MatchDouble(radiusAttribute.Value, DEFAULT_VALUE);
+                if (!RegexUtils.IsMatchNDoubles(radiusAttribute.Value, 1))
+                {
+                    LogMalformedAttribute(RADIUS_ATTRIBUTE_NAME);
+                }
+                else
+                {
+                    radius = RegexUtils.MatchDouble(radiusAttribute.Value, DEFAULT_VALUE);
+                }
             }
 
             if (lengthAttribute == null)
             {
-                // TODO: Log malformed URDF <cylinder> element encountered
+                LogMissingRequiredAttribute(LENGTH_ATTRIBUTE_NAME);
             }
             else
             {
-                length = RegexUtils.MatchDouble(lengthAttribute.Value, DEFAULT_VALUE);
+                if (!RegexUtils.IsMatchNDoubles(lengthAttribute.Value, 1))
+                {
+                    LogMalformedAttribute(LENGTH_ATTRIBUTE_NAME);
+                }
+                else
+                {
+                    length = RegexUtils.MatchDouble(lengthAttribute.Value, DEFAULT_VALUE);
+                }
             }
 
             return new Cylinder(radius, length);

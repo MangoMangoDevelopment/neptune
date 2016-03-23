@@ -68,7 +68,7 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements
             Assert.AreEqual(0, inertial.Origin.Rpy.R);
             Assert.AreEqual(0, inertial.Origin.Rpy.P);
             Assert.AreEqual(0, inertial.Origin.Rpy.Y);
-            Assert.AreEqual(MassParser.DEFAULT_MASS, inertial.Mass.Value);
+            Assert.AreEqual(0, inertial.Mass.Value); // Default value
             Assert.AreEqual(100, inertial.Inertia.Ixx);
             Assert.AreEqual(0, inertial.Inertia.Ixy);
             Assert.AreEqual(0, inertial.Inertia.Ixz);

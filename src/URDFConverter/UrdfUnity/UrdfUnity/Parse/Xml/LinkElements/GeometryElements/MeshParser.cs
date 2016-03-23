@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 
@@ -17,6 +18,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         private static readonly string SCALE_ATTRIBUTE_NAME = "scale";
         private static readonly string SIZE_ATTRIBUTE_NAME = "size";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -58,7 +61,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         {
             if (fileNameAttribute == null)
             {
-                // TODO: Log malformed <mesh> filename attribute encountered
+                LogMissingRequiredAttribute(FILE_NAME_ATTRIBUTE_NAME);
                 return Mesh.DEFAULT_FILE_NAME;
             }
 
@@ -71,13 +74,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
             if (scaleAttribute == null)
             {
-                // TODO: Log malformed <mesh> scale attribute encountered
+                LogMissingOptionalAttribute(SCALE_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(scaleAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <mesh> scale attribute encountered
+                    LogMalformedAttribute(SCALE_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -95,13 +98,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
             if (sizeAttribute == null)
             {
-                // TODO: Log malformed URDF <mesh> size attribute encountered
+                LogMissingOptionalAttribute(SIZE_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(sizeAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <mesh> size attribute encountered
+                    LogMalformedAttribute(SIZE_ATTRIBUTE_NAME);
                 }
                 else
                 {

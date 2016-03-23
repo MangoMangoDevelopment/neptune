@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.InertialElements;
 using UrdfUnity.Util;
 
@@ -25,6 +26,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
         private static readonly string IYZ_ATTRIBUTE_NAME = "iyz";
         private static readonly string IZZ_ATTRIBUTE_NAME = "izz";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -55,7 +58,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.InertialElements
             {
                 if (attributes[key] == null)
                 {
-                    // TODO: Log malformed URDF <inertia> attribute encountered
+                    LogMissingRequiredAttribute(key);
                     values.Add(key, DEFAULT_VALUE);
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
 
@@ -20,6 +21,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         private static readonly int DEFAULT_RGB_VALUE = 0; // Black
         private static readonly double DEFAULT_ALPHA_VALUE = 1d; // No transparency
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -49,6 +52,12 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
                 rgb = rgba.Item1;
                 alpha = rgba.Item2;
             }
+            else if (rgbAttribute == null)
+            {
+                Logger.Warn("Parsing {0} failed due to missing both {1} and {2} attributes", ElementName, RGBA_ATTRIBUTE_NAME, RGB_ATTRIBUTE_NAME);
+                rgb = new RgbAttribute(DEFAULT_RGB_VALUE, DEFAULT_RGB_VALUE, DEFAULT_RGB_VALUE);
+                alpha = DEFAULT_ALPHA_VALUE;
+            }
             else
             {
                 rgb = ParseRgb(rgbAttribute);
@@ -64,13 +73,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 
             if (rgbAttribute == null)
             {
-                // TODO: Log malformed URDF <color> element encountered
+                LogMissingOptionalAttribute(RGB_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(rgbAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <color> rgb attribute encountered
+                    LogMalformedAttribute(RGB_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -88,13 +97,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 
             if (alphaAttribute == null)
             {
-                // TODO: Log malformed URDF <box> element encountered
+                LogMissingOptionalAttribute(ALPHA_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(alphaAttribute.Value, 1))
                 {
-                    // TODO: Log malformed URDF <color> alpha attribute encountered
+                    LogMalformedAttribute(ALPHA_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -113,13 +122,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 
             if (rgbaAttribute == null)
             {
-                // TODO: Log malformed URDF <color> element encountered
+                LogMissingOptionalAttribute(RGBA_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(rgbaAttribute.Value, 4))
                 {
-                    // TODO: Log malformed URDF <color> rgba attribute encountered
+                    LogMalformedAttribute(RGBA_ATTRIBUTE_NAME);
                 }
                 else
                 {

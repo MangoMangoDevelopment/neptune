@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
 
@@ -18,6 +19,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         private static readonly string TEXTURE_ELEMENT_NAME = "texture";
         private static readonly int DEFAULT_COLOR_VALUE = 0; // Black
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -60,7 +63,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
             {
                 if (!this.materialDictionary.ContainsKey(name))
                 {
-                    // TODO: Log unknown material referenced by <material> name attribute
+                    Logger.Warn("Unknown pre-defined material name referenced by material name attribute");
                     return new Material(name);
                 }
                 else
@@ -81,8 +84,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
             {
                 return new Material(name, color);
             }
-
-            // TODO: Log malformed <material> element
+            
+            Logger.Warn("Unable to parse malformed material element");
             return new Material(name, new Color(new RgbAttribute(DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE)));
         }
 
@@ -90,7 +93,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         {
             if (nameAttribute == null || nameAttribute.Value == null)
             {
-                // TODO: Log malformed <material> name attribute encountered
+                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
                 return Material.DEFAULT_NAME;
             }
 
@@ -101,7 +104,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         {
             if (colorElement == null)
             {
-                // TODO: Log missing optional <material> color element.
+                LogMissingOptionalAttribute(COLOR_ELEMENT_NAME);
                 return null;
             }
 
@@ -112,7 +115,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
         {
             if (textureElement == null)
             {
-                // TODO: Log missing optional <material> texture element.
+                LogMissingOptionalAttribute(TEXTURE_ELEMENT_NAME);
                 return null;
             }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
@@ -19,6 +20,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private static readonly string GEOMETRY_ELEMENT_NAME = "geometry";
         private static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -65,7 +68,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
             }
             else
             {
-                // TODO: Log malformed <collision> geometry sub-element
+                LogMalformedAttribute(GEOMETRY_ELEMENT_NAME);
                 builder.SetGeometry(DEFAULT_GEOMETRY);
             }
 

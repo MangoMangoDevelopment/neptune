@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Parse\AbstractUrdfXmlParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\AxisParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\CalibrationParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\ChildParserTest.cs" />
@@ -107,9 +108,8 @@
     <Compile Include="Urdf\Models\RobotTest.cs" />
     <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\PreconditionsUtilsTest.cs" />
+    <Compile Include="Util\PreconditionsTest.cs" />
     <Compile Include="Util\RegexUtilsTest.cs" />
-    <Compile Include="Util\XmlParsingUtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UrdfUnity\UrdfUnity.csproj">

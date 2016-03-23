@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Parse.Xml.LinkElements.VisualElements;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
@@ -24,6 +25,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private readonly GeometryParser geometryParser = new GeometryParser();
         private readonly MaterialParser materialParser;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -58,7 +61,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
 
             if (geometryElement == null)
             {
-                // TODO: Log missing required <visual> geometry sub-element
+                LogMissingRequiredElement(GEOMETRY_ELEMENT_NAME);
                 builder = new Visual.Builder(GeometryParser.DEFAULT_GEOMETRY);
             }
             else

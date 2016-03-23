@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Parse.Xml.JointElements;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Util;
@@ -24,6 +25,9 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string LIMIT_ELEMENT_NAME = "limit";
         private static readonly string MIMIC_ELEMENT_NAME = "mimic";
         private static readonly string SAFETY_CONTROLLER_ELEMENT_NAME = "safety_controller";
+
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -150,7 +154,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nameAttribute == null)
             {
-                // TODO: Log missing required <joint> name attribute
+                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
                 name = Joint.DEFAULT_NAME;
             }
             else
@@ -160,7 +164,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (typeAttribute == null)
             {
-                // TODO: Log missing required <joint> type attribute
+                LogMissingRequiredAttribute(TYPE_ATTRIBUTE_NAME);
                 type = Joint.JointType.Unknown;
             }
             else
@@ -170,7 +174,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (parentElement == null)
             {
-                // TODO: Log missing required <joint> parent sub-element
+                LogMissingRequiredElement(PARENT_ELEMENT_NAME);
                 parent = new Link.Builder(Link.DEFAULT_NAME).Build();
             }
             else
@@ -179,7 +183,7 @@ namespace UrdfUnity.Parse.Xml
 
                 if (!this.linkDictionary.ContainsKey(parentLinkName))
                 {
-                    // TODO: Log unknown link specified by <joint> parent sub-element
+                    Logger.Warn("Unknown link name specified as <joint> parent: {0}", parentLinkName);
                     parent = new Link.Builder(parentLinkName).Build();
                 }
                 else
@@ -190,7 +194,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (childElement == null)
             {
-                // TODO: Log missing required <joint> child sub-element
+                LogMissingRequiredElement(CHILD_ELEMENT_NAME);
                 child = new Link.Builder(Link.DEFAULT_NAME).Build();
             }
             else
@@ -199,7 +203,7 @@ namespace UrdfUnity.Parse.Xml
 
                 if (!this.linkDictionary.ContainsKey(childLinkName))
                 {
-                    // TODO: Log unknown link specified by <joint> child sub-element
+                    Logger.Warn("Unknown link name specified as <joint> child: {0}", childLinkName);
                     child = new Link.Builder(childLinkName).Build();
                 }
                 else

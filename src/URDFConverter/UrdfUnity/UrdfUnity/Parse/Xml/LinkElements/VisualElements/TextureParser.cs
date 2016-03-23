@@ -1,6 +1,7 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 {
@@ -14,6 +15,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
     {
         private static readonly string FILE_NAME_ATTRIBUTE_NAME = "filename";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -33,9 +36,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
             XmlAttribute fileNameAttribute = GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
             string filename = Texture.DEFAULT_FILE_NAME;
 
-            if (fileNameAttribute == null || fileNameAttribute.Value == null)
+            if (fileNameAttribute == null || String.IsNullOrEmpty(fileNameAttribute.Value))
             {
-                // TODO: Log malformed <texture> filename attribute encountered
+                LogMissingRequiredAttribute(FILE_NAME_ATTRIBUTE_NAME);
             }
             else
             {

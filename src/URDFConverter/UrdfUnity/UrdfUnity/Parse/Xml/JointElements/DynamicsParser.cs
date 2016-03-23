@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -15,6 +16,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         private static readonly string FRICTION_ATTRIBUTE_NAME = "friction";
         private static readonly double DEFAULT_VALUE = 0d;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -38,7 +41,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (dampingAttribute == null)
             {
-                // TODO: Log missing optional <dynamics> rising attribute
+                LogMissingOptionalAttribute(DAMPING_ATTRIBUTE_NAME);
             }
             else
             {
@@ -46,7 +49,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
             }
             if (frictionAttribute == null)
             {
-                // TODO: Log missing optional <dynamics> falling attribute
+                LogMissingOptionalAttribute(FRICTION_ATTRIBUTE_NAME);
             }
             else
             {

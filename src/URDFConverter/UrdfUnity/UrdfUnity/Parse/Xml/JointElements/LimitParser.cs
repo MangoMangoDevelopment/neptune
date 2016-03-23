@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
 
@@ -17,6 +18,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         private static readonly string VELOCITY_ATTRIBUTE_NAME = "velocity";
         private static readonly double DEFAULT_VALUE = 0d;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -44,11 +47,11 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (effortAttribute == null)
             {
-                // TODO: Log missing required <limit> effort attribute
+                LogMissingRequiredAttribute(EFFORT_ATTRIBUTE_NAME);
             }
             if (velocityAttribute == null)
             {
-                // TODO: Log missing required <limit> velocity attribute
+                LogMissingRequiredAttribute(VELOCITY_ATTRIBUTE_NAME);
             }
 
             return new Limit(effort, velocity, lower, upper);

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Parse.Xml.LinkElements.VisualElements;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml
 {
@@ -19,6 +19,8 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string JOINT_ELEMENT_NAME = "joint";
         private static readonly string MATERIAL_ELEMENT_NAME = "material";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -81,7 +83,7 @@ namespace UrdfUnity.Parse.Xml
         {
             if (nameAttribute == null)
             {
-                // TODO: Log missing required <link> name attribute
+                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
                 return Robot.DEFAULT_NAME;
             }
 
@@ -104,7 +106,7 @@ namespace UrdfUnity.Parse.Xml
         {
             if (linkElements.Count == 0)
             {
-                // TODO: Log URDF file doesn't contain any top-level <link> elements
+                Logger.Warn("URDF file is missing required top-level link elements");
             }
             else
             {
@@ -120,7 +122,7 @@ namespace UrdfUnity.Parse.Xml
         {
             if (jointElements.Count == 0)
             {
-                // TODO: Log URDF file doesn't contain any top-level <joint> elements
+                Logger.Warn("URDF file is missing required top-level joint elements");
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Parse.Xml.LinkElements;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.LinkElements;
@@ -20,6 +21,8 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string VISUAL_ELEMENT_NAME = "visual";
         private static readonly string COLLISION_ELEMENT_NAME = "collision";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -59,7 +62,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nameAttribute == null)
             {
-                // TODO: Log missing required <link> name attribute
+                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
                 builder = new Link.Builder(Link.DEFAULT_NAME);
             }
             else
@@ -91,7 +94,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nodeList == null || nodeList.Count == 0)
             {
-                // TODO: Log malformed <link> element missing <visual> sub-element
+                LogMissingRequiredElement(VISUAL_ELEMENT_NAME);
             }
             else
             {
@@ -110,7 +113,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nodeList == null || nodeList.Count == 0)
             {
-                // TODO: Log malformed <link> element missing <collision> sub-element
+                LogMissingOptionalElement(COLLISION_ELEMENT_NAME);
             }
             else
             {

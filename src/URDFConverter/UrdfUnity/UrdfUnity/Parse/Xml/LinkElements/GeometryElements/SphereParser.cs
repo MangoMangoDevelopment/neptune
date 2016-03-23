@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 
@@ -15,6 +16,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
         private static readonly string RADIUS_ATTRIBUTE_NAME = "radius";
         private static readonly double DEFAULT_VALUE = 0d;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -36,11 +39,18 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
             if (radiusAttribute == null)
             {
-                // TODO: Log malformed URDF <sphere> element encountered
+                LogMissingRequiredAttribute(RADIUS_ATTRIBUTE_NAME);
             }
             else
             {
-                radius = RegexUtils.MatchDouble(radiusAttribute.Value, DEFAULT_VALUE);
+                if (!RegexUtils.IsMatchNDoubles(radiusAttribute.Value, 1))
+                {
+                    LogMalformedAttribute(RADIUS_ATTRIBUTE_NAME);
+                }
+                else
+                {
+                    radius = RegexUtils.MatchDouble(radiusAttribute.Value, DEFAULT_VALUE);
+                }
             }
 
             return new Sphere(radius);

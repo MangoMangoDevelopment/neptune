@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Util;
 
@@ -15,6 +16,8 @@ namespace UrdfUnity.Parse.Xml
         private static readonly string XYZ_ATTRIBUTE_NAME = "xyz";
         private static readonly string RPY_ATTRIBUTE_NAME = "rpy";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -40,7 +43,7 @@ namespace UrdfUnity.Parse.Xml
             {
                 if (!RegexUtils.IsMatchNDoubles(xyzAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <origin> xyz attribute encountered
+                    LogMalformedAttribute(XYZ_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -53,7 +56,7 @@ namespace UrdfUnity.Parse.Xml
             {
                 if (!RegexUtils.IsMatchNDoubles(rpyAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <origin> rpy attribute encountered
+                    LogMalformedAttribute(RPY_ATTRIBUTE_NAME);
                 }
                 else
                 {

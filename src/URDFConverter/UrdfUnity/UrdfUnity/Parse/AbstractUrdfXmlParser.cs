@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using NLog;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse
@@ -15,6 +16,11 @@ namespace UrdfUnity.Parse
         /// The name of the URDF XML element the derived implementation of XmlParser parses.
         /// </summary>
         protected abstract string ElementName { get; }
+
+        /// <summary>
+        /// The Logger instance for the derived class.
+        /// </summary>
+        protected abstract Logger Logger { get; }
 
 
         /// <summary>
@@ -57,6 +63,51 @@ namespace UrdfUnity.Parse
         protected XmlElement GetElementFromNode(XmlNode node, string elementName)
         {
             return (XmlElement)node.SelectSingleNode(elementName);
+        }
+
+        /// <summary>
+        /// Logs an error message for the case where a required sub-element is missing for the XML element being parsed.
+        /// </summary>
+        /// <param name="element">The name of the sub-element that's missing</param>
+        public void LogMissingRequiredElement(string element)
+        {
+            Logger.Warn("Parsing <{0}> element failed due to missing required \"{1}\" sub-element", ElementName, element);
+        }
+
+        /// <summary>
+        /// Logs an debug message for the case where an optional sub-element isn't provided by the XML element being parsed.
+        /// </summary>
+        /// <param name="element">The name of the attribute that's missing</param>
+        public void LogMissingOptionalElement(string element)
+        {
+            Logger.Debug("Parsing <{0}> element without optional \"{1}\" sub-element", ElementName, element);
+        }
+
+        /// <summary>
+        /// Logs an error message for the case where a required attribute is missing for the XML element being parsed.
+        /// </summary>
+        /// <param name="attribute">The name of the attribute that's missing</param>
+        public void LogMissingRequiredAttribute(string attribute)
+        {
+            Logger.Warn("Parsing <{0}> element failed due to missing required \"{1}\" attribute", ElementName, attribute);
+        }
+
+        /// <summary>
+        /// Logs an debug message for the case where an optional attribute isn't provided by the XML element being parsed.
+        /// </summary>
+        /// <param name="attribute">The name of the attribute that's missing</param>
+        public void LogMissingOptionalAttribute(string attribute)
+        {
+            Logger.Debug("Parsing <{0}> element without optional \"{1}\" attribute", ElementName, attribute);
+        }
+
+        /// <summary>
+        /// Logs an error message for the case where a required attribute is malformed and can't be parsed.
+        /// </summary>
+        /// <param name="attribute">The name of the attribute that can be parsed</param>
+        public void LogMalformedAttribute(string attribute)
+        {
+            Logger.Warn("Parsing <{0}> element failed due to malformed \"{1}\" attribute", ElementName, attribute);
         }
     }
 }

@@ -54,13 +54,7 @@ namespace UrdfUnityTest.Parse.Xml.LinkElements.InertialElements
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Mass mass = this.parser.Parse(xmlDoc.DocumentElement);
 
-            Assert.AreEqual(MassParser.DEFAULT_MASS, mass.Value);
-        }
-
-        [TestMethod]
-        public void DefaultValue()
-        {
-            Assert.AreEqual(0d, MassParser.DEFAULT_MASS);
+            Assert.AreEqual(0d, mass.Value);
         }
     }
 }

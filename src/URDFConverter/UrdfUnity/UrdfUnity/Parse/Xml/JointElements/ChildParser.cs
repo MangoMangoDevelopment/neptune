@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Util;
 
@@ -13,6 +14,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
     {
         private static readonly string LINK_ATTRIBUTE_NAME = "link";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -35,7 +38,7 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (linkAttribute == null)
             {
-                // TODO: Log missing required <childe> name attribute encountered
+                LogMissingRequiredAttribute(LINK_ATTRIBUTE_NAME);
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using NLog;
 using UrdfUnity.Parse.Xml.LinkElements.GeometryElements;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
@@ -22,6 +23,8 @@ namespace UrdfUnity.Parse.Xml.LinkElements
         private static readonly string SPHERE_ELEMENT_NAME = "sphere";
         private static readonly string MESH_ELEMENT_NAME = "mesh";
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -69,7 +72,7 @@ namespace UrdfUnity.Parse.Xml.LinkElements
             }
             else
             {
-                // TODO: Log malformed <geometry> element encountered
+                Logger.Warn("Parsing {0} element failed to due missing sub-element of valid type (box, cylinder, sphere, mesh)", ElementName);
                 geometry = DEFAULT_GEOMETRY;
             }
 

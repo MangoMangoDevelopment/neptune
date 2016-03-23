@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
@@ -22,6 +23,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         private static readonly Joint DEFAULT_JOINT = new Joint.Builder(Joint.DEFAULT_NAME, Joint.JointType.Unknown,
             new Link.Builder(Link.DEFAULT_NAME).Build(), new Link.Builder(Link.DEFAULT_NAME).Build()).Build();
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -60,15 +63,15 @@ namespace UrdfUnity.Parse.Xml.JointElements
             double multiplier = (multiplierAttribute != null) ? RegexUtils.MatchDouble(multiplierAttribute.Value, DEFAULT_MULTIPLIER) : DEFAULT_MULTIPLIER;
             double offset = (offsetAttribute != null) ? RegexUtils.MatchDouble(offsetAttribute.Value, DEFAULT_OFFSET) : DEFAULT_OFFSET;
 
-            if (jointAttribute == null || jointAttribute.Value == null || jointAttribute.Value.Equals(String.Empty))
+            if (jointAttribute == null || String.IsNullOrEmpty(jointAttribute.Value))
             {
-                // TODO: Log missing required <mimic> joint attribute
+                LogMissingRequiredAttribute(JOINT_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!this.jointDictionary.ContainsKey(jointAttribute.Value))
                 {
-                    // TODO: Log unknown joint specified by <mimic> joint attribute
+                    Logger.Info("Unknown joint name specified in <mimic>: {0}", jointAttribute.Value);
                     joint = new Joint.Builder(jointAttribute.Value, DEFAULT_JOINT.Type, DEFAULT_JOINT.Parent, DEFAULT_JOINT.Child).Build();
                 }
                 else

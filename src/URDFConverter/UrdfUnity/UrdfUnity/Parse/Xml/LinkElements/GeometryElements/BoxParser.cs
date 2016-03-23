@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 
@@ -14,6 +15,9 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
     {
         private static readonly string SIZE_ATTRIBUTE_NAME = "size";
         private static readonly double DEFAULT_VALUE = 0d;
+
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -36,13 +40,13 @@ namespace UrdfUnity.Parse.Xml.LinkElements.GeometryElements
 
             if (sizeAttribute == null)
             {
-                // TODO: Log malformed URDF <box> element encountered
+                LogMissingRequiredAttribute(SIZE_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(sizeAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <box> size attribute encountered
+                    LogMalformedAttribute(SIZE_ATTRIBUTE_NAME);
                 }
                 else
                 {

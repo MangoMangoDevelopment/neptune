@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using NLog;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.JointElements;
 using UrdfUnity.Util;
@@ -17,6 +18,8 @@ namespace UrdfUnity.Parse.Xml.JointElements
         private static readonly double DEFAULT_Y_VALUE = 0;
         private static readonly double DEFAULT_Z_VALUE = 0;
 
+
+        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -38,13 +41,13 @@ namespace UrdfUnity.Parse.Xml.JointElements
 
             if (xyzAttribute == null)
             {
-                // TODO: Log malformed URDF <axis> element encountered
+                LogMissingRequiredAttribute(XYZ_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(xyzAttribute.Value, 3))
                 {
-                    // TODO: Log malformed URDF <axis> xyz attribute encountered
+                    LogMalformedAttribute(XYZ_ATTRIBUTE_NAME);
                 }
                 else
                 {
