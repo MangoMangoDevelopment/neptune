@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FileManager\FileManagerTest.cs" />
     <Compile Include="Parse\Xml\JointElements\AxisParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\CalibrationParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\ChildParserTest.cs" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <None Include="TestData\example.urdf" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

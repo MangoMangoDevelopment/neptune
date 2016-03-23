@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileManager\FileManager.cs" />
     <Compile Include="Parse\Parser.cs" />
     <Compile Include="Parse\UrdfParser.cs" />
     <Compile Include="Parse\XmlParser.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Urdf\Models\Robot.cs" />
     <Compile Include="Urdf\Models\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\XyzAttribute.cs" />
+    <Compile Include="Util\EnumUtils.cs" />
     <Compile Include="Util\Preconditions.cs" />
     <Compile Include="Util\RegexUtils.cs" />
     <Compile Include="Util\XmlParsingUtils.cs" />
