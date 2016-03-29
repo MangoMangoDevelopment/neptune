@@ -16,6 +16,7 @@ public class PartText : MonoBehaviour {
     private State state = State.AddNewSensor;
     private EditorManager editorManager;
     private UIManager uiManager;
+    public float scale;
 
     void Start()
     {
@@ -32,6 +33,11 @@ public class PartText : MonoBehaviour {
     public GameObject GetGO()
     {
         return GO;
+    }
+
+    public void SetScale(float scale)
+    {
+        this.scale = scale;
     }
 
     public void DestroyPart()
@@ -52,7 +58,7 @@ public class PartText : MonoBehaviour {
             case State.AddNewSensor:
                 {
                     //Get the instance of the prefab back from the Editor Manager so that we can reference it when selecting
-                    uiManager.AddPart(name, editorManager.AddPart(GO, name));
+                    uiManager.AddPart(name, editorManager.AddPart(GO, name), scale);
                 }
                 break;
             case State.SelectExistingSensor:

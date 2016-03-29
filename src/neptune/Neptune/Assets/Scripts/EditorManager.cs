@@ -92,6 +92,7 @@ public class EditorManager : MonoBehaviour {
                     uiManager.SelectPart(selectedObject);
                 else
                 {
+                    uiManager.Deselect();
                     //Update this here so that it gets picked up on orbit
                     XPosHandle.SetActive(false);
                     YPosHandle.SetActive(false);
@@ -135,13 +136,13 @@ public class EditorManager : MonoBehaviour {
         switch (robotBase)
         {
             case RobotBase.Jackal:
-                robotBaseObject = CreateCustomCubeoid(robotBase.ToString(), Color.cyan, 3, 1, 2);
+                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
                 break;
             case RobotBase.Husky:
-                robotBaseObject = CreateCustomCubeoid(robotBase.ToString(), Color.cyan, 4, 1, 3);
+                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
                 break;
             case RobotBase.Grizzly:
-                robotBaseObject = CreateCustomCubeoid(robotBase.ToString(), Color.cyan, 5, 1.5f, 3);
+                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
                 break;
         }
         if (robotBaseObject != null)
@@ -215,7 +216,11 @@ public class EditorManager : MonoBehaviour {
                 {
                     if (hit.transform.gameObject.tag == Manipulatable.TAG)
                     {
-                        SetSelectedObject(hit.transform.gameObject);
+                        //Support non-mesh objects
+                        if (hit.transform.GetComponent<Sensor>())
+                            SetSelectedObject(hit.transform.GetComponent<Sensor>().sensorParent);
+                        else
+                            SetSelectedObject(hit.transform.gameObject);
                     }
                 }
                 else
@@ -466,29 +471,9 @@ public class EditorManager : MonoBehaviour {
     public GameObject AddPart(GameObject go, string name)
     {
         GameObject sensor = Instantiate(go);
-        
-        if (sensor.GetComponent<MeshFilter>() == null)
-        {
-            foreach (Transform child in sensor.transform)
-            {
-                if (child.GetComponent<MeshFilter>() != null)
-                {
-                    sensor = child.gameObject;
-                    break;
-                }
-            }
-        }
-        
-        sensor.tag = Manipulatable.TAG;
+
         Manipulatable m = sensor.GetComponent<Manipulatable>();
-        if (m != null)
-            m.ClearOutline();
-        else
-            sensor.AddComponent<Manipulatable>();
-        
-        sensor.AddComponent<MeshCollider>();
-        MeshCollider mc = sensor.GetComponent<MeshCollider>();
-        mc.sharedMesh = sensor.GetComponent<MeshFilter>().mesh;
+        m.ClearOutline();
         
         sensor.name = name;
         sensor.transform.position = Vector3.zero + new Vector3(0, sensor.transform.localScale.y/2, 0);

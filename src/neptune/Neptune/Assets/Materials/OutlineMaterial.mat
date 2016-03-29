@@ -138,6 +138,10 @@ Material:
         first:
           name: _Mode
         second: 0
+      data:
+        first:
+          name: _Thickness
+        second: 4
     m_Colors:
       data:
         first:

@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour {
         else
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
 
-        DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null;
+        DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject();
     }
 
     public void AddSensor(string text, GameObject go, float scale = 1)
@@ -73,16 +73,17 @@ public class UIManager : MonoBehaviour {
         sensorText.name = text;
         sensorText.GetComponentInChildren<Text>().text = text;
         sensorText.transform.SetParent(SensorsContent.transform);
-        go.transform.localScale *= scale;
         sensorText.GetComponent<PartText>().SetGO(go);
+        sensorText.GetComponent<PartText>().SetScale(scale);
         sensorText.GetComponent<PartText>().SetState(PartText.State.AddNewSensor);
     }
 
-    public void AddPart(string text, GameObject go)
+    public void AddPart(string text, GameObject go, float scale = 1)
     {
         GameObject partText = Instantiate(TextPrefab);
         partText.name = text;
         partText.GetComponentInChildren<Text>().text = text;
+        go.transform.localScale *= scale;
         partText.transform.SetParent(PartsContent.transform);
         partText.GetComponent<PartText>().SetGO(go);
         partText.GetComponent<PartText>().SetState(PartText.State.SelectExistingSensor);
@@ -296,7 +297,6 @@ public class UIManager : MonoBehaviour {
         EditorManager.RobotBase robotBase = EditorManager.RobotBase.Jackal;
         editorManager.SelectRobotBase(robotBase);
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
-        RobotBaseButton.GetComponentInChildren<Text>().text = robotBase.ToString();
     }
 
     public void SelectHuskyBase()
@@ -304,7 +304,6 @@ public class UIManager : MonoBehaviour {
         EditorManager.RobotBase robotBase = EditorManager.RobotBase.Husky;
         editorManager.SelectRobotBase(robotBase);
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
-        RobotBaseButton.GetComponentInChildren<Text>().text = robotBase.ToString();
     }
 
     public void SelectGrizzlyBase()
@@ -312,7 +311,6 @@ public class UIManager : MonoBehaviour {
         EditorManager.RobotBase robotBase = EditorManager.RobotBase.Grizzly;
         editorManager.SelectRobotBase(robotBase);
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
-        RobotBaseButton.GetComponentInChildren<Text>().text = robotBase.ToString();
     }
 
     public void SelectRobotBaseObject()

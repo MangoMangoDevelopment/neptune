@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System.Linq;
 
@@ -35,28 +35,61 @@ public class Manipulatable : MonoBehaviour {
     private GameObject outline;
     private GameObject bridge;
     private bool bridgeShown;
+    private Dictionary<Transform, Material> defaultMaterials;
 
     void Start()
     {
         editorManager = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
     }
 
+    void Awake()
+    {
+        defaultMaterials = new Dictionary<Transform, Material>();
+        if (GetComponent<Renderer>())
+            defaultMaterials.Add(transform, GetComponent<Renderer>().material);
+        MeshRenderer[] children = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer child in children)
+        {
+            if (child.transform == transform)
+                continue;
+            if (child.gameObject.GetComponent<Renderer>())
+            {
+                defaultMaterials.Add(child.transform, child.gameObject.GetComponent<Renderer>().material);
+                Sensor s = child.transform.gameObject.AddComponent<Sensor>();
+                s.sensorParent = gameObject;
+                child.gameObject.tag = Manipulatable.TAG;
+                child.gameObject.AddComponent<MeshCollider>();
+                MeshCollider mc = child.gameObject.GetComponent<MeshCollider>();
+                mc.sharedMesh = child.gameObject.GetComponent<MeshFilter>().mesh;
+            }
+        }
+    }
+
     public void Select ()
     {
         lastSelected = isSelected;
         isSelected = true;
-        ShowOutline(editorManager.OutlineMaterial);
+        if (gameObject != editorManager.GetRobotBaseObject())
+            ShowOutline(editorManager.OutlineMaterial);
     }
 
     public void Deselect()
     {
         lastSelected = isSelected;
         isSelected = false;
-        ClearOutline();
+        if (gameObject != editorManager.GetRobotBaseObject())
+            ClearOutline();
     }
 
     public void ShowOutline(Material mat)
     {
+        foreach (Transform child in defaultMaterials.Keys)
+        {
+            child.gameObject.GetComponent<Renderer>().material = mat;
+        }
+        //Removing old outline method since this doesn't work well for hard-edged meshes.
+        //Will leave here just in case a better method presents itself
+        /*
         ClearOutline();
         outline = Instantiate(gameObject);
         foreach (Transform child in outline.transform)
@@ -78,10 +111,20 @@ public class Manipulatable : MonoBehaviour {
         outline.transform.localRotation = Quaternion.identity;
         Mesh mesh = outline.GetComponent<MeshFilter>().mesh;
         mesh.triangles = mesh.triangles.Reverse().ToArray();
+        */
     }
 
     public void ClearOutline()
     {
+        foreach (Transform child in defaultMaterials.Keys)
+        {
+            Material mat;
+            defaultMaterials.TryGetValue(child, out mat);
+            child.gameObject.GetComponent<Renderer>().material = mat;
+        }
+        //Removing old outline method since this doesn't work well for hard-edged meshes.
+        //Will leave here just in case a better method presents itself
+        /*
         foreach (Transform child in transform)
         {
             if (child.name == "Outline")
@@ -91,6 +134,7 @@ public class Manipulatable : MonoBehaviour {
         }
         Destroy(outline);
         outline = null;
+        */
     }
 
     public void ResetAxis(AxisHandle.Axis axis)
@@ -385,7 +429,7 @@ public class Manipulatable : MonoBehaviour {
             //Mouse is hovering over UI elements. Let's not let those events pass through to the game world.
             return;
         }
-        if (!isSelected)
+        if (!isSelected && gameObject != editorManager.GetRobotBaseObject())
         {
             Ray uiRay = editorManager.HandleCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -398,7 +442,7 @@ public class Manipulatable : MonoBehaviour {
                 LayerMask ObjectMask = ~editorManager.IgnoreLayers;
                 if (Physics.Raycast(mouseRay, out hit, 100, ObjectMask))
                 {
-                    if (hit.transform.gameObject == gameObject)
+                    if (defaultMaterials.ContainsKey(hit.transform))
                     {
                         if (outline == null)
                             ShowOutline(editorManager.HoverOutline);

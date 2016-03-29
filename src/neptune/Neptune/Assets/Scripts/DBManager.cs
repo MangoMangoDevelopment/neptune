@@ -12,6 +12,7 @@ public class DBManager {
     {
         //uiManager.AddSensor("Microsoft Kinect v2", Resources.Load<GameObject>("Meshes/kinect"), 10);
         //uiManager.AddSensor("SICK LMS-1xx", Resources.Load<GameObject>("Meshes/sick-lms1xx"), 10);
+        uiManager.AddSensor("Kinect", Resources.Load<GameObject>("Models/Sensors/Kinect"), 8);
         for (int i = 0; i < 50; i++)
         {
             uiManager.AddSensor("Sensor " + i, testObject);
