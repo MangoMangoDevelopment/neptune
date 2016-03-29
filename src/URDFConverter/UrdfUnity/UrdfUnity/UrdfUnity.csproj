@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManager\FileManager.cs" />
+    <Compile Include="IO\FileManager.cs" />
+    <Compile Include="IO\FileManagerImpl.cs" />
     <Compile Include="Parse\Parser.cs" />
     <Compile Include="Parse\UrdfParser.cs" />
     <Compile Include="Parse\XmlParser.cs" />

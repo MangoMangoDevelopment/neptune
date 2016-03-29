@@ -6,71 +6,67 @@ using UrdfUnity.Parse;
 using NLog;
 
 
-namespace UrdfUnity.FileManager
+namespace UrdfUnity.IO
 {
     /// <summary>
-    /// Filetypes we care about in the file manager.
+    /// Handles file input/output for URDF and Xacro files
     /// </summary>
-    public enum FileType
+    public class FileManager : FileManagerImpl
     {
-        UNKNOWN,
-        URDF,
-        XACRO
-    }
-
-
-    /// <summary>
-    /// This class will be handling the FileIO 
-    /// </summary>
-    public class FileManager
-    {
-        Logger LOGGER;
-        
+        private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
+        UrdfParser urdf = new UrdfParser();
 
         /// <summary>
-        /// Base constructor, for initializing components
+        /// Creates a new instance of FileManager
         /// </summary>
         public FileManager()
         {
-            // initializing the logger for this class.
-            LOGGER = LogManager.GetCurrentClassLogger();
         }
 
 
         /// <summary>
-        /// We have a URDF/XACRO filepath that needs to be extracted to be
-        /// a Robot model. 
+        /// Reads the entire file into a string.
+        /// </summary>
+        /// <param name="path">Path of file to read</param>
+        /// <returns>String representation of file, otherwise empty string.</returns>
+        public string ReadFileToString (string path)
+        {
+            string fileAsString = String.Empty;
+            try
+            {
+                using (StreamReader fileReader = new StreamReader(path))
+                {
+                    fileAsString = fileReader.ReadToEnd();
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                LOGGER.Warn("Error file not found \"{0}\"", path);
+            }
+            return fileAsString;
+        }
+
+
+        /// <summary>
+        /// Extracts a Robot model object from the provided URDF/Xacro filepath.
         /// </summary>
         /// <param name="filePath">Path of file containing urdf/xacro for the robot</param>
         /// <returns>
-        ///     Robot|null - A Robot model if a valid file path and content for a robot. 
-        ///     A null returned when invalid filepath or content is supplied.
+        ///     The Robot model parsed from the specified filepath if valid, otherwise <c>null<c>
         /// </returns>
         public Robot GetRobotFromFile(string filePath)
         {
             Robot robo = null;
-            string fileString = "";
-            try
-            {
-                using (StreamReader fp = new StreamReader(filePath))
-                {
-                    fileString = fp.ReadToEnd();
-                }
-            }
-            catch (FileNotFoundException fnf_ex)
-            {
-                LOGGER.Error("File not found \"{0}\".");
-            }
 
+            string contents = ReadFileToString(filePath);
 
-            if (!fileString.Equals(string.Empty))
+            if (!contents.Equals(string.Empty))
             {
                 FileType type = GetFileType(filePath);
                 switch(type)
                 {
                     case FileType.URDF:
-                        UrdfParser urdf = new UrdfParser();
-                        robo = urdf.Parse(fileString);
+                        robo = this.urdf.Parse(contents);
                         break;
                     case FileType.XACRO:
                         // TODO: Call Xacro parser
@@ -106,13 +102,13 @@ namespace UrdfUnity.FileManager
             {
                 type = EnumUtils.ToEnum<FileType>(extension);
             }
-            catch (OverflowException ex)
+            catch (OverflowException e)
             {
-                LOGGER.Error("File type has not been defined.");
+                LOGGER.Warn("File type has not been defined.");
             }
-            catch (ArgumentException arg_ex)
+            catch (ArgumentException e)
             {
-                LOGGER.Error("File type contains white space or is null.");
+                LOGGER.Warn("File type contains white space or is null.");
             }
             return type;
         }
