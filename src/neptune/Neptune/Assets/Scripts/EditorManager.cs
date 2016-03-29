@@ -304,6 +304,12 @@ public class EditorManager : MonoBehaviour {
             {
                 Vector3 rotOffset = new Vector3(-(Input.mousePosition - lastCameraMousePos).y, (Input.mousePosition - lastCameraMousePos).x, 0);
                 Vector3 cameraRot = rotOffset * CameraRotScaleFactor * Time.deltaTime;
+                //Check for Gimbal locking
+                if (cameraRot.x < 0 && MainCamera.transform.rotation.eulerAngles.x < 275 && MainCamera.transform.rotation.eulerAngles.x > 270)
+                    cameraRot.x = 0;
+                else if (cameraRot.x > 0 && MainCamera.transform.rotation.eulerAngles.x > 85 && MainCamera.transform.rotation.eulerAngles.x < 90)
+                    cameraRot.x = 0;
+
                 MainCamera.transform.rotation = Quaternion.Euler(lastCameraRot.eulerAngles + cameraRot);
 
                 lastCameraMousePos = Input.mousePosition;
@@ -346,6 +352,11 @@ public class EditorManager : MonoBehaviour {
                 {
                     Vector3 posOffset = Input.mousePosition - lastCameraMousePos;
                     Vector3 cameraPos = posOffset * CameraOrbitSpeed * Time.deltaTime;
+                    //Check for Gimbal locking
+                    if (cameraPos.y < 0 && MainCamera.transform.rotation.eulerAngles.x > 85 && MainCamera.transform.rotation.eulerAngles.x < 90)
+                        cameraPos.y = 0;
+                    else if (cameraPos.y > 0 && MainCamera.transform.rotation.eulerAngles.x < 275 && MainCamera.transform.rotation.eulerAngles.x > 270)
+                        cameraPos.y = 0;
 
                     //Rotate around the up axis for the mouse x delta
                     MainCamera.transform.RotateAround(selectedObject.transform.position, Vector3.up, cameraPos.x);
