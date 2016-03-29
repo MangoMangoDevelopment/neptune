@@ -106,7 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\uGUITools.cs" />
-    <Compile Include="Assets\Scripts\Editor\UICollapsibleEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
