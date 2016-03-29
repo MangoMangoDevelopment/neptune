@@ -101,7 +101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &11654417
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2552,7 +2552,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 214978319}
   m_HandleRect: {fileID: 214978318}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4626,7 +4626,7 @@ MonoBehaviour:
   categoryContainerPrefab: {fileID: 110250, guid: 97cc51ceae6a835469d73d3bc734d69b,
     type: 2}
   sensorBtnPrefab: {fileID: 182234, guid: a69222720e65301499e3c693a51bff14, type: 2}
-  emptyGameObject: {fileID: 149874, guid: a613a2d789676784fb5332e0eacf1a84, type: 2}
+  unkownSensorPrefab: {fileID: 139532, guid: bcf7b0da08c2db84d88c999009c3c7ad, type: 2}
 --- !u!4 &1957394899
 Transform:
   m_ObjectHideFlags: 0

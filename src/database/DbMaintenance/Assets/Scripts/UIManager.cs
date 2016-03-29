@@ -1,11 +1,4 @@
-﻿/*
-
-Reference:
-    http://forum.unity3d.com/threads/accordion-type-layout.271818/
-    Rotating Gear
-    https://www.raywenderlich.com/114828/introduction-unity-ui-part-3
-*/
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -25,25 +18,22 @@ public class UIManager : MonoBehaviour {
     }
     UIState currState;
 
-    public GameObject sensorViewPort;       // This is the game object that contains the list of sensor
-    public GameObject previewPort;          // Canvas intended for showing the preview of sensor and preview of urdf
-    public GameObject form;                 // This is the game object that holds the form elements (input fields)
-    public GameObject deleteBtn;
-    public GameObject categoryContainerPrefab;
-    public GameObject sensorBtnPrefab;
-    public GameObject emptyGameObject;
+    public GameObject sensorViewPort;               // This is the game object that contains the list of sensor
+    public GameObject previewPort;                  // Canvas intended for showing the preview of sensor and preview of urdf
+    public GameObject form;                         // This is the game object that holds the form elements (input fields)
+    public GameObject deleteBtn;                    // Reference to the delete button on the UI
+    public GameObject categoryContainerPrefab;      // Reference for the category container to hold sensor buttons
+    public GameObject sensorBtnPrefab;              // Reference to the prefab for a sensor button
+    public GameObject unkownSensorPrefab;           // Reference to the prefab of an empty/unknown sensor
 
-    private GameObject currentObject;
-
-    private GameObject currentSelectedSensor;
-
+    private GameObject currentSelectedSensor;       // Reference to the selected sensor game object
     private UrdfModel urdf;
     private Dictionary<string, InputField> inputs;
     private Dictionary<int, GameObject> categoryHolderList;
     private List<GameObject> sensors;
 
     /// <summary>
-    /// Use this for initialization
+    /// Overloading Unity function for initiatization for this script
     /// </summary>
     void Start()
     {
@@ -53,31 +43,11 @@ public class UIManager : MonoBehaviour {
         categoryHolderList = new Dictionary<int, GameObject>();
         setupInputFieldList();
         SensorPanelSetup();
-
-        /*
-        GameObject emptyPrefabWithMeshRenderer = Instantiate(emptyGameObject);
-        emptyPrefabWithMeshRenderer.name = "bumblebee";
-        string meshPath = "../../../meshes/HDL32E_Outline_Model.obj";
-        GameObject spawnedPrefab;
-        ObjImporter importer = new ObjImporter();
-        Mesh importedMesh = importer.ImportFile(meshPath);
-        spawnedPrefab = Instantiate(emptyPrefabWithMeshRenderer, transform.position, transform.rotation) as GameObject;
-        spawnedPrefab.GetComponent<MeshFilter>().mesh = importedMesh;
-        spawnedPrefab.transform.SetParent(previewPort.transform);
-        */
-
-        //GameObject prefab = new GameObject("Milkbottle");
-        //var meshFilter = prefab.AddComponent<MeshFilter>();
-        //meshFilter.mesh = loadmesh();
-        //prefab.AddComponent<MeshRenderer>();
-        //prefab.AddComponent<BoxCollider>();
-        //// etc
-        //return prefab;
-
-        // GameObject model = GameObject.Instantiate(Resources.Load("bumblebee2", typeof(GameObject))) as GameObject;
-        // model.transform.SetParent(previewPort.transform);
     }
 
+    /// <summary>
+    /// Grabs all available inputs fields on the form.
+    /// </summary>
     void setupInputFieldList()
     {
         this.inputs = new Dictionary<string, InputField>();
@@ -88,6 +58,11 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+
+    /// <summary>
+    /// Sets up the sensor panel by placing sensors in the appropriate category using the
+    /// available prefabs. 
+    /// </summary>
     void SensorPanelSetup()
     {
         List<SensorCategoriesModel> categories = urdf.GetSensorCategories();
@@ -128,12 +103,6 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update () {
-	
-	}
 
     /// <summary>
     /// Sets the UI to recongize that we're trying to add a new sensor and clears the
@@ -147,7 +116,7 @@ public class UIManager : MonoBehaviour {
 
 
     /// <summary>
-    /// This will clear the form for entering sensor data.
+    /// This will clear the form for entering new sensor data.
     /// </summary>
     private void clearForm()
     {
@@ -158,6 +127,10 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Given a model of the item, it will populate the form with the appropriate values.
+    /// </summary>
+    /// <param name="item">The model of the sensor it populate in the form</param>
     private void setForm(UrdfItemModel item)
     {
         this.inputs["txtName"].text = item.name;
@@ -259,41 +232,37 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-
+    /// <summary>
+    /// Handles the click event of a sensor button. Creates a prefab of the sensor in the preview
+    /// window. It will destory the preview sensor object if there is one to destory.
+    /// </summary>
+    /// <param name="sensor">A reference to the sensor button being clicked.</param>
     void SensorOnClick(GameObject sensor)
     {
-        currentSelectedSensor = sensor;
         UrdfItemModel item = sensor.GetComponent<UrdfItemModel>();
-        Debug.Log(sensor.name);
         setForm(item);
-        if (currentObject != null)
+        if (currentSelectedSensor != null)
         {
-            Destroy(currentObject);
+            Destroy(this.currentSelectedSensor);
         }
 
         try
         {
-            currentObject = Instantiate(Resources.Load(item.prefabFilename, typeof(GameObject))) as GameObject;
+            this.currentSelectedSensor = Instantiate(Resources.Load(item.prefabFilename, typeof(GameObject))) as GameObject;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            currentObject = Instantiate(emptyGameObject);
+            this.currentSelectedSensor = Instantiate(unkownSensorPrefab);
         }
 
     }
 
+    /// <summary>
+    /// Handles the preview button click event. This will toggle the preview view port.
+    /// </summary>
     public void PreviewButton_click()
     {
         previewPort.SetActive(!previewPort.activeInHierarchy);
     }
 
-    // look at UiCollapsible.cs
-    void CategoryOnClick(GameObject heading)
-    {
-        Debug.Log(heading.name);
-    }
-
-    /*
-     Reference: http://docs.unity3d.com/ScriptReference/UI.InputField.html for input field functions > include validating characters
-    */
 }
