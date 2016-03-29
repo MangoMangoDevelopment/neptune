@@ -54,6 +54,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Parse\AbstractUrdfXmlParserTest.cs" />
+    <Compile Include="Parse\Xacro\Models\XacroMacroTest.cs" />
+    <Compile Include="Parse\Xacro\Models\XacroPropertyTest.cs" />
+    <Compile Include="Parse\Xacro\XacroMacroParserTest.cs" />
+    <Compile Include="Parse\Xacro\XacroPropertyParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\AxisParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\CalibrationParserTest.cs" />
     <Compile Include="Parse\Xml\JointElements\ChildParserTest.cs" />

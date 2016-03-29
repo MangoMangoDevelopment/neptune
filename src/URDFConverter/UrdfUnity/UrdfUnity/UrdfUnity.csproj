@@ -47,6 +47,10 @@
     <Compile Include="Parse\Parser.cs" />
     <Compile Include="Parse\UrdfParser.cs" />
     <Compile Include="Parse\AbstractUrdfXmlParser.cs" />
+    <Compile Include="Parse\Xacro\Models\XacroMacro.cs" />
+    <Compile Include="Parse\Xacro\Models\XacroProperty.cs" />
+    <Compile Include="Parse\Xacro\XacroMacroParser.cs" />
+    <Compile Include="Parse\Xacro\XacroPropertyParser.cs" />
     <Compile Include="Parse\XmlParser.cs" />
     <Compile Include="Parse\Xml\JointElements\AxisParser.cs" />
     <Compile Include="Parse\Xml\JointElements\CalibrationParser.cs" />
