@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: 5efd0333e28deab4b9e2501164150b53
+timeCreated: 1459780914
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Imported1
+    100002: Imported1 1
+    100004: Imported1 10
+    100006: Imported1 11
+    100008: Imported1 12
+    100010: Imported1 13
+    100012: Imported1 14
+    100014: Imported1 2
+    100016: Imported1 3
+    100018: Imported1 4
+    100020: Imported1 5
+    100022: Imported1 6
+    100024: Imported1 7
+    100026: Imported1 8
+    100028: Imported1 9
+    100030: Imported2
+    100032: NONE
+    100034: NONE 1
+    100036: "Size 1 r\xAAr_r01_Simple_5"
+    100038: Size 1_House_r13_Simple_1
+    100040: Size 1_House_r13_Simple_2
+    100042: Size 1_House_r13_Simple_8
+    100044: Size 1_Joint lid_r07_Simple_12
+    100046: Size 1_Joint lid_r07_Simple_15
+    100048: Size 1_Joint lid_r07_Simple_6
+    100050: Size 1_Tool flange_r03_Simple_14
+    100052: Size 3 to Size 1_Angle_r02_Simple_16
+    100054: Size 3_House_r11_Simple_11
+    100056: Size 3_House_r11_Simple_4
+    100058: Size 3_House_r11_Simple_9
+    100060: Size 3_Joint lid_r06_Simple_13
+    100062: Size 3_Joint lid_r06_Simple_17
+    100064: Size 3_Joint lid_r06_Simple_7
+    100066: Size 3_Over arm_r01_Simpel_10
+    100068: Size 3_Round base_r02_Simple_3
+    100070: //RootNode
+    100072: UR5
+    400000: Imported1
+    400002: Imported1 1
+    400004: Imported1 10
+    400006: Imported1 11
+    400008: Imported1 12
+    400010: Imported1 13
+    400012: Imported1 14
+    400014: Imported1 2
+    400016: Imported1 3
+    400018: Imported1 4
+    400020: Imported1 5
+    400022: Imported1 6
+    400024: Imported1 7
+    400026: Imported1 8
+    400028: Imported1 9
+    400030: Imported2
+    400032: NONE
+    400034: NONE 1
+    400036: "Size 1 r\xAAr_r01_Simple_5"
+    400038: Size 1_House_r13_Simple_1
+    400040: Size 1_House_r13_Simple_2
+    400042: Size 1_House_r13_Simple_8
+    400044: Size 1_Joint lid_r07_Simple_12
+    400046: Size 1_Joint lid_r07_Simple_15
+    400048: Size 1_Joint lid_r07_Simple_6
+    400050: Size 1_Tool flange_r03_Simple_14
+    400052: Size 3 to Size 1_Angle_r02_Simple_16
+    400054: Size 3_House_r11_Simple_11
+    400056: Size 3_House_r11_Simple_4
+    400058: Size 3_House_r11_Simple_9
+    400060: Size 3_Joint lid_r06_Simple_13
+    400062: Size 3_Joint lid_r06_Simple_17
+    400064: Size 3_Joint lid_r06_Simple_7
+    400066: Size 3_Over arm_r01_Simpel_10
+    400068: Size 3_Round base_r02_Simple_3
+    400070: UR5
+    400072: //RootNode
+    2300000: Imported1
+    2300002: Imported1 1
+    2300004: Imported1 10
+    2300006: Imported1 11
+    2300008: Imported1 12
+    2300010: Imported1 13
+    2300012: Imported1 14
+    2300014: Imported1 2
+    2300016: Imported1 3
+    2300018: Imported1 4
+    2300020: Imported1 5
+    2300022: Imported1 6
+    2300024: Imported1 7
+    2300026: Imported1 8
+    2300028: Imported1 9
+    2300030: Imported2
+    2300032: NONE
+    2300034: NONE 1
+    3300000: Imported1
+    3300002: Imported1 1
+    3300004: Imported1 10
+    3300006: Imported1 11
+    3300008: Imported1 12
+    3300010: Imported1 13
+    3300012: Imported1 14
+    3300014: Imported1 2
+    3300016: Imported1 3
+    3300018: Imported1 4
+    3300020: Imported1 5
+    3300022: Imported1 6
+    3300024: Imported1 7
+    3300026: Imported1 8
+    3300028: Imported1 9
+    3300030: Imported2
+    3300032: NONE
+    3300034: NONE 1
+    4300000: Imported1
+    4300002: Imported1
+    4300004: Imported1
+    4300006: Imported1
+    4300008: Imported1
+    4300010: Imported1
+    4300012: Imported1
+    4300014: Imported1
+    4300016: Imported1
+    4300018: Imported1
+    4300020: Imported1
+    4300022: Imported1
+    4300024: Imported1
+    4300026: NONE
+    4300028: Imported2
+    4300030: Imported1
+    4300032: NONE
+    4300034: Imported1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

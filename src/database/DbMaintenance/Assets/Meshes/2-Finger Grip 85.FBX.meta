@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: 529d4097ddb9dd841a814d32c2e31d72
+timeCreated: 1459778586
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: 2-Finger_85_Adaptive_Gripper-opened
+    100004: Group1^2-Finger_85_Adaptive_Gripper_1
+    100006: Group2^2-Finger_85_Adaptive_Gripper_2
+    100008: Group2^2-Finger_85_Adaptive_Gripper_3
+    100010: Group3^2-Finger_85_Adaptive_Gripper_4
+    100012: Group3^2-Finger_85_Adaptive_Gripper_5
+    100014: Group4^2-Finger_85_Adaptive_Gripper_6
+    100016: Group4^2-Finger_85_Adaptive_Gripper_7
+    100018: Group5^2-Finger_85_Adaptive_Gripper_8
+    100020: Group5^2-Finger_85_Adaptive_Gripper_9
+    100022: Group6^2-Finger_85_Adaptive_Gripper_10
+    100024: Group7^2-Finger_85_Adaptive_Gripper_11
+    100026: NONE
+    100028: NONE 1
+    100030: Passage M3
+    100032: "R\u88F5ction de d\u8CE1ils1"
+    100034: "R\u88F5ction de d\u8CE1ils1 1"
+    100036: "R\u88F5ction de d\u8CE1ils1 2"
+    100038: "R\u88F5ction de d\u8CE1ils1 3"
+    100040: "R\u88F5ction de d\u8CE1ils1 4"
+    100042: "R\u88F5ction de d\u8CE1ils2"
+    100044: "R\u88F5ction de d\u8CE1ils3"
+    100046: "R\u88F5ction de d\u8CE1ils3 1"
+    100048: "R\u88F5ction de d\u8CE1ils3_MeshPart0"
+    100050: "R\u88F5ction de d\u8CE1ils3_MeshPart1"
+    100052: "R\u88F5ction de d\u8CE1ils3_MeshPart2"
+    100054: "R\u88F5ction de d\u8CE1ils4"
+    100056: "Trou taraud\u77CD3x0.51"
+    100058: "Trou taraud\u77CD3x0.51 1"
+    400000: //RootNode
+    400002: 2-Finger_85_Adaptive_Gripper-opened
+    400004: Group1^2-Finger_85_Adaptive_Gripper_1
+    400006: Group2^2-Finger_85_Adaptive_Gripper_2
+    400008: Group2^2-Finger_85_Adaptive_Gripper_3
+    400010: Group3^2-Finger_85_Adaptive_Gripper_4
+    400012: Group3^2-Finger_85_Adaptive_Gripper_5
+    400014: Group4^2-Finger_85_Adaptive_Gripper_6
+    400016: Group4^2-Finger_85_Adaptive_Gripper_7
+    400018: Group5^2-Finger_85_Adaptive_Gripper_8
+    400020: Group5^2-Finger_85_Adaptive_Gripper_9
+    400022: Group6^2-Finger_85_Adaptive_Gripper_10
+    400024: Group7^2-Finger_85_Adaptive_Gripper_11
+    400026: NONE
+    400028: NONE 1
+    400030: Passage M3
+    400032: "R\u88F5ction de d\u8CE1ils1"
+    400034: "R\u88F5ction de d\u8CE1ils1 1"
+    400036: "R\u88F5ction de d\u8CE1ils1 2"
+    400038: "R\u88F5ction de d\u8CE1ils1 3"
+    400040: "R\u88F5ction de d\u8CE1ils1 4"
+    400042: "R\u88F5ction de d\u8CE1ils2"
+    400044: "R\u88F5ction de d\u8CE1ils3"
+    400046: "R\u88F5ction de d\u8CE1ils3 1"
+    400048: "R\u88F5ction de d\u8CE1ils3_MeshPart0"
+    400050: "R\u88F5ction de d\u8CE1ils3_MeshPart1"
+    400052: "R\u88F5ction de d\u8CE1ils3_MeshPart2"
+    400054: "R\u88F5ction de d\u8CE1ils4"
+    400056: "Trou taraud\u77CD3x0.51"
+    400058: "Trou taraud\u77CD3x0.51 1"
+    2300000: NONE
+    2300002: NONE 1
+    2300004: Passage M3
+    2300006: "R\u88F5ction de d\u8CE1ils1"
+    2300008: "R\u88F5ction de d\u8CE1ils1 1"
+    2300010: "R\u88F5ction de d\u8CE1ils1 2"
+    2300012: "R\u88F5ction de d\u8CE1ils1 3"
+    2300014: "R\u88F5ction de d\u8CE1ils1 4"
+    2300016: "R\u88F5ction de d\u8CE1ils2"
+    2300018: "R\u88F5ction de d\u8CE1ils3 1"
+    2300020: "R\u88F5ction de d\u8CE1ils3_MeshPart0"
+    2300022: "R\u88F5ction de d\u8CE1ils3_MeshPart1"
+    2300024: "R\u88F5ction de d\u8CE1ils3_MeshPart2"
+    2300026: "R\u88F5ction de d\u8CE1ils4"
+    2300028: "Trou taraud\u77CD3x0.51"
+    2300030: "Trou taraud\u77CD3x0.51 1"
+    3300000: NONE
+    3300002: NONE 1
+    3300004: Passage M3
+    3300006: "R\u88F5ction de d\u8CE1ils1"
+    3300008: "R\u88F5ction de d\u8CE1ils1 1"
+    3300010: "R\u88F5ction de d\u8CE1ils1 2"
+    3300012: "R\u88F5ction de d\u8CE1ils1 3"
+    3300014: "R\u88F5ction de d\u8CE1ils1 4"
+    3300016: "R\u88F5ction de d\u8CE1ils2"
+    3300018: "R\u88F5ction de d\u8CE1ils3 1"
+    3300020: "R\u88F5ction de d\u8CE1ils3_MeshPart0"
+    3300022: "R\u88F5ction de d\u8CE1ils3_MeshPart1"
+    3300024: "R\u88F5ction de d\u8CE1ils3_MeshPart2"
+    3300026: "R\u88F5ction de d\u8CE1ils4"
+    3300028: "Trou taraud\u77CD3x0.51"
+    3300030: "Trou taraud\u77CD3x0.51 1"
+    4300000: "R\u88F5ction de d\u8CE1ils3_MeshPart0"
+    4300002: "R\u88F5ction de d\u8CE1ils3_MeshPart1"
+    4300004: "R\u88F5ction de d\u8CE1ils3_MeshPart2"
+    4300006: "Trou taraud\u77CD3x0.51"
+    4300008: "Trou taraud\u77CD3x0.51"
+    4300010: NONE
+    4300012: NONE
+    4300014: "R\u88F5ction de d\u8CE1ils1"
+    4300016: "R\u88F5ction de d\u8CE1ils1"
+    4300018: "R\u88F5ction de d\u8CE1ils1"
+    4300020: "R\u88F5ction de d\u8CE1ils1"
+    4300022: Passage M3
+    4300024: "R\u88F5ction de d\u8CE1ils1"
+    4300026: "R\u88F5ction de d\u8CE1ils2"
+    4300028: "R\u88F5ction de d\u8CE1ils3"
+    4300030: "R\u88F5ction de d\u8CE1ils4"
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
