@@ -36,10 +36,14 @@ public class Manipulatable : MonoBehaviour {
     private GameObject bridge;
     private bool bridgeShown;
     private Dictionary<Transform, Material> defaultMaterials;
+    private Vector3 startingPos;
+    private Vector3 startingRot;
 
     void Start()
     {
         editorManager = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
+        startingPos = transform.position;
+        startingRot = transform.rotation.eulerAngles;
     }
 
     void Awake()
@@ -144,42 +148,42 @@ public class Manipulatable : MonoBehaviour {
             case AxisHandle.Axis.XPos:
                 {
                     Vector3 pos = transform.position;
-                    pos.x = 0;
+                    pos.x = startingPos.x;
                     transform.position = pos;
                 }
                 break;
             case AxisHandle.Axis.YPos:
                 {
                     Vector3 pos = transform.position;
-                    pos.y = 0;
+                    pos.y = startingPos.y;
                     transform.position = pos;
                 }
                 break;
             case AxisHandle.Axis.ZPos:
                 {
                     Vector3 pos = transform.position;
-                    pos.z = 0;
+                    pos.z = startingPos.z;
                     transform.position = pos;
                 }
                 break;
             case AxisHandle.Axis.RRot:
                 {
                     Vector3 rot = transform.rotation.eulerAngles;
-                    rot.z = 0;
+                    rot.z = startingRot.z;
                     transform.rotation = Quaternion.Euler(rot);
                 }
                 break;
             case AxisHandle.Axis.PRot:
                 {
                     Vector3 rot = transform.rotation.eulerAngles;
-                    rot.x = 0;
+                    rot.x = startingRot.x;
                     transform.rotation = Quaternion.Euler(rot);
                 }
                 break;
             case AxisHandle.Axis.YRot:
                 {
                     Vector3 rot = transform.rotation.eulerAngles;
-                    rot.y = 0;
+                    rot.y = startingRot.y;
                     transform.rotation = Quaternion.Euler(rot);
                 }
                 break;
