@@ -154,7 +154,15 @@ public class EditorManager : MonoBehaviour {
             robotManipulatable.RRotManipulation = false;
             robotManipulatable.PRotManipulation = false;
             robotManipulatable.YRotManipulation = false;
-            robotBaseObject.transform.position = Vector3.zero - new Vector3(0, robotBaseObject.transform.localScale.y/2, 0);
+            //Find the highest mesh in the model
+            float highestY = 0;
+            foreach (Transform child in robotBaseObject.transform)
+            {
+                if (child.position.y > highestY)
+                    highestY = child.position.y;
+            }
+            //Offset the y by that amount so that the top of the bot is at (0, 0, 0)
+            robotBaseObject.transform.position = Vector3.zero - new Vector3(0, highestY, 0);
         }
     }
 
