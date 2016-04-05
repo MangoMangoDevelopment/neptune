@@ -36,18 +36,18 @@ public class DialogManager : MonoBehaviour {
         switch (buttonType)
         {
             case ButtonType.Okay:
-                Button1.GetComponentInChildren<Text>().text = "Okay";
+                Button1.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Okay");
                 Button1.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
                 Button2.gameObject.SetActive(false);
                 break;
             case ButtonType.YesNo:
-                Button1.GetComponentInChildren<Text>().text = "Yes";
+                Button1.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Yes");
                 Button1.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
-                Button2.GetComponentInChildren<Text>().text = "No";
+                Button2.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("No");
                 Button2.onClick.AddListener(delegate { ExecuteDelegate(callback2); });
                 break;
             case ButtonType.Cancel:
-                Button1.GetComponentInChildren<Text>().text = "Cancel";
+                Button1.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Cancel");
                 Button1.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
                 Button2.gameObject.SetActive(false);
                 break;

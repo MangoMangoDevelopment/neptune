@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour {
 
@@ -16,12 +17,16 @@ public class UIManager : MonoBehaviour {
     public GameObject ResetAxesPanelMask;
     public GameObject CustomCubeoidPanel;
     public GameObject CustomCubeoidPanelMask;
+    public Button LanguageButtonPrefab;
+    public Transform LanguageButtonsContent;
+    public GameObject LanguagesPanel;
+    public GameObject LanguagesPanelMask;
+    public Text LanguagesButtonText;
     public InputField CustomCubeoidNameText;
     public Dropdown CustomCubeoidColorDropdown;
     public InputField CustomCubeoidWidthText;
     public InputField CustomCubeoidHeightText;
     public InputField CustomCubeoidDepthText;
-    public Button RobotBaseButton;
     public float PanelSpeed;
     public Text ModeText;
     public Button DeleteSelectedObjectButton;
@@ -39,6 +44,9 @@ public class UIManager : MonoBehaviour {
     private Vector3 hiddenCustomCubeoidPanelPos;
     private Vector3 shownCustomCubeoidPanelPos;
     private bool customCubeoidPanelShown = false;
+    private Vector3 hiddenLanguagesPanelPos;
+    private Vector3 shownLanguagesPanelPos;
+    private bool languagesPanelShown = false;
 
     void Start()
     {
@@ -49,11 +57,40 @@ public class UIManager : MonoBehaviour {
         shownResetAxesPanelPos = ResetAxesPanelMask.transform.position;
         hiddenCustomCubeoidPanelPos = CustomCubeoidPanel.transform.position;
         shownCustomCubeoidPanelPos = CustomCubeoidPanelMask.transform.position;
+        hiddenLanguagesPanelPos = LanguagesPanel.transform.position;
+        shownLanguagesPanelPos = LanguagesPanelMask.transform.position;
+
+        List<SmartLocalization.SmartCultureInfo> cultures = SmartLocalization.LanguageManager.Instance.GetSupportedLanguages();
+        foreach (SmartLocalization.SmartCultureInfo culture in cultures)
+        {
+            Button b = Instantiate(LanguageButtonPrefab);
+            b.GetComponent<LanguageButton>().culture = culture;
+            b.GetComponentInChildren<Text>().text = b.GetComponent<LanguageButton>().GetString();
+            b.onClick.AddListener(() => { SetLanguage(b.GetComponent<LanguageButton>()); });
+            b.gameObject.transform.SetParent(LanguageButtonsContent);
+        }
+
+        UpdateColorDropdownOptions();
+    }
+
+    private void UpdateColorDropdownOptions()
+    {
+        CustomCubeoidColorDropdown.ClearOptions();
+        List<string> colorOptions = new List<string>();
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Red"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Green"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Blue"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Yellow"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Cyan"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Magenta"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Black"));
+        colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("White"));
+        CustomCubeoidColorDropdown.AddOptions(colorOptions);
     }
 
     void Update()
     {
-        ModeText.text = "Mode: " + editorManager.GetMode().ToString();
+        ModeText.text = SmartLocalization.LanguageManager.Instance.GetTextValue("Mode." + editorManager.GetMode().ToString());
         if (resetAxesPanelShown)
             ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, shownResetAxesPanelPos, PanelSpeed * Time.deltaTime);
         else
@@ -63,6 +100,11 @@ public class UIManager : MonoBehaviour {
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, shownCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
         else
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
+
+        if (languagesPanelShown)
+            LanguagesPanel.transform.position = Vector3.MoveTowards(LanguagesPanel.transform.position, shownLanguagesPanelPos, PanelSpeed * Time.deltaTime);
+        else
+            LanguagesPanel.transform.position = Vector3.MoveTowards(LanguagesPanel.transform.position, hiddenLanguagesPanelPos, PanelSpeed * Time.deltaTime);
 
         DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject();
     }
@@ -125,7 +167,8 @@ public class UIManager : MonoBehaviour {
     {
         if (selectedPart != null)
         {
-            DialogManager.instance.ShowDialog("Are you sure you want to delete \"" + selectedPart.name + "\"?", "Deleting sensor!", DialogManager.ButtonType.YesNo, DeleteSelectedObject);
+            string message = SmartLocalization.LanguageManager.Instance.GetTextValue("DeletingSensor.AreYouSure");
+            DialogManager.instance.ShowDialog(message + " \"" + selectedPart.name + "\"?", SmartLocalization.LanguageManager.Instance.GetTextValue("DeletingSensor"), DialogManager.ButtonType.YesNo, DeleteSelectedObject);
         }
     }
 
@@ -155,6 +198,23 @@ public class UIManager : MonoBehaviour {
     public void HideCustomCubeoidPanel()
     {
         customCubeoidPanelShown = false;
+    }
+
+    public void ShowLanguagesPanel()
+    {
+        languagesPanelShown = true;
+    }
+
+    public void HideLanguagesPanel()
+    {
+        languagesPanelShown = false;
+    }
+
+    public void SetLanguage(LanguageButton langButton)
+    {
+        SmartLocalization.LanguageManager.Instance.ChangeLanguage(langButton.culture);
+        UpdateColorDropdownOptions();
+        LanguagesButtonText.text = langButton.GetString();
     }
 
     public void ResetXPosAxis()
@@ -189,35 +249,35 @@ public class UIManager : MonoBehaviour {
 
     private Color GetCubeoidDropdownColor()
     {
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Red"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Red")))
         {
             return Color.red;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Green"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Green")))
         {
             return Color.green;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Blue"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Blue")))
         {
             return Color.blue;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Yellow"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Yellow")))
         {
             return Color.yellow;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Cyan"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Cyan")))
         {
             return Color.cyan;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Magenta"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Magenta")))
         {
             return Color.magenta;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("Black"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("Black")))
         {
             return Color.black;
         }
-        if (CustomCubeoidColorDropdown.captionText.text.Equals("White"))
+        if (CustomCubeoidColorDropdown.captionText.text.Equals(SmartLocalization.LanguageManager.Instance.GetTextValue("White")))
         {
             return Color.white;
         }
@@ -311,10 +371,5 @@ public class UIManager : MonoBehaviour {
         EditorManager.RobotBase robotBase = EditorManager.RobotBase.Grizzly;
         editorManager.SelectRobotBase(robotBase);
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
-    }
-
-    public void SelectRobotBaseObject()
-    {
-        SelectPart(RobotBaseButton);
     }
 }

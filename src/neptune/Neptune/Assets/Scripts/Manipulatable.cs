@@ -32,7 +32,7 @@ public class Manipulatable : MonoBehaviour {
     private Vector2 offsetMultiplier;
     private AxisHandle.Axis mouseAxisModifier;
     private EditorManager editorManager;
-    private GameObject outline;
+    //private GameObject outline;   //See ShowOutline()
     private GameObject bridge;
     private bool bridgeShown;
     private Dictionary<Transform, Material> defaultMaterials;
@@ -448,7 +448,7 @@ public class Manipulatable : MonoBehaviour {
                 {
                     if (defaultMaterials.ContainsKey(hit.transform))
                     {
-                        if (outline == null)
+                        //if (outline == null)  //See ShowOutline()
                             ShowOutline(editorManager.HoverOutline);
                     }
                     else
