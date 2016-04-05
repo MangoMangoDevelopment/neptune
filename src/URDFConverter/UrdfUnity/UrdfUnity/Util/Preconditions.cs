@@ -38,7 +38,7 @@ namespace UrdfUnity.Util
         /// <exception cref="System.ArgumentException">Thrown when the string is empty</exception>
         public static void IsNotEmpty(string str, string msg, string paramName = null)
         {
-            if (String.IsNullOrEmpty(str) || String.IsNullOrWhiteSpace(str))
+            if (String.IsNullOrEmpty(str) || String.IsNullOrEmpty(str.Trim()))
             {
                 LOGGER.Error(msg);
                 throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();

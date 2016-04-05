@@ -3669,7 +3669,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: -0.00000010569143, y: 0.013233065}
   m_AnchorMax: {x: 1.0367109, y: 1}
-  m_AnchoredPosition: {x: -0.000015258789, y: -12.775024}
+  m_AnchoredPosition: {x: -0.000015258789, y: -12.775055}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1664449850

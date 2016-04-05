@@ -3,6 +3,7 @@ using System.Xml;
 using NLog;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
+using UrdfUnity.Object;
 
 namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 {

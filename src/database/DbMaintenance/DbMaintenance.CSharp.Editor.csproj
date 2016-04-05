@@ -94,8 +94,14 @@
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>Assets\Plugins\Mono.Data.Sqlite.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>Assets\Plugins\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data">
       <HintPath>Assets\Plugins\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UrdfUnity">
+      <HintPath>Assets\Plugins\UrdfUnity.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +114,7 @@
     <Compile Include="Assets\Editor\uGUITools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Plugins\NLog.xml" />
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
