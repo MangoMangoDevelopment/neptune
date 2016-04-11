@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.LinkElements;
 
 namespace UrdfUnityTest.Urdf.Models
 {
@@ -67,9 +68,76 @@ namespace UrdfUnityTest.Urdf.Models
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructRobotNullJointks()
+        public void ConstructRobotNullJoints()
         {
             Robot robot = new Robot("robot", new Dictionary<string, Link>(), null);
+        }
+
+        [TestMethod]
+        public void AddComponent()
+        {
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Robot robot = new Robot("robot", links, joints);
+            Component component = new Component("component", "file");
+            string parentName = "parent";
+
+            links.Add(parentName, new Link.Builder(parentName).Build());
+            string result = robot.AddComponent(component, parentName, new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(component.Name, result);
+            Assert.AreEqual(2, robot.Links.Count);
+            Assert.AreEqual(1, robot.Joints.Count);
+            Assert.IsTrue(robot.Links.ContainsKey(parentName));
+            Assert.IsTrue(robot.Links.ContainsKey(component.Name));
+            Assert.IsTrue(robot.Joints.ContainsKey($"{component.Name}_joint"));
+            Assert.AreEqual(Geometry.Shapes.Mesh, robot.Links[component.Name].Visual[0].Geometry.Shape);
+            Assert.AreEqual(component.FileName, robot.Links[component.Name].Visual[0].Geometry.Mesh.FileName);
+        }
+
+        [TestMethod]
+        public void AddComponentParentDoesNotExist()
+        {
+            Robot robot = new Robot("robot", new Dictionary<string, Link>(), new Dictionary<string, Joint>());
+            Component component = new Component("component", "file");
+            
+            string result = robot.AddComponent(component, "parent does not exist", new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(null, result);
+            Assert.AreEqual(0, robot.Links.Count);
+            Assert.AreEqual(0, robot.Joints.Count);
+            Assert.IsFalse(robot.Links.ContainsKey(component.Name));
+        }
+
+        [TestMethod]
+        public void AddComponentNonUniqueName()
+        {
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Robot robot = new Robot("robot", links, joints);
+            string parentName1 = "parent";
+            string parentName2 = "parent_1";
+            string jointName = $"{parentName1}_joint";
+            string childName = parentName1;
+            string expectedUniqueLinkName = $"{childName}_2";
+            string expectedUniqueJointName = $"{jointName}_1";
+            Component component = new Component(childName, "file");
+
+            links.Add(parentName1, new Link.Builder(parentName1).Build());
+            links.Add(parentName2, new Link.Builder(parentName2).Build());
+            joints.Add(jointName, new Joint.Builder(jointName, Joint.JointType.Continuous, links[parentName1], links[parentName2]).Build());
+            string result = robot.AddComponent(component, parentName2, new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(expectedUniqueLinkName, result);
+            Assert.AreEqual(3, robot.Links.Count);
+            Assert.AreEqual(2, robot.Joints.Count);
+            Assert.IsTrue(robot.Links.ContainsKey(parentName1));
+            Assert.IsTrue(robot.Links.ContainsKey(parentName2));
+            Assert.IsTrue(robot.Links.ContainsKey(expectedUniqueLinkName));
+            Assert.IsTrue(robot.Joints.ContainsKey(jointName));
+            Assert.IsTrue(robot.Joints.ContainsKey(expectedUniqueJointName));
+            Assert.AreEqual(Geometry.Shapes.Mesh, robot.Links[expectedUniqueLinkName].Visual[0].Geometry.Shape);
+            Assert.AreEqual(component.FileName, robot.Links[expectedUniqueLinkName].Visual[0].Geometry.Mesh.FileName);
         }
 
         [TestMethod]

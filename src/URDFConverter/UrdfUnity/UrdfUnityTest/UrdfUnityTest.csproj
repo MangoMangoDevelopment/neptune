@@ -110,6 +110,7 @@
     <Compile Include="Urdf\Models\RpyAttributeTest.cs" />
     <Compile Include="Urdf\Models\JointTest.cs" />
     <Compile Include="Urdf\Models\RobotTest.cs" />
+    <Compile Include="Urdf\Models\ComponentTest.cs" />
     <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\EnumUtilsTest.cs" />

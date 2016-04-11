@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using NLog;
+using UrdfUnity.Urdf.Models.LinkElements;
+using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models
@@ -10,12 +14,14 @@ namespace UrdfUnity.Urdf.Models
     /// <seealso cref="http://wiki.ros.org/urdf/XML/model"/>
     /// <seealso cref="Link"/>
     /// <seealso cref="Joint"/>
-    public sealed class Robot
+    public sealed class Robot : BaseRobot
     {
         /// <summary>
         /// The default name used when a Robot needs to be instantiated without a name.
         /// </summary>
         public static readonly string DEFAULT_NAME = "missing_name";
+        
+        private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -62,6 +68,67 @@ namespace UrdfUnity.Urdf.Models
             this.Name = name;
             this.Links = links;
             this.Joints = joints;
+        }
+
+        /// <summary>
+        /// Adds a new sensor to the Robot model, creating a joint and link object for the component being added.
+        /// </summary>
+        /// <param name="component">The component object being added. MUST NOT BE NULL</param>
+        /// <param name="parent">The name of the parent link that this component is linked to. MUST NOT BE NULL OR EMPTY</param>
+        /// <param name="xyz">The XYZ offset of this component from its parent link. MUST NOT BE NULL</param>
+        /// <param name="rpy">The RPY offset of this component from its parent link. MUST NOT BE NULL</param>
+        /// <returns><c>true</c> if the component was successfully added, otherwise <c>false</c></returns>
+        public string AddComponent(Component component, string parent, XyzAttribute xyz, RpyAttribute rpy)
+        {
+            Preconditions.IsNotNull(component, "Cannot add a null component to the Robot");
+            Preconditions.IsNotEmpty(parent, $"Cannot add component '{component.Name}' to the Robot model with missing parent name");
+            Preconditions.IsNotNull(xyz, $"Cannot add component '{component.Name}' to '{Name}' Robot model with null XYZ offset");
+            Preconditions.IsNotNull(rpy, $"Cannot add component '{component.Name}' to '{Name}' Robot model with null RPY offset");
+
+            if (!this.Links.ContainsKey(parent))
+            {
+                LOGGER.Info($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
+                return null;
+            }
+
+            string linkName = GenerateUniqueKey(component.Name, new List<string>(this.Links.Keys));
+            string jointName = GenerateUniqueKey($"{component.Name}_joint", new List<string>(this.Joints.Keys));
+
+            Visual visual = new Visual.Builder(new Geometry(new Mesh.Builder(component.FileName).Build())).Build();
+            Link link = new Link.Builder(linkName).SetVisual(visual).Build();
+            Joint joint = new Joint.Builder(jointName, Joint.JointType.Fixed, this.Links[parent], link).Build();
+
+            this.Links.Add(link.Name, link);
+            this.Joints.Add(joint.Name, joint);
+
+            return linkName;
+        }
+
+        /// <summary>
+        /// Helper method to generate a unique name used as a key for a link or joint in the case that a 
+        /// component is being added and there's already a link or joint with its name. A number will be 
+        /// appended to the name if it is not unique.
+        /// </summary>
+        /// <param name="name">The name being checked for uniqueness</param>
+        /// <param name="existingKeys">A list of keys being checked against for uniqueness</param>
+        /// <returns>The provided name if unique, otherwise a unique name of the format "name_#" with an number appended</returns>
+        private string GenerateUniqueKey(string name, List<string> existingKeys)
+        {
+            if (!existingKeys.Contains(name))
+            {
+                return name;
+            }
+
+            string newName = String.Empty;
+            int i = 1;
+
+            do
+            {
+                newName = $"{name}_{i++}";
+            }
+            while (existingKeys.Contains(newName));
+
+            return newName;
         }
 
         protected bool Equals(Robot other)
