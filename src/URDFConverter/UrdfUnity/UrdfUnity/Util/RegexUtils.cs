@@ -29,11 +29,12 @@ namespace UrdfUnity.Util
         /// </summary>
         private static readonly Regex WHOLE_NUMBER_REGEX = new Regex(WHOLE_NUMBER_PATTERN);
 
-        private const string DEFAULT_DELIMITER = " ";
+        private const string DEFAULT_DELIMITER = " "; // Whitespace character.
 
 
         /// <summary>
-        /// Checks if the provided string matches the specified number of delimited real number values.
+        /// Checks if the provided string matches the specified number of delimited real number values,
+        /// allowing leading or trailing whitespace.
         /// </summary>
         /// <param name="input">The string being checked for a match of delimited real number values</param>
         /// <param name="n">The number of real numbers being matched for</param>
@@ -41,7 +42,7 @@ namespace UrdfUnity.Util
         /// <returns><c>true</c> if the input string is matched to <c>n</c> real numbers, otherwise <c>false</c></returns>
         public static Boolean IsMatchNDoubles(string input, int n, string delimiter = DEFAULT_DELIMITER)
         {
-            StringBuilder pattern = new StringBuilder("^");
+            StringBuilder pattern = new StringBuilder("^\\s*");
 
             for (int i = 0; i < n; i++)
             {
@@ -51,7 +52,7 @@ namespace UrdfUnity.Util
                 }
                 pattern.Append(REAL_NUMBER_PATTERN);
             }
-            pattern.Append("$");
+            pattern.Append("\\s*$");
 
             Regex regex = new Regex(pattern.ToString());
 
@@ -107,7 +108,8 @@ namespace UrdfUnity.Util
         }
 
         /// <summary>
-        /// Checks if the provided string matches the specified number of delimited whole number values.
+        /// Checks if the provided string matches the specified number of delimited whole number values,
+        /// allowing leading or trailing whitespace.
         /// </summary>
         /// <param name="input">The string being checked for a match of delimited whole number values</param>
         /// <param name="n">The number of whole numbers being matched for</param>
@@ -115,7 +117,7 @@ namespace UrdfUnity.Util
         /// <returns><c>true</c> if the input string is matched to <c>n</c> whole numbers, otherwise <c>false</c></returns>
         public static Boolean IsMatchNInts(string input, int n, string delimiter = DEFAULT_DELIMITER)
         {
-            StringBuilder pattern = new StringBuilder("^");
+            StringBuilder pattern = new StringBuilder("^\\s*");
 
             for (int i = 0; i < n; i++)
             {
@@ -125,7 +127,7 @@ namespace UrdfUnity.Util
                 }
                 pattern.Append(WHOLE_NUMBER_PATTERN);
             }
-            pattern.Append("$");
+            pattern.Append("\\s*$");
 
             Regex regex = new Regex(pattern.ToString());
 

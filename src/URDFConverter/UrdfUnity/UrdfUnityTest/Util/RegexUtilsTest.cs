@@ -22,6 +22,11 @@ namespace UrdfUnityTest.Util
             Assert.IsTrue(RegexUtils.IsMatchNDoubles("-1 -2 -3", 3));
             Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1 .1 0.1", 3));
             Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1 .1 0.1 0", 4));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1 .1 0.1 0 ", 4));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1 .1 0.1 0   ", 4));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles(" 1.1 .1 0.1 0", 4));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("   1.1 .1 0.1 0", 4));
+            Assert.IsTrue(RegexUtils.IsMatchNDoubles("1.1   .1 0.1  0", 4));
 
             Assert.IsFalse(RegexUtils.IsMatchNDoubles("1.1 .1 0.1", 1));
             Assert.IsFalse(RegexUtils.IsMatchNDoubles("", 3));
