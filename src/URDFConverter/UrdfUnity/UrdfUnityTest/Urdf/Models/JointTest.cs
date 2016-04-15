@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.JointElements;
 
 namespace UrdfUnityTest.Urdf.Models

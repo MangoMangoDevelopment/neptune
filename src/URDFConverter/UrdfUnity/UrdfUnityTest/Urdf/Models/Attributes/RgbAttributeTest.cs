@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
+using UrdfUnity.Urdf.Models.Attributes;
 
-namespace UrdfUnityTest.Urdf.Models.LinkElements.VisualElements
+namespace UrdfUnityTest.Urdf.Models.Attributes
 {
     [TestClass]
     public class RgbAttributeTest

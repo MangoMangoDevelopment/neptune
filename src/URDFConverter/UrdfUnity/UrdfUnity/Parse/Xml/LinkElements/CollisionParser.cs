@@ -1,10 +1,8 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using NLog;
-using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.LinkElements
 {

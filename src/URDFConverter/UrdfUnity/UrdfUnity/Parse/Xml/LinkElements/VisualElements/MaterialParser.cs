@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NLog;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.LinkElements.VisualElements
 {

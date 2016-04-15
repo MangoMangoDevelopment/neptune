@@ -7,6 +7,7 @@ using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Parse.Xml;
 using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.JointElements;
 
 namespace UrdfUnityTest.Parse.Xml

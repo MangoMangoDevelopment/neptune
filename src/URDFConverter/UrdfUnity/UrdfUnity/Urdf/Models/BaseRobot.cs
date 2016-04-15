@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models
+﻿using UrdfUnity.Urdf.Models.Attributes;
+
+namespace UrdfUnity.Urdf.Models
 {
     /// <summary>
     /// Defines the interface for a base robot model object that allows additional components to be

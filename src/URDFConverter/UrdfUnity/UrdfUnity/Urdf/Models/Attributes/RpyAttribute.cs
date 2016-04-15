@@ -1,4 +1,4 @@
-﻿namespace UrdfUnity.Urdf.Models
+﻿namespace UrdfUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the fixed axis roll, pitch and yaw angles in radians.

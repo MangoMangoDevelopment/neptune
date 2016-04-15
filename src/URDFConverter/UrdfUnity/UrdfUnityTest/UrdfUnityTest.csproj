@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Object\TupleTest.cs" />
     <Compile Include="Parse\AbstractUrdfXmlParserTest.cs" />
     <Compile Include="Parse\Xacro\Models\XacroMacroTest.cs" />
     <Compile Include="Parse\Xacro\Models\XacroPropertyTest.cs" />
@@ -90,8 +91,8 @@
     <Compile Include="Urdf\Models\JointElements\MimicTest.cs" />
     <Compile Include="Urdf\Models\JointElements\SafetyControllerTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\BoxTest.cs" />
-    <Compile Include="Urdf\Models\LinkElements\GeometryElements\ScaleAttributeTest.cs" />
-    <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttributeTest.cs" />
+    <Compile Include="Urdf\Models\Attributes\ScaleAttributeTest.cs" />
+    <Compile Include="Urdf\Models\Attributes\SizeAttributeTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\CylinderTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\SphereTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\MeshTest.cs" />
@@ -100,18 +101,18 @@
     <Compile Include="Urdf\Models\LinkElements\VisualTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\ColorTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\MaterialTest.cs" />
-    <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttributeTest.cs" />
+    <Compile Include="Urdf\Models\Attributes\RgbAttributeTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\TextureTest.cs" />
     <Compile Include="Urdf\Models\LinkTest.cs" />
     <Compile Include="Urdf\Models\OriginTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\InertiaTest.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\MassTest.cs" />
-    <Compile Include="Urdf\Models\RpyAttributeTest.cs" />
+    <Compile Include="Urdf\Models\Attributes\RpyAttributeTest.cs" />
     <Compile Include="Urdf\Models\JointTest.cs" />
     <Compile Include="Urdf\Models\RobotTest.cs" />
     <Compile Include="Urdf\Models\ComponentTest.cs" />
-    <Compile Include="Urdf\Models\XyzAttributeTest.cs" />
+    <Compile Include="Urdf\Models\Attributes\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\EnumUtilsTest.cs" />
     <Compile Include="Util\PreconditionsTest.cs" />

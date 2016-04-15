@@ -99,8 +99,8 @@
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Box.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Cylinder.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Mesh.cs" />
-    <Compile Include="Urdf\Models\LinkElements\GeometryElements\ScaleAttribute.cs" />
-    <Compile Include="Urdf\Models\LinkElements\GeometryElements\SizeAttribute.cs" />
+    <Compile Include="Urdf\Models\Attributes\ScaleAttribute.cs" />
+    <Compile Include="Urdf\Models\Attributes\SizeAttribute.cs" />
     <Compile Include="Urdf\Models\LinkElements\GeometryElements\Sphere.cs" />
     <Compile Include="Urdf\Models\LinkElements\InertialElements\Inertia.cs" />
     <Compile Include="Urdf\Models\LinkElements\Inertial.cs" />
@@ -108,12 +108,12 @@
     <Compile Include="Urdf\Models\LinkElements\Visual.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Color.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Material.cs" />
-    <Compile Include="Urdf\Models\LinkElements\VisualElements\RgbAttribute.cs" />
+    <Compile Include="Urdf\Models\Attributes\RgbAttribute.cs" />
     <Compile Include="Urdf\Models\LinkElements\VisualElements\Texture.cs" />
     <Compile Include="Urdf\Models\Origin.cs" />
     <Compile Include="Urdf\Models\Robot.cs" />
-    <Compile Include="Urdf\Models\RpyAttribute.cs" />
-    <Compile Include="Urdf\Models\XyzAttribute.cs" />
+    <Compile Include="Urdf\Models\Attributes\RpyAttribute.cs" />
+    <Compile Include="Urdf\Models\Attributes\XyzAttribute.cs" />
     <Compile Include="Util\EnumUtils.cs" />
     <Compile Include="Util\Preconditions.cs" />
     <Compile Include="Util\RegexUtils.cs" />

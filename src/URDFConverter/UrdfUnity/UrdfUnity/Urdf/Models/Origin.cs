@@ -1,4 +1,5 @@
-﻿using UrdfUnity.Util;
+﻿using UrdfUnity.Urdf.Models.Attributes;
+using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models
 {

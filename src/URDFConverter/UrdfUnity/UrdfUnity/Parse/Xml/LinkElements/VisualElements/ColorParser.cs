@@ -1,6 +1,6 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 using UrdfUnity.Util;
 using UrdfUnity.Object;

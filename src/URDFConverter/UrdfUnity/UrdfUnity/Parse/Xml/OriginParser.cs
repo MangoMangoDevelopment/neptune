@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using NLog;
 using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml

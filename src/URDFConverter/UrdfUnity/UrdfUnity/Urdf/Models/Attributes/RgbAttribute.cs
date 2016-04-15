@@ -1,6 +1,6 @@
 ﻿using UrdfUnity.Util;
 
-namespace UrdfUnity.Urdf.Models.LinkElements.VisualElements
+namespace UrdfUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the RGB attributes of a colour specification of a visual element.

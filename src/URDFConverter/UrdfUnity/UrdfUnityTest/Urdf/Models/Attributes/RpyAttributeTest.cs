@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 
-namespace UrdfUnityTest.Urdf.Models
+namespace UrdfUnityTest.Urdf.Models.Attributes
 {
     [TestClass]
     public class RpyAttributeTest

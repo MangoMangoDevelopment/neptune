@@ -5,6 +5,7 @@ using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Parse.Xml.LinkElements;
 using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.LinkElements;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;

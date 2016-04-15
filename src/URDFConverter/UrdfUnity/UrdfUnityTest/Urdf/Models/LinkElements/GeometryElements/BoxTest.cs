@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 
 namespace UrdfUnityTest.Urdf.Models.LinkElements.GeometryElements

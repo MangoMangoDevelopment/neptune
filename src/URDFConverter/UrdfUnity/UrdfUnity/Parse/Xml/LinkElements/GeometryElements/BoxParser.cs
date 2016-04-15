@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
 using UrdfUnity.Util;
 

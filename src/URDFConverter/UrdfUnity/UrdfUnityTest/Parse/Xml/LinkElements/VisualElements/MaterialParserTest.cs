@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Parse.Xml.LinkElements.VisualElements;
 using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
 

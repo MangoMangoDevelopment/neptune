@@ -1,4 +1,4 @@
-﻿namespace UrdfUnity.Urdf.Models.LinkElements.GeometryElements
+﻿namespace UrdfUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the three side lengths of a box shape.
