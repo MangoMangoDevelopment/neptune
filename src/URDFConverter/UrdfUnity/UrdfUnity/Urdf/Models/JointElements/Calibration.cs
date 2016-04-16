@@ -37,6 +37,11 @@
             this.Falling = falling;
         }
 
+        public override string ToString()
+        {
+            return $"<calibration rising=\"{Rising}\" falling=\"{Falling}\"/>";
+        }
+
         protected bool Equals(Calibration other)
         {
             return Rising.Equals(other.Rising) && Falling.Equals(other.Falling);

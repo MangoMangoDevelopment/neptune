@@ -78,6 +78,14 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ToStringSafetyController()
+        {
+            Assert.AreEqual("<safety_controller k_velocity=\"0\" k_position=\"0\" soft_lower_limit=\"0\" soft_upper_limit=\"0\"/>", new SafetyController(0, 0, 0, 0).ToString());
+            Assert.AreEqual("<safety_controller k_velocity=\"-1\" k_position=\"1\" soft_lower_limit=\"1000\" soft_upper_limit=\"-1000\"/>", new SafetyController(-1, 1, 1000, -1000).ToString());
+            Assert.AreEqual("<safety_controller k_velocity=\"3.1415\" k_position=\"0.125\" soft_lower_limit=\"0.1\" soft_upper_limit=\"1000.0001\"/>", new SafetyController(3.1415, 0.125, 0.1, 1000.0001).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             SafetyController safetyController = new SafetyController(1, 2, 3, 4);

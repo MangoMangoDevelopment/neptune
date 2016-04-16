@@ -20,6 +20,14 @@ namespace UrdfUnityTest.Urdf.Models.Attributes
         }
 
         [TestMethod]
+        public void ToStringScale()
+        {
+            Assert.AreEqual("scale=\"0 0 0\"", new ScaleAttribute(0, 0, 0).ToString());
+            Assert.AreEqual("scale=\"0.1 0 1\"", new ScaleAttribute(0.1, 0, 1.0).ToString());
+            Assert.AreEqual("scale=\"3.1415 0 -1.25\"", new ScaleAttribute(3.1415, 0, -1.25).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             ScaleAttribute scale = new ScaleAttribute(1, 2, 3);

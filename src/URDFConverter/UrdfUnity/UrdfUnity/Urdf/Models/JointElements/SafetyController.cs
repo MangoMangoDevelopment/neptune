@@ -58,6 +58,11 @@
             this.SoftUpperLimit = upperLimit;
         }
 
+        public override string ToString()
+        {
+            return $"<safety_controller k_velocity=\"{KVelocity}\" k_position=\"{KPostition}\" soft_lower_limit=\"{SoftLowerLimit}\" soft_upper_limit=\"{SoftUpperLimit}\"/>";
+        }
+
         protected bool Equals(SafetyController other)
         {
             return SoftLowerLimit.Equals(other.SoftLowerLimit) && SoftUpperLimit.Equals(other.SoftUpperLimit)

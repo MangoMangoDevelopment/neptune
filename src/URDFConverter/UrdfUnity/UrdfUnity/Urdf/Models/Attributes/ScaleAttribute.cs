@@ -36,6 +36,11 @@
             this.Z = z;
         }
 
+        public override string ToString()
+        {
+            return $"scale=\"{X} {Y} {Z}\"";
+        }
+
         protected bool Equals(ScaleAttribute other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);

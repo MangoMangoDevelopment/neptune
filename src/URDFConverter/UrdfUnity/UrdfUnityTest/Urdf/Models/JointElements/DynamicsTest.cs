@@ -50,6 +50,14 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ToStringDynamics()
+        {
+            Assert.AreEqual("<dynamics damping=\"0\" friction=\"0\"/>", new Dynamics(0, 0).ToString());
+            Assert.AreEqual("<dynamics damping=\"-1\" friction=\"1\"/>", new Dynamics(-1, 1).ToString());
+            Assert.AreEqual("<dynamics damping=\"3.1415\" friction=\"0.125\"/>", new Dynamics(3.1415, 0.125).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Dynamics dynamics = new Dynamics(1, 2);

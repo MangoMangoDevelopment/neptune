@@ -35,6 +35,11 @@
             this.Height = height;
         }
 
+        public override string ToString()
+        {
+            return $"size=\"{Length} {Width} {Height}\"";
+        }
+
         protected bool Equals(SizeAttribute other)
         {
             return Length.Equals(other.Length) && Width.Equals(other.Width) && Height.Equals(other.Height);

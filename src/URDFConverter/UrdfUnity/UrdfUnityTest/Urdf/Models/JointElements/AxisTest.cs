@@ -31,6 +31,14 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ToStringAxis()
+        {
+            Assert.AreEqual("<axis xyz=\"0 0 0\"/>", new Axis(new XyzAttribute(0, 0, 0)).ToString());
+            Assert.AreEqual("<axis xyz=\"0.1 0 1\"/>", new Axis(new XyzAttribute(0.1, 0, 1.0)).ToString());
+            Assert.AreEqual("<axis xyz=\"3.1415 0 -1.25\"/>", new Axis(new XyzAttribute(3.1415, 0, -1.25)).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Axis axis = new Axis(new XyzAttribute(1, 2, 3));

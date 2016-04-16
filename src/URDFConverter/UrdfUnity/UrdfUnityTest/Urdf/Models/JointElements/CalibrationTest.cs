@@ -50,6 +50,14 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ToStringCalibration()
+        {
+            Assert.AreEqual("<calibration rising=\"0\" falling=\"0\"/>", new Calibration(0, 0).ToString());
+            Assert.AreEqual("<calibration rising=\"-1\" falling=\"1\"/>", new Calibration(-1, 1).ToString());
+            Assert.AreEqual("<calibration rising=\"3.1415\" falling=\"0.125\"/>", new Calibration(3.1415, 0.125).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Calibration calibration = new Calibration(1, 2);

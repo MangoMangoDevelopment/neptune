@@ -34,6 +34,14 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ToStringMimic()
+        {
+            Assert.AreEqual("<mimic joint=\"joint\" multiplier=\"0\" offset=\"0\"/>", new Mimic(TEST_JOINT, 0, 0).ToString());
+            Assert.AreEqual("<mimic joint=\"joint\" multiplier=\"-1\" offset=\"1\"/>", new Mimic(TEST_JOINT, -1, 1).ToString());
+            Assert.AreEqual("<mimic joint=\"joint\" multiplier=\"3.1415\" offset=\"0.125\"/>", new Mimic(TEST_JOINT, 3.1415, 0.125).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Joint joint = new Joint.Builder("joint", Joint.JointType.Continuous, new Link.Builder("parent").Build(), new Link.Builder("child").Build()).Build();

@@ -56,6 +56,11 @@ namespace UrdfUnity.Urdf.Models.JointElements
             this.Offset = offset;
         }
 
+        public override string ToString()
+        {
+            return $"<mimic joint=\"{Joint.Name}\" multiplier=\"{Multiplier}\" offset=\"{Offset}\"/>";
+        }
+
         protected bool Equals(Mimic other)
         {
             return Joint.Equals(other.Joint) && Multiplier.Equals(other.Multiplier) && Offset.Equals(other.Offset);

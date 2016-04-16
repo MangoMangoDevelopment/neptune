@@ -49,6 +49,14 @@ namespace UrdfUnityTest.Urdf.Models.JointElements
         }
 
         [TestMethod]
+        public void ToStringLimit()
+        {
+            Assert.AreEqual("<limit effort=\"0\" velocity=\"0\" lower=\"0\" upper=\"0\"/>", new Limit(0, 0, 0, 0).ToString());
+            Assert.AreEqual("<limit effort=\"-1\" velocity=\"1\" lower=\"1000\" upper=\"0\"/>", new Limit(-1, 1, 1000, 0).ToString());
+            Assert.AreEqual("<limit effort=\"3.1415\" velocity=\"0.125\" lower=\"0.1\" upper=\"1000.0001\"/>", new Limit(3.1415, 0.125, 0.1, 1000.0001).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Limit limit = new Limit(1, 2);

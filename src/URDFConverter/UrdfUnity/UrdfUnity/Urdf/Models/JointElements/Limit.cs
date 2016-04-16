@@ -53,6 +53,11 @@
             this.Upper = upper;
         }
 
+        public override string ToString()
+        {
+            return $"<limit effort=\"{Effort}\" velocity=\"{Velocity}\" lower=\"{Lower}\" upper=\"{Upper}\"/>";
+        }
+
         protected bool Equals(Limit other)
         {
             return Lower.Equals(other.Lower) && Upper.Equals(other.Upper) && Effort.Equals(other.Effort) && Velocity.Equals(other.Velocity);

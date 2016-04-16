@@ -31,6 +31,11 @@ namespace UrdfUnity.Urdf.Models.JointElements
             this.Xyz = xyz;
         }
 
+        public override string ToString()
+        {
+            return $"<axis {Xyz.ToString()}/>";
+        }
+
         protected bool Equals(Axis other)
         {
             return Xyz.Equals(other.Xyz);

@@ -37,6 +37,11 @@
             this.Friction = friction;
         }
 
+        public override string ToString()
+        {
+            return $"<dynamics damping=\"{Damping}\" friction=\"{Friction}\"/>";
+        }
+
         protected bool Equals(Dynamics other)
         {
             return Damping.Equals(other.Damping) && Friction.Equals(other.Friction);

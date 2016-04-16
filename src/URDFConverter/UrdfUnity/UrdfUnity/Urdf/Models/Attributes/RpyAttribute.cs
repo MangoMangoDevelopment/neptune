@@ -43,6 +43,11 @@
             this.Y = y;
         }
 
+        public override string ToString()
+        {
+            return $"rpy=\"{R} {P} {Y}\"";
+        }
+
         protected bool Equals(RpyAttribute other)
         {
             return R.Equals(other.R) && P.Equals(other.P) && Y.Equals(other.Y);

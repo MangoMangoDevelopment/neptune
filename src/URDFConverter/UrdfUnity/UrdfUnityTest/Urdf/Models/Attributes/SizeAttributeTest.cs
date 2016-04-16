@@ -26,6 +26,14 @@ namespace UrdfUnityTest.Urdf.Models.Attributes
         }
 
         [TestMethod]
+        public void ToStringSize()
+        {
+            Assert.AreEqual("size=\"0 0 0\"", new SizeAttribute(0, 0, 0).ToString());
+            Assert.AreEqual("size=\"0.1 0 1\"", new SizeAttribute(0.1, 0, 1.0).ToString());
+            Assert.AreEqual("size=\"3.1415 0 -1.25\"", new SizeAttribute(3.1415, 0, -1.25).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             SizeAttribute size = new SizeAttribute(1, 2, 3);

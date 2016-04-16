@@ -44,6 +44,11 @@
             this.Z = z;
         }
 
+        public override string ToString()
+        {
+            return $"xyz=\"{X} {Y} {Z}\"";
+        }
+
         protected bool Equals(XyzAttribute other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
