@@ -5,10 +5,10 @@ using System.Collections;
 /// <summary>
 /// This is a model of urdfs stored in the database
 /// </summary>
-public class UrdfItemModel : MonoBehaviour
+public class UrdfItemModel
 {
     public int uid;
-    public new string name;
+    public string name;
     public string modelNumber;
     public float internalCost;
     public float externalCost;
@@ -17,6 +17,7 @@ public class UrdfItemModel : MonoBehaviour
     public int fk_type_id;
     public int fk_category_id;
     public int usable;
+    public int visibility;
     public string urdfFilename;
     public string prefabFilename;
     public string notes;
@@ -35,6 +36,7 @@ public class UrdfItemModel : MonoBehaviour
         this.fk_type_id = model.fk_type_id;
         this.fk_category_id = model.fk_category_id;
         this.usable = model.usable;
+        this.visibility = model.visibility;
         this.urdfFilename = model.urdfFilename;
         this.prefabFilename = model.prefabFilename;
         this.notes = model.notes;

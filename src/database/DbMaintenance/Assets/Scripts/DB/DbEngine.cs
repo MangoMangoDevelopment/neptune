@@ -8,7 +8,6 @@ public class DbEngine
 {
     public SqliteConnection conn = null;
     private string errorMessage;
-    private int errorCode;
 
     /// <summary>
     /// Constructor for a given connection string provided.

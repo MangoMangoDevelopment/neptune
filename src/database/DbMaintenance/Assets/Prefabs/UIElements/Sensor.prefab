@@ -104,22 +104,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 182234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d4ffa4a694aa2048adf41a58bde3391, type: 3}
+  m_Script: {fileID: 11500000, guid: 44dea16ea56c606439552b4e922d4b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uid: 0
-  name: 
-  modelNumber: 
-  internalCost: 0
-  externalCost: 0
-  weight: 0
-  powerUsage: 0
-  fk_type_id: 0
-  fk_category_id: 0
-  usable: 0
-  urdfFilename: 
-  prefabFilename: 
-  time: 0
 --- !u!114 &11477774
 MonoBehaviour:
   m_ObjectHideFlags: 1

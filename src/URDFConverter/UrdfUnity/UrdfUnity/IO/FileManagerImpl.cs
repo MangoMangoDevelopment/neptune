@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Util;
-using UrdfUnity.Parse;
+using UrdfUnity.Parse.Xml;
+using UrdfUnity.Parse.Xacro;
 using NLog;
 
 
@@ -14,8 +16,9 @@ namespace UrdfUnity.IO
     public class FileManagerImpl : FileManager
     {
         private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
-        UrdfParser urdf = new UrdfParser();
 
+        XmlDocument xmlDoc = new XmlDocument();
+        RobotParser urdf = new RobotParser();
 
         /// <summary>
         /// Reads the entire file into a string.
@@ -41,40 +44,56 @@ namespace UrdfUnity.IO
 
 
         /// <summary>
+        /// Reads the entire file into a XmlDocument.
+        /// </summary>
+        /// <param name="path">Path of file to read</param>
+        /// <returns>Root node of Xml file, otherwise <c>null</c></returns>
+        public XmlNode ReadXmlNodeFromFile(string path)
+        {
+            XmlNode node = null;
+            try
+            {
+                using (StreamReader fileReader = new StreamReader(path))
+                {
+                    xmlDoc.Load(fileReader);
+                }
+                node = xmlDoc.DocumentElement;
+            }
+            catch (FileNotFoundException e)
+            {
+                LOGGER.Warn("Error invalid XML found \"{0}\"", path);
+            }
+            return node;
+        }
+
+
+        /// <summary>
         /// Extracts a Robot model object from the provided URDF/Xacro filepath.
         /// </summary>
         /// <param name="filePath">Path of file containing urdf/xacro for the robot</param>
         /// <returns>
-        ///     The Robot model parsed from the specified filepath if valid, otherwise <c>null<c>
+        ///     The Robot model parsed from the specified filepath if valid, otherwise <c>null</c>
         /// </returns>
         public Robot GetRobotFromFile(string filePath)
         {
             Robot robo = null;
+            XmlNode root = this.ReadXmlNodeFromFile(filePath);
+            FileType type = FileManagerImpl.GetFileType(filePath);
 
-            string contents = ReadFileToString(filePath);
-
-            if (!contents.Equals(string.Empty))
+            switch (type)
             {
-                FileType type = GetFileType(filePath);
-                switch(type)
-                {
-                    case FileType.URDF:
-                        robo = this.urdf.Parse(contents);
-                        break;
-                    case FileType.XACRO:
-                        // TODO: Call Xacro parser
-                        throw new NotImplementedException();
-                        break;
-                    default:
-                        LOGGER.Warn("Unknown filetype supplied. Unable to parse robot.");
-                        break;
-                }
+                case FileType.URDF:
+                    robo = this.urdf.Parse(root);
+                    break;
+                case FileType.XACRO:
+                    // TODO: Call Xacro parser
+                    throw new NotImplementedException();
+                    break;
+                default:
+                    LOGGER.Warn("Unknown filetype supplied. Unable to parse robot.");
+                    break;
             }
-            else
-            {
-                LOGGER.Warn("Empty or no file loaded.");
-            }
-
+            
             return robo;
         }
 
@@ -86,10 +105,11 @@ namespace UrdfUnity.IO
         /// </summary>
         /// <param name="file">This can be a string representation of the file path or just filename</param>
         /// <returns></returns>
-        public FileType GetFileType(string fileName)
+        static public FileType GetFileType(string fileName)
         {
             // remove the . from the get extension function, so that it can be properly translated to an enum type of FileType
-            string extension = Path.GetExtension(fileName).Replace('.', '\0');
+            string extension = Path.GetExtension(fileName).Replace(".", "");
+
             FileType type = FileType.UNKNOWN;
             try
             {
@@ -104,6 +124,18 @@ namespace UrdfUnity.IO
                 LOGGER.Warn("File type contains white space or is null.");
             }
             return type;
+        }
+
+        static public string GetFileName(string path, bool includeExtension = true)
+        {
+            if (includeExtension)
+            {
+                return Path.GetFileName(path);
+            }
+            else
+            {
+                return Path.GetFileNameWithoutExtension(path);
+            }
         }
     }
 }

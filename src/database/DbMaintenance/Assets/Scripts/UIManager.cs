@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-
 using System.Collections.Generic;
 using System;
 
@@ -25,9 +23,11 @@ public class UIManager : MonoBehaviour {
     public GameObject categoryContainerPrefab;      // Reference for the category container to hold sensor buttons
     public GameObject sensorBtnPrefab;              // Reference to the prefab for a sensor button
     public GameObject unkownSensorPrefab;           // Reference to the prefab of an empty/unknown sensor
+    public GameObject invisibleText;                // Reference to the prefab containing 3D text of inivisble
 
-    private GameObject currentSelectedSensor;       // Reference to the selected sensor game object
-    private UrdfModel urdf;
+    private GameObject currSelectedSensor;       // Reference to the selected sensor game object
+    private GameObject currSelectedSensorGoModel;       // Reference to the selected sensor game object
+    private UrdfDb urdf;
     private Dictionary<string, InputField> inputs;
     private Dictionary<int, GameObject> categoryHolderList;
     private List<GameObject> sensors;
@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        this.urdf = new UrdfModel();
+        this.urdf = new UrdfDb();
         this.currState = UIState.Create; // assume that the default is to add a sensor right away
         this.sensors = new List<GameObject>();
         categoryHolderList = new Dictionary<int, GameObject>();
@@ -66,17 +66,22 @@ public class UIManager : MonoBehaviour {
     void SensorPanelSetup()
     {
         List<SensorCategoriesModel> categories = urdf.GetSensorCategories();
-        List<UrdfItemModel> sensorList = urdf.GetSensors();
+        List<UrdfItemModel> sensorList = urdf.GetUrdfs();
         List<headingController> headingControllers = new List<headingController>();
+        GameObject unknownHolder = GameObject.Instantiate(categoryContainerPrefab);
+        headingController unknownController = unknownHolder.GetComponentInChildren<headingController>();
+        unknownController.SetHeadingName("Unknown");
+        headingControllers.Add(unknownController);
+        unknownHolder.transform.SetParent(sensorViewPort.transform, false);
+        categoryHolderList.Add(0, unknownHolder);
 
         foreach (SensorCategoriesModel category in categories)
         {
             GameObject categoryHolder = GameObject.Instantiate(categoryContainerPrefab);
-            SensorCategoriesModel urdfCat = categoryHolder.GetComponent<SensorCategoriesModel>();
             headingController controller = categoryHolder.GetComponentInChildren<headingController>();
             controller.SetHeadingName(category.name);
             headingControllers.Add(controller);
-            urdfCat.copy(category);
+            categoryHolder.GetComponent<CategoryHeading>().category = category;
             categoryHolder.transform.SetParent(sensorViewPort.transform, false);
             categoryHolderList.Add(category.uid, categoryHolder);
         }
@@ -87,11 +92,12 @@ public class UIManager : MonoBehaviour {
             GameObject sensorBtn = GameObject.Instantiate(sensorBtnPrefab);
             Button btn = sensorBtn.GetComponent<Button>();
             Text value = sensorBtn.GetComponentInChildren<Text>();
-            UrdfItemModel urdfItem = sensorBtn.GetComponent<UrdfItemModel>();
-            urdfItem.copy(item);
+            Sensor sensor = sensorBtn.GetComponent<Sensor>();
+            sensor.item = item;
+            sensor.category = categoryHolderList[item.fk_category_id].GetComponent<CategoryHeading>().category;
             value.text = item.name;
             sensorBtn.name = item.name.ToLower();
-            headingControllers[item.fk_category_id - 1].AddSensor();
+            headingControllers[item.fk_category_id].AddSensor();
             sensorBtn.transform.SetParent(categoryHolderList[item.fk_category_id].transform, false);
             btn.onClick.AddListener(() => SensorOnClick(sensorBtn));
             this.sensors.Add(sensorBtn);
@@ -149,7 +155,7 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void DeleteForm_click()
     {
-        currState = UIState.Delete;
+        SetUiState(UIState.Delete);
         SaveForm_click();
     }
 
@@ -159,9 +165,20 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void SaveForm_click()
     {
-        UrdfItemModel item = new UrdfItemModel();
+        Sensor sensor = this.currSelectedSensor.GetComponent<Sensor>();
+        UrdfItemModel item = null;
+        if (sensor != null)
+        {
+            item = sensor.item;
+        }
+        else
+        {
+            item = new UrdfItemModel();
+        }
+
         item.name = this.inputs["txtName"].text;
         item.modelNumber = this.inputs["txtModel"].text;
+        item.notes = this.inputs["txtNotes"].text;
 
         if (!float.TryParse(this.inputs["txtInternalCost"].text, out item.internalCost))
         {
@@ -188,14 +205,37 @@ public class UIManager : MonoBehaviour {
         {
             case UIState.Create:
                 urdf.AddSensor(item);
-                deleteBtn.SetActive(true);
                 break;
             case UIState.Delete:
                 urdf.DeleteSensor(item);
-                deleteBtn.SetActive(false);
+                GameObject.Destroy(this.currSelectedSensor);
+                GameObject.Destroy(this.currSelectedSensorGoModel);
                 break;
             case UIState.Update:
                 urdf.UpdateSensor(item);
+                this.currSelectedSensor.GetComponent<Sensor>().item = item;
+                break;
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="state"></param>
+    private void SetUiState(UIState state)
+    {
+        this.currState = state;
+        switch (state)
+        {
+            case UIState.Create:
+                deleteBtn.SetActive(false);
+                break;
+            case UIState.Delete:
+                deleteBtn.SetActive(false);
+                break;
+            case UIState.Update:
+                deleteBtn.SetActive(true);
                 break;
         }
     }
@@ -239,20 +279,29 @@ public class UIManager : MonoBehaviour {
     /// <param name="sensor">A reference to the sensor button being clicked.</param>
     void SensorOnClick(GameObject sensor)
     {
-        UrdfItemModel item = sensor.GetComponent<UrdfItemModel>();
+        this.currSelectedSensor = sensor;
+        UrdfItemModel item = sensor.GetComponent<Sensor>().item;
         setForm(item);
-        if (currentSelectedSensor != null)
+        SetUiState(UIState.Update);
+        if (this.currSelectedSensorGoModel != null)
         {
-            Destroy(this.currentSelectedSensor);
+            Destroy(this.currSelectedSensorGoModel);
         }
 
-        try
+        if(item.visibility == 0)
         {
-            this.currentSelectedSensor = Instantiate(Resources.Load(item.prefabFilename, typeof(GameObject))) as GameObject;
+            this.currSelectedSensorGoModel = Instantiate(invisibleText);
         }
-        catch (Exception)
+        else
         {
-            this.currentSelectedSensor = Instantiate(unkownSensorPrefab);
+            try
+            {
+                this.currSelectedSensorGoModel = Instantiate(Resources.Load("Prefabs/" + item.prefabFilename, typeof(GameObject))) as GameObject;
+            }
+            catch (Exception)
+            {
+                this.currSelectedSensorGoModel = Instantiate(unkownSensorPrefab);
+            }
         }
 
     }

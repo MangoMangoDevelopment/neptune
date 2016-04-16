@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
@@ -75,13 +75,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CategoryHeading.cs" />
     <Compile Include="Assets\Scripts\Controllers\headingController.cs" />
     <Compile Include="Assets\Scripts\Controllers\modelPreview.cs" />
     <Compile Include="Assets\Scripts\DB\DbEngine.cs" />
+    <Compile Include="Assets\Scripts\Models\RosLinkModel.cs" />
+    <Compile Include="Assets\Scripts\Models\RosRobotModel.cs" />
     <Compile Include="Assets\Scripts\Models\SensorCategoriesModel.cs" />
+    <Compile Include="Assets\Scripts\Models\UrdfDb.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfItemModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfTypeModel.cs" />
-    <Compile Include="Assets\Scripts\Models\urdfModel.cs" />
+    <Compile Include="Assets\Scripts\Sensor.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>

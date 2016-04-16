@@ -111,6 +111,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\ImportManager.cs" />
     <Compile Include="Assets\Editor\uGUITools.cs" />
   </ItemGroup>
   <ItemGroup>
