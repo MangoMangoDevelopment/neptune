@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UrdfUnity.Urdf.Models.LinkElements;
+using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Urdf.Models

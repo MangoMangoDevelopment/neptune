@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Parse.Xml;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Attributes;
-using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
+using UrdfUnity.Urdf.Models.Links.Visuals;
 
 namespace UrdfUnityTest.Parse.Xml
 {

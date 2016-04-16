@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NLog;
-using UrdfUnity.Parse.Xml.LinkElements;
+using UrdfUnity.Parse.Xml.Links;
 using UrdfUnity.Urdf.Models;
-using UrdfUnity.Urdf.Models.LinkElements;
-using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
+using UrdfUnity.Urdf.Models.Links;
+using UrdfUnity.Urdf.Models.Links.Visuals;
 using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml
@@ -55,7 +55,7 @@ namespace UrdfUnity.Parse.Xml
 
             XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
             XmlElement inertialElement = GetElementFromNode(node, INERTIAL_ELEMENT_NAME);
-            XmlNodeList visualElements = node.SelectNodes(VISUAL_ELEMENT_NAME);
+            XmlNodeList Visuals = node.SelectNodes(VISUAL_ELEMENT_NAME);
             XmlNodeList collisionElements = node.SelectNodes(COLLISION_ELEMENT_NAME);
 
             Link.Builder builder;
@@ -75,9 +75,9 @@ namespace UrdfUnity.Parse.Xml
                 builder.SetInertial(this.inertialParser.Parse(inertialElement));
             }
 
-            if (visualElements != null)
+            if (Visuals != null)
             {
-                builder.SetVisual(ParseVisuals(visualElements));
+                builder.SetVisual(ParseVisuals(Visuals));
             }
 
             if (collisionElements != null)

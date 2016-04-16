@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NLog;
-using UrdfUnity.Parse.Xml.JointElements;
+using UrdfUnity.Parse.Xml.Joints;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Util;
 

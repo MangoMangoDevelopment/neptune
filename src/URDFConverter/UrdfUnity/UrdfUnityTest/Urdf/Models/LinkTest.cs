@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Attributes;
-using UrdfUnity.Urdf.Models.LinkElements;
-using UrdfUnity.Urdf.Models.LinkElements.GeometryElements;
-using UrdfUnity.Urdf.Models.LinkElements.InertialElements;
+using UrdfUnity.Urdf.Models.Links;
+using UrdfUnity.Urdf.Models.Links.Geometries;
+using UrdfUnity.Urdf.Models.Links.Inertials;
 
 namespace UrdfUnityTest.Urdf.Models
 {[TestClass]

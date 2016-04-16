@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NLog;
-using UrdfUnity.Parse.Xml.LinkElements.VisualElements;
+using UrdfUnity.Parse.Xml.Links.Visuals;
 using UrdfUnity.Urdf.Models;
-using UrdfUnity.Urdf.Models.LinkElements.VisualElements;
+using UrdfUnity.Urdf.Models.Links.Visuals;
 
 namespace UrdfUnity.Parse.Xml
 {
@@ -58,8 +58,8 @@ namespace UrdfUnity.Parse.Xml
             ValidateXmlNode(node);
 
             XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlNodeList linkElements = node.SelectNodes(LINK_ELEMENT_NAME);
-            XmlNodeList jointElements = node.SelectNodes(JOINT_ELEMENT_NAME);
+            XmlNodeList Links = node.SelectNodes(LINK_ELEMENT_NAME);
+            XmlNodeList Joints = node.SelectNodes(JOINT_ELEMENT_NAME);
             XmlNodeList materialElements = node.SelectNodes(MATERIAL_ELEMENT_NAME);
 
             string name = ParseName(nameAttribute);
@@ -68,10 +68,10 @@ namespace UrdfUnity.Parse.Xml
             ParseMaterials(materialElements);
 
             // Parse all links that will be referenced by joints
-            ParseLinks(linkElements);
+            ParseLinks(Links);
 
             // Parse the joints
-            ParseJoints(jointElements);
+            ParseJoints(Joints);
 
             // Finally, construct the Robot model
             Robot robot = new Robot(name, this.links, this.joints);
@@ -102,15 +102,15 @@ namespace UrdfUnity.Parse.Xml
             }
         }
 
-        private void ParseLinks(XmlNodeList linkElements)
+        private void ParseLinks(XmlNodeList Links)
         {
-            if (linkElements.Count == 0)
+            if (Links.Count == 0)
             {
                 Logger.Warn("URDF file is missing required top-level link elements");
             }
             else
             {
-                foreach (XmlNode linkNode in linkElements)
+                foreach (XmlNode linkNode in Links)
                 {
                     Link link = this.linkParser.Parse(linkNode);
                     this.links.Add(link.Name, link);
@@ -118,15 +118,15 @@ namespace UrdfUnity.Parse.Xml
             }
         }
 
-        private void ParseJoints(XmlNodeList jointElements)
+        private void ParseJoints(XmlNodeList Joints)
         {
-            if (jointElements.Count == 0)
+            if (Joints.Count == 0)
             {
                 Logger.Warn("URDF file is missing required top-level joint elements");
             }
             else
             {
-                foreach (XmlNode jointNode in jointElements)
+                foreach (XmlNode jointNode in Joints)
                 {
                     Joint joint = this.jointParser.Parse(jointNode);
                     this.joints.Add(joint.Name, joint);
