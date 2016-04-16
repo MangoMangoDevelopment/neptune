@@ -235,9 +235,9 @@ public class UrdfDb
     }
 
     /// <summary>
-    /// 
+    /// Retrieves the categories the list of categories within the database.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A List of categories found. List may be empty.</returns>
     public List<SensorCategoriesModel> GetSensorCategories()
     {
         List<SensorCategoriesModel> list = new List<SensorCategoriesModel>();

@@ -24,11 +24,13 @@ public class UIManager : MonoBehaviour {
     public GameObject sensorBtnPrefab;              // Reference to the prefab for a sensor button
     public GameObject unkownSensorPrefab;           // Reference to the prefab of an empty/unknown sensor
     public GameObject invisibleText;                // Reference to the prefab containing 3D text of inivisble
+    public Text title;
 
-    private GameObject currSelectedSensor;       // Reference to the selected sensor game object
-    private GameObject currSelectedSensorGoModel;       // Reference to the selected sensor game object
+    private GameObject currSelectedSensor;              // Reference to the selected sensor button game object
+    private GameObject currSelectedSensorGoModel;       // Reference to the selected sensor model game object
     private UrdfDb urdf;
     private Dictionary<string, InputField> inputs;
+    private Dictionary<string, Dropdown> dropdowns;
     private Dictionary<int, GameObject> categoryHolderList;
     private List<GameObject> sensors;
 
@@ -41,20 +43,27 @@ public class UIManager : MonoBehaviour {
         this.currState = UIState.Create; // assume that the default is to add a sensor right away
         this.sensors = new List<GameObject>();
         categoryHolderList = new Dictionary<int, GameObject>();
-        setupInputFieldList();
+        setupForm();
         SensorPanelSetup();
     }
 
     /// <summary>
-    /// Grabs all available inputs fields on the form.
+    /// Grabs all available inputs fields and dropdowns on the form.
     /// </summary>
-    void setupInputFieldList()
+    void setupForm()
     {
         this.inputs = new Dictionary<string, InputField>();
         InputField[] inputsList = form.GetComponentsInChildren<InputField>();
         foreach (InputField input in inputsList)
         {
             this.inputs.Add(input.name, input);
+        }
+
+        this.dropdowns = new Dictionary<string, Dropdown>();
+        Dropdown[] dropdownList = form.GetComponentsInChildren<Dropdown>();
+        foreach (Dropdown dropdown in dropdownList)
+        {
+            this.dropdowns.Add(dropdown.name, dropdown);
         }
     }
 
@@ -66,7 +75,21 @@ public class UIManager : MonoBehaviour {
     void SensorPanelSetup()
     {
         List<SensorCategoriesModel> categories = urdf.GetSensorCategories();
+        List<UrdfTypeModel> types = urdf.GetUrdfTypes();
         List<UrdfItemModel> sensorList = urdf.GetUrdfs();
+
+        this.dropdowns["ddCategory"].options.Add(new Dropdown.OptionData("Unknown"));
+        foreach (SensorCategoriesModel category in categories)
+        {
+            this.dropdowns["ddCategory"].options.Add(new Dropdown.OptionData(category.name));
+        }
+
+        this.dropdowns["ddTypes"].options.Add(new Dropdown.OptionData("Unknown"));
+        foreach (UrdfTypeModel type in types)
+        {
+            this.dropdowns["ddTypes"].options.Add(new Dropdown.OptionData(type.name));
+        }
+
         List<headingController> headingControllers = new List<headingController>();
         GameObject unknownHolder = GameObject.Instantiate(categoryContainerPrefab);
         headingController unknownController = unknownHolder.GetComponentInChildren<headingController>();
@@ -116,7 +139,7 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void AddSensor_click()
     {
-        currState = UIState.Create;
+        SetUiState(UIState.Create);
         clearForm();
     }
 
@@ -147,6 +170,9 @@ public class UIManager : MonoBehaviour {
         this.inputs["txtPower"].text = item.powerUsage.ToString();
         this.inputs["txtWeight"].text = item.weight.ToString();
         this.inputs["txtTime"].text = item.time.ToString();
+
+        this.dropdowns["ddCategory"].value = item.fk_category_id;
+        this.dropdowns["ddTypes"].value = item.fk_type_id;
     }
 
     /// <summary>
@@ -179,6 +205,8 @@ public class UIManager : MonoBehaviour {
         item.name = this.inputs["txtName"].text;
         item.modelNumber = this.inputs["txtModel"].text;
         item.notes = this.inputs["txtNotes"].text;
+        item.fk_category_id = this.dropdowns["ddCategory"].value;
+        item.fk_type_id = this.dropdowns["ddTypes"].value;
 
         if (!float.TryParse(this.inputs["txtInternalCost"].text, out item.internalCost))
         {
@@ -201,6 +229,7 @@ public class UIManager : MonoBehaviour {
             Debug.Log("[time] Invalid float detected. Did you change the context type?");
         }
 
+
         switch (currState)
         {
             case UIState.Create:
@@ -220,7 +249,8 @@ public class UIManager : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// This handles UI rules when switching states. Currently, handles heading
+    /// title and the display of the delete button.
     /// </summary>
     /// <param name="state"></param>
     private void SetUiState(UIState state)
@@ -230,12 +260,14 @@ public class UIManager : MonoBehaviour {
         {
             case UIState.Create:
                 deleteBtn.SetActive(false);
+                title.text = "Add New Part";
                 break;
             case UIState.Delete:
                 deleteBtn.SetActive(false);
                 break;
             case UIState.Update:
                 deleteBtn.SetActive(true);
+                title.text = "Updating Part - ";
                 break;
         }
     }
@@ -283,6 +315,9 @@ public class UIManager : MonoBehaviour {
         UrdfItemModel item = sensor.GetComponent<Sensor>().item;
         setForm(item);
         SetUiState(UIState.Update);
+
+        title.text += item.name;
+
         if (this.currSelectedSensorGoModel != null)
         {
             Destroy(this.currSelectedSensorGoModel);

@@ -8,6 +8,11 @@ using UrdfUnity.Urdf.Models.LinkElements;
 using System.Collections.Generic;
 using System.IO;
 
+/// <summary>
+/// This class handles imported Urdfs and associated meshes. Mesh will have
+/// automated prefabs created and Urdfs will be transformed into a Unity GameObject
+/// prefab.
+/// </summary>
 public class ObjectMeshManager : AssetPostprocessor
 {
     static private string prefabFolderPath = "Assets/Resources/Prefabs";
@@ -72,9 +77,11 @@ public class ObjectMeshManager : AssetPostprocessor
 
 
     /// <summary>
-    /// 
+    /// Handles putting together a robot GameObject and saving it as a prefab for
+    /// later use.
     /// </summary>
-    /// <param name="urdfs"></param>
+    /// <param name="path">The path of the URDF</param>
+    /// <returns>A string represenation of the path and name of the prefab created.</returns>
     static string CreateUrdfRobot(string path)
     {
         FileManagerImpl fileManager = new FileManagerImpl();
