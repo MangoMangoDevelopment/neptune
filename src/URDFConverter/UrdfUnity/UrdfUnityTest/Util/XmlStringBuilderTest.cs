@@ -61,6 +61,17 @@ namespace UrdfUnityTest.Util
         }
 
         [TestMethod]
+        public void AddAttributeTwice()
+        {
+            string expected = "<hello a=\"2\"/>";
+            XmlStringBuilder sb = new XmlStringBuilder("hello");
+
+            sb.AddAttribute("a", 1).AddAttribute("a", 2);
+
+            Assert.AreEqual(expected, sb.ToString());
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void BuildXmlStringNoElement()
         {

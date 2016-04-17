@@ -39,14 +39,23 @@ namespace UrdfUnity.Util
         }
 
         /// <summary>
-        /// Adds an attribute to the XML element string being built.
+        /// Adds an attribute to the XML element string being built.  If an attribute of the same name
+        /// has already been added, it will be replaced.
         /// </summary>
         /// <param name="attribute">The name of the attribute</param>
         /// <param name="value">The object value of the attribute, as per its ToString() value</param>
         /// <returns>This instance of XmlStringBuilder</returns>
         public XmlStringBuilder AddAttribute(string attribute, object value)
         {
-            this.attributes.Add(attribute, value.ToString());
+            if (this.attributes.ContainsKey(attribute))
+            {
+                this.attributes[attribute] = value.ToString();
+            }
+            else
+            {
+                this.attributes.Add(attribute, value.ToString());
+            }
+
             return this;
         }
 
