@@ -43,9 +43,13 @@
             this.Y = y;
         }
 
+        /// <summary>
+        /// Returns the string representation of this object as an XML attribute value.
+        /// </summary>
+        /// <returns>"R P Y"</returns>
         public override string ToString()
         {
-            return $"rpy=\"{R} {P} {Y}\"";
+            return $"{R} {P} {Y}";
         }
 
         protected bool Equals(RpyAttribute other)

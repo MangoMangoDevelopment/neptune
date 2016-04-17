@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models.Joints
+﻿using UrdfUnity.Util;
+
+namespace UrdfUnity.Urdf.Models.Joints
 {
     /// <summary>
     /// Represents the reference positions of the joint, used to calibrate the absolute position of the joint. 
@@ -39,7 +41,10 @@
 
         public override string ToString()
         {
-            return $"<calibration rising=\"{Rising}\" falling=\"{Falling}\"/>";
+            return new XmlStringBuilder(UrdfSchema.CALIBRATION_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.RISING_ATTRIBUTE_NAME, this.Rising)
+                .AddAttribute(UrdfSchema.FALLING_ATTRIBUTE_NAME, this.Falling)
+                .ToString();
         }
 
         protected bool Equals(Calibration other)

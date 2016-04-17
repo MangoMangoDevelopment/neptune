@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models.Joints
+﻿using UrdfUnity.Util;
+
+namespace UrdfUnity.Urdf.Models.Joints
 {
     /// <summary>
     /// Represents the physical properties used to specify modeling properties of the joint.
@@ -39,7 +41,10 @@
 
         public override string ToString()
         {
-            return $"<dynamics damping=\"{Damping}\" friction=\"{Friction}\"/>";
+            return new XmlStringBuilder(UrdfSchema.DYNAMICS_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.DAMPING_ATTRIBUTE_NAME, this.Damping)
+                .AddAttribute(UrdfSchema.FRICTION_ATTRIBUTE_NAME, this.Friction)
+                .ToString();
         }
 
         protected bool Equals(Dynamics other)

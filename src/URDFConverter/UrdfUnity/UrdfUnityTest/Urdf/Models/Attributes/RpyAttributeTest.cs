@@ -32,9 +32,9 @@ namespace UrdfUnityTest.Urdf.Models.Attributes
         [TestMethod]
         public void ToStringRpy()
         {
-            Assert.AreEqual("rpy=\"0 0 0\"", new RpyAttribute(0, 0, 0).ToString());
-            Assert.AreEqual("rpy=\"0.1 0 1\"", new RpyAttribute(0.1, 0, 1.0).ToString());
-            Assert.AreEqual("rpy=\"3.1415 0 -1.25\"", new RpyAttribute(3.1415, 0, -1.25).ToString());
+            Assert.AreEqual("0 0 0", new RpyAttribute(0, 0, 0).ToString());
+            Assert.AreEqual("0.1 0 1", new RpyAttribute(0.1, 0, 1.0).ToString());
+            Assert.AreEqual("3.1415 0 -1.25", new RpyAttribute(3.1415, 0, -1.25).ToString());
         }
 
         [TestMethod]

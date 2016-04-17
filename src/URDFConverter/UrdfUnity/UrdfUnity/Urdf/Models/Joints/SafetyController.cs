@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models.Joints
+﻿using UrdfUnity.Util;
+
+namespace UrdfUnity.Urdf.Models.Joints
 {
     /// <summary>
     /// Represents the joint property values wherein the safety controller limits the joint position.
@@ -60,7 +62,12 @@
 
         public override string ToString()
         {
-            return $"<safety_controller k_velocity=\"{KVelocity}\" k_position=\"{KPostition}\" soft_lower_limit=\"{SoftLowerLimit}\" soft_upper_limit=\"{SoftUpperLimit}\"/>";
+            return new XmlStringBuilder(UrdfSchema.SAFETY_CONTROLLER_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.K_VELOCITY_ATTRIBUTE_NAME, this.KVelocity)
+                .AddAttribute(UrdfSchema.K_POSITION_ATTRIBUTE_NAME, this.KPostition)
+                .AddAttribute(UrdfSchema.LOWER_LIMIT_ATTRIBUTE_NAME, this.SoftLowerLimit)
+                .AddAttribute(UrdfSchema.UPPER_LIMIT_ATTRIBUTE_NAME, this.SoftUpperLimit)
+                .ToString();
         }
 
         protected bool Equals(SafetyController other)

@@ -35,9 +35,13 @@
             this.Height = height;
         }
 
+        /// <summary>
+        /// Returns the string representation of this object as an XML attribute value.
+        /// </summary>
+        /// <returns>"L W H"</returns>
         public override string ToString()
         {
-            return $"size=\"{Length} {Width} {Height}\"";
+            return $"{Length} {Width} {Height}";
         }
 
         protected bool Equals(SizeAttribute other)

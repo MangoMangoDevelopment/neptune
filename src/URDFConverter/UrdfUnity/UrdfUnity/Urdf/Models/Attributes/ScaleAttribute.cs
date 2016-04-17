@@ -36,9 +36,13 @@
             this.Z = z;
         }
 
+        /// <summary>
+        /// Returns the string representation of this object as an XML attribute value.
+        /// </summary>
+        /// <returns>"X Y Z"</returns>
         public override string ToString()
         {
-            return $"scale=\"{X} {Y} {Z}\"";
+            return $"{X} {Y} {Z}";
         }
 
         protected bool Equals(ScaleAttribute other)

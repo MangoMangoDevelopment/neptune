@@ -58,7 +58,11 @@ namespace UrdfUnity.Urdf.Models.Joints
 
         public override string ToString()
         {
-            return $"<mimic joint=\"{Joint.Name}\" multiplier=\"{Multiplier}\" offset=\"{Offset}\"/>";
+            return new XmlStringBuilder(UrdfSchema.MIMIC_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.JOINT_ATTRIBUTE_NAME, this.Joint.Name)
+                .AddAttribute(UrdfSchema.MULTIPLIER_ATTRIBUTE_NAME, this.Multiplier)
+                .AddAttribute(UrdfSchema.OFFSET_ATTRIBUTE_NAME, this.Offset)
+                .ToString();
         }
 
         protected bool Equals(Mimic other)

@@ -32,9 +32,9 @@ namespace UrdfUnityTest.Urdf.Models.Attributes
         [TestMethod]
         public void ToStringXyz()
         {
-            Assert.AreEqual("xyz=\"0 0 0\"", new XyzAttribute(0, 0, 0).ToString());
-            Assert.AreEqual("xyz=\"0.1 0 1\"", new XyzAttribute(0.1, 0, 1.0).ToString());
-            Assert.AreEqual("xyz=\"3.1415 0 -1.25\"", new XyzAttribute(3.1415, 0, -1.25).ToString());
+            Assert.AreEqual("0 0 0", new XyzAttribute(0, 0, 0).ToString());
+            Assert.AreEqual("0.1 0 1", new XyzAttribute(0.1, 0, 1.0).ToString());
+            Assert.AreEqual("3.1415 0 -1.25", new XyzAttribute(3.1415, 0, -1.25).ToString());
         }
 
         [TestMethod]

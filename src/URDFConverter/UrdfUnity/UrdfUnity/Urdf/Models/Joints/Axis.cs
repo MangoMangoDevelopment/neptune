@@ -33,7 +33,9 @@ namespace UrdfUnity.Urdf.Models.Joints
 
         public override string ToString()
         {
-            return $"<axis {Xyz.ToString()}/>";
+            return new XmlStringBuilder(UrdfSchema.AXIS_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.XYZ_ATTRIBUTE_NAME, this.Xyz)
+                .ToString();
         }
 
         protected bool Equals(Axis other)

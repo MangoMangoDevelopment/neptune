@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models.Joints
+﻿using UrdfUnity.Util;
+
+namespace UrdfUnity.Urdf.Models.Joints
 {
     /// <summary>
     /// Represents the physical limitations of the movement of a joint.
@@ -55,7 +57,12 @@
 
         public override string ToString()
         {
-            return $"<limit effort=\"{Effort}\" velocity=\"{Velocity}\" lower=\"{Lower}\" upper=\"{Upper}\"/>";
+            return new XmlStringBuilder(UrdfSchema.LIMIT_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.EFFORT_ATTRIBUTE_NAME, this.Effort)
+                .AddAttribute(UrdfSchema.VELOCITY_ATTRIBUTE_NAME, this.Velocity)
+                .AddAttribute(UrdfSchema.LOWER_ATTRIBUTE_NAME, this.Lower)
+                .AddAttribute(UrdfSchema.UPPER_ATTRIBUTE_NAME, this.Upper)
+                .ToString();
         }
 
         protected bool Equals(Limit other)
