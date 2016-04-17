@@ -118,6 +118,7 @@
     <Compile Include="Util\EnumUtilsTest.cs" />
     <Compile Include="Util\PreconditionsTest.cs" />
     <Compile Include="Util\RegexUtilsTest.cs" />
+    <Compile Include="Util\XmlStringBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UrdfUnity\UrdfUnity.csproj">
