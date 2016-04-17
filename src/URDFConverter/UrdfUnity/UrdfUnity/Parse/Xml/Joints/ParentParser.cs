@@ -1,8 +1,7 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.Joints
 {
@@ -13,15 +12,12 @@ namespace UrdfUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joint"/>
     public sealed class ParentParser : AbstractUrdfXmlParser<string>
     {
-        private static readonly string LINK_ATTRIBUTE_NAME = "link";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "parent";
+        protected override string ElementName { get; } = UrdfSchema.PARENT_ELEMENT_NAME;
 
 
         /// <summary>
@@ -33,12 +29,12 @@ namespace UrdfUnity.Parse.Xml.Joints
         {
             ValidateXmlNode(node);
 
-            XmlAttribute linkAttribute = GetAttributeFromNode(node, LINK_ATTRIBUTE_NAME);
+            XmlAttribute linkAttribute = GetAttributeFromNode(node, UrdfSchema.LINK_ATTRIBUTE_NAME);
             string parentName = Link.DEFAULT_NAME;
 
             if (linkAttribute == null)
             {
-                LogMissingRequiredAttribute(LINK_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.LINK_ATTRIBUTE_NAME);
             }
             else
             {

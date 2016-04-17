@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Urdf.Models.Links.Geometries;
@@ -13,9 +14,6 @@ namespace UrdfUnity.Parse.Xml.Links
     /// <seealso cref="Urdf.Models.Links.Collision"/>
     public sealed class CollisionParser : AbstractUrdfXmlParser<Collision>
     {
-        private static readonly string NAME_ATTRIBUTE_NAME = "name";
-        private static readonly string ORIGIN_ELEMENT_NAME = "origin";
-        private static readonly string GEOMETRY_ELEMENT_NAME = "geometry";
         private static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
 
 
@@ -24,7 +22,7 @@ namespace UrdfUnity.Parse.Xml.Links
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "collision";
+        protected override string ElementName { get; } = UrdfSchema.COLLISION_ELEMENT_NAME;
 
 
         private readonly OriginParser originParser = new OriginParser();
@@ -40,9 +38,9 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement geometryElement = GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, UrdfSchema.NAME_ATTRIBUTE_NAME);
+            XmlElement originElement = GetElementFromNode(node, UrdfSchema.ORIGIN_ELEMENT_NAME);
+            XmlElement geometryElement = GetElementFromNode(node, UrdfSchema.GEOMETRY_ELEMENT_NAME);
 
             Collision.Builder builder;
 
@@ -66,7 +64,7 @@ namespace UrdfUnity.Parse.Xml.Links
             }
             else
             {
-                LogMalformedAttribute(GEOMETRY_ELEMENT_NAME);
+                LogMalformedAttribute(UrdfSchema.GEOMETRY_ELEMENT_NAME);
                 builder.SetGeometry(DEFAULT_GEOMETRY);
             }
 

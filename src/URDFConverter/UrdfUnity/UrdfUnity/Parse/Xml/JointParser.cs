@@ -2,8 +2,8 @@
 using System.Xml;
 using NLog;
 using UrdfUnity.Parse.Xml.Joints;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml
 {
@@ -14,26 +14,13 @@ namespace UrdfUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Joint"/>
     public sealed class JointParser : AbstractUrdfXmlParser<Joint>
     {
-        private static readonly string NAME_ATTRIBUTE_NAME = "name";
-        private static readonly string TYPE_ATTRIBUTE_NAME = "type";
-        private static readonly string ORIGIN_ELEMENT_NAME = "origin";
-        private static readonly string PARENT_ELEMENT_NAME = "parent";
-        private static readonly string CHILD_ELEMENT_NAME = "child";
-        private static readonly string AXIS_ELEMENT_NAME = "axis";
-        private static readonly string CALIBRATION_ELEMENT_NAME = "calibration";
-        private static readonly string DYNAMICS_ELEMENT_NAME = "dynamics";
-        private static readonly string LIMIT_ELEMENT_NAME = "limit";
-        private static readonly string MIMIC_ELEMENT_NAME = "mimic";
-        private static readonly string SAFETY_CONTROLLER_ELEMENT_NAME = "safety_controller";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "joint";
+        protected override string ElementName { get; } = UrdfSchema.JOINT_ELEMENT_NAME;
 
 
         private readonly OriginParser originParser = new OriginParser();
@@ -72,17 +59,17 @@ namespace UrdfUnity.Parse.Xml
         {
             ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlAttribute typeAttribute = GetAttributeFromNode(node, TYPE_ATTRIBUTE_NAME);
-            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement parentElement = GetElementFromNode(node, PARENT_ELEMENT_NAME);
-            XmlElement childElement = GetElementFromNode(node, CHILD_ELEMENT_NAME);
-            XmlElement axisElement = GetElementFromNode(node, AXIS_ELEMENT_NAME);
-            XmlElement calibrationElement = GetElementFromNode(node, CALIBRATION_ELEMENT_NAME);
-            XmlElement dynamicsElement = GetElementFromNode(node, DYNAMICS_ELEMENT_NAME);
-            XmlElement limitElement = GetElementFromNode(node, LIMIT_ELEMENT_NAME);
-            XmlElement mimicElement = GetElementFromNode(node, MIMIC_ELEMENT_NAME);
-            XmlElement safetyControllerElement = GetElementFromNode(node, SAFETY_CONTROLLER_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, UrdfSchema.NAME_ATTRIBUTE_NAME);
+            XmlAttribute typeAttribute = GetAttributeFromNode(node, UrdfSchema.JOINT_TYPE_ATTRIBUTE_NAME);
+            XmlElement originElement = GetElementFromNode(node, UrdfSchema.ORIGIN_ELEMENT_NAME);
+            XmlElement parentElement = GetElementFromNode(node, UrdfSchema.PARENT_ELEMENT_NAME);
+            XmlElement childElement = GetElementFromNode(node, UrdfSchema.CHILD_ELEMENT_NAME);
+            XmlElement axisElement = GetElementFromNode(node, UrdfSchema.AXIS_ELEMENT_NAME);
+            XmlElement calibrationElement = GetElementFromNode(node, UrdfSchema.CALIBRATION_ELEMENT_NAME);
+            XmlElement dynamicsElement = GetElementFromNode(node, UrdfSchema.DYNAMICS_ELEMENT_NAME);
+            XmlElement limitElement = GetElementFromNode(node, UrdfSchema.LIMIT_ELEMENT_NAME);
+            XmlElement mimicElement = GetElementFromNode(node, UrdfSchema.MIMIC_ELEMENT_NAME);
+            XmlElement safetyControllerElement = GetElementFromNode(node, UrdfSchema.SAFETY_CONTROLLER_ELEMENT_NAME);
 
             Joint.Builder builder = ConstructBuilder(nameAttribute, typeAttribute, parentElement, childElement);
 
@@ -154,7 +141,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nameAttribute == null)
             {
-                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME);
                 name = Joint.DEFAULT_NAME;
             }
             else
@@ -164,7 +151,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (typeAttribute == null)
             {
-                LogMissingRequiredAttribute(TYPE_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.JOINT_TYPE_ATTRIBUTE_NAME);
                 type = Joint.JointType.Unknown;
             }
             else
@@ -174,7 +161,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (parentElement == null)
             {
-                LogMissingRequiredElement(PARENT_ELEMENT_NAME);
+                LogMissingRequiredElement(UrdfSchema.PARENT_ELEMENT_NAME);
                 parent = new Link.Builder(Link.DEFAULT_NAME).Build();
             }
             else
@@ -194,7 +181,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (childElement == null)
             {
-                LogMissingRequiredElement(CHILD_ELEMENT_NAME);
+                LogMissingRequiredElement(UrdfSchema.CHILD_ELEMENT_NAME);
                 child = new Link.Builder(Link.DEFAULT_NAME).Build();
             }
             else

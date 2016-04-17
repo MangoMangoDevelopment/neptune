@@ -63,7 +63,7 @@ namespace UrdfUnity.Urdf.Models
         /// <summary>
         /// The joint axis in the joint frame.
         /// </summary>
-        /// <value>Optional. Used for revolute, prismatic and planar joints</value>
+        /// <value>Optional. Used for revolute, prismatic and planar joints. Defaults to (1,0,0)</value>
         public Axis Axis { get; }
 
         /// <summary>

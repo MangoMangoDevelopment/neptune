@@ -114,6 +114,7 @@
     <Compile Include="Urdf\Models\ComponentTest.cs" />
     <Compile Include="Urdf\Models\Attributes\XyzAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Urdf\UrdfSchemaTest.cs" />
     <Compile Include="Util\EnumUtilsTest.cs" />
     <Compile Include="Util\PreconditionsTest.cs" />
     <Compile Include="Util\RegexUtilsTest.cs" />

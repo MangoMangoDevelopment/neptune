@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using NLog;
 using UrdfUnity.Parse.Xml.Links.Geometries;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Urdf.Models.Links.Geometries;
@@ -17,18 +18,13 @@ namespace UrdfUnity.Parse.Xml.Links
     {
         public static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
 
-        private static readonly string BOX_ELEMENT_NAME = "box";
-        private static readonly string CYLINDER_ELEMENT_NAME = "cylinder";
-        private static readonly string SPHERE_ELEMENT_NAME = "sphere";
-        private static readonly string MESH_ELEMENT_NAME = "mesh";
-
 
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "geometry";
+        protected override string ElementName { get; } = UrdfSchema.GEOMETRY_ELEMENT_NAME;
 
 
         private readonly BoxParser boxParser = new BoxParser();
@@ -46,10 +42,10 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             ValidateXmlNode(node);
 
-            XmlElement boxElement = GetElementFromNode(node, BOX_ELEMENT_NAME);
-            XmlElement cylinderElement = GetElementFromNode(node, CYLINDER_ELEMENT_NAME);
-            XmlElement sphereElement = GetElementFromNode(node, SPHERE_ELEMENT_NAME);
-            XmlElement meshElement = GetElementFromNode(node, MESH_ELEMENT_NAME);
+            XmlElement boxElement = GetElementFromNode(node, UrdfSchema.BOX_ELEMENT_NAME);
+            XmlElement cylinderElement = GetElementFromNode(node, UrdfSchema.CYLINDER_ELEMENT_NAME);
+            XmlElement sphereElement = GetElementFromNode(node, UrdfSchema.SPHERE_ELEMENT_NAME);
+            XmlElement meshElement = GetElementFromNode(node, UrdfSchema.MESH_ELEMENT_NAME);
 
             Geometry geometry = null;
 

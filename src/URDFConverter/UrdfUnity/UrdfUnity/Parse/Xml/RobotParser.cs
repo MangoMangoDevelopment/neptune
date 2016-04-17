@@ -2,6 +2,7 @@
 using System.Xml;
 using NLog;
 using UrdfUnity.Parse.Xml.Links.Visuals;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Links.Visuals;
 
@@ -14,18 +15,12 @@ namespace UrdfUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Robot"/>
     public sealed class RobotParser : AbstractUrdfXmlParser<Robot>
     {
-        private static readonly string NAME_ATTRIBUTE_NAME = "name";
-        private static readonly string LINK_ELEMENT_NAME = "link";
-        private static readonly string JOINT_ELEMENT_NAME = "joint";
-        private static readonly string MATERIAL_ELEMENT_NAME = "material";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "robot";
+        protected override string ElementName { get; } = UrdfSchema.ROBOT_ELEMENT_NAME;
 
 
         private readonly Dictionary<string, Link> links = new Dictionary<string, Link>();
@@ -57,10 +52,10 @@ namespace UrdfUnity.Parse.Xml
         {
             ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlNodeList Links = node.SelectNodes(LINK_ELEMENT_NAME);
-            XmlNodeList Joints = node.SelectNodes(JOINT_ELEMENT_NAME);
-            XmlNodeList materialElements = node.SelectNodes(MATERIAL_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, UrdfSchema.NAME_ATTRIBUTE_NAME);
+            XmlNodeList Links = node.SelectNodes(UrdfSchema.LINK_ELEMENT_NAME);
+            XmlNodeList Joints = node.SelectNodes(UrdfSchema.JOINT_ELEMENT_NAME);
+            XmlNodeList materialElements = node.SelectNodes(UrdfSchema.MATERIAL_ELEMENT_NAME);
 
             string name = ParseName(nameAttribute);
 
@@ -83,7 +78,7 @@ namespace UrdfUnity.Parse.Xml
         {
             if (nameAttribute == null)
             {
-                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME);
                 return Robot.DEFAULT_NAME;
             }
 

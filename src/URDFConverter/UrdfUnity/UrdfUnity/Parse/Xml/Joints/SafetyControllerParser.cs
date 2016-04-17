@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Joints;
 using UrdfUnity.Util;
 
@@ -12,10 +13,6 @@ namespace UrdfUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joints.SafetyController"/>
     public sealed class SafetyControllerParser : AbstractUrdfXmlParser<SafetyController>
     {
-        private static readonly string LOWER_LIMIT_ATTRIBUTE_NAME = "soft_lower_limit";
-        private static readonly string UPPER_LIMIT_ATTRIBUTE_NAME = "soft_upper_limit";
-        private static readonly string K_POSITION_ATTRIBUTE_NAME = "k_position";
-        private static readonly string K_VELOCITY_ATTRIBUTE_NAME = "k_velocity";
         private static readonly double DEFAULT_VALUE = 0d;
 
 
@@ -25,7 +22,7 @@ namespace UrdfUnity.Parse.Xml.Joints
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "safety_controller";
+        protected override string ElementName { get; } = UrdfSchema.SAFETY_CONTROLLER_ELEMENT_NAME;
 
 
         /// <summary>
@@ -37,10 +34,10 @@ namespace UrdfUnity.Parse.Xml.Joints
         {
             ValidateXmlNode(node);
 
-            XmlAttribute lowerLimitAttribute = GetAttributeFromNode(node, LOWER_LIMIT_ATTRIBUTE_NAME);
-            XmlAttribute upperLimitAttribute = GetAttributeFromNode(node, UPPER_LIMIT_ATTRIBUTE_NAME);
-            XmlAttribute positionAttribute = GetAttributeFromNode(node, K_POSITION_ATTRIBUTE_NAME);
-            XmlAttribute velocityAttribute = GetAttributeFromNode(node, K_VELOCITY_ATTRIBUTE_NAME);
+            XmlAttribute lowerLimitAttribute = GetAttributeFromNode(node, UrdfSchema.LOWER_LIMIT_ATTRIBUTE_NAME);
+            XmlAttribute upperLimitAttribute = GetAttributeFromNode(node, UrdfSchema.UPPER_LIMIT_ATTRIBUTE_NAME);
+            XmlAttribute positionAttribute = GetAttributeFromNode(node, UrdfSchema.K_POSITION_ATTRIBUTE_NAME);
+            XmlAttribute velocityAttribute = GetAttributeFromNode(node, UrdfSchema.K_VELOCITY_ATTRIBUTE_NAME);
             double lowerLimit = ParseAttribute(lowerLimitAttribute);
             double upperLimit = ParseAttribute(upperLimitAttribute);
             double position = ParseAttribute(positionAttribute);
@@ -48,7 +45,7 @@ namespace UrdfUnity.Parse.Xml.Joints
 
             if (velocityAttribute == null)
             {
-                LogMissingRequiredAttribute(K_VELOCITY_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.K_VELOCITY_ATTRIBUTE_NAME);
             }
 
             return new SafetyController(velocity, position, lowerLimit, upperLimit);

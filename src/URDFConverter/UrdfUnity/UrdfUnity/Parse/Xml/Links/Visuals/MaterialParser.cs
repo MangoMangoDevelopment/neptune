@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links.Visuals;
 
@@ -14,9 +15,6 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
     /// <seealso cref="Urdf.Models.Links.Visuals.Material"/>
     public sealed class MaterialParser : AbstractUrdfXmlParser<Material>
     {
-        private static readonly string NAME_ATTRIBUTE_NAME = "name";
-        private static readonly string COLOR_ELEMENT_NAME = "color";
-        private static readonly string TEXTURE_ELEMENT_NAME = "texture";
         private static readonly int DEFAULT_COLOR_VALUE = 0; // Black
 
 
@@ -25,7 +23,7 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "material";
+        protected override string ElementName { get; } = UrdfSchema.MATERIAL_ELEMENT_NAME;
 
 
         private readonly ColorParser colorParser = new ColorParser();
@@ -51,9 +49,9 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         {
             ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement colorElement = GetElementFromNode(node, COLOR_ELEMENT_NAME);
-            XmlElement textureElement = GetElementFromNode(node, TEXTURE_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, UrdfSchema.NAME_ATTRIBUTE_NAME);
+            XmlElement colorElement = GetElementFromNode(node, UrdfSchema.COLOR_ELEMENT_NAME);
+            XmlElement textureElement = GetElementFromNode(node, UrdfSchema.TEXTURE_ELEMENT_NAME);
 
             string name = ParseName(nameAttribute);
             Color color = ParseColor(colorElement);
@@ -93,7 +91,7 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         {
             if (nameAttribute == null || nameAttribute.Value == null)
             {
-                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME);
                 return Material.DEFAULT_NAME;
             }
 
@@ -104,7 +102,7 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         {
             if (colorElement == null)
             {
-                LogMissingOptionalAttribute(COLOR_ELEMENT_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.COLOR_ELEMENT_NAME);
                 return null;
             }
 
@@ -115,7 +113,7 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         {
             if (textureElement == null)
             {
-                LogMissingOptionalAttribute(TEXTURE_ELEMENT_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.TEXTURE_ELEMENT_NAME);
                 return null;
             }
 

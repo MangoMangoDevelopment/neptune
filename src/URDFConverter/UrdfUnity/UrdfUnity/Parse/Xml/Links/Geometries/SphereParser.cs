@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Links.Geometries;
 using UrdfUnity.Util;
 
@@ -13,7 +14,6 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
     /// <seealso cref="Urdf.Models.Links.Geometries.Sphere"/>
     public sealed class SphereParser : AbstractUrdfXmlParser<Sphere>
     {
-        private static readonly string RADIUS_ATTRIBUTE_NAME = "radius";
         private static readonly double DEFAULT_VALUE = 0d;
 
 
@@ -22,7 +22,7 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "sphere";
+        protected override string ElementName { get; } = UrdfSchema.SPHERE_ELEMENT_NAME;
 
 
         /// <summary>
@@ -34,18 +34,18 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
         {
             ValidateXmlNode(node);
 
-            XmlAttribute radiusAttribute = GetAttributeFromNode(node, RADIUS_ATTRIBUTE_NAME);
+            XmlAttribute radiusAttribute = GetAttributeFromNode(node, UrdfSchema.RADIUS_ATTRIBUTE_NAME);
             double radius = DEFAULT_VALUE;
 
             if (radiusAttribute == null)
             {
-                LogMissingRequiredAttribute(RADIUS_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.RADIUS_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(radiusAttribute.Value, 1))
                 {
-                    LogMalformedAttribute(RADIUS_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.RADIUS_ATTRIBUTE_NAME);
                 }
                 else
                 {

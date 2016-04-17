@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links.Visuals;
 using UrdfUnity.Util;
@@ -16,9 +17,6 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
     /// <seealso cref="Urdf.Models.Links.Visuals.RgbAttribute"/>
     public class ColorParser : AbstractUrdfXmlParser<Color>
     {
-        private static readonly string RGB_ATTRIBUTE_NAME = "rgb";
-        private static readonly string ALPHA_ATTRIBUTE_NAME = "alpha";
-        private static readonly string RGBA_ATTRIBUTE_NAME = "rgba";
         private static readonly int DEFAULT_RGB_VALUE = 0; // Black
         private static readonly double DEFAULT_ALPHA_VALUE = 1d; // No transparency
 
@@ -28,7 +26,7 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "color";
+        protected override string ElementName { get; } = UrdfSchema.COLOR_ELEMENT_NAME;
 
 
         /// <summary>
@@ -40,9 +38,9 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         {
             ValidateXmlNode(node);
 
-            XmlAttribute rgbAttribute = GetAttributeFromNode(node, RGB_ATTRIBUTE_NAME);
-            XmlAttribute alphaAttribute = GetAttributeFromNode(node, ALPHA_ATTRIBUTE_NAME);
-            XmlAttribute rgbaAttribute = GetAttributeFromNode(node, RGBA_ATTRIBUTE_NAME);
+            XmlAttribute rgbAttribute = GetAttributeFromNode(node, UrdfSchema.RGB_ATTRIBUTE_NAME);
+            XmlAttribute alphaAttribute = GetAttributeFromNode(node, UrdfSchema.ALPHA_ATTRIBUTE_NAME);
+            XmlAttribute rgbaAttribute = GetAttributeFromNode(node, UrdfSchema.RGBA_ATTRIBUTE_NAME);
 
             RgbAttribute rgb;
             double alpha;
@@ -55,7 +53,7 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
             }
             else if (rgbAttribute == null)
             {
-                Logger.Warn("Parsing {0} failed due to missing both {1} and {2} attributes", ElementName, RGBA_ATTRIBUTE_NAME, RGB_ATTRIBUTE_NAME);
+                Logger.Warn("Parsing {0} failed due to missing both {1} and {2} attributes", ElementName, UrdfSchema.RGBA_ATTRIBUTE_NAME, UrdfSchema.RGB_ATTRIBUTE_NAME);
                 rgb = new RgbAttribute(DEFAULT_RGB_VALUE, DEFAULT_RGB_VALUE, DEFAULT_RGB_VALUE);
                 alpha = DEFAULT_ALPHA_VALUE;
             }
@@ -74,13 +72,13 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
 
             if (rgbAttribute == null)
             {
-                LogMissingOptionalAttribute(RGB_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.RGB_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(rgbAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(RGB_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.RGB_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -98,13 +96,13 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
 
             if (alphaAttribute == null)
             {
-                LogMissingOptionalAttribute(ALPHA_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.ALPHA_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(alphaAttribute.Value, 1))
                 {
-                    LogMalformedAttribute(ALPHA_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.ALPHA_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -123,13 +121,13 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
 
             if (rgbaAttribute == null)
             {
-                LogMissingOptionalAttribute(RGBA_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.RGBA_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(rgbaAttribute.Value, 4))
                 {
-                    LogMalformedAttribute(RGBA_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.RGBA_ATTRIBUTE_NAME);
                 }
                 else
                 {

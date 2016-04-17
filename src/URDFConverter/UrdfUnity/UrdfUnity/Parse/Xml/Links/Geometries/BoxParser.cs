@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links.Geometries;
 using UrdfUnity.Util;
@@ -14,7 +15,6 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
     /// <seealso cref="Urdf.Models.Links.Geometries.Box"/>
     public sealed class BoxParser : AbstractUrdfXmlParser<Box>
     {
-        private static readonly string SIZE_ATTRIBUTE_NAME = "size";
         private static readonly double DEFAULT_VALUE = 0d;
 
 
@@ -24,7 +24,7 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "box";
+        protected override string ElementName { get; } = UrdfSchema.BOX_ELEMENT_NAME;
 
 
         /// <summary>
@@ -36,18 +36,18 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
         {
             ValidateXmlNode(node);
 
-            XmlAttribute sizeAttribute = GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
+            XmlAttribute sizeAttribute = GetAttributeFromNode(node, UrdfSchema.SIZE_ATTRIBUTE_NAME);
             SizeAttribute size = new SizeAttribute(DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE);
 
             if (sizeAttribute == null)
             {
-                LogMissingRequiredAttribute(SIZE_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.SIZE_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(sizeAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(SIZE_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.SIZE_ATTRIBUTE_NAME);
                 }
                 else
                 {

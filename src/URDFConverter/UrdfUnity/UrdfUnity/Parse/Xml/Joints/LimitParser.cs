@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Joints;
 using UrdfUnity.Util;
 
@@ -12,10 +13,6 @@ namespace UrdfUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joints.Limit"/>
     public sealed class LimitParser : AbstractUrdfXmlParser<Limit>
     {
-        private static readonly string LOWER_ATTRIBUTE_NAME = "lower";
-        private static readonly string UPPER_ATTRIBUTE_NAME = "upper";
-        private static readonly string EFFORT_ATTRIBUTE_NAME = "effort";
-        private static readonly string VELOCITY_ATTRIBUTE_NAME = "velocity";
         private static readonly double DEFAULT_VALUE = 0d;
 
 
@@ -24,7 +21,7 @@ namespace UrdfUnity.Parse.Xml.Joints
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "limit";
+        protected override string ElementName { get; } = UrdfSchema.LIMIT_ELEMENT_NAME;
 
 
         /// <summary>
@@ -36,10 +33,10 @@ namespace UrdfUnity.Parse.Xml.Joints
         {
             ValidateXmlNode(node);
 
-            XmlAttribute lowerAttribute = GetAttributeFromNode(node, LOWER_ATTRIBUTE_NAME);
-            XmlAttribute upperAttribute = GetAttributeFromNode(node, UPPER_ATTRIBUTE_NAME);
-            XmlAttribute effortAttribute = GetAttributeFromNode(node, EFFORT_ATTRIBUTE_NAME);
-            XmlAttribute velocityAttribute = GetAttributeFromNode(node, VELOCITY_ATTRIBUTE_NAME);
+            XmlAttribute lowerAttribute = GetAttributeFromNode(node, UrdfSchema.LOWER_ATTRIBUTE_NAME);
+            XmlAttribute upperAttribute = GetAttributeFromNode(node, UrdfSchema.UPPER_ATTRIBUTE_NAME);
+            XmlAttribute effortAttribute = GetAttributeFromNode(node, UrdfSchema.EFFORT_ATTRIBUTE_NAME);
+            XmlAttribute velocityAttribute = GetAttributeFromNode(node, UrdfSchema.VELOCITY_ATTRIBUTE_NAME);
             double lower = ParseAttribute(lowerAttribute);
             double upper = ParseAttribute(upperAttribute);
             double effort = ParseAttribute(effortAttribute);
@@ -47,11 +44,11 @@ namespace UrdfUnity.Parse.Xml.Joints
 
             if (effortAttribute == null)
             {
-                LogMissingRequiredAttribute(EFFORT_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.EFFORT_ATTRIBUTE_NAME);
             }
             if (velocityAttribute == null)
             {
-                LogMissingRequiredAttribute(VELOCITY_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.VELOCITY_ATTRIBUTE_NAME);
             }
 
             return new Limit(effort, velocity, lower, upper);

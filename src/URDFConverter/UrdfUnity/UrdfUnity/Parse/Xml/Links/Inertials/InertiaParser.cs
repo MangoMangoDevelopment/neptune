@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Links.Inertials;
 using UrdfUnity.Util;
 
@@ -19,20 +20,13 @@ namespace UrdfUnity.Parse.Xml.Links.Inertials
         /// </summary>
         public static readonly double DEFAULT_VALUE = Double.NaN;
 
-        private static readonly string IXX_ATTRIBUTE_NAME = "ixx";
-        private static readonly string IXY_ATTRIBUTE_NAME = "ixy";
-        private static readonly string IXZ_ATTRIBUTE_NAME = "ixz";
-        private static readonly string IYY_ATTRIBUTE_NAME = "iyy";
-        private static readonly string IYZ_ATTRIBUTE_NAME = "iyz";
-        private static readonly string IZZ_ATTRIBUTE_NAME = "izz";
-
 
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "inertia";
+        protected override string ElementName { get; } = UrdfSchema.INERTIA_ELEMENT_NAME;
 
 
         /// <summary>
@@ -47,12 +41,12 @@ namespace UrdfUnity.Parse.Xml.Links.Inertials
             Dictionary<string, XmlAttribute> attributes = new Dictionary<string, XmlAttribute>();
             Dictionary<string, double> values = new Dictionary<string, double>();
 
-            attributes.Add(IXX_ATTRIBUTE_NAME, GetAttributeFromNode(node, IXX_ATTRIBUTE_NAME));
-            attributes.Add(IXY_ATTRIBUTE_NAME, GetAttributeFromNode(node, IXY_ATTRIBUTE_NAME));
-            attributes.Add(IXZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, IXZ_ATTRIBUTE_NAME));
-            attributes.Add(IYY_ATTRIBUTE_NAME, GetAttributeFromNode(node, IYY_ATTRIBUTE_NAME));
-            attributes.Add(IYZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, IYZ_ATTRIBUTE_NAME));
-            attributes.Add(IZZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, IZZ_ATTRIBUTE_NAME));
+            attributes.Add(UrdfSchema.IXX_ATTRIBUTE_NAME, GetAttributeFromNode(node, UrdfSchema.IXX_ATTRIBUTE_NAME));
+            attributes.Add(UrdfSchema.IXY_ATTRIBUTE_NAME, GetAttributeFromNode(node, UrdfSchema.IXY_ATTRIBUTE_NAME));
+            attributes.Add(UrdfSchema.IXZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, UrdfSchema.IXZ_ATTRIBUTE_NAME));
+            attributes.Add(UrdfSchema.IYY_ATTRIBUTE_NAME, GetAttributeFromNode(node, UrdfSchema.IYY_ATTRIBUTE_NAME));
+            attributes.Add(UrdfSchema.IYZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, UrdfSchema.IYZ_ATTRIBUTE_NAME));
+            attributes.Add(UrdfSchema.IZZ_ATTRIBUTE_NAME, GetAttributeFromNode(node, UrdfSchema.IZZ_ATTRIBUTE_NAME));
 
             foreach (string key in attributes.Keys)
             {
@@ -67,8 +61,9 @@ namespace UrdfUnity.Parse.Xml.Links.Inertials
                 }
             }
 
-            return new Inertia(values[IXX_ATTRIBUTE_NAME], values[IXY_ATTRIBUTE_NAME], values[IXZ_ATTRIBUTE_NAME],
-                values[IYY_ATTRIBUTE_NAME], values[IYZ_ATTRIBUTE_NAME], values[IZZ_ATTRIBUTE_NAME]);
+            return new Inertia(values[UrdfSchema.IXX_ATTRIBUTE_NAME], values[UrdfSchema.IXY_ATTRIBUTE_NAME], 
+                values[UrdfSchema.IXZ_ATTRIBUTE_NAME], values[UrdfSchema.IYY_ATTRIBUTE_NAME], 
+                values[UrdfSchema.IYZ_ATTRIBUTE_NAME], values[UrdfSchema.IZZ_ATTRIBUTE_NAME]);
         }
     }
 }

@@ -2,9 +2,9 @@
 using System.Xml;
 using NLog;
 using UrdfUnity.Parse.Xml.Links.Visuals;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Urdf.Models.Links.Visuals;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.Links
 {
@@ -16,11 +16,6 @@ namespace UrdfUnity.Parse.Xml.Links
     /// <seealso cref="Urdf.Models.Links.Visual"/>
     public sealed class VisualParser : AbstractUrdfXmlParser<Visual>
     {
-        private static readonly string NAME_ATTRIBUTE_NAME = "name";
-        private static readonly string ORIGIN_ELEMENT_NAME = "origin";
-        private static readonly string GEOMETRY_ELEMENT_NAME = "geometry";
-        private static readonly string MATERIAL_ELEMENT_NAME = "material";
-
         private readonly OriginParser originParser = new OriginParser();
         private readonly GeometryParser geometryParser = new GeometryParser();
         private readonly MaterialParser materialParser;
@@ -31,7 +26,7 @@ namespace UrdfUnity.Parse.Xml.Links
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "visual";
+        protected override string ElementName { get; } = UrdfSchema.VISUAL_ELEMENT_NAME;
 
 
         /// <summary>
@@ -52,16 +47,16 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement geometryElement = GetElementFromNode(node, GEOMETRY_ELEMENT_NAME);
-            XmlElement materialElement = GetElementFromNode(node, MATERIAL_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, UrdfSchema.NAME_ATTRIBUTE_NAME);
+            XmlElement originElement = GetElementFromNode(node, UrdfSchema.ORIGIN_ELEMENT_NAME);
+            XmlElement geometryElement = GetElementFromNode(node, UrdfSchema.GEOMETRY_ELEMENT_NAME);
+            XmlElement materialElement = GetElementFromNode(node, UrdfSchema.MATERIAL_ELEMENT_NAME);
 
             Visual.Builder builder;
 
             if (geometryElement == null)
             {
-                LogMissingRequiredElement(GEOMETRY_ELEMENT_NAME);
+                LogMissingRequiredElement(UrdfSchema.GEOMETRY_ELEMENT_NAME);
                 builder = new Visual.Builder(GeometryParser.DEFAULT_GEOMETRY);
             }
             else

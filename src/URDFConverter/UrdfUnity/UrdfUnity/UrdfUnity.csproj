@@ -114,9 +114,11 @@
     <Compile Include="Urdf\Models\Robot.cs" />
     <Compile Include="Urdf\Models\Attributes\RpyAttribute.cs" />
     <Compile Include="Urdf\Models\Attributes\XyzAttribute.cs" />
+    <Compile Include="Urdf\UrdfSchema.cs" />
     <Compile Include="Util\EnumUtils.cs" />
     <Compile Include="Util\Preconditions.cs" />
     <Compile Include="Util\RegexUtils.cs" />
+    <Compile Include="Util\XmlStringBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -130,6 +132,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

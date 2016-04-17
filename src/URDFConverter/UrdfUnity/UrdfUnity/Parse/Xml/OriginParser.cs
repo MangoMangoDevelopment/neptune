@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Util;
@@ -14,16 +15,12 @@ namespace UrdfUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Origin"/>
     public sealed class OriginParser : AbstractUrdfXmlParser<Origin>
     {
-        private static readonly string XYZ_ATTRIBUTE_NAME = "xyz";
-        private static readonly string RPY_ATTRIBUTE_NAME = "rpy";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "origin";
+        protected override string ElementName { get; } = UrdfSchema.ORIGIN_ELEMENT_NAME;
 
 
         /// <summary>
@@ -35,8 +32,8 @@ namespace UrdfUnity.Parse.Xml
         {
             ValidateXmlNode(node);
 
-            XmlAttribute xyzAttribute = GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
-            XmlAttribute rpyAttribute = GetAttributeFromNode(node, RPY_ATTRIBUTE_NAME);
+            XmlAttribute xyzAttribute = GetAttributeFromNode(node, UrdfSchema.XYZ_ATTRIBUTE_NAME);
+            XmlAttribute rpyAttribute = GetAttributeFromNode(node, UrdfSchema.RPY_ATTRIBUTE_NAME);
 
             Origin.Builder originBuilder = new Origin.Builder();
 
@@ -44,7 +41,7 @@ namespace UrdfUnity.Parse.Xml
             {
                 if (!RegexUtils.IsMatchNDoubles(xyzAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(XYZ_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.XYZ_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -57,7 +54,7 @@ namespace UrdfUnity.Parse.Xml
             {
                 if (!RegexUtils.IsMatchNDoubles(rpyAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(RPY_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.RPY_ATTRIBUTE_NAME);
                 }
                 else
                 {

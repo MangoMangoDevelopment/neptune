@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Links.Inertials;
 using UrdfUnity.Util;
 
@@ -17,15 +18,13 @@ namespace UrdfUnity.Parse.Xml.Links.Inertials
         /// </summary>
         private static readonly double DEFAULT_MASS = 0d;
 
-        private static readonly string VALUE_ATTRIBUTE_NAME = "value";
-
 
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "mass";
+        protected override string ElementName { get; } = UrdfSchema.MASS_ELEMENT_NAME;
 
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace UrdfUnity.Parse.Xml.Links.Inertials
         {
             ValidateXmlNode(node);
 
-            XmlAttribute valueAttribute = GetAttributeFromNode(node, VALUE_ATTRIBUTE_NAME);
+            XmlAttribute valueAttribute = GetAttributeFromNode(node, UrdfSchema.MASS_VALUE_ATTRIBUTE_NAME);
             return new Mass(RegexUtils.MatchDouble(valueAttribute.Value, DEFAULT_MASS));
         }
     }

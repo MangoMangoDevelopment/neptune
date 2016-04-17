@@ -2,10 +2,10 @@
 using System.Xml;
 using NLog;
 using UrdfUnity.Parse.Xml.Links;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Urdf.Models.Links.Visuals;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml
 {
@@ -16,18 +16,12 @@ namespace UrdfUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Link"/>
     public sealed class LinkParser : AbstractUrdfXmlParser<Link>
     {
-        private static readonly string NAME_ATTRIBUTE_NAME = "name";
-        private static readonly string INERTIAL_ELEMENT_NAME = "inertial";
-        private static readonly string VISUAL_ELEMENT_NAME = "visual";
-        private static readonly string COLLISION_ELEMENT_NAME = "collision";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "link";
+        protected override string ElementName { get; } = UrdfSchema.LINK_ELEMENT_NAME;
 
 
         private readonly InertialParser inertialParser = new InertialParser();
@@ -53,16 +47,16 @@ namespace UrdfUnity.Parse.Xml
         {
             ValidateXmlNode(node);
 
-            XmlAttribute nameAttribute = GetAttributeFromNode(node, NAME_ATTRIBUTE_NAME);
-            XmlElement inertialElement = GetElementFromNode(node, INERTIAL_ELEMENT_NAME);
-            XmlNodeList Visuals = node.SelectNodes(VISUAL_ELEMENT_NAME);
-            XmlNodeList collisionElements = node.SelectNodes(COLLISION_ELEMENT_NAME);
+            XmlAttribute nameAttribute = GetAttributeFromNode(node, UrdfSchema.NAME_ATTRIBUTE_NAME);
+            XmlElement inertialElement = GetElementFromNode(node, UrdfSchema.INERTIAL_ELEMENT_NAME);
+            XmlNodeList Visuals = node.SelectNodes(UrdfSchema.VISUAL_ELEMENT_NAME);
+            XmlNodeList collisionElements = node.SelectNodes(UrdfSchema.COLLISION_ELEMENT_NAME);
 
             Link.Builder builder;
 
             if (nameAttribute == null)
             {
-                LogMissingRequiredAttribute(NAME_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME);
                 builder = new Link.Builder(Link.DEFAULT_NAME);
             }
             else
@@ -94,7 +88,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nodeList == null || nodeList.Count == 0)
             {
-                LogMissingRequiredElement(VISUAL_ELEMENT_NAME);
+                LogMissingRequiredElement(UrdfSchema.VISUAL_ELEMENT_NAME);
             }
             else
             {
@@ -113,7 +107,7 @@ namespace UrdfUnity.Parse.Xml
 
             if (nodeList == null || nodeList.Count == 0)
             {
-                LogMissingOptionalElement(COLLISION_ELEMENT_NAME);
+                LogMissingOptionalElement(UrdfSchema.COLLISION_ELEMENT_NAME);
             }
             else
             {

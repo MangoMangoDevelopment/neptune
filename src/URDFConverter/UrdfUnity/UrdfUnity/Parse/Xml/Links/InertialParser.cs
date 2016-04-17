@@ -1,10 +1,10 @@
 ﻿using System.Xml;
 using NLog;
 using UrdfUnity.Parse.Xml.Links.Inertials;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Urdf.Models.Links.Inertials;
-using UrdfUnity.Util;
 
 namespace UrdfUnity.Parse.Xml.Links
 {
@@ -15,9 +15,6 @@ namespace UrdfUnity.Parse.Xml.Links
     /// <seealso cref="Urdf.Models.Links.Inertial"/>
     public sealed class InertialParser : AbstractUrdfXmlParser<Inertial>
     {
-        private static readonly string ORIGIN_ELEMENT_NAME = "origin";
-        private static readonly string MASS_ELEMENT_NAME = "mass";
-        private static readonly string INERTIA_ELEMENT_NAME = "inertia";
         private static readonly double DEFAULT_MASS = 0d;
 
 
@@ -26,7 +23,7 @@ namespace UrdfUnity.Parse.Xml.Links
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "inertial";
+        protected override string ElementName { get; } = UrdfSchema.INERTIAL_ELEMENT_NAME;
 
         private readonly OriginParser originParser = new OriginParser();
         private readonly MassParser massParser = new MassParser();
@@ -42,9 +39,9 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             ValidateXmlNode(node);
 
-            XmlElement originElement = GetElementFromNode(node, ORIGIN_ELEMENT_NAME);
-            XmlElement massElement = GetElementFromNode(node, MASS_ELEMENT_NAME);
-            XmlElement inertiaElement = GetElementFromNode(node, INERTIA_ELEMENT_NAME);
+            XmlElement originElement = GetElementFromNode(node, UrdfSchema.ORIGIN_ELEMENT_NAME);
+            XmlElement massElement = GetElementFromNode(node, UrdfSchema.MASS_ELEMENT_NAME);
+            XmlElement inertiaElement = GetElementFromNode(node, UrdfSchema.INERTIA_ELEMENT_NAME);
 
             Origin origin = ParseOrigin(originElement);
             Mass mass = ParseMass(massElement);
@@ -57,7 +54,7 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             if (originElement == null)
             {
-                LogMissingOptionalAttribute(ORIGIN_ELEMENT_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.ORIGIN_ELEMENT_NAME);
                 return null;
             }
 
@@ -68,7 +65,7 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             if (massElement == null)
             {
-                LogMissingRequiredAttribute(MASS_ELEMENT_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.MASS_ELEMENT_NAME);
                 return new Mass(DEFAULT_MASS);
             }
 
@@ -79,7 +76,7 @@ namespace UrdfUnity.Parse.Xml.Links
         {
             if (inertiaElement == null)
             {
-                LogMissingRequiredAttribute(INERTIA_ELEMENT_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.INERTIA_ELEMENT_NAME);
                 return new Inertia(InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE,
                     InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE, InertiaParser.DEFAULT_VALUE);
             }

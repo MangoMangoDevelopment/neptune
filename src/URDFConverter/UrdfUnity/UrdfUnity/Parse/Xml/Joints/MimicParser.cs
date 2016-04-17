@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models;
 using UrdfUnity.Urdf.Models.Joints;
 using UrdfUnity.Util;
@@ -15,9 +16,6 @@ namespace UrdfUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joints.Mimic"/>
     public sealed class MimicParser : AbstractUrdfXmlParser<Mimic>
     {
-        private static readonly string JOINT_ATTRIBUTE_NAME = "joint";
-        private static readonly string MULTIPLIER_ATTRIBUTE_NAME = "multiplier";
-        private static readonly string OFFSET_ATTRIBUTE_NAME = "offset";
         private static readonly double DEFAULT_MULTIPLIER = 1;
         private static readonly double DEFAULT_OFFSET = 0;
         private static readonly Joint DEFAULT_JOINT = new Joint.Builder(Joint.DEFAULT_NAME, Joint.JointType.Unknown,
@@ -29,7 +27,7 @@ namespace UrdfUnity.Parse.Xml.Joints
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "mimic";
+        protected override string ElementName { get; } = UrdfSchema.MIMIC_ELEMENT_NAME;
 
         /// <summary>
         /// The dictionary of joints available to mimic in the top-level URDF robot element.
@@ -56,16 +54,16 @@ namespace UrdfUnity.Parse.Xml.Joints
         {
             ValidateXmlNode(node);
 
-            XmlAttribute jointAttribute = GetAttributeFromNode(node, JOINT_ATTRIBUTE_NAME);
-            XmlAttribute multiplierAttribute = GetAttributeFromNode(node, MULTIPLIER_ATTRIBUTE_NAME);
-            XmlAttribute offsetAttribute = GetAttributeFromNode(node, OFFSET_ATTRIBUTE_NAME);
+            XmlAttribute jointAttribute = GetAttributeFromNode(node, UrdfSchema.JOINT_ATTRIBUTE_NAME);
+            XmlAttribute multiplierAttribute = GetAttributeFromNode(node, UrdfSchema.MULTIPLIER_ATTRIBUTE_NAME);
+            XmlAttribute offsetAttribute = GetAttributeFromNode(node, UrdfSchema.OFFSET_ATTRIBUTE_NAME);
             Joint joint = DEFAULT_JOINT;
             double multiplier = (multiplierAttribute != null) ? RegexUtils.MatchDouble(multiplierAttribute.Value, DEFAULT_MULTIPLIER) : DEFAULT_MULTIPLIER;
             double offset = (offsetAttribute != null) ? RegexUtils.MatchDouble(offsetAttribute.Value, DEFAULT_OFFSET) : DEFAULT_OFFSET;
 
             if (jointAttribute == null || String.IsNullOrEmpty(jointAttribute.Value))
             {
-                LogMissingRequiredAttribute(JOINT_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.JOINT_ATTRIBUTE_NAME);
             }
             else
             {

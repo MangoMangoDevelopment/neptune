@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Joints;
 using UrdfUnity.Util;
@@ -13,7 +14,7 @@ namespace UrdfUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joints.Axis"/>
     public sealed class AxisParser : AbstractUrdfXmlParser<Axis>
     {
-        private static readonly string XYZ_ATTRIBUTE_NAME = "xyz";
+        // Defaults to (1,0,0)
         private static readonly double DEFAULT_X_VALUE = 1;
         private static readonly double DEFAULT_Y_VALUE = 0;
         private static readonly double DEFAULT_Z_VALUE = 0;
@@ -24,7 +25,7 @@ namespace UrdfUnity.Parse.Xml.Joints
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "axis";
+        protected override string ElementName { get; } = UrdfSchema.AXIS_ELEMENT_NAME;
 
 
         /// <summary>
@@ -36,18 +37,18 @@ namespace UrdfUnity.Parse.Xml.Joints
         {
             ValidateXmlNode(node);
 
-            XmlAttribute xyzAttribute = GetAttributeFromNode(node, XYZ_ATTRIBUTE_NAME);
+            XmlAttribute xyzAttribute = GetAttributeFromNode(node, UrdfSchema.XYZ_ATTRIBUTE_NAME);
             XyzAttribute xyz = new XyzAttribute(DEFAULT_X_VALUE, DEFAULT_Y_VALUE, DEFAULT_Z_VALUE);
 
             if (xyzAttribute == null)
             {
-                LogMissingRequiredAttribute(XYZ_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.XYZ_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(xyzAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(XYZ_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.XYZ_ATTRIBUTE_NAME);
                 }
                 else
                 {

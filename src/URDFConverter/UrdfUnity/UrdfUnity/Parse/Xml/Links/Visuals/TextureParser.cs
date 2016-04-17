@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Links.Visuals;
 
 namespace UrdfUnity.Parse.Xml.Links.Visuals
@@ -13,15 +14,12 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
     /// <seealso cref="Urdf.Models.Links.Visuals.Texture"/>
     public sealed class TextureParser : AbstractUrdfXmlParser<Texture>
     {
-        private static readonly string FILE_NAME_ATTRIBUTE_NAME = "filename";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "texture";
+        protected override string ElementName { get; } = UrdfSchema.TEXTURE_ELEMENT_NAME;
 
 
         /// <summary>
@@ -33,12 +31,12 @@ namespace UrdfUnity.Parse.Xml.Links.Visuals
         {
             ValidateXmlNode(node);
 
-            XmlAttribute fileNameAttribute = GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
+            XmlAttribute fileNameAttribute = GetAttributeFromNode(node, UrdfSchema.FILE_NAME_ATTRIBUTE_NAME);
             string filename = Texture.DEFAULT_FILE_NAME;
 
             if (fileNameAttribute == null || String.IsNullOrEmpty(fileNameAttribute.Value))
             {
-                LogMissingRequiredAttribute(FILE_NAME_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.FILE_NAME_ATTRIBUTE_NAME);
             }
             else
             {

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links.Geometries;
 using UrdfUnity.Util;
@@ -15,17 +15,12 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
     /// <seealso cref="Urdf.Models.Links.Geometries.Mesh"/>
     public sealed class MeshParser : AbstractUrdfXmlParser<Mesh>
     {
-        private static readonly string FILE_NAME_ATTRIBUTE_NAME = "filename";
-        private static readonly string SCALE_ATTRIBUTE_NAME = "scale";
-        private static readonly string SIZE_ATTRIBUTE_NAME = "size";
-
-
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "mesh";
+        protected override string ElementName { get; } = UrdfSchema.MESH_ELEMENT_NAME;
 
 
         /// <summary>
@@ -37,9 +32,9 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
         {
             ValidateXmlNode(node);
 
-            XmlAttribute fileNameAttribute = GetAttributeFromNode(node, FILE_NAME_ATTRIBUTE_NAME);
-            XmlAttribute scaleAttribute = GetAttributeFromNode(node, SCALE_ATTRIBUTE_NAME);
-            XmlAttribute sizeAttribute = GetAttributeFromNode(node, SIZE_ATTRIBUTE_NAME);
+            XmlAttribute fileNameAttribute = GetAttributeFromNode(node, UrdfSchema.FILE_NAME_ATTRIBUTE_NAME);
+            XmlAttribute scaleAttribute = GetAttributeFromNode(node, UrdfSchema.SCALE_ATTRIBUTE_NAME);
+            XmlAttribute sizeAttribute = GetAttributeFromNode(node, UrdfSchema.SIZE_ATTRIBUTE_NAME);
 
             string fileName = ParseFileName(fileNameAttribute);
             ScaleAttribute scale = ParseScaleAttribute(scaleAttribute);
@@ -62,7 +57,7 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
         {
             if (fileNameAttribute == null)
             {
-                LogMissingRequiredAttribute(FILE_NAME_ATTRIBUTE_NAME);
+                LogMissingRequiredAttribute(UrdfSchema.FILE_NAME_ATTRIBUTE_NAME);
                 return Mesh.DEFAULT_FILE_NAME;
             }
 
@@ -75,13 +70,13 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
 
             if (scaleAttribute == null)
             {
-                LogMissingOptionalAttribute(SCALE_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.SCALE_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(scaleAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(SCALE_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.SCALE_ATTRIBUTE_NAME);
                 }
                 else
                 {
@@ -99,13 +94,13 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
 
             if (sizeAttribute == null)
             {
-                LogMissingOptionalAttribute(SIZE_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.SIZE_ATTRIBUTE_NAME);
             }
             else
             {
                 if (!RegexUtils.IsMatchNDoubles(sizeAttribute.Value, 3))
                 {
-                    LogMalformedAttribute(SIZE_ATTRIBUTE_NAME);
+                    LogMalformedAttribute(UrdfSchema.SIZE_ATTRIBUTE_NAME);
                 }
                 else
                 {

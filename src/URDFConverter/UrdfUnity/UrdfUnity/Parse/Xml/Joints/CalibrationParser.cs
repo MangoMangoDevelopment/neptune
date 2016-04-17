@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NLog;
+using UrdfUnity.Urdf;
 using UrdfUnity.Urdf.Models.Joints;
 using UrdfUnity.Util;
 
@@ -12,8 +13,6 @@ namespace UrdfUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joints.Calibration"/>
     public sealed class CalibrationParser : AbstractUrdfXmlParser<Calibration>
     {
-        private static readonly string RISING_ATTRIBUTE_NAME = "rising";
-        private static readonly string FALLING_ATTRIBUTE_NAME = "falling";
         private static readonly double DEFAULT_VALUE = 0d;
 
 
@@ -22,7 +21,7 @@ namespace UrdfUnity.Parse.Xml.Joints
         /// <summary>
         /// The name of the URDF XML element that this class parses.
         /// </summary>
-        protected override string ElementName { get; } = "calibration";
+        protected override string ElementName { get; } = UrdfSchema.CALIBRATION_ELEMENT_NAME;
 
 
         /// <summary>
@@ -34,14 +33,14 @@ namespace UrdfUnity.Parse.Xml.Joints
         {
             ValidateXmlNode(node);
 
-            XmlAttribute risingAttribute = GetAttributeFromNode(node, RISING_ATTRIBUTE_NAME);
-            XmlAttribute fallingAttribute = GetAttributeFromNode(node, FALLING_ATTRIBUTE_NAME);
+            XmlAttribute risingAttribute = GetAttributeFromNode(node, UrdfSchema.RISING_ATTRIBUTE_NAME);
+            XmlAttribute fallingAttribute = GetAttributeFromNode(node, UrdfSchema.FALLING_ATTRIBUTE_NAME);
             double rising = DEFAULT_VALUE;
             double falling = DEFAULT_VALUE;
 
             if (risingAttribute == null)
             {
-                LogMissingOptionalAttribute(RISING_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.RISING_ATTRIBUTE_NAME);
             }
             else
             {
@@ -50,7 +49,7 @@ namespace UrdfUnity.Parse.Xml.Joints
 
             if (fallingAttribute == null)
             {
-                LogMissingOptionalAttribute(FALLING_ATTRIBUTE_NAME);
+                LogMissingOptionalAttribute(UrdfSchema.FALLING_ATTRIBUTE_NAME);
             }
             else
             {
