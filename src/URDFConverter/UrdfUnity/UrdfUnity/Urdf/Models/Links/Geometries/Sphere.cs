@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models.Links.Geometries
+﻿using UrdfUnity.Util;
+
+namespace UrdfUnity.Urdf.Models.Links.Geometries
 {
     /// <summary>
     /// Represents the sphere shape of a link's geometry.
@@ -17,7 +19,19 @@
         /// <param name="radius">The radius of the sphere</param>
         public Sphere(double radius)
         {
+            Preconditions.IsTrue(radius > 0, "The radius of a sphere must be greater than 0");
             this.Radius = radius;
+        }
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            return new XmlStringBuilder(UrdfSchema.SPHERE_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.RADIUS_ATTRIBUTE_NAME, this.Radius)
+                .ToString();
         }
 
         protected bool Equals(Sphere other)

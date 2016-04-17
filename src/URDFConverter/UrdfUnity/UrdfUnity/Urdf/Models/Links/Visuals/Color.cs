@@ -49,6 +49,18 @@ namespace UrdfUnity.Urdf.Models.Links.Visuals
             this.Alpha = alpha;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            return new XmlStringBuilder(UrdfSchema.COLOR_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.RGB_ATTRIBUTE_NAME, this.Rgb)
+                .AddAttribute(UrdfSchema.ALPHA_ATTRIBUTE_NAME, this.Alpha)
+                .ToString();
+        }
+
         protected bool Equals(Color other)
         {
             return Rgb.Equals(other.Rgb) && Alpha.Equals(other.Alpha);

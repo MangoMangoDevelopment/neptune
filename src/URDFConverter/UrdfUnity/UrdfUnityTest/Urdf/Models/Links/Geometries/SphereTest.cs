@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models.Links.Geometries;
 
 namespace UrdfUnityTest.Urdf.Models.Links.Geometries
@@ -13,6 +14,20 @@ namespace UrdfUnityTest.Urdf.Models.Links.Geometries
             Sphere sphere = new Sphere(radius);
 
             Assert.AreEqual(radius, sphere.Radius);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructSphereInvalidRadius()
+        {
+            new Sphere(0);
+        }
+
+        [TestMethod]
+        public void ToStringSphere()
+        {
+            Assert.AreEqual("<sphere radius=\"1\"/>", new Sphere(1).ToString());
+            Assert.AreEqual("<sphere radius=\"3.1415\"/>", new Sphere(3.1415).ToString());
         }
 
         [TestMethod]

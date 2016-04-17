@@ -16,7 +16,7 @@ namespace UrdfUnityTest.Urdf.Models.Joints
             SafetyController safetyController = new SafetyController(kVelocity, kPosition, lowerLimit, upperLimit);
 
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
-            Assert.AreEqual(kPosition, safetyController.KPostition);
+            Assert.AreEqual(kPosition, safetyController.KPosition);
             Assert.AreEqual(lowerLimit, safetyController.SoftLowerLimit);
             Assert.AreEqual(upperLimit, safetyController.SoftUpperLimit);
         }
@@ -28,7 +28,7 @@ namespace UrdfUnityTest.Urdf.Models.Joints
             SafetyController safetyController = new SafetyController(kVelocity);
 
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
-            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.KPosition);
             Assert.AreEqual(0, safetyController.SoftLowerLimit);
             Assert.AreEqual(0, safetyController.SoftUpperLimit);
         }
@@ -42,11 +42,11 @@ namespace UrdfUnityTest.Urdf.Models.Joints
             SafetyController safetyControllerNamedArg = new SafetyController(kVelocity, kPosition: kPosition);
 
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
-            Assert.AreEqual(kPosition, safetyController.KPostition);
+            Assert.AreEqual(kPosition, safetyController.KPosition);
             Assert.AreEqual(0, safetyController.SoftLowerLimit);
             Assert.AreEqual(0, safetyController.SoftUpperLimit);
             Assert.AreEqual(kVelocity, safetyControllerNamedArg.KVelocity);
-            Assert.AreEqual(kPosition, safetyControllerNamedArg.KPostition);
+            Assert.AreEqual(kPosition, safetyControllerNamedArg.KPosition);
             Assert.AreEqual(0, safetyControllerNamedArg.SoftLowerLimit);
             Assert.AreEqual(0, safetyControllerNamedArg.SoftUpperLimit);
         }
@@ -59,7 +59,7 @@ namespace UrdfUnityTest.Urdf.Models.Joints
             SafetyController safetyController = new SafetyController(kVelocity, lowerLimit: lowerLimit);
 
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
-            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.KPosition);
             Assert.AreEqual(lowerLimit, safetyController.SoftLowerLimit);
             Assert.AreEqual(0, safetyController.SoftUpperLimit);
         }
@@ -72,7 +72,7 @@ namespace UrdfUnityTest.Urdf.Models.Joints
             SafetyController safetyController = new SafetyController(kVelocity, upperLimit: upperLimit);
 
             Assert.AreEqual(kVelocity, safetyController.KVelocity);
-            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.KPosition);
             Assert.AreEqual(0, safetyController.SoftLowerLimit);
             Assert.AreEqual(upperLimit, safetyController.SoftUpperLimit);
         }

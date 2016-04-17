@@ -29,6 +29,17 @@ namespace UrdfUnity.Urdf.Models.Links.Visuals
             this.FileName = fileName;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            return new XmlStringBuilder(UrdfSchema.TEXTURE_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.FILE_NAME_ATTRIBUTE_NAME, this.FileName)
+                .ToString();
+        }
+
         protected bool Equals(Texture other)
         {
             return string.Equals(FileName, other.FileName);

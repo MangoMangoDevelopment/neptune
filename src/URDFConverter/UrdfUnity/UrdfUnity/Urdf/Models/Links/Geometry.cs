@@ -92,6 +92,35 @@ namespace UrdfUnity.Urdf.Models.Links
             this.Mesh = mesh;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.GEOMETRY_ELEMENT_NAME);
+
+            switch(this.Shape)
+            {
+                case Shapes.Box:
+                    sb.AddSubElement(this.Box.ToString());
+                    break;
+                case Shapes.Cylinder:
+                    sb.AddSubElement(this.Cylinder.ToString());
+                    break;
+                case Shapes.Mesh:
+                    sb.AddSubElement(this.Mesh.ToString());
+                    break;
+                case Shapes.Sphere:
+                    sb.AddSubElement(this.Sphere.ToString());
+                    break;
+                default:
+                    throw new System.Exception($"Unrecognized geometry type {Shape} cannot be converted to a string");
+            }
+
+            return sb.ToString();
+        }
+
         protected bool Equals(Geometry other)
         {
             return Shape == other.Shape && Equals(Box, other.Box) && Equals(Cylinder, other.Cylinder)

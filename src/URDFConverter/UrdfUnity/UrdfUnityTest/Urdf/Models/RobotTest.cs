@@ -101,7 +101,7 @@ namespace UrdfUnityTest.Urdf.Models
         {
             Robot robot = new Robot("robot", new Dictionary<string, Link>(), new Dictionary<string, Joint>());
             Component component = new Component("component", "file");
-            
+
             string result = robot.AddComponent(component, "parent does not exist", new XyzAttribute(), new RpyAttribute());
 
             Assert.AreEqual(null, result);
@@ -139,6 +139,25 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.IsTrue(robot.Joints.ContainsKey(expectedUniqueJointName));
             Assert.AreEqual(Geometry.Shapes.Mesh, robot.Links[expectedUniqueLinkName].Visual[0].Geometry.Shape);
             Assert.AreEqual(component.FileName, robot.Links[expectedUniqueLinkName].Visual[0].Geometry.Mesh.FileName);
+        }
+
+        [TestMethod]
+        public void ToStringRobot()
+        {
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Robot robot = new Robot("robo", links, joints);
+
+            Link link1 = new Link.Builder("link1").Build();
+            Link link2 = new Link.Builder("link2").Build();
+            Joint joint1 = new Joint.Builder("joint1", Joint.JointType.Fixed, link1, link2).Build();
+
+            links.Add(link1.Name, link1);
+            links.Add(link2.Name, link2);
+            joints.Add(joint1.Name, joint1);
+
+            Assert.AreEqual("<robot name=\"robo\">\r\n<link name=\"link1\"/>\r\n<link name=\"link2\"/>\r\n<joint name=\"joint1\" type=\"fixed\">\r\n<parent link=\"link1\"/>\r\n<child link=\"link2\"/>\r\n</joint>\r\n</robot>",
+                robot.ToString());
         }
 
         [TestMethod]

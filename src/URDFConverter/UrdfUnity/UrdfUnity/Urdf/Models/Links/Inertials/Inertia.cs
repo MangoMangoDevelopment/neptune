@@ -1,4 +1,6 @@
-﻿namespace UrdfUnity.Urdf.Models.Links.Inertials
+﻿using UrdfUnity.Util;
+
+namespace UrdfUnity.Urdf.Models.Links.Inertials
 {
     /// <summary>
     /// Represents the moment of inertia of a link as the 3x3 rotational inertia matrix. 
@@ -65,6 +67,22 @@
             this.Iyy = iyy;
             this.Iyz = iyz;
             this.Izz = izz;
+        }
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            return new XmlStringBuilder(UrdfSchema.INERTIA_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.IXX_ATTRIBUTE_NAME, this.Ixx)
+                .AddAttribute(UrdfSchema.IXY_ATTRIBUTE_NAME, this.Ixy)
+                .AddAttribute(UrdfSchema.IXZ_ATTRIBUTE_NAME, this.Ixz)
+                .AddAttribute(UrdfSchema.IYY_ATTRIBUTE_NAME, this.Iyy)
+                .AddAttribute(UrdfSchema.IYZ_ATTRIBUTE_NAME, this.Iyz)
+                .AddAttribute(UrdfSchema.IZZ_ATTRIBUTE_NAME, this.Izz)
+                .ToString();
         }
 
         protected bool Equals(Inertia other)

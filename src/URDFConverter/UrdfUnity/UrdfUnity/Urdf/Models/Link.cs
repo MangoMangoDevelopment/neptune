@@ -131,6 +131,34 @@ namespace UrdfUnity.Urdf.Models
             }
         }
 
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.LINK_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME, this.Name);
+
+            foreach (Visual visual in this.Visual)
+            {
+                sb.AddSubElement(visual.ToString());
+            }
+
+            foreach (Collision collision in this.Collision)
+            {
+                sb.AddSubElement(collision.ToString());
+            }
+
+            if (this.Inertial != null)
+            {
+                sb.AddSubElement(this.Inertial.ToString());
+            }
+
+            return sb.ToString();
+        }
+
         protected bool Equals(Link other)
         {
             return string.Equals(Name, other.Name) && Equals(Inertial, other.Inertial)

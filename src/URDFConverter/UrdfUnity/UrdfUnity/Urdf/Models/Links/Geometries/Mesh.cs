@@ -97,6 +97,28 @@ namespace UrdfUnity.Urdf.Models.Links.Geometries
         }
 
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.MESH_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.FILE_NAME_ATTRIBUTE_NAME, this.FileName);
+
+            if (this.Scale != DEFAULT_SCALE)
+            {
+                sb.AddAttribute(UrdfSchema.SCALE_ATTRIBUTE_NAME, this.Scale);
+            }
+
+            if (this.Size != null)
+            {
+                sb.AddAttribute(UrdfSchema.SIZE_ATTRIBUTE_NAME, this.Size);
+            }
+
+            return sb.ToString();
+        }
+
         protected bool Equals(Mesh other)
         {
             return FileName.Equals(other.FileName) && Scale.Equals(other.Scale)

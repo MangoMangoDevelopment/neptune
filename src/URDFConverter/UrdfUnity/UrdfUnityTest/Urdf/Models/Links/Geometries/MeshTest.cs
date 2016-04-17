@@ -104,6 +104,18 @@ namespace UrdfUnityTest.Urdf.Models.Links.Geometries
         }
 
         [TestMethod]
+        public void ToStringMesh()
+        {
+            Assert.AreEqual("<mesh filename=\"file\"/>", new Mesh.Builder("file").Build().ToString());
+            Assert.AreEqual("<mesh filename=\"file\" size=\"1 1 1\"/>", 
+                new Mesh.Builder("file").SetSize(new SizeAttribute(1, 1, 1)).Build().ToString());
+            Assert.AreEqual("<mesh filename=\"file\" scale=\"1 1 1\"/>", 
+                new Mesh.Builder("file").SetScale(new ScaleAttribute(1, 1, 1)).Build().ToString());
+            Assert.AreEqual("<mesh filename=\"file\" scale=\"1 1 1\" size=\"1 1 1\"/>", 
+                new Mesh.Builder("file").SetScale(new ScaleAttribute(1, 1, 1)).SetSize(new SizeAttribute(1, 1, 1)).Build().ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Mesh mesh = new Mesh.Builder("fileName").SetScale(new ScaleAttribute(1, 2, 3)).Build();

@@ -70,6 +70,17 @@ namespace UrdfUnityTest.Urdf.Models.Links.Visuals
         }
 
         [TestMethod]
+        public void ToStringMaterial()
+        {
+            Assert.AreEqual("<material name=\"name\">\r\n<color rgb=\"0 0 0\" alpha=\"0\"/>\r\n</material>", 
+                new Material("name", new Color(new RgbAttribute(0, 0, 0), 0)).ToString());
+            Assert.AreEqual("<material name=\"name\">\r\n<texture filename=\"file\"/>\r\n</material>",
+                new Material("name", new Texture("file")).ToString());
+            Assert.AreEqual("<material name=\"name\">\r\n<color rgb=\"0 0 0\" alpha=\"0\"/>\r\n<texture filename=\"file\"/>\r\n</material>",
+                new Material("name", new Color(new RgbAttribute(0, 0, 0), 0), new Texture("file")).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Material material = new Material("name", new Texture("fileName"));

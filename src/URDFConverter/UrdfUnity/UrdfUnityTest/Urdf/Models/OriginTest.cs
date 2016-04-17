@@ -9,6 +9,17 @@ namespace UrdfUnityTest.Urdf.Models
     public class OriginTest
     {
         [TestMethod]
+        public void DefaultOrigin()
+        {
+            Assert.AreEqual(0, Origin.DEFAULT_ORIGIN.Xyz.X);
+            Assert.AreEqual(0, Origin.DEFAULT_ORIGIN.Xyz.Y);
+            Assert.AreEqual(0, Origin.DEFAULT_ORIGIN.Xyz.Z);
+            Assert.AreEqual(0, Origin.DEFAULT_ORIGIN.Rpy.R);
+            Assert.AreEqual(0, Origin.DEFAULT_ORIGIN.Rpy.P);
+            Assert.AreEqual(0, Origin.DEFAULT_ORIGIN.Rpy.Y);
+        }
+
+        [TestMethod]
         public void ConstructOrigin()
         {
             XyzAttribute xyz = new XyzAttribute(1, 2, 3);
@@ -81,6 +92,15 @@ namespace UrdfUnityTest.Urdf.Models
         public void ConstructDefaultOriginWithBuilderNullRpy()
         {
             Origin.Builder builder = new Origin.Builder().SetRpy(null);
+        }
+
+        [TestMethod]
+        public void ToStringOrigin()
+        {
+            Assert.AreEqual(String.Empty, new Origin().ToString());
+            Assert.AreEqual("<origin xyz=\"1 1 1\" rpy=\"1 1 1\"/>", new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).SetRpy(new RpyAttribute(1, 1, 1)).Build().ToString());
+            Assert.AreEqual("<origin xyz=\"3.1415 0 -1.25\"/>", new Origin.Builder().SetXyz(new XyzAttribute(3.1415, 0, -1.25)).Build().ToString());
+            Assert.AreEqual("<origin rpy=\"3.1415 0 -1.25\"/>", new Origin.Builder().SetRpy(new RpyAttribute(3.1415, 0, -1.25)).Build().ToString());
         }
 
         [TestMethod]

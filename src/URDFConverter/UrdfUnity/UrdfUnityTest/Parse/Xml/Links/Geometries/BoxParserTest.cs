@@ -47,9 +47,9 @@ namespace UrdfUnityTest.Parse.Xml.Links.Geometries
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Box box = this.parser.Parse(this.xmlDoc.DocumentElement);
 
-            Assert.AreEqual(0, box.Size.Length);
-            Assert.AreEqual(0, box.Size.Width);
-            Assert.AreEqual(0, box.Size.Height);
+            Assert.AreEqual(1, box.Size.Length);
+            Assert.AreEqual(1, box.Size.Width);
+            Assert.AreEqual(1, box.Size.Height);
         }
     }
 }

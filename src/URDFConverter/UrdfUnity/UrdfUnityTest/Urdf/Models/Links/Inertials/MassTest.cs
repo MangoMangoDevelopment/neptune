@@ -24,6 +24,13 @@ namespace UrdfUnityTest.Urdf.Models.Links.Inertials
         }
 
         [TestMethod]
+        public void ToStringMass()
+        {
+            Assert.AreEqual("<mass value=\"1\"/>", new Mass(1).ToString());
+            Assert.AreEqual("<mass value=\"3.1415\"/>", new Mass(3.1415).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Mass mass = new Mass(1);

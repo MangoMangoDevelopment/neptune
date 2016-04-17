@@ -34,7 +34,7 @@ namespace UrdfUnity.Urdf.Models.Links
         /// </summary>
         /// <param name="mass">The link's mass. MUST NOT BE NULL</param>
         /// <param name="inertia">The link's inertia matrix. MUST NOT BE NULL</param>
-        public Inertial(Mass mass, Inertia inertia) : this(new Origin(), mass, inertia)
+        public Inertial(Mass mass, Inertia inertia) : this(Origin.DEFAULT_ORIGIN, mass, inertia)
         {
             // Invoke overloaded constructor.
         }
@@ -54,6 +54,23 @@ namespace UrdfUnity.Urdf.Models.Links
             this.Origin = origin;
             this.Mass = mass;
             this.Inertia = inertia;
+        }
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.INERTIAL_ELEMENT_NAME)
+                .AddSubElement(this.Mass.ToString()).AddSubElement(this.Inertia.ToString());
+
+            if (!this.Origin.Equals(Origin.DEFAULT_ORIGIN))
+            {
+                sb.AddSubElement(this.Origin.ToString());
+            }
+
+            return sb.ToString();
         }
 
         protected bool Equals(Inertial other)

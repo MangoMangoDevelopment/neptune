@@ -67,11 +67,24 @@ namespace UrdfUnityTest.Urdf.Models.Links
         }
 
         [TestMethod]
+        public void ToStringCollision()
+        {
+            Assert.AreEqual("<collision name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n<origin xyz=\"1 1 1\" rpy=\"1 1 1\"/>\r\n</collision>",
+                new Collision.Builder("name")
+                .SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).SetRpy(new RpyAttribute(1, 1, 1)).Build())
+                .SetGeometry(new Geometry(new Sphere(1))).Build().ToString());
+            Assert.AreEqual("<collision name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n</collision>",
+                new Collision.Builder("name").SetGeometry(new Geometry(new Sphere(1))).Build().ToString());
+            Assert.AreEqual("<collision>\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n</collision>",
+                new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build().ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Collision collision = new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build();
             Collision same = new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build();
-            Collision diff = new Collision.Builder().SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).Build()) 
+            Collision diff = new Collision.Builder().SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 2, 3)).Build())
                 .SetGeometry(new Geometry(new Sphere(1))).Build();
 
             Assert.IsTrue(collision.Equals(collision));

@@ -55,6 +55,10 @@ namespace UrdfUnity.Urdf.Models.Joints
             this.Upper = upper;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.LIMIT_ELEMENT_NAME)

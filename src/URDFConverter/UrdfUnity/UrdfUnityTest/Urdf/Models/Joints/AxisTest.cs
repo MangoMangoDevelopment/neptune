@@ -9,6 +9,14 @@ namespace UrdfUnityTest.Urdf.Models.Joints
     public class AxisTest
     {
         [TestMethod]
+        public void DefaultAxis()
+        {
+            Assert.AreEqual(1, Axis.DEFAULT_AXIS.Xyz.X);
+            Assert.AreEqual(0, Axis.DEFAULT_AXIS.Xyz.Y);
+            Assert.AreEqual(0, Axis.DEFAULT_AXIS.Xyz.Z);
+        }
+
+        [TestMethod]
         public void ConstructAxis()
         {
             double x = 1;

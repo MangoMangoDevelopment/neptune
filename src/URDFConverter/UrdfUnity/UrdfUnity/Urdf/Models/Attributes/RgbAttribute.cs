@@ -57,6 +57,15 @@ namespace UrdfUnity.Urdf.Models.Attributes
             this.B = b;
         }
 
+        /// <summary>
+        /// Returns the string representation of this object as an XML attribute value.
+        /// </summary>
+        /// <returns>"R G B"</returns>
+        public override string ToString()
+        {
+            return $"{R} {G} {B}";
+        }
+
         protected bool Equals(RgbAttribute other)
         {
             return R == other.R && G == other.G && B == other.B;

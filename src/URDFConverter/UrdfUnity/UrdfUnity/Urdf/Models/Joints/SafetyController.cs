@@ -34,7 +34,7 @@ namespace UrdfUnity.Urdf.Models.Joints
         /// The scale of the velocity boundary specifying the relation between position and velocity limits.
         /// </summary>
         /// <value>Optional. Default value is 0</value>
-        public double KPostition { get; }
+        public double KPosition { get; }
 
         /// <summary>
         /// The scale of the effort boundary specifying the relationship between effort and velocity limits.
@@ -55,16 +55,20 @@ namespace UrdfUnity.Urdf.Models.Joints
             double lowerLimit = DEFAULT_LOWER_LIMIT, double upperLimit = DEFAULT_UPPER_LIMIT)
         {
             this.KVelocity = kVelocity;
-            this.KPostition = kPosition;
+            this.KPosition = kPosition;
             this.SoftLowerLimit = lowerLimit;
             this.SoftUpperLimit = upperLimit;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.SAFETY_CONTROLLER_ELEMENT_NAME)
                 .AddAttribute(UrdfSchema.K_VELOCITY_ATTRIBUTE_NAME, this.KVelocity)
-                .AddAttribute(UrdfSchema.K_POSITION_ATTRIBUTE_NAME, this.KPostition)
+                .AddAttribute(UrdfSchema.K_POSITION_ATTRIBUTE_NAME, this.KPosition)
                 .AddAttribute(UrdfSchema.LOWER_LIMIT_ATTRIBUTE_NAME, this.SoftLowerLimit)
                 .AddAttribute(UrdfSchema.UPPER_LIMIT_ATTRIBUTE_NAME, this.SoftUpperLimit)
                 .ToString();
@@ -73,7 +77,7 @@ namespace UrdfUnity.Urdf.Models.Joints
         protected bool Equals(SafetyController other)
         {
             return SoftLowerLimit.Equals(other.SoftLowerLimit) && SoftUpperLimit.Equals(other.SoftUpperLimit)
-                && KPostition.Equals(other.KPostition) && KVelocity.Equals(other.KVelocity);
+                && KPosition.Equals(other.KPosition) && KVelocity.Equals(other.KVelocity);
         }
 
         public override bool Equals(object obj)
@@ -90,7 +94,7 @@ namespace UrdfUnity.Urdf.Models.Joints
             {
                 var hashCode = SoftLowerLimit.GetHashCode();
                 hashCode = (hashCode * 397) ^ SoftUpperLimit.GetHashCode();
-                hashCode = (hashCode * 397) ^ KPostition.GetHashCode();
+                hashCode = (hashCode * 397) ^ KPosition.GetHashCode();
                 hashCode = (hashCode * 397) ^ KVelocity.GetHashCode();
                 return hashCode;
             }

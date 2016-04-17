@@ -39,6 +39,10 @@ namespace UrdfUnity.Urdf.Models.Joints
             this.Friction = friction;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.DYNAMICS_ELEMENT_NAME)

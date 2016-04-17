@@ -26,6 +26,13 @@ namespace UrdfUnityTest.Urdf.Models.Links.Inertials
         }
 
         [TestMethod]
+        public void ToStringInertia()
+        {
+            Assert.AreEqual("<inertia ixx=\"1\" ixy=\"1\" ixz=\"1\" iyy=\"1\" iyz=\"1\" izz=\"1\"/>", new Inertia(1, 1, 1, 1, 1, 1).ToString());
+            Assert.AreEqual("<inertia ixx=\"3.1415\" ixy=\"0\" ixz=\"-1.25\" iyy=\"1\" iyz=\"1\" izz=\"1\"/>", new Inertia(3.1415, 0, -1.25, 1, 1, 1).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Inertia inertia = new Inertia(1, 2, 3, 4, 5, 6);

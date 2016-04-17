@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links.Geometries;
 
@@ -23,6 +24,35 @@ namespace UrdfUnityTest.Urdf.Models.Links.Geometries
             Assert.AreNotEqual(size.Length, 0);
             Assert.AreNotEqual(size.Width, 0);
             Assert.AreNotEqual(size.Height, 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructBoxInvalidLength()
+        {
+            new Box(new SizeAttribute(0, 1, 1));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructBoxInvalidWidth()
+        {
+            new Box(new SizeAttribute(1, 0, 1));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructBoxInvalidHeight()
+        {
+            new Box(new SizeAttribute(1, 1, 0));
+        }
+
+        [TestMethod]
+        public void ToStringBox()
+        {
+            Assert.AreEqual("<box size=\"1 1 1\"/>", new Box(new SizeAttribute(1, 1, 1)).ToString());
+            Assert.AreEqual("<box size=\"0.1 1 1\"/>", new Box(new SizeAttribute(0.1, 1, 1.0)).ToString());
+            Assert.AreEqual("<box size=\"3.1415 1 1.25\"/>", new Box(new SizeAttribute(3.1415, 1, 1.25)).ToString());
         }
 
         [TestMethod]

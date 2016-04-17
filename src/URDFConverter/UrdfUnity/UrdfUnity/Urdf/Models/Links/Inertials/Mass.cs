@@ -25,6 +25,17 @@ namespace UrdfUnity.Urdf.Models.Links.Inertials
             this.Value = value;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            return new XmlStringBuilder(UrdfSchema.MASS_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.MASS_VALUE_ATTRIBUTE_NAME, this.Value)
+                .ToString();
+        }
+
         protected bool Equals(Mass other)
         {
             return Value.Equals(other.Value);

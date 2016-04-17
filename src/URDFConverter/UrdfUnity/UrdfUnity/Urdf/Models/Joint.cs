@@ -143,7 +143,7 @@ namespace UrdfUnity.Urdf.Models
             private JointType type;
             private Link parent;
             private Link child;
-            private Origin origin = new Origin(); // Default is identity
+            private Origin origin = Origin.DEFAULT_ORIGIN; // Default is identity
             private Axis axis = new Axis(new XyzAttribute(1, 0, 0)); // Default is (1, 0, 0)
             private Calibration calibration;
             private Dynamics dynamics;
@@ -233,6 +233,57 @@ namespace UrdfUnity.Urdf.Models
                 this.safteyController = safteyController;
                 return this;
             }
+        }
+
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.JOINT_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME, this.Name)
+                .AddAttribute(UrdfSchema.JOINT_TYPE_ATTRIBUTE_NAME, this.Type.ToString().ToLower())
+                .AddSubElement(new XmlStringBuilder(UrdfSchema.PARENT_ELEMENT_NAME).AddAttribute(UrdfSchema.LINK_ATTRIBUTE_NAME, this.Parent.Name).ToString())
+                .AddSubElement(new XmlStringBuilder(UrdfSchema.CHILD_ELEMENT_NAME).AddAttribute(UrdfSchema.LINK_ATTRIBUTE_NAME, this.Child.Name).ToString());
+
+            if (!this.Origin.Equals(Origin.DEFAULT_ORIGIN))
+            {
+                sb.AddSubElement(this.Origin.ToString());
+            }
+
+            if (!this.Axis.Equals(Axis.DEFAULT_AXIS))
+            {
+                sb.AddSubElement(this.Axis.ToString());
+            }
+
+            if (this.Calibration != null)
+            {
+                sb.AddSubElement(this.Calibration.ToString());
+            }
+
+            if (this.Dynamics != null)
+            {
+                sb.AddSubElement(this.Dynamics.ToString());
+            }
+
+            if (this.Limit != null)
+            {
+                sb.AddSubElement(this.Limit.ToString());
+            }
+
+            if (this.Mimic != null)
+            {
+                sb.AddSubElement(this.Mimic.ToString());
+            }
+
+            if (this.SafetyController != null)
+            {
+                sb.AddSubElement(this.SafetyController.ToString());
+            }
+
+            return sb.ToString();
         }
 
         protected bool Equals(Joint other)

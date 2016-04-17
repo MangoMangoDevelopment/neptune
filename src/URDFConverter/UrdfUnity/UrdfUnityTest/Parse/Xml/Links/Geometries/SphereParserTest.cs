@@ -41,7 +41,7 @@ namespace UrdfUnityTest.Parse.Xml.Links.Geometries
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Sphere sphere = this.parser.Parse(this.xmlDoc.DocumentElement);
 
-            Assert.AreEqual(0, sphere.Radius);
+            Assert.AreEqual(1, sphere.Radius);
         }
     }
 }

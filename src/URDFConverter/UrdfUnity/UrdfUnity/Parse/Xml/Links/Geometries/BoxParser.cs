@@ -15,7 +15,7 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
     /// <seealso cref="Urdf.Models.Links.Geometries.Box"/>
     public sealed class BoxParser : AbstractUrdfXmlParser<Box>
     {
-        private static readonly double DEFAULT_VALUE = 0d;
+        private static readonly double DEFAULT_VALUE = 1d;
 
 
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();

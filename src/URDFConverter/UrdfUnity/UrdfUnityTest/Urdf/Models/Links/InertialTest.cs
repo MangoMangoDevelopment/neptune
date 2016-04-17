@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfUnity.Urdf.Models;
+using UrdfUnity.Urdf.Models.Attributes;
 using UrdfUnity.Urdf.Models.Links;
 using UrdfUnity.Urdf.Models.Links.Inertials;
 
@@ -58,6 +59,16 @@ namespace UrdfUnityTest.Urdf.Models.Links
         public void ConstructInertialNullInertia()
         {
             Inertial inertial = new Inertial(new Origin(), new Mass(1), null);
+        }
+
+        [TestMethod]
+        public void ToStringInertial()
+        {
+            Assert.AreEqual("<inertial>\r\n<mass value=\"1\"/>\r\n<inertia ixx=\"1\" ixy=\"1\" ixz=\"1\" iyy=\"1\" iyz=\"1\" izz=\"1\"/>\r\n<origin xyz=\"1 1 1\" rpy=\"1 1 1\"/>\r\n</inertial>",
+                new Inertial(new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).SetRpy(new RpyAttribute(1, 1, 1)).Build(), 
+                new Mass(1), new Inertia(1, 1, 1, 1, 1, 1)).ToString());
+            Assert.AreEqual("<inertial>\r\n<mass value=\"1\"/>\r\n<inertia ixx=\"1\" ixy=\"1\" ixz=\"1\" iyy=\"1\" iyz=\"1\" izz=\"1\"/>\r\n</inertial>",
+                new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1)).ToString());
         }
 
         [TestMethod]

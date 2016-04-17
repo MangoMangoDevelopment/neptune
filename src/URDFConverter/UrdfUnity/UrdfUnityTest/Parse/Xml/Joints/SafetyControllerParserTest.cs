@@ -28,7 +28,7 @@ namespace UrdfUnityTest.Parse.Xml.Joints
 
             Assert.AreEqual(lower, safetyController.SoftLowerLimit);
             Assert.AreEqual(upper, safetyController.SoftUpperLimit);
-            Assert.AreEqual(position, safetyController.KPostition);
+            Assert.AreEqual(position, safetyController.KPosition);
             Assert.AreEqual(velocity, safetyController.KVelocity);
         }
 
@@ -49,7 +49,7 @@ namespace UrdfUnityTest.Parse.Xml.Joints
 
             Assert.AreEqual(0, safetyController.SoftLowerLimit);
             Assert.AreEqual(0, safetyController.SoftUpperLimit);
-            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.KPosition);
             Assert.AreEqual(0, safetyController.KVelocity);
         }
 
@@ -64,7 +64,7 @@ namespace UrdfUnityTest.Parse.Xml.Joints
 
             Assert.AreEqual(0, safetyController.SoftLowerLimit);
             Assert.AreEqual(0, safetyController.SoftUpperLimit);
-            Assert.AreEqual(0, safetyController.KPostition);
+            Assert.AreEqual(0, safetyController.KPosition);
             Assert.AreEqual(velocity, safetyController.KVelocity);
         }
     }

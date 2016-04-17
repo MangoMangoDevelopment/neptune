@@ -15,6 +15,12 @@ namespace UrdfUnity.Urdf.Models.Joints
     public sealed class Axis
     {
         /// <summary>
+        /// Default axis used if an axis is not specified, defaulting to (1, 0, 0).
+        /// </summary>
+        public static readonly Axis DEFAULT_AXIS = new Axis(new XyzAttribute(1, 0, 0));
+
+
+        /// <summary>
         /// The x, y, z components of the axis vector.
         /// </summary>
         /// <value>Required. The vector should be normalized.</value>
@@ -31,6 +37,10 @@ namespace UrdfUnity.Urdf.Models.Joints
             this.Xyz = xyz;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.AXIS_ELEMENT_NAME)

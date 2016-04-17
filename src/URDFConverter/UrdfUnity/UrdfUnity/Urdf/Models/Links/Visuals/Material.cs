@@ -73,6 +73,28 @@ namespace UrdfUnity.Urdf.Models.Links.Visuals
             this.Texture = texture;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.MATERIAL_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME, this.Name);
+             
+            if (this.Color != null)
+            {
+                sb.AddSubElement(this.Color.ToString());
+            }
+
+            if (this.Texture != null)
+            {
+                sb.AddSubElement(this.Texture.ToString());
+            }
+
+            return sb.ToString();
+        }
+
         protected bool Equals(Material other)
         {
             return string.Equals(Name, other.Name) && Equals(Color, other.Color) && Equals(Texture, other.Texture);

@@ -14,7 +14,7 @@ namespace UrdfUnity.Parse.Xml.Links.Geometries
     /// <seealso cref="Urdf.Models.Links.Geometries.Sphere"/>
     public sealed class SphereParser : AbstractUrdfXmlParser<Sphere>
     {
-        private static readonly double DEFAULT_VALUE = 0d;
+        private static readonly double DEFAULT_VALUE = 1d;
 
 
         protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();

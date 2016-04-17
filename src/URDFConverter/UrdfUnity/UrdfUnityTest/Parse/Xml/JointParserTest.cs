@@ -62,7 +62,7 @@ namespace UrdfUnityTest.Parse.Xml
             xmlBuilder.Append(String.Format("<dynamics damping='{0}' friction='{1}'/>", dynamics.Damping, dynamics.Friction));
             xmlBuilder.Append(String.Format("<limit lower='{0}' upper='{1}' effort='{2}' velocity='{3}'/>", limit.Lower, limit.Upper, limit.Effort, limit.Velocity));
             xmlBuilder.Append(String.Format("<mimic joint='{0}' multiplier='{1}' offset='{2}'/>", MIMIC_JOINT_NAME, mimic.Multiplier, mimic.Offset));
-            xmlBuilder.Append(String.Format("<safety_controller soft_lower_limit='{0}' soft_upper_limit='{1}' k_position='{2}' k_velocity='{3}'/>", safetyController.SoftLowerLimit, safetyController.SoftUpperLimit, safetyController.KPostition, safetyController.KVelocity));
+            xmlBuilder.Append(String.Format("<safety_controller soft_lower_limit='{0}' soft_upper_limit='{1}' k_position='{2}' k_velocity='{3}'/>", safetyController.SoftLowerLimit, safetyController.SoftUpperLimit, safetyController.KPosition, safetyController.KVelocity));
             xmlBuilder.Append("</joint>");
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xmlBuilder.ToString())));

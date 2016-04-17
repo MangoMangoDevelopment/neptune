@@ -13,6 +13,12 @@ namespace UrdfUnity.Urdf.Models
     public sealed class Origin
     {
         /// <summary>
+        /// Default origin used if an origin is not specified, defaulting to a zero vector.
+        /// </summary>
+        public static readonly Origin DEFAULT_ORIGIN = new Origin();
+
+
+        /// <summary>
         /// The origin element's x, y, z offset.
         /// </summary>
         /// <value>Optional. Defaults to zero vector.</value>
@@ -89,6 +95,33 @@ namespace UrdfUnity.Urdf.Models
                 this.rpy = rpy;
                 return this;
             }
+        }
+
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            if (this.Equals(Origin.DEFAULT_ORIGIN))
+            {
+                return string.Empty;
+            }
+
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.ORIGIN_ELEMENT_NAME);
+
+            if (!this.Xyz.Equals(new XyzAttribute()))
+            {
+                sb.AddAttribute(UrdfSchema.XYZ_ATTRIBUTE_NAME, this.Xyz);
+            }
+
+            if (!this.Rpy.Equals(new RpyAttribute()))
+            {
+                sb.AddAttribute(UrdfSchema.RPY_ATTRIBUTE_NAME, this.Rpy);
+            }
+
+            return sb.ToString();
         }
 
         protected bool Equals(Origin other)

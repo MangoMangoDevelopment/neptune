@@ -40,25 +40,25 @@ namespace UrdfUnityTest.Parse.Xml.Links.Geometries
         [TestMethod]
         public void ParseCylinderNoRadius()
         {
-            string xml = "<cylinder length='1'/>";
+            string xml = "<cylinder length='2'/>";
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Cylinder cylinder = this.parser.Parse(this.xmlDoc.DocumentElement);
 
-            Assert.AreEqual(0, cylinder.Radius);
-            Assert.AreEqual(1, cylinder.Length);
+            Assert.AreEqual(1, cylinder.Radius);
+            Assert.AreEqual(2, cylinder.Length);
         }
 
         [TestMethod]
         public void ParseCylinderNoLength()
         {
-            string xml = "<cylinder radius='1'/>";
+            string xml = "<cylinder radius='2'/>";
 
             this.xmlDoc.Load(new StringReader(xml));
             Cylinder cylinder = this.parser.Parse(this.xmlDoc.DocumentElement);
 
-            Assert.AreEqual(1, cylinder.Radius);
-            Assert.AreEqual(0, cylinder.Length);
+            Assert.AreEqual(2, cylinder.Radius);
+            Assert.AreEqual(1, cylinder.Length);
         }
     }
 }

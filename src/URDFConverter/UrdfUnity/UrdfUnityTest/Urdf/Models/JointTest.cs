@@ -115,7 +115,7 @@ namespace UrdfUnityTest.Urdf.Models
             Assert.AreEqual(safetyController, joint.SafetyController);
             Assert.AreEqual(safetyController.SoftLowerLimit, joint.SafetyController.SoftLowerLimit);
             Assert.AreEqual(safetyController.SoftUpperLimit, joint.SafetyController.SoftUpperLimit);
-            Assert.AreEqual(safetyController.KPostition, joint.SafetyController.KPostition);
+            Assert.AreEqual(safetyController.KPosition, joint.SafetyController.KPosition);
             Assert.AreEqual(safetyController.KVelocity, joint.SafetyController.KVelocity);
         }
 
@@ -223,6 +223,35 @@ namespace UrdfUnityTest.Urdf.Models
         {
             Joint.Builder builder = new Joint.Builder(TEST_JOINT_NAME, Joint.JointType.Revolute, TEST_PARENT_LINK, TEST_CHILD_LINK);
             builder.Build();
+        }
+
+        [TestMethod]
+        public void ToStringJoint()
+        {
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK).Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<origin xyz=\"1 1 1\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).Build())
+                .Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<axis xyz=\"1 1 1\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetAxis(new Axis(new XyzAttribute(1, 1, 1))).Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<calibration rising=\"1\" falling=\"1\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetCalibration(new Calibration(1, 1)).Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<dynamics damping=\"1\" friction=\"1\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetDynamics(new Dynamics(1, 1)).Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<limit effort=\"1\" velocity=\"1\" lower=\"1\" upper=\"1\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetLimit(new Limit(1, 1, 1, 1)).Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<mimic joint=\"joint\" multiplier=\"2\" offset=\"2\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetMimic(new Mimic(new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK).Build(), 2, 2)).Build().ToString());
+            Assert.AreEqual("<joint name=\"joint\" type=\"fixed\">\r\n<parent link=\"parent\"/>\r\n<child link=\"child\"/>\r\n<safety_controller k_velocity=\"1\" k_position=\"1\" soft_lower_limit=\"1\" soft_upper_limit=\"1\"/>\r\n</joint>",
+                new Joint.Builder("joint", Joint.JointType.Fixed, TEST_PARENT_LINK, TEST_CHILD_LINK)
+                .SetSafetyController(new SafetyController(1, 1, 1, 1)).Build().ToString());
         }
 
         [TestMethod]

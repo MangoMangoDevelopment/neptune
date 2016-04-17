@@ -60,6 +60,13 @@ namespace UrdfUnityTest.Urdf.Models.Attributes
         }
 
         [TestMethod]
+        public void ToStringRgb()
+        {
+            Assert.AreEqual("0 0 0", new RgbAttribute(0, 0, 0).ToString());
+            Assert.AreEqual("1 128 255", new RgbAttribute(1, 128, 255).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             RgbAttribute rgb = new RgbAttribute(1, 2, 3);

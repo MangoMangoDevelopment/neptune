@@ -56,6 +56,10 @@ namespace UrdfUnity.Urdf.Models.Joints
             this.Offset = offset;
         }
 
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.MIMIC_ELEMENT_NAME)

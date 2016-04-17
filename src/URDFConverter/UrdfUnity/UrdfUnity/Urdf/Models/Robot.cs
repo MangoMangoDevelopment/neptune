@@ -21,7 +21,7 @@ namespace UrdfUnity.Urdf.Models
         /// The default name used when a Robot needs to be instantiated without a name.
         /// </summary>
         public static readonly string DEFAULT_NAME = "missing_name";
-        
+
         private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
 
 
@@ -130,6 +130,28 @@ namespace UrdfUnity.Urdf.Models
             while (existingKeys.Contains(newName));
 
             return newName;
+        }
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.ROBOT_ELEMENT_NAME)
+                .AddAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME, this.Name);
+
+            foreach (Link link in this.Links.Values)
+            {
+                sb.AddSubElement(link.ToString());
+            }
+
+            foreach (Joint joint in this.Joints.Values)
+            {
+                sb.AddSubElement(joint.ToString());
+            }
+
+            return sb.ToString();
         }
 
         protected bool Equals(Robot other)

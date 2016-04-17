@@ -54,7 +54,7 @@ namespace UrdfUnity.Urdf.Models.Links
         public class Builder
         {
             private string name = null;
-            private Origin origin = new Origin();
+            private Origin origin = Origin.DEFAULT_ORIGIN;
             private Geometry geometry = null;
 
             /// <summary>
@@ -98,6 +98,28 @@ namespace UrdfUnity.Urdf.Models.Links
             }
         }
 
+
+        /// <summary>
+        /// Returns the URDF XML string representation of this model object.
+        /// </summary>
+        /// <returns>The URDF XML string representation of this model object</returns>
+        public override string ToString()
+        {
+            XmlStringBuilder sb = new XmlStringBuilder(UrdfSchema.COLLISION_ELEMENT_NAME)
+                .AddSubElement(this.Geometry.ToString());
+
+            if (this.Name != null)
+            {
+                sb.AddAttribute(UrdfSchema.NAME_ATTRIBUTE_NAME, this.Name);
+            }
+
+            if (!this.Origin.Equals(Origin.DEFAULT_ORIGIN))
+            {
+                sb.AddSubElement(this.Origin.ToString());
+            }
+            
+            return sb.ToString();
+        }
 
         protected bool Equals(Collision other)
         {

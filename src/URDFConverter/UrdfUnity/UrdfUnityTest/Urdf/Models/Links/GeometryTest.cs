@@ -90,6 +90,15 @@ namespace UrdfUnityTest.Urdf.Models.Links
         }
 
         [TestMethod]
+        public void ToStringGeometry()
+        {
+            Assert.AreEqual("<geometry>\r\n<box size=\"1 1 1\"/>\r\n</geometry>", new Geometry(new Box(new SizeAttribute(1, 1, 1))).ToString());
+            Assert.AreEqual("<geometry>\r\n<cylinder radius=\"1\" length=\"1\"/>\r\n</geometry>", new Geometry(new Cylinder(1, 1)).ToString());
+            Assert.AreEqual("<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>", new Geometry(new Sphere(1)).ToString());
+            Assert.AreEqual("<geometry>\r\n<mesh filename=\"file\"/>\r\n</geometry>", new Geometry(new Mesh.Builder("file").Build()).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Geometry geometry = new Geometry(new Sphere(1));

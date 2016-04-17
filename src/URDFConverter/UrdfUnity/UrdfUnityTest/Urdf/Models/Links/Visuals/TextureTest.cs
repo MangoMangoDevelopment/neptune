@@ -24,6 +24,12 @@ namespace UrdfUnityTest.Urdf.Models.Links.Visuals
         }
 
         [TestMethod]
+        public void ToStringTexture()
+        {
+            Assert.AreEqual("<texture filename=\"file\"/>", new Texture("file").ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Texture texture = new Texture("fileName");

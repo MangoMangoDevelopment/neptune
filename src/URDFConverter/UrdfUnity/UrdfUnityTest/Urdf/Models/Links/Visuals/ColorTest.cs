@@ -65,6 +65,13 @@ namespace UrdfUnityTest.Urdf.Models.Links.Visuals
         }
 
         [TestMethod]
+        public void ToStringColor()
+        {
+            Assert.AreEqual("<color rgb=\"0 0 0\" alpha=\"0\"/>", new Color(new RgbAttribute(0, 0, 0), 0).ToString());
+            Assert.AreEqual("<color rgb=\"64 128 255\" alpha=\"0.5\"/>", new Color(new RgbAttribute(64, 128, 255), 0.5).ToString());
+        }
+
+        [TestMethod]
         public void EqualsAndHash()
         {
             Color colour = new Color(new RgbAttribute(1, 2, 3));
