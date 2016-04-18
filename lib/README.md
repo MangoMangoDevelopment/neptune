@@ -5,6 +5,7 @@ To convert Xacro files to URDF, the ROS [Xacro](http://wiki.ros.org/xacro) pytho
 ## System Requirements
 
 * Python version: 2.7.11
+* [pip](https://pip.pypa.io/en/stable/): `python -m pip install -U pip`
 
 Note: The ROS Xacro package requires Python 2.7.x due to using the pre-built [file](https://docs.python.org/2/library/functions.html#file) function that was removed in later versions.
 
