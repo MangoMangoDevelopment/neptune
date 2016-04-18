@@ -75,7 +75,7 @@ namespace UrdfToUnityTest.Urdf.Models
         }
 
         [TestMethod]
-        public void AddComponent()
+        public void AddComponentByMesh()
         {
             Dictionary<string, Link> links = new Dictionary<string, Link>();
             Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
@@ -97,7 +97,7 @@ namespace UrdfToUnityTest.Urdf.Models
         }
 
         [TestMethod]
-        public void AddComponentParentDoesNotExist()
+        public void AddComponentByMeshParentDoesNotExist()
         {
             Robot robot = new Robot("robot", new Dictionary<string, Link>(), new Dictionary<string, Joint>());
             Component component = new Component("component", "file");
@@ -108,6 +108,68 @@ namespace UrdfToUnityTest.Urdf.Models
             Assert.AreEqual(0, robot.Links.Count);
             Assert.AreEqual(0, robot.Joints.Count);
             Assert.IsFalse(robot.Links.ContainsKey(component.Name));
+        }
+
+        [TestMethod]
+        public void AddComponentByRobot()
+        {
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Robot robot = new Robot("robot", links, joints);
+
+            Dictionary<string, Link> sensorLinks = new Dictionary<string, Link>();
+            Dictionary<string, Joint> sensorJoints = new Dictionary<string, Joint>();
+            Robot sensor = new Robot("sensor", sensorLinks, sensorJoints);
+            
+            string parentName = "parent";
+            string sensorChildName = "child";
+            string sensorLinkName = "link";
+            string sensorJointName = "joint";
+
+            links.Add(parentName, new Link.Builder(parentName).Build());
+            sensorLinks.Add(sensorChildName, new Link.Builder(sensorChildName).Build());
+            sensorLinks.Add(sensorLinkName, new Link.Builder(sensorLinkName).Build());
+            sensorJoints.Add(sensorJointName, new Joint.Builder(sensorJointName, Joint.JointType.Fixed, sensorLinks[sensorLinkName], sensorLinks[sensorChildName]).Build());
+            string result = robot.AddComponent(sensor, parentName, sensorChildName, new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(sensorChildName, result);
+            Assert.AreEqual(3, robot.Links.Count);
+            Assert.AreEqual(2, robot.Joints.Count);
+            Assert.IsTrue(robot.Links.ContainsKey(parentName));
+            Assert.IsTrue(robot.Links.ContainsKey(sensorChildName));
+            Assert.IsTrue(robot.Links.ContainsKey(sensorLinkName));
+            Assert.IsTrue(robot.Joints.ContainsKey(sensorJointName));
+            Assert.IsTrue(robot.Joints.ContainsKey($"{sensor.Name}_joint"));
+        }
+
+        [TestMethod]
+        public void AddComponentByRobotParentDoesNotExist()
+        {
+            Robot robot = new Robot("robot", new Dictionary<string, Link>(), new Dictionary<string, Joint>());
+            Robot sensor = new Robot("sensor", new Dictionary<string, Link>(), new Dictionary<string, Joint>());
+            
+            string result = robot.AddComponent(sensor, "parent", "child", new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(null, result);
+            Assert.AreEqual(0, robot.Links.Count);
+            Assert.AreEqual(0, robot.Joints.Count);
+        }
+
+        [TestMethod]
+        public void AddComponentByRobotChildDoesNotExist()
+        {
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Robot robot = new Robot("robot", links, joints);
+            Robot sensor = new Robot("sensor", new Dictionary<string, Link>(), new Dictionary<string, Joint>());
+            string parentName = "parent";
+
+            links.Add(parentName, new Link.Builder(parentName).Build());
+            string result = robot.AddComponent(sensor, parentName, "child", new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(null, result);
+            Assert.AreEqual(1, robot.Links.Count);
+            Assert.AreEqual(0, robot.Joints.Count);
         }
 
         [TestMethod]

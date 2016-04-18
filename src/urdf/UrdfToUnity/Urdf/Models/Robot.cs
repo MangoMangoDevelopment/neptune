@@ -88,7 +88,7 @@ namespace UrdfToUnity.Urdf.Models
 
             if (!this.Links.ContainsKey(parent))
             {
-                LOGGER.Info($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
+                LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
                 return null;
             }
 
@@ -103,6 +103,52 @@ namespace UrdfToUnity.Urdf.Models
             this.Joints.Add(joint.Name, joint);
 
             return linkName;
+        }
+
+        /// <summary>
+        /// Adds a new sensor to the Robot model, creating a joint object for the component being added.
+        /// </summary>
+        /// <param name="component">The Robot model object being added. MUST NOT BE NULL</param>
+        /// <param name="parent">The name of the parent link on this Robot that this component is linked to. MUST NOT BE NULL OR EMPTY</param>
+        /// <param name="child">The name of the child link on the component Robot that this component is linked by. MUST NOT BE NULL OR EMPTY</param>
+        /// <param name="xyz">The XYZ offset of this component from its parent link. MUST NOT BE NULL</param>
+        /// <param name="rpy">The RPY offset of this component from its parent link. MUST NOT BE NULL</param>
+        /// <returns>The name of the connected Link object if the component was successfully added, otherwise <c>null</c></returns>
+        public string AddComponent(Robot component, string parent, string child, XyzAttribute xyz, RpyAttribute rpy)
+        {
+            Preconditions.IsNotNull(component, "Cannot add a null component to the Robot");
+            Preconditions.IsNotEmpty(parent, $"Cannot add component '{component.Name}' to the Robot model with missing parent name");
+            Preconditions.IsNotEmpty(child, $"Cannot add component '{component.Name}' to the Robot model with missing child name");
+            Preconditions.IsNotNull(xyz, $"Cannot add component '{component.Name}' to '{Name}' Robot model with null XYZ offset");
+            Preconditions.IsNotNull(rpy, $"Cannot add component '{component.Name}' to '{Name}' Robot model with null RPY offset");
+
+            if (!this.Links.ContainsKey(parent))
+            {
+                LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
+                return null;
+            }
+
+            if (!component.Links.ContainsKey(child))
+            {
+                LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{component.Name}' doesn't contain link called '{child}'");
+                return null;
+            }
+
+            string jointName = GenerateUniqueKey($"{component.Name}_joint", new List<string>(this.Joints.Keys));
+            Joint newJoint = new Joint.Builder(jointName, Joint.JointType.Fixed, this.Links[parent], component.Links[child]).Build();
+            
+            this.Joints.Add(newJoint.Name, newJoint);
+
+            foreach (Link link in component.Links.Values)
+            {
+                this.Links.Add(link.Name, link);
+            }
+            foreach (Joint joint in component.Joints.Values)
+            {
+                this.Joints.Add(joint.Name, joint);
+            }
+
+            return child;
         }
 
         /// <summary>
