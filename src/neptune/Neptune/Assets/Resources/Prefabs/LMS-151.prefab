@@ -106,6 +106,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 438276}
+  - 114: {fileID: 11424008}
   m_Layer: 0
   m_Name: LMS-151
   m_TagString: Untagged
@@ -683,6 +684,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134240}
   m_Mesh: {fileID: 4300006, guid: 96048819f036ca94d8e9745f3b2b3093, type: 3}
+--- !u!114 &11424008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c971654df87cb00428585f23acd5555d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  XYZDragScaleFactor: 1
+  XPosManipulation: 1
+  YPosManipulation: 1
+  ZPosManipulation: 1
+  RPYDragScaleFactor: 10
+  RRotManipulation: 1
+  PRotManipulation: 1
+  YRotManipulation: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -91,6 +91,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 475368}
+  - 114: {fileID: 11489862}
   m_Layer: 0
   m_Name: Velodyne HDL-64e
   m_TagString: Untagged
@@ -398,6 +399,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122166}
   m_Mesh: {fileID: 4300002, guid: 48ff435256fcc554483a7176b465af5e, type: 3}
+--- !u!114 &11489862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c971654df87cb00428585f23acd5555d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  XYZDragScaleFactor: 1
+  XPosManipulation: 1
+  YPosManipulation: 1
+  ZPosManipulation: 1
+  RPYDragScaleFactor: 10
+  RRotManipulation: 1
+  PRotManipulation: 1
+  YRotManipulation: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
