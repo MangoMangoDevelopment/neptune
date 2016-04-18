@@ -237,7 +237,7 @@ MonoBehaviour:
   SensorsContent: {fileID: 2079101186}
   PartsContent: {fileID: 1584548778}
   TextPrefab: {fileID: 131180, guid: 33782e736795b9040a383eba5f342d5b, type: 2}
-  RobotBaseSelectPanel: {fileID: 718195073}
+  RobotBaseSelectPanel: {fileID: 874530058}
   ResetAxesPanel: {fileID: 1883051878}
   ResetAxesPanelMask: {fileID: 1551533908}
   CustomCubeoidPanel: {fileID: 728419749}
@@ -1305,7 +1305,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 558923610}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999997
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5170,7 +5170,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1122440613}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999976
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5284,8 +5284,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1659152900}
   m_HandleRect: {fileID: 1659152899}
   m_Direction: 0
-  m_Value: 0.8
-  m_Size: 0.9999989
+  m_Value: 1
+  m_Size: 0.99999946
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
