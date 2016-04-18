@@ -1,35 +1,20 @@
 fileFormatVersion: 2
-guid: 0b32ac6b75aec804d97a4412016557cc
-timeCreated: 1459792949
+guid: ff5d2c91af33c284fac2707ffefac8f8
+timeCreated: 1460985999
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: final kinect.SLDASM 1
+    100000: EnvironmentAmbientLight
     100002: //RootNode
-    100004: kinect upper part
-    100006: lower part
-    100008: Mirror4
-    100010: Mirror8
-    100012: Mirror8_MeshPart0
-    100014: Mirror8_MeshPart1
-    400000: final kinect.SLDASM 1
+    100004: kinect_m
+    400000: EnvironmentAmbientLight
     400002: //RootNode
-    400004: kinect upper part
-    400006: lower part
-    400008: Mirror4
-    400010: Mirror8
-    400012: Mirror8_MeshPart0
-    400014: Mirror8_MeshPart1
-    2300000: Mirror4
-    2300002: Mirror8_MeshPart0
-    2300004: Mirror8_MeshPart1
-    3300000: Mirror4
-    3300002: Mirror8_MeshPart0
-    3300004: Mirror8_MeshPart1
-    4300000: Mirror4
-    4300002: Mirror8_MeshPart0
-    4300004: Mirror8_MeshPart1
+    400004: kinect_m
+    2300000: kinect_m
+    3300000: kinect_m
+    4300000: kinect_m
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -88,7 +73,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

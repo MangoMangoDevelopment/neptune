@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3379402}
   - 23: {fileID: 2305374}
   - 95: {fileID: 9517584}
-  - 114: {fileID: 11489144}
   m_Layer: 0
   m_Name: TIM55x
   m_TagString: Untagged
@@ -81,17 +80,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11489144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082b1828f878a5d498cd10de92b8bf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -1823,7 +1823,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 481070}
-  - 114: {fileID: 11441758}
   m_Layer: 0
   m_Name: UR10
   m_TagString: Untagged
@@ -6550,17 +6549,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165472}
   m_Mesh: {fileID: 4300140, guid: c5404c99c166d0b4286424a48aa29108, type: 3}
---- !u!114 &11441758
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082b1828f878a5d498cd10de92b8bf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

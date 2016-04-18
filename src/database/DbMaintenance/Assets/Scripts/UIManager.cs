@@ -140,6 +140,8 @@ public class UIManager : MonoBehaviour {
     public void AddSensor_click()
     {
         SetUiState(UIState.Create);
+        this.currSelectedSensor = null; // deselect the button, don't destory it
+        GameObject.Destroy(this.currSelectedSensorGoModel);
         clearForm();
     }
 
@@ -170,6 +172,7 @@ public class UIManager : MonoBehaviour {
         this.inputs["txtPower"].text = item.powerUsage.ToString();
         this.inputs["txtWeight"].text = item.weight.ToString();
         this.inputs["txtTime"].text = item.time.ToString();
+        this.inputs["txtPrefabPath"].text = item.prefabFilename;
 
         this.dropdowns["ddCategory"].value = item.fk_category_id;
         this.dropdowns["ddTypes"].value = item.fk_type_id;
@@ -191,8 +194,13 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void SaveForm_click()
     {
-        Sensor sensor = this.currSelectedSensor.GetComponent<Sensor>();
         UrdfItemModel item = null;
+        Sensor sensor = null;
+        if (this.currSelectedSensor != null)
+        {
+            sensor = this.currSelectedSensor.GetComponent<Sensor>();
+        }
+
         if (sensor != null)
         {
             item = sensor.item;
@@ -205,6 +213,7 @@ public class UIManager : MonoBehaviour {
         item.name = this.inputs["txtName"].text;
         item.modelNumber = this.inputs["txtModel"].text;
         item.notes = this.inputs["txtNotes"].text;
+        item.prefabFilename = this.inputs["txtPrefabPath"].text;
         item.fk_category_id = this.dropdowns["ddCategory"].value;
         item.fk_type_id = this.dropdowns["ddTypes"].value;
 
@@ -336,6 +345,10 @@ public class UIManager : MonoBehaviour {
             catch (Exception)
             {
                 this.currSelectedSensorGoModel = Instantiate(unkownSensorPrefab);
+            }
+            finally
+            {
+                this.currSelectedSensorGoModel.AddComponent<modelPreview>();
             }
         }
 

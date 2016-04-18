@@ -4,7 +4,7 @@ using UrdfUnity.IO;
 using System;
 using NLog;
 using UrdfUnity.Urdf.Models;
-using UrdfUnity.Urdf.Models.LinkElements;
+using UrdfUnity.Urdf.Models.Links;
 using System.Collections.Generic;
 using System.IO;
 
@@ -94,7 +94,6 @@ public class ObjectMeshManager : AssetPostprocessor
         {
             roboName = filename + "/" + robo.Name;
             GameObject parent = new GameObject(robo.Name);
-            parent.AddComponent<modelPreview>();
             parent.AddComponent<RosRobotModel>();
             parent.GetComponent<RosRobotModel>().robot = robo;
 
@@ -217,11 +216,8 @@ public class ObjectMeshManager : AssetPostprocessor
                 
                 child.transform.localEulerAngles = new Vector3(Mathf.Rad2Deg * (float)joint.Value.Origin.Rpy.R, Mathf.Rad2Deg * (float)joint.Value.Origin.Rpy.Y, Mathf.Rad2Deg * (float)joint.Value.Origin.Rpy.P);
             }
-            EditorUtility.SetDirty(parent);
             AssetDatabase.CreateFolder(prefabFolderPath, filename);
-            //PrefabUtility.CreatePrefab(string.Format(prefabPathFormat, filename, parent.name), parent);
-            UnityEngine.Object prefab = PrefabUtility.CreateEmptyPrefab(string.Format(prefabPathFormat, filename, parent.name));
-            PrefabUtility.ReplacePrefab(parent, prefab);
+            PrefabUtility.CreatePrefab(string.Format(prefabPathFormat, filename, parent.name), parent);
             GameObject.DestroyImmediate(parent);
         }
         else

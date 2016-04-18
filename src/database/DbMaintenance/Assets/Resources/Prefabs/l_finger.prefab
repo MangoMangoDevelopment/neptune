@@ -1,16 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &125302
+--- !u!1 &146398
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 479738}
-  - 33: {fileID: 3384228}
-  - 23: {fileID: 2302694}
-  - 95: {fileID: 9587438}
+  - 4: {fileID: 485058}
+  - 33: {fileID: 3356102}
+  - 23: {fileID: 2351864}
+  - 95: {fileID: 9569468}
   m_Layer: 0
   m_Name: l_finger
   m_TagString: Untagged
@@ -18,24 +18,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &479738
+--- !u!4 &485058
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125302}
+  m_GameObject: {fileID: 146398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.10125}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2302694
+--- !u!23 &2351864
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125302}
+  m_GameObject: {fileID: 146398}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -56,20 +56,20 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3384228
+--- !u!33 &3356102
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125302}
+  m_GameObject: {fileID: 146398}
   m_Mesh: {fileID: 4300000, guid: fb655f4b943d0d641a5f02d68628cb39, type: 3}
---- !u!95 &9587438
+--- !u!95 &9569468
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125302}
+  m_GameObject: {fileID: 146398}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fb655f4b943d0d641a5f02d68628cb39, type: 3}
   m_Controller: {fileID: 0}
@@ -89,5 +89,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 125302}
+  m_RootGameObject: {fileID: 146398}
   m_IsPrefabParent: 1

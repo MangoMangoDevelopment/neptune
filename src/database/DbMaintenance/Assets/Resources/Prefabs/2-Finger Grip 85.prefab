@@ -24,7 +24,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 445704}
   - 95: {fileID: 9554670}
-  - 114: {fileID: 11483108}
   m_Layer: 0
   m_Name: 2-Finger Grip 85
   m_TagString: Untagged
@@ -1430,17 +1429,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11483108
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 102042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082b1828f878a5d498cd10de92b8bf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

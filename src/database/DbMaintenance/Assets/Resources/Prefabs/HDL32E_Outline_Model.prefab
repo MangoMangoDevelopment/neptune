@@ -2660,7 +2660,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 484252}
-  - 114: {fileID: 11438876}
   m_Layer: 0
   m_Name: HDL32E_Outline_Model
   m_TagString: Untagged
@@ -11431,17 +11430,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102646}
   m_Mesh: {fileID: 4300192, guid: 0b092d606d0fedd4589df24ab1bbc9a6, type: 3}
---- !u!114 &11438876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 183164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082b1828f878a5d498cd10de92b8bf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
