@@ -1,0 +1,201 @@
+fileFormatVersion: 2
+guid: 36772d02fb553ba4f8fcb8ac53ee41f1
+timeCreated: 1459778895
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: 3-Finger_Gripper_close
+    100004: AGS_finger-base^ROBOTIQ_AGS-001-XXXX_10
+    100006: AGS_finger-base^ROBOTIQ_AGS-001-XXXX_2
+    100008: AGS_finger-base^ROBOTIQ_AGS-001-XXXX_6
+    100010: AGS_finger-dist^ROBOTIQ_AGS-001-XXXX_13
+    100012: AGS_finger-dist^ROBOTIQ_AGS-001-XXXX_5
+    100014: AGS_finger-dist^ROBOTIQ_AGS-001-XXXX_9
+    100016: AGS_finger-med^ROBOTIQ_AGS-001-XXXX_12
+    100018: AGS_finger-med^ROBOTIQ_AGS-001-XXXX_4
+    100020: AGS_finger-med^ROBOTIQ_AGS-001-XXXX_8
+    100022: AGS_finger-prox^ROBOTIQ_AGS-001-XXXX_11
+    100024: AGS_finger-prox^ROBOTIQ_AGS-001-XXXX_3
+    100026: AGS_finger-prox^ROBOTIQ_AGS-001-XXXX_7
+    100028: AGS_palm^ROBOTIQ_AGS-001-XXXX_1
+    100030: AGS_wrist^ROBOTIQ_AGS-001-XXXX_14
+    100032: CirPattern3
+    100034: Imported1
+    100036: Imported1 1
+    100038: Imported1 2
+    100040: "R\u88F5ction de d\u8CE1ils1"
+    100042: "R\u88F5ction de d\u8CE1ils1 1"
+    100044: "R\u88F5ction de d\u8CE1ils1 2"
+    100046: "R\u88F5ction de d\u8CE1ils2"
+    100048: "R\u88F5ction de d\u8CE1ils2 1"
+    100050: "R\u88F5ction de d\u8CE1ils2 2"
+    100052: "R\u88F5ction de d\u8CE1ils2 3"
+    100054: "R\u88F5ction de d\u8CE1ils2 4"
+    100056: "R\u88F5ction de d\u8CE1ils2 5"
+    100058: "R\u88F5ction de d\u8CE1ils2 6"
+    100060: "R\u88F5ction de d\u8CE1ils2 6_MeshPart0"
+    100062: "R\u88F5ction de d\u8CE1ils2 6_MeshPart1"
+    100064: "R\u88F5ction de d\u8CE1ils2 6_MeshPart2"
+    100066: "R\u88F5ction de d\u8CE1ils2 6_MeshPart3"
+    100068: "R\u88F5ction de d\u8CE1ils2 6_MeshPart4"
+    100070: "R\u88F5ction de d\u8CE1ils2 6_MeshPart5"
+    400000: //RootNode
+    400002: 3-Finger_Gripper_close
+    400004: AGS_finger-base^ROBOTIQ_AGS-001-XXXX_10
+    400006: AGS_finger-base^ROBOTIQ_AGS-001-XXXX_2
+    400008: AGS_finger-base^ROBOTIQ_AGS-001-XXXX_6
+    400010: AGS_finger-dist^ROBOTIQ_AGS-001-XXXX_13
+    400012: AGS_finger-dist^ROBOTIQ_AGS-001-XXXX_5
+    400014: AGS_finger-dist^ROBOTIQ_AGS-001-XXXX_9
+    400016: AGS_finger-med^ROBOTIQ_AGS-001-XXXX_12
+    400018: AGS_finger-med^ROBOTIQ_AGS-001-XXXX_4
+    400020: AGS_finger-med^ROBOTIQ_AGS-001-XXXX_8
+    400022: AGS_finger-prox^ROBOTIQ_AGS-001-XXXX_11
+    400024: AGS_finger-prox^ROBOTIQ_AGS-001-XXXX_3
+    400026: AGS_finger-prox^ROBOTIQ_AGS-001-XXXX_7
+    400028: AGS_palm^ROBOTIQ_AGS-001-XXXX_1
+    400030: AGS_wrist^ROBOTIQ_AGS-001-XXXX_14
+    400032: CirPattern3
+    400034: Imported1
+    400036: Imported1 1
+    400038: Imported1 2
+    400040: "R\u88F5ction de d\u8CE1ils1"
+    400042: "R\u88F5ction de d\u8CE1ils1 1"
+    400044: "R\u88F5ction de d\u8CE1ils1 2"
+    400046: "R\u88F5ction de d\u8CE1ils2"
+    400048: "R\u88F5ction de d\u8CE1ils2 1"
+    400050: "R\u88F5ction de d\u8CE1ils2 2"
+    400052: "R\u88F5ction de d\u8CE1ils2 3"
+    400054: "R\u88F5ction de d\u8CE1ils2 4"
+    400056: "R\u88F5ction de d\u8CE1ils2 5"
+    400058: "R\u88F5ction de d\u8CE1ils2 6"
+    400060: "R\u88F5ction de d\u8CE1ils2 6_MeshPart0"
+    400062: "R\u88F5ction de d\u8CE1ils2 6_MeshPart1"
+    400064: "R\u88F5ction de d\u8CE1ils2 6_MeshPart2"
+    400066: "R\u88F5ction de d\u8CE1ils2 6_MeshPart3"
+    400068: "R\u88F5ction de d\u8CE1ils2 6_MeshPart4"
+    400070: "R\u88F5ction de d\u8CE1ils2 6_MeshPart5"
+    2300000: CirPattern3
+    2300002: Imported1
+    2300004: Imported1 1
+    2300006: Imported1 2
+    2300008: "R\u88F5ction de d\u8CE1ils1"
+    2300010: "R\u88F5ction de d\u8CE1ils1 1"
+    2300012: "R\u88F5ction de d\u8CE1ils1 2"
+    2300014: "R\u88F5ction de d\u8CE1ils2"
+    2300016: "R\u88F5ction de d\u8CE1ils2 1"
+    2300018: "R\u88F5ction de d\u8CE1ils2 2"
+    2300020: "R\u88F5ction de d\u8CE1ils2 3"
+    2300022: "R\u88F5ction de d\u8CE1ils2 4"
+    2300024: "R\u88F5ction de d\u8CE1ils2 5"
+    2300026: "R\u88F5ction de d\u8CE1ils2 6_MeshPart0"
+    2300028: "R\u88F5ction de d\u8CE1ils2 6_MeshPart1"
+    2300030: "R\u88F5ction de d\u8CE1ils2 6_MeshPart2"
+    2300032: "R\u88F5ction de d\u8CE1ils2 6_MeshPart3"
+    2300034: "R\u88F5ction de d\u8CE1ils2 6_MeshPart4"
+    2300036: "R\u88F5ction de d\u8CE1ils2 6_MeshPart5"
+    3300000: CirPattern3
+    3300002: Imported1
+    3300004: Imported1 1
+    3300006: Imported1 2
+    3300008: "R\u88F5ction de d\u8CE1ils1"
+    3300010: "R\u88F5ction de d\u8CE1ils1 1"
+    3300012: "R\u88F5ction de d\u8CE1ils1 2"
+    3300014: "R\u88F5ction de d\u8CE1ils2"
+    3300016: "R\u88F5ction de d\u8CE1ils2 1"
+    3300018: "R\u88F5ction de d\u8CE1ils2 2"
+    3300020: "R\u88F5ction de d\u8CE1ils2 3"
+    3300022: "R\u88F5ction de d\u8CE1ils2 4"
+    3300024: "R\u88F5ction de d\u8CE1ils2 5"
+    3300026: "R\u88F5ction de d\u8CE1ils2 6_MeshPart0"
+    3300028: "R\u88F5ction de d\u8CE1ils2 6_MeshPart1"
+    3300030: "R\u88F5ction de d\u8CE1ils2 6_MeshPart2"
+    3300032: "R\u88F5ction de d\u8CE1ils2 6_MeshPart3"
+    3300034: "R\u88F5ction de d\u8CE1ils2 6_MeshPart4"
+    3300036: "R\u88F5ction de d\u8CE1ils2 6_MeshPart5"
+    4300000: "R\u88F5ction de d\u8CE1ils2_MeshPart0"
+    4300002: "R\u88F5ction de d\u8CE1ils2_MeshPart1"
+    4300004: "R\u88F5ction de d\u8CE1ils2_MeshPart2"
+    4300006: "R\u88F5ction de d\u8CE1ils2_MeshPart3"
+    4300008: "R\u88F5ction de d\u8CE1ils2_MeshPart4"
+    4300010: "R\u88F5ction de d\u8CE1ils2_MeshPart5"
+    4300012: Imported1
+    4300014: "R\u88F5ction de d\u8CE1ils2"
+    4300016: "R\u88F5ction de d\u8CE1ils1"
+    4300018: "R\u88F5ction de d\u8CE1ils2"
+    4300020: Imported1
+    4300022: "R\u88F5ction de d\u8CE1ils2"
+    4300024: "R\u88F5ction de d\u8CE1ils1"
+    4300026: "R\u88F5ction de d\u8CE1ils2"
+    4300028: Imported1
+    4300030: "R\u88F5ction de d\u8CE1ils2"
+    4300032: "R\u88F5ction de d\u8CE1ils1"
+    4300034: "R\u88F5ction de d\u8CE1ils2"
+    4300036: CirPattern3
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

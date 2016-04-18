@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : MonoBehaviour
+{
 
     //Public Static Variables
     public static string TAG = "UIManager";
@@ -139,7 +140,7 @@ public class UIManager : MonoBehaviour {
         c2.normalColor = Color.gray;
         selectedPart.colors = c2;
     }
-    
+
     public void SelectPart(GameObject go)
     {
         foreach (Transform part in PartsContent.transform)
