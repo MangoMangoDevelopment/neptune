@@ -42,6 +42,8 @@ public class ObjectMeshManager : AssetPostprocessor
                 string filename = FileManagerImpl.GetFileName(assetPath, false);
                 type = FileManagerImpl.GetFileType(assetPath);
                 UnityEngine.Object asset = AssetDatabase.LoadMainAssetAtPath(assetPath);
+                if (asset == null)
+                    continue;
                 // Creating prefab here will cause this function to be invoked again causing an infinite loop of
                 // assets being generated. Proper Check of the Object is of type GameObject, isn't part of a prefab
                 // and that the asset is a proper model that can become a prefab.
