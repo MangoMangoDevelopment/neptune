@@ -34,8 +34,7 @@ public class ObjectMeshManager : AssetPostprocessor
     /// <param name="movedFromAssetPaths">List of paths to assets that have been moved from paths</param>
     static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
     {
-
-        if (importedAssets.Length > 0)
+        if (importedAssets != null && importedAssets.Length > 0)
         {
             FileType type = FileType.UNKNOWN;
             foreach (string assetPath in importedAssets)
