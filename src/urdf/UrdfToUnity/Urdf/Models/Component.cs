@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using UrdfToUnity.Urdf.Models.Links.Geometries;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models
 {
@@ -21,11 +22,18 @@ namespace UrdfToUnity.Urdf.Models
         /// <summary>
         /// The file name of the component's mesh used to visually render the object.
         /// </summary>
+        /// <value><c>null</c> if this Component was constructed with a Box</value>
         public string FileName { get; }
+
+        /// <summary>
+        /// The box object representing the component's length, width and height used to visually render the object.
+        /// </summary>
+        /// <value><c>null</c> if this Component was constructed with a file name</value>
+        public Box Box { get; }
 
 
         /// <summary>
-        /// Creates a new instance of Component.
+        /// Creates a new instance of Component, where the component is a mesh.
         /// </summary>
         /// <param name="name">The name of the component</param>
         /// <param name="fileName">The mesh file for the component</param>
@@ -37,9 +45,22 @@ namespace UrdfToUnity.Urdf.Models
             this.FileName = fileName;
         }
 
+        /// <summary>
+        /// Creates a new instance of Component, where the component is a box.
+        /// </summary>
+        /// <param name="name">The name of the component</param>
+        /// <param name="box">The box object for the component</param>
+        public Component(string name, Box box)
+        {
+            Preconditions.IsNotEmpty(name, "Component name property cannot be set to null or empty");
+            Preconditions.IsNotNull(box, "Component box property cannot be set to null or empty");
+            this.Name = name;
+            this.Box = box;
+        }
+
         protected bool Equals(Component other)
         {
-            return Name.Equals(other.Name) && FileName.Equals(other.FileName);
+            return Name.Equals(other.Name) && FileName.Equals(other.FileName) && Box.Equals(other.Box);
         }
 
         public override bool Equals(object obj)

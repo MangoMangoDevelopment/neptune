@@ -95,7 +95,9 @@ namespace UrdfToUnity.Urdf.Models
             string linkName = GenerateUniqueKey(component.Name, new List<string>(this.Links.Keys));
             string jointName = GenerateUniqueKey($"{component.Name}_joint", new List<string>(this.Joints.Keys));
 
-            Visual visual = new Visual.Builder(new Geometry(new Mesh.Builder(component.FileName).Build())).Build();
+            Geometry geometry = (component.Box != null) ? new Geometry(new Box(component.Box.Size))
+                : new Geometry(new Mesh.Builder(component.FileName).Build());
+            Visual visual = new Visual.Builder(geometry).Build();
             Link link = new Link.Builder(linkName).SetVisual(visual).Build();
             Joint joint = new Joint.Builder(jointName, Joint.JointType.Fixed, this.Links[parent], link).Build();
 

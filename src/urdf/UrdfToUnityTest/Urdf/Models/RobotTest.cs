@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfToUnity.Urdf.Models;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Links;
+using UrdfToUnity.Urdf.Models.Links.Geometries;
 
 namespace UrdfToUnityTest.Urdf.Models
 {
@@ -94,6 +95,28 @@ namespace UrdfToUnityTest.Urdf.Models
             Assert.IsTrue(robot.Joints.ContainsKey($"{component.Name}_joint"));
             Assert.AreEqual(Geometry.Shapes.Mesh, robot.Links[component.Name].Visual[0].Geometry.Shape);
             Assert.AreEqual(component.FileName, robot.Links[component.Name].Visual[0].Geometry.Mesh.FileName);
+        }
+
+        [TestMethod]
+        public void AddComponentByBox()
+        {
+            Dictionary<string, Link> links = new Dictionary<string, Link>();
+            Dictionary<string, Joint> joints = new Dictionary<string, Joint>();
+            Robot robot = new Robot("robot", links, joints);
+            Component component = new Component("component", new Box(new SizeAttribute(1, 1, 1)));
+            string parentName = "parent";
+
+            links.Add(parentName, new Link.Builder(parentName).Build());
+            string result = robot.AddComponent(component, parentName, new XyzAttribute(), new RpyAttribute());
+
+            Assert.AreEqual(component.Name, result);
+            Assert.AreEqual(2, robot.Links.Count);
+            Assert.AreEqual(1, robot.Joints.Count);
+            Assert.IsTrue(robot.Links.ContainsKey(parentName));
+            Assert.IsTrue(robot.Links.ContainsKey(component.Name));
+            Assert.IsTrue(robot.Joints.ContainsKey($"{component.Name}_joint"));
+            Assert.AreEqual(Geometry.Shapes.Box, robot.Links[component.Name].Visual[0].Geometry.Shape);
+            Assert.AreEqual(component.Box, robot.Links[component.Name].Visual[0].Geometry.Box);
         }
 
         [TestMethod]
