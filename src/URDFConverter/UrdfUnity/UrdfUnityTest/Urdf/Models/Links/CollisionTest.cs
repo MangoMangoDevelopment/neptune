@@ -72,11 +72,11 @@ namespace UrdfUnityTest.Urdf.Models.Links
             Assert.AreEqual("<collision name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n<origin xyz=\"1 1 1\" rpy=\"1 1 1\"/>\r\n</collision>",
                 new Collision.Builder("name")
                 .SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).SetRpy(new RpyAttribute(1, 1, 1)).Build())
-                .SetGeometry(new Geometry(new Sphere(1))).Build().ToString());
+                .SetGeometry(new Geometry(new Sphere(1))).Build().ToString().Replace("  ", ""));
             Assert.AreEqual("<collision name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n</collision>",
-                new Collision.Builder("name").SetGeometry(new Geometry(new Sphere(1))).Build().ToString());
+                new Collision.Builder("name").SetGeometry(new Geometry(new Sphere(1))).Build().ToString().Replace("  ", ""));
             Assert.AreEqual("<collision>\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n</collision>",
-                new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build().ToString());
+                new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build().ToString().Replace("  ", ""));
         }
 
         [TestMethod]

@@ -77,11 +77,11 @@ namespace UrdfUnityTest.Urdf.Models.Links
         public void ToStringVisual()
         {
             Assert.AreEqual("<visual name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n<origin xyz=\"1 1 1\"/>\r\n</visual>", 
-                new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).Build()).Build().ToString());
+                new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").SetOrigin(new Origin.Builder().SetXyz(new XyzAttribute(1, 1, 1)).Build()).Build().ToString().Replace("  ", ""));
             Assert.AreEqual("<visual name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n<material name=\"mat\">\r\n<texture filename=\"file\"/>\r\n</material>\r\n</visual>",
-                new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").SetMaterial(new Material("mat", new Texture("file"))).Build().ToString());
+                new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").SetMaterial(new Material("mat", new Texture("file"))).Build().ToString().Replace("  ", ""));
             Assert.AreEqual("<visual name=\"name\">\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n</visual>",
-                new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").Build().ToString());
+                new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").Build().ToString().Replace("  ", ""));
         }
 
         [TestMethod]

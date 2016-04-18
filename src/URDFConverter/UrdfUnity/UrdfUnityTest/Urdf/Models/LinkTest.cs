@@ -134,11 +134,11 @@ namespace UrdfUnityTest.Urdf.Models
             string collision = "<collision>\r\n<geometry>\r\n<sphere radius=\"1\"/>\r\n</geometry>\r\n</collision>";
             string inertial = "<inertial>\r\n<mass value=\"1\"/>\r\n<inertia ixx=\"1\" ixy=\"1\" ixz=\"1\" iyy=\"1\" iyz=\"1\" izz=\"1\"/>\r\n</inertial>";
 
-            Assert.AreEqual("<link name=\"link\"/>", new Link.Builder("link").Build().ToString());
+            Assert.AreEqual("<link name=\"link\"/>", new Link.Builder("link").Build().ToString().Replace("  ", ""));
             Assert.AreEqual($"<link name=\"link\">\r\n{visual}\r\n{collision}\r\n{inertial}\r\n</link>", new Link.Builder("link")
                 .SetVisual(new Visual.Builder(new Geometry(new Sphere(1))).SetName("name").Build())
                 .SetCollision(new Collision.Builder().SetGeometry(new Geometry(new Sphere(1))).Build())
-                .SetInertial(new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1))).Build().ToString());
+                .SetInertial(new Inertial(new Mass(1), new Inertia(1, 1, 1, 1, 1, 1))).Build().ToString().Replace("  ", ""));
         }
 
         [TestMethod]

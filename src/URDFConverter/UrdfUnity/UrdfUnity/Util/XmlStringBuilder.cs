@@ -9,6 +9,10 @@ namespace UrdfUnity.Util
     /// </summary>
     public class XmlStringBuilder
     {
+        private static readonly string NEW_LINE_STRING = "\r\n";
+        private static readonly string INDENT_STRING = "  "; // Two spaces.
+
+
         private string element;
         private Dictionary<string, string> attributes = new Dictionary<string, string>();
         private List<string> subelements = new List<string>();
@@ -94,7 +98,7 @@ namespace UrdfUnity.Util
 
                 foreach (string subelement in this.subelements)
                 {
-                    sb.AppendLine(subelement);
+                    sb.AppendLine(subelement.Replace(NEW_LINE_STRING, INDENT_STRING + NEW_LINE_STRING));
                 }
 
                 sb.Append($"</{this.element}>");

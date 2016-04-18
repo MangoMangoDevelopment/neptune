@@ -157,7 +157,7 @@ namespace UrdfUnityTest.Urdf.Models
             joints.Add(joint1.Name, joint1);
 
             Assert.AreEqual("<robot name=\"robo\">\r\n<link name=\"link1\"/>\r\n<link name=\"link2\"/>\r\n<joint name=\"joint1\" type=\"fixed\">\r\n<parent link=\"link1\"/>\r\n<child link=\"link2\"/>\r\n</joint>\r\n</robot>",
-                robot.ToString());
+                robot.ToString().Replace("  ", ""));
         }
 
         [TestMethod]
