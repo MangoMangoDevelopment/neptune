@@ -145,7 +145,7 @@ public class UrdfDb
                         `prefabFilename`, 
                         `time` 
                     FROM `tblUrdfs`
-                    WHERE `fk_category_id` = 1 ";
+                    WHERE `fk_type_id` = 1 ";
         
         if(!all)
         {
