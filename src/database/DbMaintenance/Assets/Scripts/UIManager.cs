@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour {
     private UrdfDb urdf;
     private Dictionary<string, InputField> inputs;
     private Dictionary<string, Dropdown> dropdowns;
+    private Dictionary<string, Toggle> toggles;
     private Dictionary<int, GameObject> categoryHolderList;
     private List<GameObject> sensors;
 
@@ -64,6 +65,13 @@ public class UIManager : MonoBehaviour {
         foreach (Dropdown dropdown in dropdownList)
         {
             this.dropdowns.Add(dropdown.name, dropdown);
+        }
+
+        this.toggles = new Dictionary<string, Toggle>();
+        Toggle[] toggleList = form.GetComponentsInChildren<Toggle>();
+        foreach (Toggle toggle in toggleList)
+        {
+            this.toggles.Add(toggle.name, toggle);
         }
     }
 
@@ -156,6 +164,16 @@ public class UIManager : MonoBehaviour {
             Debug.Log(input.Value.text);
             input.Value.text = "";
         }
+
+        foreach (KeyValuePair<string, Dropdown> dropdown in this.dropdowns)
+        {
+            dropdown.Value.value = 0;
+        }
+
+        foreach (KeyValuePair<string, Toggle> toggle in this.toggles)
+        {
+            toggle.Value.isOn = true;
+        }
     }
 
     /// <summary>
@@ -176,6 +194,8 @@ public class UIManager : MonoBehaviour {
 
         this.dropdowns["ddCategory"].value = item.fk_category_id;
         this.dropdowns["ddTypes"].value = item.fk_type_id;
+
+        this.toggles["toggleVisibility"].isOn = (item.visibility == 0 ? false : true);
     }
 
     /// <summary>
@@ -216,6 +236,7 @@ public class UIManager : MonoBehaviour {
         item.prefabFilename = this.inputs["txtPrefabPath"].text;
         item.fk_category_id = this.dropdowns["ddCategory"].value;
         item.fk_type_id = this.dropdowns["ddTypes"].value;
+        item.visibility = (this.toggles["toggleVisibility"].isOn ? 1 : 0);
 
         if (!float.TryParse(this.inputs["txtInternalCost"].text, out item.internalCost))
         {
@@ -248,10 +269,13 @@ public class UIManager : MonoBehaviour {
                 urdf.DeleteSensor(item);
                 GameObject.Destroy(this.currSelectedSensor);
                 GameObject.Destroy(this.currSelectedSensorGoModel);
+                SetUiState(UIState.Create);
+                clearForm();
                 break;
             case UIState.Update:
                 urdf.UpdateSensor(item);
                 this.currSelectedSensor.GetComponent<Sensor>().item = item;
+                UpdateVisuals(item);
                 break;
         }
     }
@@ -327,12 +351,17 @@ public class UIManager : MonoBehaviour {
 
         title.text += item.name;
 
+        UpdateVisuals(item);
+    }
+
+    private void UpdateVisuals(UrdfItemModel item)
+    {
         if (this.currSelectedSensorGoModel != null)
         {
             Destroy(this.currSelectedSensorGoModel);
         }
 
-        if(item.visibility == 0)
+        if (item.visibility == 0)
         {
             this.currSelectedSensorGoModel = Instantiate(invisibleText);
         }
@@ -351,7 +380,6 @@ public class UIManager : MonoBehaviour {
                 this.currSelectedSensorGoModel.AddComponent<modelPreview>();
             }
         }
-
     }
 
     /// <summary>

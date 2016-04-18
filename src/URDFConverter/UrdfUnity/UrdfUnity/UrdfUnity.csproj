@@ -127,6 +127,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\neptune.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
