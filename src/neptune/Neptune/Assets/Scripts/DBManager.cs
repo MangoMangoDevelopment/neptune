@@ -18,10 +18,6 @@ public class DBManager {
                 continue;
             }
             GameObject go = Resources.Load<GameObject>("Prefabs/" + sensor.prefabFilename);
-            if (go.GetComponent<Manipulatable>() == null)
-            {
-                go.AddComponent<Manipulatable>();
-            }
             uiManager.AddSensor(sensor.name, go, 8);
 
         }

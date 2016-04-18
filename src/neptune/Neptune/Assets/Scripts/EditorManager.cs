@@ -480,6 +480,11 @@ public class EditorManager : MonoBehaviour {
     {
         GameObject sensor = Instantiate(go);
 
+        if (sensor.GetComponent<Manipulatable>() == null)
+        {
+            sensor.AddComponent<Manipulatable>();
+        }
+
         Manipulatable m = sensor.GetComponent<Manipulatable>();
         m.ClearOutline();
         
