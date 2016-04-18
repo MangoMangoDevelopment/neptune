@@ -55,10 +55,6 @@
   <ItemGroup>
     <Compile Include="Object\TupleTest.cs" />
     <Compile Include="Parse\AbstractUrdfXmlParserTest.cs" />
-    <Compile Include="Parse\Xacro\Models\XacroMacroTest.cs" />
-    <Compile Include="Parse\Xacro\Models\XacroPropertyTest.cs" />
-    <Compile Include="Parse\Xacro\XacroMacroParserTest.cs" />
-    <Compile Include="Parse\Xacro\XacroPropertyParserTest.cs" />
     <Compile Include="Parse\Xml\Joints\AxisParserTest.cs" />
     <Compile Include="Parse\Xml\Joints\CalibrationParserTest.cs" />
     <Compile Include="Parse\Xml\Joints\ChildParserTest.cs" />

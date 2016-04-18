@@ -47,16 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\ConfigFileReader.cs" />
     <Compile Include="IO\FileManagerImpl.cs" />
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="Object\Tuple.cs" />
     <Compile Include="Parse\Parser.cs" />
     <Compile Include="Parse\UrdfParser.cs" />
     <Compile Include="Parse\AbstractUrdfXmlParser.cs" />
-    <Compile Include="Parse\Xacro\Models\XacroMacro.cs" />
-    <Compile Include="Parse\Xacro\Models\XacroProperty.cs" />
-    <Compile Include="Parse\Xacro\XacroMacroParser.cs" />
-    <Compile Include="Parse\Xacro\XacroPropertyParser.cs" />
+    <Compile Include="Parse\Xacro\XacroManager.cs" />
+    <Compile Include="Parse\Xacro\PythonBackedXacroManagerImpl.cs" />
     <Compile Include="Parse\XmlParser.cs" />
     <Compile Include="Parse\Xml\Joints\AxisParser.cs" />
     <Compile Include="Parse\Xml\Joints\CalibrationParser.cs" />
@@ -127,7 +126,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\neptune.config" />
+    <None Include="Config\xacro.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
