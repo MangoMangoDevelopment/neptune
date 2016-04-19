@@ -60,7 +60,7 @@ namespace UrdfToUnity.Urdf.Models
 
         protected bool Equals(Component other)
         {
-            return Name.Equals(other.Name) && FileName.Equals(other.FileName) && Box.Equals(other.Box);
+            return Name.Equals(other.Name) && Equals(FileName, other.FileName) && Equals(Box, other.Box);
         }
 
         public override bool Equals(object obj)
@@ -75,7 +75,10 @@ namespace UrdfToUnity.Urdf.Models
         {
             unchecked
             {
-                return (Name.GetHashCode() * 397) ^ FileName.GetHashCode();
+                var hashCode = Name.GetHashCode();
+                hashCode = (hashCode * 397) ^ (FileName != null ? FileName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Box != null ? Box.GetHashCode() : 0);
+                return hashCode;
             }
         }
     }

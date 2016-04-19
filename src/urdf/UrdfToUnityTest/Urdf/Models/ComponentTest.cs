@@ -73,15 +73,17 @@ namespace UrdfToUnityTest.Urdf.Models
         {
             Component component = new Component("name", "file");
             Component same = new Component("name", "file");
-            Component diff = new Component("different name", "different file");
+            Component diff1 = new Component("different name", "different file");
+            Component diff2 = new Component("different name", new Box(new SizeAttribute(1, 1, 1)));
 
             Assert.IsTrue(component.Equals(component));
             Assert.IsFalse(component.Equals(null));
             Assert.IsTrue(component.Equals(same));
             Assert.IsTrue(same.Equals(component));
-            Assert.IsFalse(component.Equals(diff));
+            Assert.IsFalse(component.Equals(diff1));
+            Assert.IsFalse(component.Equals(diff2));
             Assert.AreEqual(component.GetHashCode(), same.GetHashCode());
-            Assert.AreNotEqual(component.GetHashCode(), diff.GetHashCode());
+            Assert.AreNotEqual(component.GetHashCode(), diff1.GetHashCode());
         }
     }
 }
