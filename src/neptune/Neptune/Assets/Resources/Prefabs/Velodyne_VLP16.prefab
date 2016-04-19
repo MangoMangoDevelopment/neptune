@@ -3017,7 +3017,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 410716}
-  - 114: {fileID: 11469174}
   m_Layer: 0
   m_Name: Velodyne_VLP16
   m_TagString: Untagged
@@ -34363,26 +34362,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181256}
   m_Mesh: {fileID: 4301074, guid: 5739ccbe4bef26640af402cacb478883, type: 3}
---- !u!114 &11469174
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c971654df87cb00428585f23acd5555d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSelected: 0
-  XYZDragScaleFactor: 1
-  XPosManipulation: 1
-  YPosManipulation: 1
-  ZPosManipulation: 1
-  RPYDragScaleFactor: 10
-  RRotManipulation: 1
-  PRotManipulation: 1
-  YRotManipulation: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

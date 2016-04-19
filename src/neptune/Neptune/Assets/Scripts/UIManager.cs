@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     public float PanelSpeed;
     public Text ModeText;
     public Button DeleteSelectedObjectButton;
+    public Color DefaultBackColor;
 
     //TODO: Remove this. This should be superseeded by a combination of Brian and Amber's work. See DBManager.GetSensorList() for more info.
     public GameObject TestGO;
@@ -158,7 +159,7 @@ public class UIManager : MonoBehaviour
         if (selectedPart != null)
         {
             ColorBlock c = selectedPart.colors;
-            c.normalColor = Color.white;
+            c.normalColor = DefaultBackColor;
             selectedPart.colors = c;
         }
         selectedPart = null;

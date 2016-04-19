@@ -116,6 +116,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+	<data name="AvailableLanguages" xml:space="preserve">
+		<value>IDIOMAS DISPONIBLES</value>
+	</data>
 	<data name="Black" xml:space="preserve">
 		<value>Negro</value>
 	</data>
@@ -133,6 +136,9 @@
 	</data>
 	<data name="Custom" xml:space="preserve">
 		<value>Personalizado</value>
+	</data>
+	<data name="CustomCubeoid" xml:space="preserve">
+		<value>CUBOIDO PERSONALIZADO</value>
 	</data>
 	<data name="CustomEllipses" xml:space="preserve">
 		<value>Personalizado...</value>
@@ -159,16 +165,16 @@
 		<value>Magenta</value>
 	</data>
 	<data name="Mode.CameraControl" xml:space="preserve">
-		<value>Modo: Control de la camara</value>
+		<value>MODO: CONTROL DE LA CAMARA</value>
 	</data>
 	<data name="Mode.Orbit" xml:space="preserve">
-		<value>Modo: Orbita</value>
+		<value>MODO: ORBITA</value>
 	</data>
 	<data name="Mode.Rotate" xml:space="preserve">
-		<value>Modo: Girar</value>
+		<value>MODO: GIRAR</value>
 	</data>
 	<data name="Mode.Translate" xml:space="preserve">
-		<value>Modo: Movimiento</value>
+		<value>MODO: MOVIMIENTO</value>
 	</data>
 	<data name="Name" xml:space="preserve">
 		<value>Nombre</value>
@@ -180,7 +186,7 @@
 		<value>Bueno</value>
 	</data>
 	<data name="Parts" xml:space="preserve">
-		<value>Partes</value>
+		<value>PARTES</value>
 	</data>
 	<data name="Red" xml:space="preserve">
 		<value>Rojo</value>
@@ -188,11 +194,17 @@
 	<data name="ResetAxes" xml:space="preserve">
 		<value>Restablecer ejes</value>
 	</data>
+	<data name="ResetPosition" xml:space="preserve">
+		<value>RESETEAR POSICION</value>
+	</data>
+	<data name="ResetRotation" xml:space="preserve">
+		<value>RESETEAR ROTACION</value>
+	</data>
 	<data name="SelectRobotBase" xml:space="preserve">
-		<value>Escoja un Robot</value>
+		<value>ESCOJA UN ROBOT</value>
 	</data>
 	<data name="Sensors" xml:space="preserve">
-		<value>Sensores</value>
+		<value>SENSORES</value>
 	</data>
 	<data name="White" xml:space="preserve">
 		<value>Blanco</value>

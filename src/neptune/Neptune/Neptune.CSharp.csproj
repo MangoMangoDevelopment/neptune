@@ -58,20 +58,14 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="SmartLocalization_Runtime">
-      <HintPath>Assets\SmartLocalization\SmartLocalization_Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>Assets\Plugins\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>Assets\Plugins\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System.Data">
       <HintPath>Assets\Plugins\System.Data.dll</HintPath>
@@ -79,8 +73,8 @@
     <Reference Include="UrdfUnity">
       <HintPath>Assets\Plugins\UrdfUnity.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>Assets\Plugins\NLog.dll</HintPath>
+    <Reference Include="SmartLocalization_Runtime">
+      <HintPath>Assets\SmartLocalization\SmartLocalization_Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +98,7 @@
     <Compile Include="Assets\Scripts\Models\UrdfTypeModel.cs" />
     <Compile Include="Assets\Scripts\PartText.cs" />
     <Compile Include="Assets\Scripts\Sensor.cs" />
+    <Compile Include="Assets\Scripts\UIClearpathButton.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\SmartLocalization\Examples\LoadAllLanguages.cs" />
     <Compile Include="Assets\SmartLocalization\Scripts\NGUI\SL_NGUILabel.cs" />

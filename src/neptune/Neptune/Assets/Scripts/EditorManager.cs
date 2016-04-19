@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EditorManager : MonoBehaviour {
 
@@ -58,6 +59,7 @@ public class EditorManager : MonoBehaviour {
     //Private Variables
     private RobotBase robotBase;
     private GameObject robotBaseObject;
+    private GameObject robotBaseTopPlate;
     private GameObject selectedObject;
     private Mode lastMode = Mode.Translate;
     private Vector3 lastCameraMousePos;
@@ -130,8 +132,6 @@ public class EditorManager : MonoBehaviour {
 
     public void SelectRobotBase(RobotBase robotBase)
     {
-        //Create custom cubeoids for now..
-        //TODO: Replace this with loading the actual URDFs
         this.robotBase = robotBase;
         switch (robotBase)
         {
@@ -142,7 +142,7 @@ public class EditorManager : MonoBehaviour {
                 robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
                 break;
             case RobotBase.Grizzly:
-                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
+                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/R2D2"));
                 break;
         }
         if (robotBaseObject != null)
@@ -159,11 +159,22 @@ public class EditorManager : MonoBehaviour {
             foreach (Transform child in robotBaseObject.transform)
             {
                 if (child.position.y > highestY)
+                {
                     highestY = child.position.y;
+                    robotBaseTopPlate = child.gameObject;
+                }
             }
+            robotBaseTopPlate.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             //Offset the y by that amount so that the top of the bot is at (0, 0, 0)
             robotBaseObject.transform.position = Vector3.zero - new Vector3(0, highestY, 0);
         }
+    }
+
+    public float GetRobotBaseWidth()
+    {
+        Mesh mesh = robotBaseTopPlate.GetComponentInChildren<MeshFilter>().mesh;
+        Bounds bounds = mesh.bounds;
+        return bounds.size.x * robotBaseObject.transform.localScale.x - 1;
     }
 
     void Update ()

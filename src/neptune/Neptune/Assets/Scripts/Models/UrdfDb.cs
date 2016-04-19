@@ -194,6 +194,76 @@ public class UrdfDb
 
         return list;
     }
+    /// <summary>
+    /// This will query for all usable robots in the database by default unless otherwise specified. 
+    /// A robot is usable if it has an appropriate mesh and data associated to it. 
+    /// </summary>
+    /// <returns>A list of all robots/urdfs in the database.</returns>
+    public List<UrdfItemModel> GetRobots()
+    {
+        List<UrdfItemModel> list = new List<UrdfItemModel>();
+
+        string sql = @"SELECT 
+                        `uid`, 
+                        `name`, 
+                        `modelNumber`, 
+                        `internalCost`, 
+                        `externalCost`, 
+                        `weight`, 
+                        `powerUsage`, 
+                        `notes`, 
+                        `visibility`,
+                        `fk_type_id`, 
+                        `fk_category_id`, 
+                        `usable`, 
+                        `urdfFilename`, 
+                        `prefabFilename`, 
+                        `time` 
+                    FROM `tblUrdfs`
+                    WHERE `fk_type_id` = 2 ";
+
+        SqliteCommand cmd = _engine.conn.CreateCommand();
+        cmd.CommandText = sql;
+        SqliteDataReader reader = cmd.ExecuteReader();
+        UrdfItemModel item;
+        try
+        {
+            while (reader.Read())
+            {
+                item = new UrdfItemModel();
+                item.uid = reader.GetInt32(0);
+                item.name = (!reader.IsDBNull(1) ? reader.GetString(1) : String.Empty);
+                item.modelNumber = (!reader.IsDBNull(2) ? reader.GetString(2) : String.Empty);
+                item.internalCost = (!reader.IsDBNull(3) ? reader.GetFloat(3) : 0.0f);
+                item.externalCost = (!reader.IsDBNull(4) ? reader.GetFloat(4) : 0.0f);
+                item.weight = (!reader.IsDBNull(5) ? reader.GetFloat(5) : 0.0f);
+                item.powerUsage = (!reader.IsDBNull(6) ? reader.GetFloat(6) : 0.0f);
+                item.notes = (!reader.IsDBNull(7) ? reader.GetString(7) : String.Empty);
+                item.visibility = (!reader.IsDBNull(8) ? reader.GetInt32(8) : 0);
+                item.fk_type_id = (!reader.IsDBNull(9) ? reader.GetInt32(9) : 0);
+                item.fk_category_id = (!reader.IsDBNull(10) ? reader.GetInt32(10) : 0);
+                item.usable = (!reader.IsDBNull(11) ? reader.GetInt32(11) : 0);
+                item.urdfFilename = (!reader.IsDBNull(12) ? reader.GetString(12) : String.Empty);
+                item.prefabFilename = (!reader.IsDBNull(13) ? reader.GetString(13) : String.Empty);
+                item.time = (!reader.IsDBNull(14) ? reader.GetFloat(14) : 0.0f);
+
+                list.Add(item);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
+        finally
+        {
+            reader.Close();
+            reader = null;
+            cmd.Dispose();
+            cmd = null;
+        }
+
+        return list;
+    }
 
     /// <summary>
     /// This will grab all the urdf types that is known in the database

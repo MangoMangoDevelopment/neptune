@@ -52,6 +52,8 @@ public class DialogManager : MonoBehaviour {
                 Button2.gameObject.SetActive(false);
                 break;
         }
+        Button1.GetComponent<UIClearpathButton>().OnPointerExit(null);
+        Button2.GetComponent<UIClearpathButton>().OnPointerExit(null);
         DialogBox.SetActive(true);
     }
 

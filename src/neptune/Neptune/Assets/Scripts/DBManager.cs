@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class DBManager {
-    UrdfDb db = new UrdfDb();
+    public static UrdfDb db = new UrdfDb();
     public DBManager() {}
 
     //TODO: This function shouldn't take in the gameobject to assign. It should take instead use some sort
@@ -18,6 +18,7 @@ public class DBManager {
                 continue;
             }
             GameObject go = Resources.Load<GameObject>("Prefabs/" + sensor.prefabFilename);
+            //go.AddComponent<Ros>
             uiManager.AddSensor(sensor.name, go, 8);
 
         }

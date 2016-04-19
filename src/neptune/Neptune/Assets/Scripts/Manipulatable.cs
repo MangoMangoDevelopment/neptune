@@ -210,6 +210,7 @@ public class Manipulatable : MonoBehaviour {
         }
 
         UpdateOutline();
+        UpdateBridge();
     }
     
     private void UpdateDrag()
@@ -421,7 +422,6 @@ public class Manipulatable : MonoBehaviour {
                         break;
                 }
                 lastDragMousePos = currentPoint;
-                UpdateBridge();
             }
         }
     }
@@ -467,7 +467,11 @@ public class Manipulatable : MonoBehaviour {
     private void UpdateBridge()
     {
         GameObject robotBase = editorManager.GetRobotBaseObject();
-        if (transform.position.y - (transform.localScale.y / 2) > robotBase.transform.position.y + (robotBase.transform.localScale.y / 2) + editorManager.BridgeSpawnHeight)
+
+        Mesh mesh = GetComponentInChildren<MeshFilter>().mesh;
+        Bounds bounds = mesh.bounds;
+        float yOffset = bounds.size.y / 2 - 0.5f;
+        if (transform.position.y - yOffset > robotBase.transform.position.y + (robotBase.transform.localScale.y / 2) + editorManager.BridgeSpawnHeight)
         {
             if (bridge == null)
             {
@@ -479,7 +483,7 @@ public class Manipulatable : MonoBehaviour {
             bridge.transform.position = bridgePos;
 
             bridge.GetComponent<Bridge>().SetObjectGO(gameObject);
-            bridge.GetComponent<Bridge>().SetDimensions(robotBase.transform.localScale.x, transform.position.y - (transform.localScale.y / 2));
+            bridge.GetComponent<Bridge>().SetDimensions(editorManager.GetRobotBaseWidth(), transform.position.y - yOffset);
         }
         else
         {
