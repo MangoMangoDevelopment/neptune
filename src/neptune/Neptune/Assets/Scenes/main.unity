@@ -358,6 +358,7 @@ MonoBehaviour:
   ModeText: {fileID: 184484696}
   DeleteSelectedObjectButton: {fileID: 1638992543}
   DefaultBackColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
+  ClearpathYellow: {r: 0.9411765, g: 0.8235294, b: 0, a: 1}
   TestGO: {fileID: 104168, guid: ea12353c2f8d4444585285609fd7596a, type: 2}
   ErrorGO: {fileID: 104168, guid: 1d86882eb9bdf06498c212495851ee92, type: 2}
   InvisibleGO: {fileID: 104168, guid: de957a12817ea0c4a8f590c1c696906c, type: 2}
@@ -4777,7 +4778,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1659152899}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999996
+  m_Size: 0.99999917
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5928,8 +5929,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1466155208}
   m_HandleRect: {fileID: 1466155207}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7213,7 +7214,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 246722096}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999997
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

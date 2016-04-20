@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     public Text ModeText;
     public Button DeleteSelectedObjectButton;
     public Color DefaultBackColor;
+    public Color ClearpathYellow;
     
     public GameObject TestGO;
     public GameObject ErrorGO;
@@ -140,8 +141,9 @@ public class UIManager : MonoBehaviour
         Deselect();
         selectedPart = part;
         ColorBlock c2 = selectedPart.colors;
-        c2.normalColor = Color.gray;
+        c2.normalColor = ClearpathYellow;
         selectedPart.colors = c2;
+        selectedPart.gameObject.GetComponentInChildren<Text>().color = new Color(5.0f/255.0f, 0.0f, 0.0f);
     }
 
     public void SelectPart(GameObject go)
@@ -163,6 +165,7 @@ public class UIManager : MonoBehaviour
             ColorBlock c = selectedPart.colors;
             c.normalColor = DefaultBackColor;
             selectedPart.colors = c;
+            selectedPart.gameObject.GetComponentInChildren<Text>().color = Color.white;
         }
         selectedPart = null;
     }

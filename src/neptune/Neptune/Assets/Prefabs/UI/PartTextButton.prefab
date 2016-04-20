@@ -58,7 +58,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a1a780323b8faf8408292cdc7d655455, type: 3}
+    m_Font: {fileID: 12800000, guid: 4331ff62e048dd94e837bb789d4453cc, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -346,6 +346,11 @@ Prefab:
       propertyPath: m_Colors.m_NormalColor.b
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4331ff62e048dd94e837bb789d4453cc,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 131180}

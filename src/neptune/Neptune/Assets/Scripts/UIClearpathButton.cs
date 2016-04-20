@@ -21,6 +21,6 @@ public class UIClearpathButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        text.color = normalTextColor;
+       text.color = normalTextColor;
     }
 }
