@@ -62,9 +62,18 @@ public class Manipulatable : MonoBehaviour {
                 Sensor s = child.transform.gameObject.AddComponent<Sensor>();
                 s.sensorParent = gameObject;
                 child.gameObject.tag = Manipulatable.TAG;
+                //This happens on import now. See DBManager
+                /*
+                //float startTime = Time.realtimeSinceStartup;
                 child.gameObject.AddComponent<MeshCollider>();
+                //Debug.Log("Adding MeshCollider took " + (Time.realtimeSinceStartup - startTime) + "s");
+                //startTime = Time.realtimeSinceStartup;
                 MeshCollider mc = child.gameObject.GetComponent<MeshCollider>();
+                //Debug.Log("Getting MeshCollider took " + (Time.realtimeSinceStartup - startTime) + "s");
+                //startTime = Time.realtimeSinceStartup;
                 mc.sharedMesh = child.gameObject.GetComponent<MeshFilter>().mesh;
+                //Debug.Log("Setting MeshCollider took " + (Time.realtimeSinceStartup - startTime) + "s");
+                */
             }
         }
     }

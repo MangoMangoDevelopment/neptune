@@ -15,10 +15,10 @@ using System.IO;
 /// </summary>
 public class ObjectMeshManager : AssetPostprocessor
 {
-    static private string prefabFolderPath = "Assets/Resources/Prefabs";
+    static private string prefabFolderPath = "Assets/Resources/Prefabs/Sensors";
     static private string prefabItemPathFormat = prefabFolderPath + "/{0}.prefab";
     static private string prefabPathFormat = prefabFolderPath + "/{0}/{1}.prefab";
-    static private string assetFolderPath = "Assets/Materials";
+    static private string assetFolderPath = "Assets/Materials/Sensors";
     static private string assetPathFormat = assetFolderPath + "/{0}/{1}.mat";
 
     static private readonly NLog.Logger LOGGER = LogManager.GetCurrentClassLogger();
@@ -55,6 +55,20 @@ public class ObjectMeshManager : AssetPostprocessor
                     // the game world and save that object as a prefab.
                     GameObject go = GameObject.Instantiate<GameObject>((GameObject)asset);
                     go.name = asset.name; // remove the (clone) within the name.
+                    
+                    MeshRenderer[] children = go.GetComponentsInChildren<MeshRenderer>();
+                    foreach (MeshRenderer child in children)
+                    {
+                        if (child.transform == go.transform)
+                            continue;
+                        if (child.gameObject.GetComponent<Renderer>())
+                        {
+                            child.gameObject.AddComponent<MeshCollider>();
+                            MeshCollider mc = child.gameObject.GetComponent<MeshCollider>();
+                            mc.sharedMesh = child.gameObject.GetComponent<MeshFilter>().sharedMesh;
+                        }
+                    }
+                    
                     PrefabUtility.CreatePrefab(string.Format(prefabItemPathFormat, go.name), go);
                     GameObject.DestroyImmediate(go);
                 }
@@ -188,7 +202,8 @@ public class ObjectMeshManager : AssetPostprocessor
                                     AssetDatabase.CreateFolder(assetFolderPath, parent.name);
                                 }
                                 AssetDatabase.CreateAsset(mat, string.Format(assetPathFormat, parent.name, link.Key));
-                                linkVisualGo.GetComponent<Renderer>().sharedMaterial = mat;
+                                if (linkVisualGo.GetComponentInChildren<MeshRenderer>() != null)
+                                    linkVisualGo.GetComponentInChildren<MeshRenderer>().sharedMaterial = mat;
                             }
                             linkVisualGo.transform.SetParent(linkGo.transform);
                         }
@@ -217,6 +232,20 @@ public class ObjectMeshManager : AssetPostprocessor
                 
                 child.transform.localEulerAngles = new Vector3(Mathf.Rad2Deg * (float)joint.Value.Origin.Rpy.R, Mathf.Rad2Deg * (float)joint.Value.Origin.Rpy.Y, Mathf.Rad2Deg * (float)joint.Value.Origin.Rpy.P);
             }
+            
+            MeshRenderer[] children = parent.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer child in children)
+            {
+                if (child.transform == parent.transform)
+                    continue;
+                if (child.gameObject.GetComponent<Renderer>())
+                {
+                    child.gameObject.AddComponent<MeshCollider>();
+                    MeshCollider mc = child.gameObject.GetComponent<MeshCollider>();
+                    mc.sharedMesh = child.gameObject.GetComponent<MeshFilter>().sharedMesh;
+                }
+            }
+            
             AssetDatabase.CreateFolder(prefabFolderPath, filename);
             PrefabUtility.CreatePrefab(string.Format(prefabPathFormat, filename, parent.name), parent);
             GameObject.DestroyImmediate(parent);

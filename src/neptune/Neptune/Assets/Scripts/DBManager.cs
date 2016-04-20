@@ -7,19 +7,35 @@ public class DBManager {
 
     //TODO: This function shouldn't take in the gameobject to assign. It should take instead use some sort
     //      of representation to the URDF or to the output of Amber's converter that needn't necessarily be passed in.
-	public void GetSensorList (UIManager uiManager, GameObject testObject)
+	public void GetSensorList (UIManager uiManager, GameObject testObject, GameObject errorObject, GameObject invisibleObject)
     {
         List<UrdfItemModel> sensors = db.GetSensors();
 
         foreach(UrdfItemModel sensor in sensors)
         {
-            if (string.IsNullOrEmpty(sensor.prefabFilename) || sensor.prefabFilename == "Unknown")
+            if (sensor.visibility == 0)
+            {
+                //Invisible, but usable sensor
+                uiManager.AddSensor(sensor.name, invisibleObject);
+                continue;
+            }
+            if (string.IsNullOrEmpty(sensor.prefabFilename) || sensor.prefabFilename.Equals("unknown"))
             {
                 continue;
             }
-            GameObject go = Resources.Load<GameObject>("Prefabs/" + sensor.prefabFilename);
+
+            GameObject go = testObject;
+            if (!sensor.prefabFilename.Equals("unknown"))
+                go = Resources.Load<GameObject>("Prefabs/Sensors/" + sensor.prefabFilename);
+            if (go == null)
+                go = errorObject;
             //go.AddComponent<Ros>
-            uiManager.AddSensor(sensor.name, go, 8);
+
+            GameObject inst = GameObject.Instantiate<GameObject>(go);
+            Debug.Log("Loaded " + sensor.prefabFilename);
+            GameObject.Destroy(inst);
+
+            uiManager.AddSensor(sensor.name, go, 10);
 
         }
         //uiManager.AddSensor("Microsoft Kinect v2", Resources.Load<GameObject>("Meshes/kinect"), 10);

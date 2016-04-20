@@ -1,0 +1,201 @@
+fileFormatVersion: 2
+guid: b8fc56c69bccc884fad28cff29e179ff
+timeCreated: 1461100825
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: 24C-AC
+    100002: //RootNode
+    100004: Imported-1-solid1
+    100006: Imported_1-1-solid1
+    100008: Imported_10-1-solid1
+    100010: Imported_11-1-solid1
+    100012: Imported_12-1-solid1
+    100014: Imported_13-1-solid1
+    100016: Imported_14-1-solid1
+    100018: Imported_15-1-solid1
+    100020: Imported_16-1-solid1
+    100022: Imported_17-1-solid1
+    100024: Imported_18-1-solid1
+    100026: Imported_19-1-solid1
+    100028: Imported_2-1-solid1
+    100030: Imported_20-1-solid1
+    100032: Imported_21-1-solid1
+    100034: Imported_22-1-solid1
+    100036: Imported_23-1-solid1
+    100038: Imported_3-1-solid1
+    100040: Imported_4-1-solid1
+    100042: Imported_4-1-solid2
+    100044: Imported_5-1-solid1
+    100046: Imported_8-1-solid1
+    100048: Imported_9-1-solid1
+    100050: NONE
+    100052: NONE 1
+    400000: 24C-AC
+    400002: //RootNode
+    400004: Imported-1-solid1
+    400006: Imported_1-1-solid1
+    400008: Imported_10-1-solid1
+    400010: Imported_11-1-solid1
+    400012: Imported_12-1-solid1
+    400014: Imported_13-1-solid1
+    400016: Imported_14-1-solid1
+    400018: Imported_15-1-solid1
+    400020: Imported_16-1-solid1
+    400022: Imported_17-1-solid1
+    400024: Imported_18-1-solid1
+    400026: Imported_19-1-solid1
+    400028: Imported_2-1-solid1
+    400030: Imported_20-1-solid1
+    400032: Imported_21-1-solid1
+    400034: Imported_22-1-solid1
+    400036: Imported_23-1-solid1
+    400038: Imported_3-1-solid1
+    400040: Imported_4-1-solid1
+    400042: Imported_4-1-solid2
+    400044: Imported_5-1-solid1
+    400046: Imported_8-1-solid1
+    400048: Imported_9-1-solid1
+    400050: NONE
+    400052: NONE 1
+    2300000: Imported-1-solid1
+    2300002: Imported_1-1-solid1
+    2300004: Imported_10-1-solid1
+    2300006: Imported_11-1-solid1
+    2300008: Imported_12-1-solid1
+    2300010: Imported_13-1-solid1
+    2300012: Imported_14-1-solid1
+    2300014: Imported_15-1-solid1
+    2300016: Imported_16-1-solid1
+    2300018: Imported_17-1-solid1
+    2300020: Imported_18-1-solid1
+    2300022: Imported_19-1-solid1
+    2300024: Imported_2-1-solid1
+    2300026: Imported_20-1-solid1
+    2300028: Imported_21-1-solid1
+    2300030: Imported_22-1-solid1
+    2300032: Imported_23-1-solid1
+    2300034: Imported_3-1-solid1
+    2300036: Imported_4-1-solid1
+    2300038: Imported_4-1-solid2
+    2300040: Imported_5-1-solid1
+    2300042: Imported_8-1-solid1
+    2300044: Imported_9-1-solid1
+    2300046: NONE
+    2300048: NONE 1
+    3300000: Imported-1-solid1
+    3300002: Imported_1-1-solid1
+    3300004: Imported_10-1-solid1
+    3300006: Imported_11-1-solid1
+    3300008: Imported_12-1-solid1
+    3300010: Imported_13-1-solid1
+    3300012: Imported_14-1-solid1
+    3300014: Imported_15-1-solid1
+    3300016: Imported_16-1-solid1
+    3300018: Imported_17-1-solid1
+    3300020: Imported_18-1-solid1
+    3300022: Imported_19-1-solid1
+    3300024: Imported_2-1-solid1
+    3300026: Imported_20-1-solid1
+    3300028: Imported_21-1-solid1
+    3300030: Imported_22-1-solid1
+    3300032: Imported_23-1-solid1
+    3300034: Imported_3-1-solid1
+    3300036: Imported_4-1-solid1
+    3300038: Imported_4-1-solid2
+    3300040: Imported_5-1-solid1
+    3300042: Imported_8-1-solid1
+    3300044: Imported_9-1-solid1
+    3300046: NONE
+    3300048: NONE 1
+    4300000: Imported-1-solid1
+    4300002: Imported_1-1-solid1
+    4300004: Imported_2-1-solid1
+    4300006: Imported_3-1-solid1
+    4300008: Imported_4-1-solid1
+    4300010: Imported_4-1-solid2
+    4300012: Imported_5-1-solid1
+    4300014: NONE
+    4300016: NONE
+    4300018: Imported_8-1-solid1
+    4300020: Imported_9-1-solid1
+    4300022: Imported_10-1-solid1
+    4300024: Imported_11-1-solid1
+    4300026: Imported_12-1-solid1
+    4300028: Imported_13-1-solid1
+    4300030: Imported_14-1-solid1
+    4300032: Imported_15-1-solid1
+    4300034: Imported_16-1-solid1
+    4300036: Imported_17-1-solid1
+    4300038: Imported_18-1-solid1
+    4300040: Imported_19-1-solid1
+    4300042: Imported_20-1-solid1
+    4300044: Imported_21-1-solid1
+    4300046: Imported_22-1-solid1
+    4300048: Imported_23-1-solid1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

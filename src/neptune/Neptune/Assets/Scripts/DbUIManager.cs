@@ -369,7 +369,7 @@ public class DbUIManager : MonoBehaviour {
         {
             try
             {
-                this.currSelectedSensorGoModel = Instantiate(Resources.Load("Prefabs/" + item.prefabFilename, typeof(GameObject))) as GameObject;
+                this.currSelectedSensorGoModel = Instantiate(Resources.Load("Prefabs/Sensors/" + item.prefabFilename, typeof(GameObject))) as GameObject;
             }
             catch (Exception)
             {

@@ -359,6 +359,8 @@ MonoBehaviour:
   DeleteSelectedObjectButton: {fileID: 1638992543}
   DefaultBackColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   TestGO: {fileID: 104168, guid: ea12353c2f8d4444585285609fd7596a, type: 2}
+  ErrorGO: {fileID: 104168, guid: 1d86882eb9bdf06498c212495851ee92, type: 2}
+  InvisibleGO: {fileID: 104168, guid: de957a12817ea0c4a8f590c1c696906c, type: 2}
 --- !u!4 &15376305
 Transform:
   m_ObjectHideFlags: 0
@@ -622,7 +624,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0.6698822, y: 0.62561274}
   m_AnchorMax: {x: 0.94799566, y: 0.75240266}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.21795654}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37511604
@@ -2471,7 +2473,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: -0.00000015253252, y: 0.93553585}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000018298626, y: 0}
+  m_AnchoredPosition: {x: -0.000018298626, y: 0.000008583069}
   m_SizeDelta: {x: -0.000018298626, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &380822764
@@ -3906,8 +3908,8 @@ RectTransform:
   - {fileID: 1206117172}
   m_Father: {fileID: 1883051879}
   m_RootOrder: 7
-  m_AnchorMin: {x: 0.6698822, y: 0.23298687}
-  m_AnchorMax: {x: 0.94832945, y: 0.35977677}
+  m_AnchorMin: {x: 0.6698822, y: 0.2358209}
+  m_AnchorMax: {x: 0.94832945, y: 0.36261082}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4223,8 +4225,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: -0.0011139003, y: -0.012098674}
   m_AnchorMax: {x: 1.0059769, y: 0.9999886}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.006781101}
+  m_SizeDelta: {x: 0, y: 0.01355}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &718195075
 MonoBehaviour:
@@ -4245,8 +4247,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 0002791d364447441b11e60e9f9de259, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9662,8 +9664,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.000024933981, y: 0.10561513}
   m_AnchorMax: {x: 0.18170778, y: 0.8914391}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.86920166}
+  m_SizeDelta: {x: 0, y: -1.7384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1824807411
 MonoBehaviour:
@@ -10134,8 +10136,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 1.0463079, y: -0.00000031682865}
   m_AnchorMax: {x: 2.0463078, y: 1}
-  m_AnchoredPosition: {x: 0.0000076293945, y: 0.000026702503}
-  m_SizeDelta: {x: 0.000015258789, y: 0.000053405005}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.000015258789, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1883051880
 MonoBehaviour:

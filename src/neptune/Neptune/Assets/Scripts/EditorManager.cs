@@ -164,7 +164,7 @@ public class EditorManager : MonoBehaviour {
                     robotBaseTopPlate = child.gameObject;
                 }
             }
-            robotBaseTopPlate.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+            //robotBaseTopPlate.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             //Offset the y by that amount so that the top of the bot is at (0, 0, 0)
             robotBaseObject.transform.position = Vector3.zero - new Vector3(0, highestY, 0);
         }

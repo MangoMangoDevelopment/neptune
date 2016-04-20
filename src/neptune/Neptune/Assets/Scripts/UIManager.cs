@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -32,9 +33,10 @@ public class UIManager : MonoBehaviour
     public Text ModeText;
     public Button DeleteSelectedObjectButton;
     public Color DefaultBackColor;
-
-    //TODO: Remove this. This should be superseeded by a combination of Brian and Amber's work. See DBManager.GetSensorList() for more info.
+    
     public GameObject TestGO;
+    public GameObject ErrorGO;
+    public GameObject InvisibleGO;
 
     //Private Variables
     private DBManager dbManager;
@@ -53,7 +55,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         dbManager = new DBManager();
-        dbManager.GetSensorList(this, TestGO);
+        dbManager.GetSensorList(this, TestGO, ErrorGO, InvisibleGO);
         editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
         hiddenResetAxesPanelPos = ResetAxesPanel.transform.position;
         shownResetAxesPanelPos = ResetAxesPanelMask.transform.position;
