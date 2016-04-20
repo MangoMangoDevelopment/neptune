@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UrdfUnity.IO;
+using UrdfToUnity.IO;
 using System;
 using NLog;
-using UrdfUnity.Urdf.Models;
-using UrdfUnity.Urdf.Models.Links;
+using UrdfToUnity.Urdf.Models;
+using UrdfToUnity.Urdf.Models.Links;
 using System.Collections.Generic;
 using System.IO;
 
@@ -156,7 +156,7 @@ public class ObjectMeshManager : AssetPostprocessor
                             }
                             else
                             {
-                                linkScale = new Vector3(0.1f, 0.1f, 0.1f);
+                                linkScale = new Vector3(1f, 1f, 1f);
                             }
                             linkPosition = new Vector3((float)obj.Origin.Xyz.X, (float)obj.Origin.Xyz.Y, (float)obj.Origin.Xyz.Z);
                             linkRotation = new Vector3(Mathf.Rad2Deg * (float)obj.Origin.Rpy.R, Mathf.Rad2Deg * (float)obj.Origin.Rpy.P, Mathf.Rad2Deg * (float)obj.Origin.Rpy.Y);
@@ -196,7 +196,9 @@ public class ObjectMeshManager : AssetPostprocessor
                             if (obj.Material != null && obj.Material.Color != null)
                             {
                                 Material mat = new Material(Shader.Find("Standard"));
-                                mat.color = new Color(obj.Material.Color.Rgb.R, obj.Material.Color.Rgb.G, obj.Material.Color.Rgb.B);
+                                mat.color = new Color((float) obj.Material.Color.Rgb.R / 255, 
+                                    (float) obj.Material.Color.Rgb.G / 255, 
+                                    (float) obj.Material.Color.Rgb.B /255);
                                 if(!Directory.Exists(assetFolderPath + "/" + parent.name))
                                 {
                                     AssetDatabase.CreateFolder(assetFolderPath, parent.name);
@@ -214,7 +216,7 @@ public class ObjectMeshManager : AssetPostprocessor
                 linkAsGos.Add(link.Key, linkGo);
             }
 
-            foreach (KeyValuePair<string, UrdfUnity.Urdf.Models.Joint> joint in robo.Joints)
+            foreach (KeyValuePair<string, UrdfToUnity.Urdf.Models.Joint> joint in robo.Joints)
             {
                 GameObject child = linkAsGos[joint.Value.Child.Name];
                 child.transform.SetParent(linkAsGos[joint.Value.Parent.Name].transform);

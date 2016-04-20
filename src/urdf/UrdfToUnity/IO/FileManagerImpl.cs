@@ -18,7 +18,7 @@ namespace UrdfToUnity.IO
 
         XmlDocument xmlDoc = new XmlDocument();
         RobotParser urdf = new RobotParser();
-        XacroManager xacro = new PythonBackedXacroManagerImpl();
+        //XacroManager xacro = new PythonBackedXacroManagerImpl();
 
 
         /// <summary>
@@ -97,10 +97,11 @@ namespace UrdfToUnity.IO
                     break;
 
                 case FileType.XACRO:
-                    string tempFile = filePath + ".urdf";
-                    this.xacro.ConvertToUrdf(filePath, tempFile);
-                    robo = this.GetRobotFromFile(tempFile);
-                    File.Delete(tempFile);
+                    //string tempFile = filePath + ".urdf";
+                    //this.xacro.ConvertToUrdf(filePath, tempFile);
+                    //robo = this.GetRobotFromFile(tempFile);
+                    //File.Delete(tempFile);
+                    throw new NotImplementedException();
                     break;
 
                 default:

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UrdfUnity.Urdf.Models;
+using UrdfToUnity.Urdf.Models;
 
 
 /// <summary>
