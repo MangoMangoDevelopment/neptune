@@ -370,6 +370,10 @@ public class DbUIManager : MonoBehaviour {
             try
             {
                 this.currSelectedSensorGoModel = Instantiate(Resources.Load("Prefabs/Sensors/" + item.prefabFilename, typeof(GameObject))) as GameObject;
+                if (!item.prefabFilename.Equals("unknown") && !String.IsNullOrEmpty(item.prefabFilename) && !item.prefabFilename.Equals("R2D2/physics"))
+                {
+                    this.currSelectedSensorGoModel.transform.localScale = new Vector3(3, 3, 3);
+                }
             }
             catch (Exception)
             {
