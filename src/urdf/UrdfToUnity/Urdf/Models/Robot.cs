@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Links;
 using UrdfToUnity.Urdf.Models.Links.Geometries;
@@ -22,7 +22,7 @@ namespace UrdfToUnity.Urdf.Models
         /// </summary>
         public static readonly string DEFAULT_NAME = "missing_name";
 
-        private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
+        //private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace UrdfToUnity.Urdf.Models
 
             if (!this.Links.ContainsKey(parent))
             {
-                LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
+                //LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
                 return null;
             }
 
@@ -126,13 +126,13 @@ namespace UrdfToUnity.Urdf.Models
 
             if (!this.Links.ContainsKey(parent))
             {
-                LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
+                //LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{Name}' doesn't contain link called '{parent}'");
                 return null;
             }
 
             if (!component.Links.ContainsKey(child))
             {
-                LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{component.Name}' doesn't contain link called '{child}'");
+                //LOGGER.Warn($"Adding component '{component.Name}' to '{Name}' Robot model failed because '{component.Name}' doesn't contain link called '{child}'");
                 return null;
             }
 

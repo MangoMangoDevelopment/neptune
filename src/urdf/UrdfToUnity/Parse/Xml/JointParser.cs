@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Parse.Xml.Joints;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models;
@@ -14,7 +14,7 @@ namespace UrdfToUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Joint"/>
     public sealed class JointParser : AbstractUrdfXmlParser<Joint>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace UrdfToUnity.Parse.Xml
 
                 if (!this.linkDictionary.ContainsKey(parentLinkName))
                 {
-                    Logger.Warn("Unknown link name specified as <joint> parent: {0}", parentLinkName);
+                    //Logger.Warn("Unknown link name specified as <joint> parent: {0}", parentLinkName);
                     parent = new Link.Builder(parentLinkName).Build();
                 }
                 else
@@ -190,7 +190,7 @@ namespace UrdfToUnity.Parse.Xml
 
                 if (!this.linkDictionary.ContainsKey(childLinkName))
                 {
-                    Logger.Warn("Unknown link name specified as <joint> child: {0}", childLinkName);
+                    //Logger.Warn("Unknown link name specified as <joint> child: {0}", childLinkName);
                     child = new Link.Builder(childLinkName).Build();
                 }
                 else

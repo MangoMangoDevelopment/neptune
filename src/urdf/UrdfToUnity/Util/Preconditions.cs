@@ -1,5 +1,5 @@
 ﻿using System;
-using NLog;
+//using NLog;
 
 namespace UrdfToUnity.Util
 {
@@ -8,7 +8,7 @@ namespace UrdfToUnity.Util
     /// </summary>
     public static class Preconditions
     {
-        private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
+        //private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
         
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace UrdfToUnity.Util
         {
             if (obj == null)
             {
-                LOGGER.Error(msg);
+                //LOGGER.Error(msg);
                 throw (paramName != null) ? new ArgumentNullException(paramName) : new ArgumentNullException();
             }
         }
@@ -40,7 +40,7 @@ namespace UrdfToUnity.Util
         {
             if (String.IsNullOrEmpty(str) || String.IsNullOrEmpty(str.Trim()))
             {
-                LOGGER.Error(msg);
+                //LOGGER.Error(msg);
                 throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
             }
         }
@@ -64,7 +64,7 @@ namespace UrdfToUnity.Util
             }
             if (value < lowerBound || value > upperBound)
             {
-                LOGGER.Error(msg);
+                //LOGGER.Error(msg);
                 throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
             }
         }
@@ -81,7 +81,7 @@ namespace UrdfToUnity.Util
         {
             if (!value)
             {
-                LOGGER.Error(msg);
+                //LOGGER.Error(msg);
                 throw (paramName != null) ? new ArgumentException(paramName) : new ArgumentException();
             }
         }

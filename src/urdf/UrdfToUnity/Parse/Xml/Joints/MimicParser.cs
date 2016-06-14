@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models;
 using UrdfToUnity.Urdf.Models.Joints;
@@ -22,7 +22,7 @@ namespace UrdfToUnity.Parse.Xml.Joints
             new Link.Builder(Link.DEFAULT_NAME).Build(), new Link.Builder(Link.DEFAULT_NAME).Build()).Build();
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -69,7 +69,7 @@ namespace UrdfToUnity.Parse.Xml.Joints
             {
                 if (!this.jointDictionary.ContainsKey(jointAttribute.Value))
                 {
-                    Logger.Info("Unknown joint name specified in <mimic>: {0}", jointAttribute.Value);
+                    //Logger.Info("Unknown joint name specified in <mimic>: {0}", jointAttribute.Value);
                     joint = new Joint.Builder(jointAttribute.Value, DEFAULT_JOINT.Type, DEFAULT_JOINT.Parent, DEFAULT_JOINT.Child).Build();
                 }
                 else

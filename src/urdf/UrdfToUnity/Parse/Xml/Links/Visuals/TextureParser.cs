@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Links.Visuals;
 
@@ -14,7 +14,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Visuals
     /// <seealso cref="Urdf.Models.Links.Visuals.Texture"/>
     public sealed class TextureParser : AbstractUrdfXmlParser<Texture>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

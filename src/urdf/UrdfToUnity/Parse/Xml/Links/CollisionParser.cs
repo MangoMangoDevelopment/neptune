@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Links;
@@ -17,7 +17,7 @@ namespace UrdfToUnity.Parse.Xml.Links
         private static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

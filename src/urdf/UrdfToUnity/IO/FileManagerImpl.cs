@@ -5,7 +5,7 @@ using UrdfToUnity.Urdf.Models;
 using UrdfToUnity.Util;
 using UrdfToUnity.Parse.Xml;
 using UrdfToUnity.Parse.Xacro;
-using NLog;
+//using NLog;
 
 namespace UrdfToUnity.IO
 {
@@ -14,7 +14,7 @@ namespace UrdfToUnity.IO
     /// </summary>
     public class FileManagerImpl : FileManager
     {
-        private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
+        //private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
 
         XmlDocument xmlDoc = new XmlDocument();
         RobotParser urdf = new RobotParser();
@@ -37,9 +37,9 @@ namespace UrdfToUnity.IO
                     fileAsString = fileReader.ReadToEnd();
                 }
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
-                LOGGER.Warn("Error file not found \"{0}\"", path);
+                //LOGGER.Warn("Error file not found \"{0}\"", path);
             }
 
             return fileAsString;
@@ -63,9 +63,9 @@ namespace UrdfToUnity.IO
                 }
                 node = xmlDoc.DocumentElement;
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
-                LOGGER.Warn("Error invalid XML found \"{0}\"", path);
+                //LOGGER.Warn("Error invalid XML found \"{0}\"", path);
             }
 
             return node;
@@ -86,7 +86,7 @@ namespace UrdfToUnity.IO
 
             if (root == null)
             {
-                LOGGER.Warn("Unable to read valid XML node from file path [{0}]", filePath);
+                //LOGGER.Warn("Unable to read valid XML node from file path [{0}]", filePath);
                 return null;
             }
 
@@ -105,7 +105,7 @@ namespace UrdfToUnity.IO
                     break;
 
                 default:
-                    LOGGER.Warn("Unknown filetype supplied. Unable to parse robot.");
+                    //LOGGER.Warn("Unknown filetype supplied. Unable to parse robot.");
                     break;
             }
 
@@ -129,13 +129,13 @@ namespace UrdfToUnity.IO
             {
                 type = EnumUtils.ToEnum<FileType>(extension);
             }
-            catch (OverflowException e)
+            catch (OverflowException)
             {
-                LOGGER.Warn("File type has not been defined.");
+                //LOGGER.Warn("File type has not been defined.");
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                LOGGER.Warn("File type contains white space or is null.");
+                //LOGGER.Warn("File type contains white space or is null.");
             }
 
             return type;

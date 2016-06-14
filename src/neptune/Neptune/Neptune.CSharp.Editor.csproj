@@ -106,9 +106,6 @@
     <Reference Include="CsvHelper">
       <HintPath>Assets\SmartLocalization\Scripts\Editor\ThirdParty\CSVHelper\CsvHelper.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>Assets\Plugins\NLog.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Neptune.CSharp.csproj">
@@ -126,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\readme.txt" />
-    <None Include="Assets\Plugins\NLog.xml" />
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\Shaders\OutlinedDiffuse.shader" />
     <None Include="Assets\Shaders\Outlined_Diffuse.shader" />

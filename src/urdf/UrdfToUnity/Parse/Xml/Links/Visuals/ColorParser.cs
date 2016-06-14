@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Links.Visuals;
@@ -21,7 +21,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Visuals
         private static readonly double DEFAULT_ALPHA_VALUE = 1d; // No transparency
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -53,7 +53,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Visuals
             }
             else if (rgbAttribute == null)
             {
-                Logger.Warn("Parsing {0} failed due to missing both {1} and {2} attributes", ElementName, UrdfSchema.RGBA_ATTRIBUTE_NAME, UrdfSchema.RGB_ATTRIBUTE_NAME);
+                //Logger.Warn("Parsing {0} failed due to missing both {1} and {2} attributes", ElementName, UrdfSchema.RGBA_ATTRIBUTE_NAME, UrdfSchema.RGB_ATTRIBUTE_NAME);
                 rgb = new RgbAttribute(DEFAULT_RGB_VALUE, DEFAULT_RGB_VALUE, DEFAULT_RGB_VALUE);
                 alpha = DEFAULT_ALPHA_VALUE;
             }

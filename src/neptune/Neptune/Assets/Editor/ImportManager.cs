@@ -2,7 +2,7 @@
 using UnityEditor;
 using UrdfToUnity.IO;
 using System;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf.Models;
 using UrdfToUnity.Urdf.Models.Links;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ public class ObjectMeshManager : AssetPostprocessor
     static private string assetFolderPath = "Assets/Materials/Sensors";
     static private string assetPathFormat = assetFolderPath + "/{0}/{1}.mat";
 
-    static private readonly NLog.Logger LOGGER = LogManager.GetCurrentClassLogger();
+    //static private readonly NLog.Logger LOGGER = LogManager.GetCurrentClassLogger();
     
     /// <summary>
     /// Handles post process on all assets within Unity Editor. Finds all meshes and creates
@@ -255,7 +255,7 @@ public class ObjectMeshManager : AssetPostprocessor
         else
         {
             Debug.Log("Fail");
-            LOGGER.Warn("No Robot generated from URDF.");
+            //LOGGER.Warn("No Robot generated from URDF.");
         }
 
         return roboName;

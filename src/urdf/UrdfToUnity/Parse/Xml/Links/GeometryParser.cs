@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Parse.Xml.Links.Geometries;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Attributes;
@@ -19,7 +19,7 @@ namespace UrdfToUnity.Parse.Xml.Links
         public static readonly Geometry DEFAULT_GEOMETRY = new Geometry(new Box(new SizeAttribute(1, 1, 1)));
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -67,7 +67,7 @@ namespace UrdfToUnity.Parse.Xml.Links
             }
             else
             {
-                Logger.Warn("Parsing {0} element failed to due missing sub-element of valid type (box, cylinder, sphere, mesh)", ElementName);
+                //Logger.Warn("Parsing {0} element failed to due missing sub-element of valid type (box, cylinder, sphere, mesh)", ElementName);
                 geometry = DEFAULT_GEOMETRY;
             }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Parse
@@ -20,7 +20,7 @@ namespace UrdfToUnity.Parse
         /// <summary>
         /// The Logger instance for the derived class.
         /// </summary>
-        protected abstract Logger Logger { get; }
+        //protected abstract Logger Logger { get; }
 
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace UrdfToUnity.Parse
         /// <param name="element">The name of the sub-element that's missing</param>
         protected void LogMissingRequiredElement(string element)
         {
-            Logger.Warn("Parsing <{0}> element failed due to missing required \"{1}\" sub-element", ElementName, element);
+            //Logger.Warn("Parsing <{0}> element failed due to missing required \"{1}\" sub-element", ElementName, element);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace UrdfToUnity.Parse
         /// <param name="element">The name of the attribute that's missing</param>
         protected void LogMissingOptionalElement(string element)
         {
-            Logger.Debug("Parsing <{0}> element without optional \"{1}\" sub-element", ElementName, element);
+            //Logger.Debug("Parsing <{0}> element without optional \"{1}\" sub-element", ElementName, element);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace UrdfToUnity.Parse
         /// <param name="attribute">The name of the attribute that's missing</param>
         protected void LogMissingRequiredAttribute(string attribute)
         {
-            Logger.Warn("Parsing <{0}> element failed due to missing required \"{1}\" attribute", ElementName, attribute);
+            //Logger.Warn("Parsing <{0}> element failed due to missing required \"{1}\" attribute", ElementName, attribute);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace UrdfToUnity.Parse
         /// <param name="attribute">The name of the attribute that's missing</param>
         protected void LogMissingOptionalAttribute(string attribute)
         {
-            Logger.Debug("Parsing <{0}> element without optional \"{1}\" attribute", ElementName, attribute);
+            //Logger.Debug("Parsing <{0}> element without optional \"{1}\" attribute", ElementName, attribute);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace UrdfToUnity.Parse
         /// <param name="attribute">The name of the attribute that can be parsed</param>
         protected void LogMalformedAttribute(string attribute)
         {
-            Logger.Warn("Parsing <{0}> element failed due to malformed \"{1}\" attribute", ElementName, attribute);
+            //Logger.Warn("Parsing <{0}> element failed due to malformed \"{1}\" attribute", ElementName, attribute);
         }
     }
 }

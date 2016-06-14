@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Links.Geometries;
@@ -15,7 +15,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Geometries
     /// <seealso cref="Urdf.Models.Links.Geometries.Mesh"/>
     public sealed class MeshParser : AbstractUrdfXmlParser<Mesh>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using NLog;
+//using NLog;
 
 namespace UrdfToUnity.IO
 {
@@ -14,7 +14,7 @@ namespace UrdfToUnity.IO
         private static readonly string PYTHON_PATH;
         private static readonly string XACRO_PATH;
 
-        private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
+        //private static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
 
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace UrdfToUnity.IO
 
             if (pythonConfig == null)
             {
-                LOGGER.Warn("Failed to load Python path from config file");
+                //LOGGER.Warn("Failed to load Python path from config file");
             }
             else
             {
@@ -42,14 +42,14 @@ namespace UrdfToUnity.IO
 
             if (xacroConfig == null)
             {
-                LOGGER.Warn("Failed to load Xacro path from config file");
+                //LOGGER.Warn("Failed to load Xacro path from config file");
             }
             else
             {
                 XACRO_PATH = xacroConfig.Substring(xacroConfig.IndexOf(CONFIG_CHAR) + 1);
             }
 
-            LOGGER.Info("Paths to python [{0}] and xacro [{1}] loaded", PYTHON_PATH, XACRO_PATH);
+            //LOGGER.Info("Paths to python [{0}] and xacro [{1}] loaded", PYTHON_PATH, XACRO_PATH);
         }
 
         /// <summary>

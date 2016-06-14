@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models;
 
@@ -12,7 +12,7 @@ namespace UrdfToUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joint"/>
     public sealed class ChildParser : AbstractUrdfXmlParser<string>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

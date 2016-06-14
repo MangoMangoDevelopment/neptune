@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Joints;
@@ -14,7 +14,7 @@ namespace UrdfToUnity.Parse.Xml.Joints
     /// <seealso cref="Urdf.Models.Joints.Axis"/>
     public sealed class AxisParser : AbstractUrdfXmlParser<Axis>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Parse.Xml.Links.Visuals;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models;
@@ -15,7 +15,7 @@ namespace UrdfToUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Robot"/>
     public sealed class RobotParser : AbstractUrdfXmlParser<Robot>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -101,7 +101,7 @@ namespace UrdfToUnity.Parse.Xml
         {
             if (Links.Count == 0)
             {
-                Logger.Warn("URDF file is missing required top-level link elements");
+                //Logger.Warn("URDF file is missing required top-level link elements");
             }
             else
             {
@@ -117,7 +117,7 @@ namespace UrdfToUnity.Parse.Xml
         {
             if (Joints.Count == 0)
             {
-                Logger.Warn("URDF file is missing required top-level joint elements");
+                //Logger.Warn("URDF file is missing required top-level joint elements");
             }
             else
             {

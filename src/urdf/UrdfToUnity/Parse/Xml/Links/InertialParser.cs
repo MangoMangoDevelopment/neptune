@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Parse.Xml.Links.Inertials;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models;
@@ -18,7 +18,7 @@ namespace UrdfToUnity.Parse.Xml.Links
         private static readonly double DEFAULT_MASS = 0d;
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Urdf.Models.Links.Visuals;
@@ -18,7 +18,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Visuals
         private static readonly int DEFAULT_COLOR_VALUE = 0; // Black
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
@@ -61,7 +61,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Visuals
             {
                 if (!this.materialDictionary.ContainsKey(name))
                 {
-                    Logger.Warn("Unknown pre-defined material name referenced by material name attribute");
+                    //Logger.Warn("Unknown pre-defined material name referenced by material name attribute");
                     return new Material(name);
                 }
                 else
@@ -83,7 +83,7 @@ namespace UrdfToUnity.Parse.Xml.Links.Visuals
                 return new Material(name, color);
             }
             
-            Logger.Warn("Unable to parse malformed material element");
+            //Logger.Warn("Unable to parse malformed material element");
             return new Material(name, new Color(new RgbAttribute(DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE, DEFAULT_COLOR_VALUE)));
         }
 

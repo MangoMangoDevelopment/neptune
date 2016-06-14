@@ -70,9 +70,6 @@
     <Reference Include="SmartLocalization_Runtime">
       <HintPath>Assets\SmartLocalization\SmartLocalization_Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>Assets\Plugins\NLog.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AxisHandle.cs" />
@@ -104,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\readme.txt" />
-    <None Include="Assets\Plugins\NLog.xml" />
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\Shaders\OutlinedDiffuse.shader" />
     <None Include="Assets\Shaders\Outlined_Diffuse.shader" />

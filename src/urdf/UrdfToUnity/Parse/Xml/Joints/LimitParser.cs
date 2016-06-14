@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models.Joints;
 using UrdfToUnity.Util;
@@ -16,7 +16,7 @@ namespace UrdfToUnity.Parse.Xml.Joints
         private static readonly double DEFAULT_VALUE = 0d;
 
 
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.

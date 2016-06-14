@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using NLog;
+//using NLog;
 using UrdfToUnity.Urdf;
 using UrdfToUnity.Urdf.Models;
 using UrdfToUnity.Urdf.Models.Attributes;
@@ -15,7 +15,7 @@ namespace UrdfToUnity.Parse.Xml
     /// <seealso cref="Urdf.Models.Origin"/>
     public sealed class OriginParser : AbstractUrdfXmlParser<Origin>
     {
-        protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
+        //protected override Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The name of the URDF XML element that this class parses.
