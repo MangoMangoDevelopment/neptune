@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+
 
 
 /// <summary>
@@ -7,6 +7,8 @@ using System.Collections;
 /// </summary>
 public class UrdfItemModel
 {
+    private static int unknownNameCount = 0;
+    private readonly int propertyCount = 15; // update this when new property is added
     public int uid;
     public string name;
     public string modelNumber;
@@ -14,32 +16,134 @@ public class UrdfItemModel
     public float externalCost;
     public float weight;
     public float powerUsage;
-    public int fk_type_id;
-    public int fk_category_id;
-    public int usable;
+    public string notes;
     public int visibility;
+    public string type;
+    public string category;
     public string urdfFilename;
     public string prefabFilename;
-    public string notes;
+    public int usable;
     public float time;
     // TODO: Add validation code
 
-    public void copy(UrdfItemModel model)
+    public void checkPropertyCount(int length)
     {
-        this.uid = model.uid;
-        this.name = model.name;
-        this.modelNumber = model.modelNumber;
-        this.internalCost = model.internalCost;
-        this.externalCost = model.externalCost;
-        this.weight = model.weight;
-        this.powerUsage = model.powerUsage;
-        this.fk_type_id = model.fk_type_id;
-        this.fk_category_id = model.fk_category_id;
-        this.usable = model.usable;
-        this.visibility = model.visibility;
-        this.urdfFilename = model.urdfFilename;
-        this.prefabFilename = model.prefabFilename;
-        this.notes = model.notes;
-        this.time = model.time;
+        if( this.propertyCount != length )
+        {
+            throw new Exception("Invalid Property count.");
+        }
+    }
+
+    public string GetCSV()
+    {
+        return String.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}",
+            this.uid,
+            this.name,
+            this.modelNumber,
+            this.internalCost,
+            this.externalCost,
+            this.weight,
+            this.powerUsage,
+            this.notes,
+            this.visibility,
+            this.type,
+            this.category,
+            this.urdfFilename,
+            this.prefabFilename,
+            this.usable,
+            this.time);
+    }
+
+    public void copy(UrdfItemModel item)
+    {
+        this.uid = item.uid;
+        this.name = item.name;
+        this.modelNumber = item.modelNumber;
+        this.internalCost = item.internalCost;
+        this.externalCost = item.externalCost;
+        this.weight = item.weight;
+        this.powerUsage = item.powerUsage;
+        this.type = item.type;
+        this.category = item.category;
+        this.usable = item.usable;
+        this.visibility = item.visibility;
+        this.urdfFilename = item.urdfFilename;
+        this.prefabFilename = item.prefabFilename;
+        this.notes = item.notes;
+        this.time = item.time;
+    }
+
+    public void extract(string[] items)
+    {
+        checkPropertyCount(items.Length);
+
+        if (!int.TryParse(items[0], out this.uid))
+        {
+            this.uid = 0;
+        }
+        if (string.IsNullOrEmpty(items[1]))
+        {
+            this.name = string.Format("Unknown {0}", unknownNameCount++);
+        }
+        else
+        {
+            this.name = items[1];
+        }
+        if (string.IsNullOrEmpty(items[2]))
+        {
+            this.modelNumber = "Unknown";
+        }
+        else
+        {
+            this.modelNumber = items[2];
+        }
+        if (!float.TryParse(items[3], out this.internalCost))
+        {
+            this.internalCost = 0;
+        }
+        if (!float.TryParse(items[4], out this.externalCost))
+        {
+            this.externalCost = 0;
+        }
+        if (!float.TryParse(items[5], out this.weight))
+        {
+            this.weight = 0;
+        }
+        if (!float.TryParse(items[6], out this.powerUsage))
+        {
+            this.powerUsage = 0;
+        }
+        this.notes = items[7];
+        if (!int.TryParse(items[8], out this.visibility))
+        {
+            this.visibility = 0;
+        }
+        if (String.IsNullOrEmpty(items[9]))
+        {
+            this.type = "sensor";
+        }
+        else
+        {
+            this.type = items[9];
+        }
+        if (string.IsNullOrEmpty(items[10]))
+        {
+            this.category = "Unknown";
+        }
+        else
+        {
+            this.category = items[10];
+        }
+        
+        this.urdfFilename = items[11];
+        this.prefabFilename = items[12];
+        if (!int.TryParse(items[13],out this.usable))
+        {
+            this.usable = 0;
+        }
+        if (!float.TryParse(items[14], out this.time))
+        {
+            this.time = 0;
+        }
     }
 }

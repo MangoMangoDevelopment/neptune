@@ -61,12 +61,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>Assets\Plugins\Mono.Data.Sqlite.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>Assets\Plugins\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data">
       <HintPath>Assets\Plugins\System.Data.dll</HintPath>
     </Reference>
@@ -76,6 +70,9 @@
     <Reference Include="SmartLocalization_Runtime">
       <HintPath>Assets\SmartLocalization\SmartLocalization_Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>Assets\Plugins\NLog.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AxisHandle.cs" />
@@ -83,7 +80,7 @@
     <Compile Include="Assets\Scripts\CategoryHeading.cs" />
     <Compile Include="Assets\Scripts\Controllers\headingController.cs" />
     <Compile Include="Assets\Scripts\Controllers\modelPreview.cs" />
-    <Compile Include="Assets\Scripts\DB\DbEngine.cs" />
+    <Compile Include="Assets\Scripts\DB\UrdfDb.cs" />
     <Compile Include="Assets\Scripts\DBManager.cs" />
     <Compile Include="Assets\Scripts\DbUIManager.cs" />
     <Compile Include="Assets\Scripts\DialogManager.cs" />
@@ -93,7 +90,6 @@
     <Compile Include="Assets\Scripts\Models\RosLinkModel.cs" />
     <Compile Include="Assets\Scripts\Models\RosRobotModel.cs" />
     <Compile Include="Assets\Scripts\Models\SensorCategoriesModel.cs" />
-    <Compile Include="Assets\Scripts\Models\UrdfDb.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfItemModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfTypeModel.cs" />
     <Compile Include="Assets\Scripts\PartText.cs" />

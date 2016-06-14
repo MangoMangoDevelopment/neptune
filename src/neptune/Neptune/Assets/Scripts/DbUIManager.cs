@@ -32,7 +32,9 @@ public class DbUIManager : MonoBehaviour {
     private Dictionary<string, InputField> inputs;
     private Dictionary<string, Dropdown> dropdowns;
     private Dictionary<string, Toggle> toggles;
-    private Dictionary<int, GameObject> categoryHolderList;
+    private Dictionary<string, GameObject> categoryHolderList;
+    private List<string> categories;
+    private List<string> types;
     private List<GameObject> sensors;
 
     /// <summary>
@@ -43,7 +45,7 @@ public class DbUIManager : MonoBehaviour {
         this.urdf = new UrdfDb();
         this.currState = UIState.Create; // assume that the default is to add a sensor right away
         this.sensors = new List<GameObject>();
-        categoryHolderList = new Dictionary<int, GameObject>();
+        categoryHolderList = new Dictionary<string, GameObject>();
         setupForm();
         SensorPanelSetup();
     }
@@ -82,39 +84,39 @@ public class DbUIManager : MonoBehaviour {
     /// </summary>
     void SensorPanelSetup()
     {
-        List<SensorCategoriesModel> categories = urdf.GetSensorCategories();
-        List<UrdfTypeModel> types = urdf.GetUrdfTypes();
+        this.categories = urdf.GetSensorCategories();
+        this.types = urdf.GetUrdfTypes();
         List<UrdfItemModel> sensorList = urdf.GetUrdfs();
 
         this.dropdowns["ddCategory"].options.Add(new Dropdown.OptionData("Unknown"));
-        foreach (SensorCategoriesModel category in categories)
+        foreach (string category in categories)
         {
-            this.dropdowns["ddCategory"].options.Add(new Dropdown.OptionData(category.name));
+            this.dropdowns["ddCategory"].options.Add(new Dropdown.OptionData(category));
         }
 
         this.dropdowns["ddTypes"].options.Add(new Dropdown.OptionData("Unknown"));
-        foreach (UrdfTypeModel type in types)
+        foreach (string type in types)
         {
-            this.dropdowns["ddTypes"].options.Add(new Dropdown.OptionData(type.name));
+            this.dropdowns["ddTypes"].options.Add(new Dropdown.OptionData(type));
         }
 
-        List<headingController> headingControllers = new List<headingController>();
+        Dictionary<string, headingController> headingControllers = new Dictionary<string, headingController>();
         GameObject unknownHolder = GameObject.Instantiate(categoryContainerPrefab);
         headingController unknownController = unknownHolder.GetComponentInChildren<headingController>();
         unknownController.SetHeadingName("Unknown");
-        headingControllers.Add(unknownController);
+        headingControllers.Add("unknown",unknownController);
         unknownHolder.transform.SetParent(sensorViewPort.transform, false);
-        categoryHolderList.Add(0, unknownHolder);
+        categoryHolderList.Add("unknown", unknownHolder);
 
-        foreach (SensorCategoriesModel category in categories)
+        foreach (string category in categories)
         {
             GameObject categoryHolder = GameObject.Instantiate(categoryContainerPrefab);
             headingController controller = categoryHolder.GetComponentInChildren<headingController>();
-            controller.SetHeadingName(category.name);
-            headingControllers.Add(controller);
+            controller.SetHeadingName(category);
+            headingControllers.Add(category, controller);
             categoryHolder.GetComponent<CategoryHeading>().category = category;
             categoryHolder.transform.SetParent(sensorViewPort.transform, false);
-            categoryHolderList.Add(category.uid, categoryHolder);
+            categoryHolderList.Add(category, categoryHolder);
         }
 
 
@@ -125,18 +127,17 @@ public class DbUIManager : MonoBehaviour {
             Text value = sensorBtn.GetComponentInChildren<Text>();
             Sensor sensor = sensorBtn.GetComponent<Sensor>();
             sensor.item = item;
-            sensor.category = categoryHolderList[item.fk_category_id].GetComponent<CategoryHeading>().category;
             value.text = item.name;
             sensorBtn.name = item.name.ToLower();
-            headingControllers[item.fk_category_id].AddSensor();
-            sensorBtn.transform.SetParent(categoryHolderList[item.fk_category_id].transform, false);
+            headingControllers[item.category].AddSensor();
+            sensorBtn.transform.SetParent(categoryHolderList[item.category].transform, false);
             btn.onClick.AddListener(() => SensorOnClick(sensorBtn));
             this.sensors.Add(sensorBtn);
         }
 
-        foreach (headingController controller in headingControllers)
+        foreach (KeyValuePair<string, headingController> controller in headingControllers)
         {
-            controller.UpdateSensorCount();
+            controller.Value.UpdateSensorCount();
         }
     }
 
@@ -161,7 +162,6 @@ public class DbUIManager : MonoBehaviour {
     {
         foreach (KeyValuePair<string, InputField> input in this.inputs)
         {
-            Debug.Log(input.Value.text);
             input.Value.text = "";
         }
 
@@ -191,9 +191,9 @@ public class DbUIManager : MonoBehaviour {
         this.inputs["txtWeight"].text = item.weight.ToString();
         this.inputs["txtTime"].text = item.time.ToString();
         this.inputs["txtPrefabPath"].text = item.prefabFilename;
-
-        this.dropdowns["ddCategory"].value = item.fk_category_id;
-        this.dropdowns["ddTypes"].value = item.fk_type_id;
+        
+        this.dropdowns["ddCategory"].value = this.categories.FindIndex(a => a == item.category) + 1;
+        this.dropdowns["ddTypes"].value = this.types.FindIndex(t => t == item.type) + 1;
 
         this.toggles["toggleVisibility"].isOn = (item.visibility == 0 ? false : true);
     }
@@ -234,8 +234,8 @@ public class DbUIManager : MonoBehaviour {
         item.modelNumber = this.inputs["txtModel"].text;
         item.notes = this.inputs["txtNotes"].text;
         item.prefabFilename = this.inputs["txtPrefabPath"].text;
-        item.fk_category_id = this.dropdowns["ddCategory"].value;
-        item.fk_type_id = this.dropdowns["ddTypes"].value;
+        item.category = this.categories[this.dropdowns["ddCategory"].value - 1];
+        item.type = this.types[this.dropdowns["ddTypes"].value - 1];
         item.visibility = (this.toggles["toggleVisibility"].isOn ? 1 : 0);
 
         if (!float.TryParse(this.inputs["txtInternalCost"].text, out item.internalCost))
@@ -329,7 +329,7 @@ public class DbUIManager : MonoBehaviour {
             }
             item.transform.gameObject.SetActive(inName);
         }
-        foreach(KeyValuePair<int, GameObject> category in categoryHolderList)
+        foreach(KeyValuePair<string, GameObject> category in categoryHolderList)
         {
             headingController controller = category.Value.GetComponentInChildren<headingController>();
             controller.UpdateSensorCount();
@@ -394,4 +394,9 @@ public class DbUIManager : MonoBehaviour {
         previewPort.SetActive(!previewPort.activeInHierarchy);
     }
 
+
+    public void OnApplicationQuit()
+    {
+        urdf.Save();
+    }
 }

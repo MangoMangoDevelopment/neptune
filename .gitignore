@@ -33,4 +33,6 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 [Tt]humbs.db
-db/neptune.db
+
+
+db/*
