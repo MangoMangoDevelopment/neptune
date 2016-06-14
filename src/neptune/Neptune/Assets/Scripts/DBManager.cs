@@ -31,9 +31,13 @@ public class DBManager {
                 go = errorObject;
             //go.AddComponent<Ros>
 
+            /*
+            //Load each sensor as it's being read from the DB
+            //This ensures each sensor model is drawn on the GPU at least once. This gets cached so that there is no loading time next time each sensor is rendered
             GameObject inst = GameObject.Instantiate<GameObject>(go);
             Debug.Log("Loaded " + sensor.prefabFilename);
             GameObject.Destroy(inst);
+            */
 
             uiManager.AddSensor(sensor.name, go, 10);
 

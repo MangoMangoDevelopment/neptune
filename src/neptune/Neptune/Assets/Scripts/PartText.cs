@@ -51,6 +51,15 @@ public class PartText : MonoBehaviour {
         this.state = state;
     }
 
+    IEnumerator CallAddPart()
+    {
+        //We do this because Showing the loading panel takes 1 frame
+        uiManager.ShowLoadingPanel();
+        yield return 0;
+        uiManager.AddPart(name, editorManager.AddPart(GO, name), scale);
+        uiManager.HideLoadingPanel();
+    }
+
     public void OnClick()
     {
         switch (state)
@@ -58,7 +67,7 @@ public class PartText : MonoBehaviour {
             case State.AddNewSensor:
                 {
                     //Get the instance of the prefab back from the Editor Manager so that we can reference it when selecting
-                    uiManager.AddPart(name, editorManager.AddPart(GO, name), scale);
+                    StartCoroutine("CallAddPart");
                 }
                 break;
             case State.SelectExistingSensor:

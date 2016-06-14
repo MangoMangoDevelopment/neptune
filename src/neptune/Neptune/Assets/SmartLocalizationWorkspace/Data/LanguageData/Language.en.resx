@@ -161,6 +161,9 @@
 	<data name="Height" xml:space="preserve">
 		<value>Height</value>
 	</data>
+	<data name="LoadingSensor" xml:space="preserve">
+		<value>Loading sensor.</value>
+	</data>
 	<data name="Magenta" xml:space="preserve">
 		<value>Magenta</value>
 	</data>
@@ -188,6 +191,9 @@
 	<data name="Parts" xml:space="preserve">
 		<value>PARTS</value>
 	</data>
+	<data name="PleaseWait" xml:space="preserve">
+		<value>Please wait...</value>
+	</data>
 	<data name="Red" xml:space="preserve">
 		<value>Red</value>
 	</data>
@@ -205,6 +211,9 @@
 	</data>
 	<data name="Sensors" xml:space="preserve">
 		<value>SENSORS</value>
+	</data>
+	<data name="Test" xml:space="preserve">
+		<value>Test</value>
 	</data>
 	<data name="White" xml:space="preserve">
 		<value>White</value>

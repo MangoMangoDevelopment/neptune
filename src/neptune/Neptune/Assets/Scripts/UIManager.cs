@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject PartsContent;
     public GameObject TextPrefab;
     public GameObject RobotBaseSelectPanel;
+    public GameObject LoadingSensorPanel;
     public GameObject ResetAxesPanel;
     public GameObject ResetAxesPanelMask;
     public GameObject CustomCubeoidPanel;
@@ -76,6 +76,18 @@ public class UIManager : MonoBehaviour
         }
 
         UpdateColorDropdownOptions();
+    }
+
+    public void ShowLoadingPanel()
+    {
+        Debug.Log("ShowLoadingPanel");
+        LoadingSensorPanel.SetActive(true);
+    }
+
+    public void HideLoadingPanel()
+    {
+        Debug.Log("HideLoadingPanel");
+        LoadingSensorPanel.SetActive(false);
     }
 
     private void UpdateColorDropdownOptions()
