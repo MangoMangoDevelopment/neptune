@@ -80,13 +80,11 @@ public class UIManager : MonoBehaviour
 
     public void ShowLoadingPanel()
     {
-        Debug.Log("ShowLoadingPanel");
         LoadingSensorPanel.SetActive(true);
     }
 
     public void HideLoadingPanel()
     {
-        Debug.Log("HideLoadingPanel");
         LoadingSensorPanel.SetActive(false);
     }
 
