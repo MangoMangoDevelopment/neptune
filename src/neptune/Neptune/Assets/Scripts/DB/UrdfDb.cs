@@ -1,16 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 /// <summary>
 /// This is the model for URDF interactions which contains actions to interact with the DB
 /// </summary>
 public class UrdfDb
 {
-    private string CONN_STRING = "../../../db/data.csv";
-    private string usingFilepath;
+    private readonly string DB_FILENAME = "DB/sensors";
+    private string usingFilepath = Application.dataPath + "/Resources/";
     private string firstLine = "";
     private List<UrdfItemModel> UrdfItems;
     private bool tryOnce = true;
@@ -21,56 +24,43 @@ public class UrdfDb
     /// <param name="connString">string representation to connect to the sqlite db</param>
     public UrdfDb()
     {
-        SetupData(CONN_STRING);
-    }
+        this.usingFilepath += this.DB_FILENAME + ".csv";
 
-    /// <summary>
-    /// Constructor for the urdf model by providing an existing DbEngine to midigate the number of connections
-    /// to the database.
-    /// </summary>
-    /// <param name="file">File path to </param>
-    public UrdfDb(string file)
-    {
-        SetupData(file);
-    }
-
-    private void SetupData(string filepath)
-    {
-        this.usingFilepath = filepath;
+        TextAsset dbFile = Resources.Load(this.DB_FILENAME) as TextAsset;
+        string[] rows = dbFile.text.Split('\n');
         this.UrdfItems = new List<UrdfItemModel>();
-        FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        
-        using (StreamReader sr = new StreamReader(fs))
+        UrdfItemModel item;
+
+        foreach(string line in rows)
         {
-            string line = "";
-            UrdfItemModel item;
-            bool firstline = true;
-            while ((line = sr.ReadLine()) != null)
+            if (String.IsNullOrEmpty(line))
             {
-                if (firstline)
+                continue;
+            }
+            if (String.IsNullOrEmpty(this.firstLine))
+            {
+                this.firstLine = line;
+                continue;
+            }
+            else
+            {
+                try
                 {
-                    firstLine = line;
-                    firstline = false;
-                    continue;
+                    item = new UrdfItemModel();
+                    item.extract(line.Split('\t'));
+                    this.UrdfItems.Add(item);
                 }
-                else
+                catch (Exception)
                 {
-                    try
-                    {
-                        item = new UrdfItemModel();
-                        item.extract(line.Split('\t'));
-                        this.UrdfItems.Add(item);
-                    }
-                    catch (Exception)
-                    {
-                        // log invalid row in data file
-                    }
+                    // log invalid row in data file
                 }
             }
         }
-        fs.Close();
     }
-
+#if UNITY_EDITOR
+    /// <summary>
+    /// Take changes done to the sensors and saves them back in the csv file.
+    /// </summary>
     public void Save()
     {
         try
@@ -83,6 +73,8 @@ public class UrdfDb
                     file.WriteLine(item.GetCSV());
                 }
             }
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
         catch (IOException)
         {
@@ -95,7 +87,7 @@ public class UrdfDb
             }
         }
     }
-
+#endif
 
     /// <summary>
     /// This will query for all urdfs in the database. 

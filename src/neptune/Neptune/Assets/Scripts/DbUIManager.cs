@@ -394,9 +394,14 @@ public class DbUIManager : MonoBehaviour {
         previewPort.SetActive(!previewPort.activeInHierarchy);
     }
 
-
+#if UNITY_EDITOR
+    /// <summary>
+    /// Ensure to save changes to the db when application exits. This is important only
+    /// for DbMaintenance running in the Unity Editor.
+    /// </summary>
     public void OnApplicationQuit()
     {
         urdf.Save();
     }
+#endif
 }

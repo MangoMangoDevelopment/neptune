@@ -36,3 +36,5 @@ ehthumbs.db
 
 
 db/*
+src/neptune/Neptune/Assets/Resources/DB/*
+src/neptune/Neptune/Assets/Resources/DB.meta
