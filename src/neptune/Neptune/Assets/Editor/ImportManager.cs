@@ -37,6 +37,7 @@ public class ObjectMeshManager : AssetPostprocessor
         if (importedAssets != null && importedAssets.Length > 0)
         {
             FileType type = FileType.UNKNOWN;
+            UrdfDb db = new UrdfDb();
             foreach (string assetPath in importedAssets)
             {
                 string filename = FileManagerImpl.GetFileName(assetPath, false);
@@ -70,6 +71,13 @@ public class ObjectMeshManager : AssetPostprocessor
                     }
                     
                     PrefabUtility.CreatePrefab(string.Format(prefabItemPathFormat, go.name), go);
+                    UrdfItemModel item = new UrdfItemModel();
+                    item.name = filename;
+                    item.prefabFilename = go.name;
+                    item.visibility = 1;
+                    item.usable = 0;
+                    db.AddSensor(item);
+                    db.Save();
                     GameObject.DestroyImmediate(go);
                 }
                 else if (type == FileType.URDF || type == FileType.XACRO)
@@ -82,11 +90,12 @@ public class ObjectMeshManager : AssetPostprocessor
                         item.urdfFilename = assetPath;
                         item.prefabFilename = prefabName;
                         item.visibility = 1;
-                        UrdfDb db = new UrdfDb();
                         db.AddSensor(item);
+                        db.Save();
                     }
                 }
             }
+            
         }
     }
 

@@ -115,7 +115,7 @@ public class UrdfDb
             {
                 continue;
             }
-            if (item.type.Equals("sensor"))
+            if (item.type.Equals("sensor") && (item.usable.Equals(1) || all))
             {
                 sensors[index++] = item;
             }
@@ -242,7 +242,8 @@ public class UrdfDb
         int index = this.FindUidIndex(this.UrdfItems, item.uid);
         if (index > -1)
         {
-            this.UrdfItems[item.uid-1] = item;
+            item.usable = 1;
+            this.UrdfItems[index] = item;
             return 1;
         }
         return 0;
