@@ -1,8 +1,4 @@
-﻿using System;
-
-
-
-/// <summary>
+﻿/// <summary>
 /// This is a model of urdfs stored in the database
 /// </summary>
 public class UrdfItemModel
@@ -26,17 +22,18 @@ public class UrdfItemModel
     public float time;
     // TODO: Add validation code
 
-    public void checkPropertyCount(int length)
+    public bool checkPropertyCount(int length)
     {
-        if( this.propertyCount != length )
+        if(this.propertyCount != length )
         {
-            throw new Exception("Invalid Property count.");
+            return false;
         }
+        return true;
     }
 
     public string GetCSV()
     {
-        return String.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}",
+        return string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}",
             this.uid,
             this.name,
             this.modelNumber,
@@ -118,7 +115,7 @@ public class UrdfItemModel
         {
             this.visibility = 0;
         }
-        if (String.IsNullOrEmpty(items[9]))
+        if (string.IsNullOrEmpty(items[9]))
         {
             this.type = "sensor";
         }

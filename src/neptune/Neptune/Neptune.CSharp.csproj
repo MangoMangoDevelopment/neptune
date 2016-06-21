@@ -61,9 +61,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data">
-      <HintPath>Assets\Plugins\System.Data.dll</HintPath>
-    </Reference>
     <Reference Include="UrdfToUnity">
       <HintPath>Assets\Plugins\UrdfToUnity.dll</HintPath>
     </Reference>

@@ -91,9 +91,6 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data">
-      <HintPath>Assets\Plugins\System.Data.dll</HintPath>
-    </Reference>
     <Reference Include="UrdfToUnity">
       <HintPath>Assets\Plugins\UrdfToUnity.dll</HintPath>
     </Reference>

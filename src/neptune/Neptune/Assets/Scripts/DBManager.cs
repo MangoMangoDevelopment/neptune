@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class DBManager {
     public static UrdfDb db = new UrdfDb();
@@ -9,7 +8,7 @@ public class DBManager {
     //      of representation to the URDF or to the output of Amber's converter that needn't necessarily be passed in.
 	public void GetSensorList (UIManager uiManager, GameObject testObject, GameObject errorObject, GameObject invisibleObject)
     {
-        List<UrdfItemModel> sensors = db.GetSensors();
+        UrdfItemModel[] sensors = db.GetSensors();
 
         foreach(UrdfItemModel sensor in sensors)
         {

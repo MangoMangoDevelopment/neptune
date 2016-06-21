@@ -427,8 +427,8 @@ PlayerSettings:
   Standalone::ScriptingBackend: 0
   WebGL::ScriptingBackend: 1
   WebGL::audioCompressionFormat: 4
-  WebGL::exceptionSupport: 1
-  WebGL::memorySize: 256
+  WebGL::exceptionSupport: 0
+  WebGL::memorySize: 512
   WebPlayer::ScriptingBackend: 0
   boolPropertyNames:
   - WebGL::analyzeBuildSize
@@ -436,7 +436,7 @@ PlayerSettings:
   - WebGL::useEmbeddedResources
   - XboxOne::enus
   WebGL::analyzeBuildSize: 0
-  WebGL::dataCaching: 1
+  WebGL::dataCaching: 0
   WebGL::useEmbeddedResources: 0
   XboxOne::enus: 1
   stringPropertyNames:

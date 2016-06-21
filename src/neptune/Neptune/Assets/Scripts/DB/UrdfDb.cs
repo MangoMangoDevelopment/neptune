@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using System;
+using System.IO;
 #endif
 
 /// <summary>
@@ -15,8 +14,10 @@ public class UrdfDb
     private readonly string DB_FILENAME = "DB/sensors";
     private string usingFilepath = Application.dataPath + "/Resources/";
     private string firstLine = "";
-    private List<UrdfItemModel> UrdfItems;
+    private UrdfItemModel[] UrdfItems;
     private bool tryOnce = true;
+    private int arrayPadding = 10;
+    private int lastIndex = 0;
 
     /// <summary>
     /// Constructor for the urdf model using the default connection string
@@ -28,32 +29,27 @@ public class UrdfDb
 
         TextAsset dbFile = Resources.Load(this.DB_FILENAME) as TextAsset;
         string[] rows = dbFile.text.Split('\n');
-        this.UrdfItems = new List<UrdfItemModel>();
+        this.UrdfItems = new UrdfItemModel[rows.Length + arrayPadding];
         UrdfItemModel item;
 
+        int lineCnt = 0;
         foreach(string line in rows)
         {
-            if (String.IsNullOrEmpty(line))
+            if (string.IsNullOrEmpty(line))
             {
                 continue;
             }
-            if (String.IsNullOrEmpty(this.firstLine))
+            if (string.IsNullOrEmpty(this.firstLine))
             {
                 this.firstLine = line;
                 continue;
             }
             else
             {
-                try
-                {
-                    item = new UrdfItemModel();
-                    item.extract(line.Split('\t'));
-                    this.UrdfItems.Add(item);
-                }
-                catch (Exception)
-                {
-                    // log invalid row in data file
-                }
+                item = new UrdfItemModel();
+                item.extract(line.Split('\t'));
+                this.UrdfItems[lineCnt++] = item;
+                lastIndex = lineCnt;
             }
         }
     }
@@ -70,6 +66,10 @@ public class UrdfDb
                 file.WriteLine(firstLine);
                 foreach(UrdfItemModel item in this.UrdfItems)
                 {
+                    if (item == null)
+                    {
+                        continue;
+                    }
                     file.WriteLine(item.GetCSV());
                 }
             }
@@ -93,7 +93,7 @@ public class UrdfDb
     /// This will query for all urdfs in the database. 
     /// </summary>
     /// <returns>A list of all urdfs in the database.</returns>
-    public List<UrdfItemModel> GetUrdfs()
+    public UrdfItemModel[] GetUrdfs()
     {
         return this.UrdfItems;
     }
@@ -105,54 +105,110 @@ public class UrdfDb
     /// </summary>
     /// <param name="all">Inclusion of sensors that are not usable</param>
     /// <returns>A list of all sensors/urdfs in the database.</returns>
-    public List<UrdfItemModel> GetSensors(bool all = false)
+    public UrdfItemModel[] GetSensors(bool all = false)
     {
-        return this.UrdfItems.FindAll(delegate (UrdfItemModel m) { return m.type == "sensor"; });
+        UrdfItemModel[] sensors = new UrdfItemModel[this.UrdfItems.Length];
+        int index = 0;
+        foreach (UrdfItemModel item in this.UrdfItems)
+        {
+            if (item == null)
+            {
+                continue;
+            }
+            if (item.type.Equals("sensor"))
+            {
+                sensors[index++] = item;
+            }
+        }
+        UrdfItemModel[] actual = new UrdfItemModel[index];
+        for (int i = 0; i < index; i++)
+        {
+            actual[i] = sensors[i];
+        }
+        return actual;
     }
     /// <summary>
     /// This will query for all usable robots in the database by default unless otherwise specified. 
     /// A robot is usable if it has an appropriate mesh and data associated to it. 
     /// </summary>
     /// <returns>A list of all robots/urdfs in the database.</returns>
-    public List<UrdfItemModel> GetRobots()
+    public UrdfItemModel[] GetRobots()
     {
-        return this.UrdfItems.FindAll(delegate(UrdfItemModel m) { return m.type == "robot"; }) ;
+        UrdfItemModel[] robots = new UrdfItemModel[this.UrdfItems.Length];
+        int index = 0;
+        foreach (UrdfItemModel item in this.UrdfItems)
+        {
+            if (item == null)
+            {
+                continue;
+            }
+            if (item.type.Equals("sensor"))
+            {
+                robots[index++] = item;
+            }
+        }
+        UrdfItemModel[] actual = new UrdfItemModel[index];
+        for (int i = 0; i < index; i++)
+        {
+            actual[i] = robots[i];
+        }
+        return actual;
     }
 
     /// <summary>
     /// This will grab all the urdf types that is known in the database
     /// </summary>
     /// <returns>A list of type of urdf in the database.</returns>
-    public List<string> GetUrdfTypes()
+    public string[] GetUrdfTypes()
     {
-        List<string> list = new List<string>();
+        // this is hard coded for now due to memory constraints on WebGL.
+        string[] list = new string[this.UrdfItems.Length];
+        int index = 0;
         foreach (UrdfItemModel model in this.UrdfItems)
         {
-            if (!list.Contains(model.type))
+            if (model == null)
             {
-                list.Add(model.type);
+                continue;
+            }
+            if (!this.Contains(model.type,list))
+            {
+                list[index++] = model.type;
             }
         }
-
-        return list;
+        string[] actual = new string[index];
+        for (int i = 0; i < index; i++)
+        {
+            actual[i] = list[i];
+        }
+        return actual;
     }
 
     /// <summary>
     /// Retrieves the categories the list of categories within the database.
     /// </summary>
     /// <returns>A List of categories found. List may be empty.</returns>
-    public List<string> GetSensorCategories()
+    public string[] GetSensorCategories()
     {
-        List<string> list = new List<string>();
+        string[] list = new string[this.UrdfItems.Length];
+        int index = 0;
         foreach(UrdfItemModel model in this.UrdfItems)
         {
-            if(!list.Contains(model.category))
+            if (model == null)
             {
-                list.Add(model.category);
+                continue;
+            }
+            if (!this.Contains<string>(model.category, list))
+            {
+                list[index++] = (model.category);
             }
         }
+        string[] actual = new string[index];
+        for (int i = 0; i < index; i++)
+        {
+            actual[i] = list[i];
+        }
 
-        return list;
+        return actual;
     }
 
     /// <summary>
@@ -162,9 +218,18 @@ public class UrdfDb
     /// <returns>The insert id of the newely added id. 0 if it was not added successfully.</returns>
     public int AddSensor(UrdfItemModel item)
     {
-        item.uid = this.UrdfItems.Count+1;
-        this.UrdfItems.Add(item);
-        return this.UrdfItems.Count;
+        if (this.lastIndex == this.UrdfItems.Length)
+        {
+            UrdfItemModel[] extend = new UrdfItemModel[this.UrdfItems.Length + arrayPadding];
+            for( int i = 0; i < this.UrdfItems.Length; i++)
+            {
+                extend[i] = this.UrdfItems[i];
+            }
+            this.UrdfItems = extend;
+        }
+        item.uid = this.UrdfItems[this.lastIndex - 1].uid + 1;
+        this.UrdfItems[this.lastIndex++] = item;
+        return item.uid;
     }
 
     /// <summary>
@@ -174,15 +239,13 @@ public class UrdfDb
     /// <returns>The number of rows affected by the update. 0 if the id was not found.</returns>
     public int UpdateSensor(UrdfItemModel item)
     {
-        try
+        int index = this.FindUidIndex(this.UrdfItems, item.uid);
+        if (index > -1)
         {
             this.UrdfItems[item.uid-1] = item;
             return 1;
         }
-        catch (Exception)
-        {
-            return 0;
-        }
+        return 0;
     }
 
     /// <summary>
@@ -202,15 +265,59 @@ public class UrdfDb
     /// <returns>The number of rows there were affected by the delete statement, 0 if the id was not found</returns>
     public int DeleteSensor(int UrdfItemModelId)
     {
-        try
+        
+        int index = this.FindUidIndex(this.UrdfItems, UrdfItemModelId);
+        if (index >= 0)
         {
-            UrdfItems.RemoveAt(UrdfItemModelId-1);
+            for (int i = index; i < this.UrdfItems.Length - 1; i++)
+            {
+                this.UrdfItems[i] = this.UrdfItems[i + 1];
+            }
+            this.lastIndex--;
             return 1;
         }
-        catch (ArgumentOutOfRangeException)
-        {
-            return 0;
-        }
+        return 0;
     }
 
+    public bool Contains <T>(T source, T[] values)
+    {
+        foreach (T value in values)
+        {
+            if (source.Equals(value))
+                return true;
+        }
+        return false;
+    }
+
+    public int FindUidIndex(UrdfItemModel[] array, int uid)
+    {
+        int index = -1;
+        int cnt = 0;
+        foreach (UrdfItemModel model in array)
+        {
+            if(model.uid == uid)
+            {
+                index = cnt;
+                break;
+            }
+            cnt++;
+        }
+        return index;
+    }
+
+    public int FindStringIndex(string[] strings, string value)
+    {
+        int index = -1;
+        int cnt = 0;
+        foreach (string item in strings)
+        {
+            if (item.Equals(value))
+            {
+                index = cnt;
+                break;
+            }
+            cnt++;
+        }
+        return index;
+    }
 }

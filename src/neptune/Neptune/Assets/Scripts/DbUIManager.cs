@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
@@ -33,8 +34,8 @@ public class DbUIManager : MonoBehaviour {
     private Dictionary<string, Dropdown> dropdowns;
     private Dictionary<string, Toggle> toggles;
     private Dictionary<string, GameObject> categoryHolderList;
-    private List<string> categories;
-    private List<string> types;
+    private string[] categories;
+    private string[] types;
     private List<GameObject> sensors;
 
     /// <summary>
@@ -86,7 +87,7 @@ public class DbUIManager : MonoBehaviour {
     {
         this.categories = urdf.GetSensorCategories();
         this.types = urdf.GetUrdfTypes();
-        List<UrdfItemModel> sensorList = urdf.GetUrdfs();
+        UrdfItemModel[] sensorList = urdf.GetUrdfs();
 
         this.dropdowns["ddCategory"].options.Add(new Dropdown.OptionData("Unknown"));
         foreach (string category in categories)
@@ -122,6 +123,10 @@ public class DbUIManager : MonoBehaviour {
 
         foreach (UrdfItemModel item in sensorList)
         {
+            if (item == null)
+            {
+                continue;
+            }
             GameObject sensorBtn = GameObject.Instantiate(sensorBtnPrefab);
             Button btn = sensorBtn.GetComponent<Button>();
             Text value = sensorBtn.GetComponentInChildren<Text>();
@@ -192,8 +197,8 @@ public class DbUIManager : MonoBehaviour {
         this.inputs["txtTime"].text = item.time.ToString();
         this.inputs["txtPrefabPath"].text = item.prefabFilename;
         
-        this.dropdowns["ddCategory"].value = this.categories.FindIndex(a => a == item.category) + 1;
-        this.dropdowns["ddTypes"].value = this.types.FindIndex(t => t == item.type) + 1;
+        this.dropdowns["ddCategory"].value = this.urdf.FindStringIndex(this.categories, item.category) + 1;
+        this.dropdowns["ddTypes"].value = this.urdf.FindStringIndex(this.types, item.type) + 1;
 
         this.toggles["toggleVisibility"].isOn = (item.visibility == 0 ? false : true);
     }
@@ -393,8 +398,7 @@ public class DbUIManager : MonoBehaviour {
     {
         previewPort.SetActive(!previewPort.activeInHierarchy);
     }
-
-#if UNITY_EDITOR
+    
     /// <summary>
     /// Ensure to save changes to the db when application exits. This is important only
     /// for DbMaintenance running in the Unity Editor.
@@ -403,5 +407,5 @@ public class DbUIManager : MonoBehaviour {
     {
         urdf.Save();
     }
-#endif
 }
+#endif
