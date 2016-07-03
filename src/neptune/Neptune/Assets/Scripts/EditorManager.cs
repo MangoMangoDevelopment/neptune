@@ -136,13 +136,10 @@ public class EditorManager : MonoBehaviour {
         switch (robotBase)
         {
             case RobotBase.Jackal:
-                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
+                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Jackal"));
                 break;
             case RobotBase.Husky:
                 robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/Husky"));
-                break;
-            case RobotBase.Grizzly:
-                robotBaseObject = Instantiate<GameObject>(Resources.Load<GameObject>("Models/Robots/R2D2"));
                 break;
         }
         if (robotBaseObject != null)

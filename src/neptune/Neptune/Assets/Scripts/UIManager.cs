@@ -382,11 +382,4 @@ public class UIManager : MonoBehaviour
         editorManager.SelectRobotBase(robotBase);
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
     }
-
-    public void SelectGrizzlyBase()
-    {
-        EditorManager.RobotBase robotBase = EditorManager.RobotBase.Grizzly;
-        editorManager.SelectRobotBase(robotBase);
-        RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
-    }
 }
