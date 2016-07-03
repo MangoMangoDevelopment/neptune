@@ -1270,7 +1270,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d0f067ff8d8aa144e9a838e186f519a8, type: 2}
+  - {fileID: 2100000, guid: 4e09d090e40e61a44a560d11fa7619f3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1296,7 +1296,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d0f067ff8d8aa144e9a838e186f519a8, type: 2}
+  - {fileID: 2100000, guid: 4e09d090e40e61a44a560d11fa7619f3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1426,7 +1426,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d0f067ff8d8aa144e9a838e186f519a8, type: 2}
+  - {fileID: 2100000, guid: 4e09d090e40e61a44a560d11fa7619f3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1478,7 +1478,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d0f067ff8d8aa144e9a838e186f519a8, type: 2}
+  - {fileID: 2100000, guid: 4e09d090e40e61a44a560d11fa7619f3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

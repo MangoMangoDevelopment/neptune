@@ -179,12 +179,12 @@ Material:
         second: 0
       data:
         first:
-          name: _Outline
-        second: 0.0269
-      data:
-        first:
           name: _Thickness
         second: 4
+      data:
+        first:
+          name: _Outline
+        second: 0.0269
       data:
         first:
           name: _Rotation
