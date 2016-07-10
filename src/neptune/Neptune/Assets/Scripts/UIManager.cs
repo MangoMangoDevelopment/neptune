@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     public InputField CustomCubeoidHeightText;
     public InputField CustomCubeoidDepthText;
     public float PanelSpeed;
-    public Text ModeText;
     public Button DeleteSelectedObjectButton;
     public Color DefaultBackColor;
     public Color ClearpathYellow;
@@ -105,7 +104,6 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        ModeText.text = SmartLocalization.LanguageManager.Instance.GetTextValue("Mode." + editorManager.GetMode().ToString());
         if (resetAxesPanelShown)
             ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, shownResetAxesPanelPos, PanelSpeed * Time.deltaTime);
         else

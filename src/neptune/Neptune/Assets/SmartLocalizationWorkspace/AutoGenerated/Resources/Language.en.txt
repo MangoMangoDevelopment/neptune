@@ -117,16 +117,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 	<data name="AvailableLanguages" xml:space="preserve">
-		<value>AVAILABLE LANGUAGES</value>
+		<value>LANGUAGES</value>
 	</data>
 	<data name="Black" xml:space="preserve">
-		<value>Black</value>
+		<value>BLACK</value>
 	</data>
 	<data name="Blue" xml:space="preserve">
 		<value>Blue</value>
 	</data>
 	<data name="Cancel" xml:space="preserve">
-		<value>Cancel</value>
+		<value>CANCEL</value>
+	</data>
+	<data name="Close" xml:space="preserve">
+		<value>CLOSE</value>
 	</data>
 	<data name="Color" xml:space="preserve">
 		<value>Color</value>
@@ -141,7 +144,7 @@
 		<value>CUSTOM CUBEOID</value>
 	</data>
 	<data name="CustomEllipses" xml:space="preserve">
-		<value>Custom...</value>
+		<value>CUSTOM...</value>
 	</data>
 	<data name="Cyan" xml:space="preserve">
 		<value>Cyan</value>
@@ -183,10 +186,10 @@
 		<value>Name</value>
 	</data>
 	<data name="No" xml:space="preserve">
-		<value>No</value>
+		<value>NO</value>
 	</data>
 	<data name="Okay" xml:space="preserve">
-		<value>Okay</value>
+		<value>OKAY</value>
 	</data>
 	<data name="Parts" xml:space="preserve">
 		<value>PARTS</value>
@@ -198,7 +201,7 @@
 		<value>Red</value>
 	</data>
 	<data name="ResetAxes" xml:space="preserve">
-		<value>Reset Axes</value>
+		<value>RESET AXES</value>
 	</data>
 	<data name="ResetPosition" xml:space="preserve">
 		<value>RESET POSITION</value>
@@ -212,9 +215,6 @@
 	<data name="Sensors" xml:space="preserve">
 		<value>SENSORS</value>
 	</data>
-	<data name="Test" xml:space="preserve">
-		<value>Test</value>
-	</data>
 	<data name="White" xml:space="preserve">
 		<value>White</value>
 	</data>
@@ -225,6 +225,6 @@
 		<value>Yellow</value>
 	</data>
 	<data name="Yes" xml:space="preserve">
-		<value>Yes</value>
+		<value>YES</value>
 	</data>
 </root>

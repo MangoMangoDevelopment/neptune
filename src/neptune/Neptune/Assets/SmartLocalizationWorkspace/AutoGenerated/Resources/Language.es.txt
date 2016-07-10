@@ -117,7 +117,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 	<data name="AvailableLanguages" xml:space="preserve">
-		<value>IDIOMAS DISPONIBLES</value>
+		<value>IDIOMAS</value>
 	</data>
 	<data name="Black" xml:space="preserve">
 		<value>Negro</value>
@@ -126,7 +126,10 @@
 		<value>Azul</value>
 	</data>
 	<data name="Cancel" xml:space="preserve">
-		<value>Cancelar</value>
+		<value>CANCELAR</value>
+	</data>
+	<data name="Close" xml:space="preserve">
+		<value>CERRAR</value>
 	</data>
 	<data name="Color" xml:space="preserve">
 		<value>Color</value>
@@ -135,13 +138,13 @@
 		<value>Crear</value>
 	</data>
 	<data name="Custom" xml:space="preserve">
-		<value>Personalizado</value>
+		<value>PERSONALIZADO</value>
 	</data>
 	<data name="CustomCubeoid" xml:space="preserve">
 		<value>CUBOIDO PERSONALIZADO</value>
 	</data>
 	<data name="CustomEllipses" xml:space="preserve">
-		<value>Personalizado...</value>
+		<value>PERSONALIZADO...</value>
 	</data>
 	<data name="Cyan" xml:space="preserve">
 		<value>Cian</value>
@@ -183,10 +186,10 @@
 		<value>Nombre</value>
 	</data>
 	<data name="No" xml:space="preserve">
-		<value>No</value>
+		<value>NO</value>
 	</data>
 	<data name="Okay" xml:space="preserve">
-		<value>Bueno</value>
+		<value>BUENO</value>
 	</data>
 	<data name="Parts" xml:space="preserve">
 		<value>PARTES</value>
@@ -198,7 +201,7 @@
 		<value>Rojo</value>
 	</data>
 	<data name="ResetAxes" xml:space="preserve">
-		<value>Restablecer ejes</value>
+		<value>RESTABLECER EJES</value>
 	</data>
 	<data name="ResetPosition" xml:space="preserve">
 		<value>RESETEAR POSICION</value>
@@ -212,9 +215,6 @@
 	<data name="Sensors" xml:space="preserve">
 		<value>SENSORES</value>
 	</data>
-	<data name="Test" xml:space="preserve">
-		<value>Prueba</value>
-	</data>
 	<data name="White" xml:space="preserve">
 		<value>Blanco</value>
 	</data>
@@ -225,6 +225,6 @@
 		<value>Amarillo</value>
 	</data>
 	<data name="Yes" xml:space="preserve">
-		<value>Si</value>
+		<value>SI</value>
 	</data>
 </root>
