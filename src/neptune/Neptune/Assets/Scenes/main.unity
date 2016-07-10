@@ -2491,9 +2491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogBox: {fileID: 1159997819}
   MessageText: {fileID: 781640994}
-  TitleText: {fileID: 0}
-  Button1: {fileID: 0}
-  Button2: {fileID: 0}
+  TitleText: {fileID: 1919063863}
+  Button1: {fileID: 1681933293}
+  Button2: {fileID: 2027200410}
 --- !u!4 &595945650
 Transform:
   m_ObjectHideFlags: 0
