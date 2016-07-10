@@ -22,12 +22,15 @@ public class DBManager {
             {
                 continue;
             }
-
-            GameObject go = testObject;
+            
             if (!sensor.prefabFilename.Equals("unknown"))
-                go = Resources.Load<GameObject>("Prefabs/Sensors/" + sensor.prefabFilename);
-            if (go == null)
-                go = errorObject;
+            {
+                uiManager.AddSensor(sensor.name, sensor.prefabFilename, 10);
+            }
+            else
+            {
+                uiManager.AddSensor(sensor.name, testObject, 10);
+            }
             //go.AddComponent<Ros>
 
             /*
@@ -38,7 +41,7 @@ public class DBManager {
             GameObject.Destroy(inst);
             */
 
-            uiManager.AddSensor(sensor.name, go, 10);
+            
 
         }
         //uiManager.AddSensor("Microsoft Kinect v2", Resources.Load<GameObject>("Meshes/kinect"), 10);

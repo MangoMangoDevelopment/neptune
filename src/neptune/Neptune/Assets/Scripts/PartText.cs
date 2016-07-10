@@ -13,6 +13,7 @@ public class PartText : MonoBehaviour {
 
     //Private Variables
     private GameObject GO;
+    private string prefabName;
     private State state = State.AddNewSensor;
     private EditorManager editorManager;
     private UIManager uiManager;
@@ -23,6 +24,11 @@ public class PartText : MonoBehaviour {
         editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
         uiManager = GameObject.FindGameObjectWithTag(UIManager.TAG).GetComponent<UIManager>();
         GetComponent<Button>().onClick.AddListener(delegate { OnClick(); });
+    }
+
+    public void SetPrefabName (string prefabName)
+    {
+        this.prefabName = prefabName;
     }
 
     public void SetGO(GameObject go)
@@ -56,6 +62,10 @@ public class PartText : MonoBehaviour {
         //We do this because Showing the loading panel takes 1 frame
         uiManager.ShowLoadingPanel();
         yield return 0;
+        if (GO == null)
+        {
+            GO = Resources.Load<GameObject>("Prefabs/Sensors/" + this.prefabName);
+        }
         uiManager.AddPart(name, editorManager.AddPart(GO, name), scale);
         uiManager.HideLoadingPanel();
     }

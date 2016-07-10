@@ -124,6 +124,17 @@ public class UIManager : MonoBehaviour
         DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject();
     }
 
+    public void AddSensor(string text, string prefab, float scale = 1)
+    {
+        GameObject sensorText = Instantiate(TextPrefab);
+        sensorText.name = text;
+        sensorText.GetComponentInChildren<Text>().text = text;
+        sensorText.transform.SetParent(SensorsContent.transform);
+        sensorText.GetComponent<PartText>().SetPrefabName(prefab);
+        sensorText.GetComponent<PartText>().SetScale(scale);
+        sensorText.GetComponent<PartText>().SetState(PartText.State.AddNewSensor);
+    }
+
     public void AddSensor(string text, GameObject go, float scale = 1)
     {
         GameObject sensorText = Instantiate(TextPrefab);
