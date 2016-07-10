@@ -120,10 +120,10 @@
 		<value>IDIOMAS</value>
 	</data>
 	<data name="Black" xml:space="preserve">
-		<value>Negro</value>
+		<value>NEGRO</value>
 	</data>
 	<data name="Blue" xml:space="preserve">
-		<value>Azul</value>
+		<value>AZUL</value>
 	</data>
 	<data name="Cancel" xml:space="preserve">
 		<value>CANCELAR</value>
@@ -132,10 +132,10 @@
 		<value>CERRAR</value>
 	</data>
 	<data name="Color" xml:space="preserve">
-		<value>Color</value>
+		<value>COLOR:</value>
 	</data>
 	<data name="Create" xml:space="preserve">
-		<value>Crear</value>
+		<value>CREAR</value>
 	</data>
 	<data name="Custom" xml:space="preserve">
 		<value>PERSONALIZADO</value>
@@ -147,7 +147,7 @@
 		<value>PERSONALIZADO...</value>
 	</data>
 	<data name="Cyan" xml:space="preserve">
-		<value>Cian</value>
+		<value>CIAN</value>
 	</data>
 	<data name="DeletingSensor" xml:space="preserve">
 		<value>Eliminando sensor</value>
@@ -156,19 +156,19 @@
 		<value>Estas seguro que quieres eliminar </value>
 	</data>
 	<data name="Depth" xml:space="preserve">
-		<value>Profundidad</value>
+		<value>PROFUNDIDAD:</value>
 	</data>
 	<data name="Green" xml:space="preserve">
-		<value>Verde</value>
+		<value>VERDE</value>
 	</data>
 	<data name="Height" xml:space="preserve">
-		<value>Altura</value>
+		<value>ALTURA:</value>
 	</data>
 	<data name="LoadingSensor" xml:space="preserve">
 		<value>Cargando sensor.</value>
 	</data>
 	<data name="Magenta" xml:space="preserve">
-		<value>Magenta</value>
+		<value>MAGENTA</value>
 	</data>
 	<data name="Mode.CameraControl" xml:space="preserve">
 		<value>MODO: CONTROL DE LA CAMARA</value>
@@ -183,7 +183,7 @@
 		<value>MODO: MOVIMIENTO</value>
 	</data>
 	<data name="Name" xml:space="preserve">
-		<value>Nombre</value>
+		<value>NOMBRE:</value>
 	</data>
 	<data name="No" xml:space="preserve">
 		<value>NO</value>
@@ -198,7 +198,7 @@
 		<value>Un momento, por favor...</value>
 	</data>
 	<data name="Red" xml:space="preserve">
-		<value>Rojo</value>
+		<value>ROJO</value>
 	</data>
 	<data name="ResetAxes" xml:space="preserve">
 		<value>RESTABLECER EJES</value>
@@ -216,13 +216,13 @@
 		<value>SENSORES</value>
 	</data>
 	<data name="White" xml:space="preserve">
-		<value>Blanco</value>
+		<value>BLANCO</value>
 	</data>
 	<data name="Width" xml:space="preserve">
-		<value>Anchura</value>
+		<value>ANCHURA:</value>
 	</data>
 	<data name="Yellow" xml:space="preserve">
-		<value>Amarillo</value>
+		<value>AMARILLO</value>
 	</data>
 	<data name="Yes" xml:space="preserve">
 		<value>SI</value>

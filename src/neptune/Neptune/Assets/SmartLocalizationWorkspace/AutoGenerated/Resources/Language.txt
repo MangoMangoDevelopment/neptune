@@ -120,10 +120,10 @@
 		<value>LANGUAGES</value>
 	</data>
 	<data name="Black" xml:space="preserve">
-		<value>Black</value>
+		<value>BLACK</value>
 	</data>
 	<data name="Blue" xml:space="preserve">
-		<value>Blue</value>
+		<value>BLUE</value>
 	</data>
 	<data name="Cancel" xml:space="preserve">
 		<value>CANCEL</value>
@@ -132,22 +132,22 @@
 		<value>CLOSE</value>
 	</data>
 	<data name="Color" xml:space="preserve">
-		<value>Color</value>
+		<value>COLOR:</value>
 	</data>
 	<data name="Create" xml:space="preserve">
-		<value>Create</value>
+		<value>CREATE</value>
 	</data>
 	<data name="Custom" xml:space="preserve">
 		<value>CUSTOM</value>
 	</data>
 	<data name="CustomCubeoid" xml:space="preserve">
-		<value>CUSTOM CUBEOID</value>
+		<value>CUSTOM PART</value>
 	</data>
 	<data name="CustomEllipses" xml:space="preserve">
 		<value>CUSTOM...</value>
 	</data>
 	<data name="Cyan" xml:space="preserve">
-		<value>Cyan</value>
+		<value>CYAN</value>
 	</data>
 	<data name="DeletingSensor" xml:space="preserve">
 		<value>Deleting sensor!</value>
@@ -156,19 +156,19 @@
 		<value>Are you sure you want to delete</value>
 	</data>
 	<data name="Depth" xml:space="preserve">
-		<value>Depth</value>
+		<value>DEPTH:</value>
 	</data>
 	<data name="Green" xml:space="preserve">
-		<value>Green</value>
+		<value>GREEN</value>
 	</data>
 	<data name="Height" xml:space="preserve">
-		<value>Height</value>
+		<value>HEIGHT:</value>
 	</data>
 	<data name="LoadingSensor" xml:space="preserve">
 		<value>Loading sensor.</value>
 	</data>
 	<data name="Magenta" xml:space="preserve">
-		<value>Magenta</value>
+		<value>MAGENTA</value>
 	</data>
 	<data name="Mode.CameraControl" xml:space="preserve">
 		<value>MODE: CAMERA CONTROL</value>
@@ -183,7 +183,7 @@
 		<value>MODE: TRANSLATE</value>
 	</data>
 	<data name="Name" xml:space="preserve">
-		<value>Name</value>
+		<value>NAME:</value>
 	</data>
 	<data name="No" xml:space="preserve">
 		<value>NO</value>
@@ -198,7 +198,7 @@
 		<value>Please wait...</value>
 	</data>
 	<data name="Red" xml:space="preserve">
-		<value>Red</value>
+		<value>RED</value>
 	</data>
 	<data name="ResetAxes" xml:space="preserve">
 		<value>RESET AXES</value>
@@ -216,13 +216,13 @@
 		<value>SENSORS</value>
 	</data>
 	<data name="White" xml:space="preserve">
-		<value>White</value>
+		<value>WHITE</value>
 	</data>
 	<data name="Width" xml:space="preserve">
-		<value>Width</value>
+		<value>WIDTH:</value>
 	</data>
 	<data name="Yellow" xml:space="preserve">
-		<value>Yellow</value>
+		<value>YELLOW</value>
 	</data>
 	<data name="Yes" xml:space="preserve">
 		<value>YES</value>

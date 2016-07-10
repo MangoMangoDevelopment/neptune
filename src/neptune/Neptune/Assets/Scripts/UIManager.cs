@@ -21,9 +21,6 @@ public class UIManager : MonoBehaviour
     public GameObject CustomCubeoidPanelMask;
     public Button LanguageButtonPrefab;
     public Transform LanguageButtonsContent;
-    public GameObject LanguagesPanel;
-    public GameObject LanguagesPanelMask;
-    public Text LanguagesButtonText;
     public InputField CustomCubeoidNameText;
     public Dropdown CustomCubeoidColorDropdown;
     public InputField CustomCubeoidWidthText;
@@ -31,9 +28,13 @@ public class UIManager : MonoBehaviour
     public InputField CustomCubeoidDepthText;
     public float PanelSpeed;
     public Button DeleteSelectedObjectButton;
-    public Color DefaultBackColor;
+
+    public Color ClearpathBlack;
+    public Color ClearpathWhite;
+    public Color ClearpathDarkGrey;
+    public Color ClearpathGrey;
     public Color ClearpathYellow;
-    
+
     public GameObject TestGO;
     public GameObject ErrorGO;
     public GameObject InvisibleGO;
@@ -48,28 +49,31 @@ public class UIManager : MonoBehaviour
     private Vector3 hiddenCustomCubeoidPanelPos;
     private Vector3 shownCustomCubeoidPanelPos;
     private bool customCubeoidPanelShown = false;
-    private Vector3 hiddenLanguagesPanelPos;
-    private Vector3 shownLanguagesPanelPos;
-    private bool languagesPanelShown = false;
 
     void Start()
     {
         dbManager = new DBManager();
         dbManager.GetSensorList(this, TestGO, ErrorGO, InvisibleGO);
         editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
-        hiddenResetAxesPanelPos = ResetAxesPanel.transform.position;
-        shownResetAxesPanelPos = ResetAxesPanelMask.transform.position;
-        hiddenCustomCubeoidPanelPos = CustomCubeoidPanel.transform.position;
-        shownCustomCubeoidPanelPos = CustomCubeoidPanelMask.transform.position;
-        hiddenLanguagesPanelPos = LanguagesPanel.transform.position;
-        shownLanguagesPanelPos = LanguagesPanelMask.transform.position;
 
         List<SmartLocalization.SmartCultureInfo> cultures = SmartLocalization.LanguageManager.Instance.GetSupportedLanguages();
+        bool firstLanguage = true;
         foreach (SmartLocalization.SmartCultureInfo culture in cultures)
         {
             Button b = Instantiate(LanguageButtonPrefab);
             b.GetComponent<LanguageButton>().culture = culture;
-            b.GetComponentInChildren<Text>().text = b.GetComponent<LanguageButton>().GetString();
+            if (firstLanguage)
+            {
+                firstLanguage = false;
+                b.GetComponent<UIClearpathButton>().normalTextColor = ClearpathYellow;
+            }
+            else
+            {
+                b.GetComponent<UIClearpathButton>().normalTextColor = ClearpathWhite;
+            }
+            b.GetComponent<UIClearpathButton>().OnPointerExit(null);    // Trigger the color change
+            b.GetComponent<UIClearpathButton>().highlightTextColor = ClearpathYellow;
+            b.GetComponentInChildren<Text>().text = b.GetComponent<LanguageButton>().GetString().ToUpper();
             b.onClick.AddListener(() => { SetLanguage(b.GetComponent<LanguageButton>()); });
             b.gameObject.transform.SetParent(LanguageButtonsContent);
         }
@@ -104,6 +108,12 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        //Need to update these positions here in case the screen resizes
+        hiddenResetAxesPanelPos = ResetAxesPanelMask.transform.position + new Vector3(ResetAxesPanelMask.GetComponent<RectTransform>().rect.width, 0, 0);
+        shownResetAxesPanelPos = ResetAxesPanelMask.transform.position;
+        hiddenCustomCubeoidPanelPos = CustomCubeoidPanelMask.transform.position - new Vector3(CustomCubeoidPanelMask.GetComponent<RectTransform>().rect.width, 0, 0);
+        shownCustomCubeoidPanelPos = CustomCubeoidPanelMask.transform.position;
+
         if (resetAxesPanelShown)
             ResetAxesPanel.transform.position = Vector3.MoveTowards(ResetAxesPanel.transform.position, shownResetAxesPanelPos, PanelSpeed * Time.deltaTime);
         else
@@ -113,11 +123,6 @@ public class UIManager : MonoBehaviour
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, shownCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
         else
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
-
-        if (languagesPanelShown)
-            LanguagesPanel.transform.position = Vector3.MoveTowards(LanguagesPanel.transform.position, shownLanguagesPanelPos, PanelSpeed * Time.deltaTime);
-        else
-            LanguagesPanel.transform.position = Vector3.MoveTowards(LanguagesPanel.transform.position, hiddenLanguagesPanelPos, PanelSpeed * Time.deltaTime);
 
         DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject();
     }
@@ -159,10 +164,11 @@ public class UIManager : MonoBehaviour
     {
         Deselect();
         selectedPart = part;
+        part.GetComponent<UIClearpathButton>().normalTextColor = ClearpathBlack;
+        part.GetComponent<UIClearpathButton>().OnPointerExit(null);     //Trigger the colour change
         ColorBlock c2 = selectedPart.colors;
         c2.normalColor = ClearpathYellow;
         selectedPart.colors = c2;
-        selectedPart.gameObject.GetComponentInChildren<Text>().color = new Color(5.0f/255.0f, 0.0f, 0.0f);
     }
 
     public void SelectPart(GameObject go)
@@ -181,10 +187,11 @@ public class UIManager : MonoBehaviour
     {
         if (selectedPart != null)
         {
+            selectedPart.GetComponent<UIClearpathButton>().normalTextColor = ClearpathWhite;
+            selectedPart.GetComponent<UIClearpathButton>().OnPointerExit(null);     //Trigger the colour change
             ColorBlock c = selectedPart.colors;
-            c.normalColor = DefaultBackColor;
+            c.normalColor = ClearpathDarkGrey;
             selectedPart.colors = c;
-            selectedPart.gameObject.GetComponentInChildren<Text>().color = Color.white;
         }
         selectedPart = null;
     }
@@ -226,21 +233,18 @@ public class UIManager : MonoBehaviour
         customCubeoidPanelShown = false;
     }
 
-    public void ShowLanguagesPanel()
-    {
-        languagesPanelShown = true;
-    }
-
-    public void HideLanguagesPanel()
-    {
-        languagesPanelShown = false;
-    }
-
     public void SetLanguage(LanguageButton langButton)
     {
         SmartLocalization.LanguageManager.Instance.ChangeLanguage(langButton.culture);
         UpdateColorDropdownOptions();
-        LanguagesButtonText.text = langButton.GetString();
+
+        foreach (Transform t in LanguageButtonsContent)
+        {
+            t.GetComponent<UIClearpathButton>().normalTextColor = ClearpathGrey;
+            t.GetComponent<UIClearpathButton>().OnPointerExit(null);    //Trigger the color change
+        }
+        langButton.GetComponent<UIClearpathButton>().normalTextColor = ClearpathYellow;
+        langButton.GetComponent<UIClearpathButton>().OnPointerExit(null);    //Trigger the color change
     }
 
     public void ResetXPosAxis()
