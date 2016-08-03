@@ -121,6 +121,8 @@
   <ItemGroup>
     <None Include="Assets\Fonts\readme.txt" />
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
+    <None Include="Assets\Resources\Templates\emailTemplate.txt" />
+    <None Include="Assets\Resources\Templates\emailTemplate_example.txt" />
     <None Include="Assets\Shaders\OutlinedDiffuse.shader" />
     <None Include="Assets\Shaders\Outlined_Diffuse.shader" />
     <None Include="Assets\Shaders\Outlined_Diffuse_Bumped.shader" />

@@ -1,0 +1,14 @@
+<div style='font-family:Helvetica,Arial,sans-serif; font-size:12px'>
+    <p>
+        <span>
+        Hello %%CONTACT_NAME%%,
+		</span>
+        <br>
+        <br>
+        Thank you for requesting a customize robot quote, here is a %%ROBOT_LINK%% to your customized robot image.
+        <br><br>
+        Don't hesitate to reach out if you have any questions about customizing your robot! I look forward to learning more about your research needs.<br>
+        <br>
+        Thanks
+    </p>
+</div>

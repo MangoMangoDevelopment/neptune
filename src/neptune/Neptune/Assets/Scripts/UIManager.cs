@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     //Private Variables
     private DBManager dbManager;
     private EditorManager editorManager;
+    private EmailHandler emailer;
     private Button selectedPart;
     private Vector3 hiddenResetAxesPanelPos;
     private Vector3 shownResetAxesPanelPos;
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        emailer = new EmailHandler();
         dbManager = new DBManager();
         dbManager.GetSensorList(this, TestGO, ErrorGO, InvisibleGO);
         editorManager = GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>();
@@ -395,4 +397,10 @@ public class UIManager : MonoBehaviour
         editorManager.SelectRobotBase(robotBase);
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
     }
+
+    public void SendEmail()
+    {
+        StartCoroutine(emailer.SendEmail("name"));
+    }
+    
 }

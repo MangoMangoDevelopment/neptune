@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\DbUIManager.cs" />
     <Compile Include="Assets\Scripts\DialogManager.cs" />
     <Compile Include="Assets\Scripts\EditorManager.cs" />
+    <Compile Include="Assets\Scripts\EmailHandler.cs" />
     <Compile Include="Assets\Scripts\LanguageButton.cs" />
     <Compile Include="Assets\Scripts\Manipulatable.cs" />
     <Compile Include="Assets\Scripts\Models\RosLinkModel.cs" />
@@ -99,6 +100,8 @@
   <ItemGroup>
     <None Include="Assets\Fonts\readme.txt" />
     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
+    <None Include="Assets\Resources\Templates\emailTemplate.txt" />
+    <None Include="Assets\Resources\Templates\emailTemplate_example.txt" />
     <None Include="Assets\Shaders\OutlinedDiffuse.shader" />
     <None Include="Assets\Shaders\Outlined_Diffuse.shader" />
     <None Include="Assets\Shaders\Outlined_Diffuse_Bumped.shader" />
