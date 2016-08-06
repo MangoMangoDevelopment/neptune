@@ -39,6 +39,9 @@ public class UIManager : MonoBehaviour
     public GameObject ErrorGO;
     public GameObject InvisibleGO;
 
+    //Cameras
+    public List<Camera> ScreenshotCameras;
+
     //Private Variables
     private DBManager dbManager;
     private EditorManager editorManager;
@@ -400,6 +403,11 @@ public class UIManager : MonoBehaviour
 
     public void SendEmail()
     {
+        editorManager.SetSelectedObject(null);
+        foreach (Camera cam in ScreenshotCameras)
+        {
+            cam.gameObject.SetActive(true);
+        }
         StartCoroutine(emailer.SendEmail("name"));
     }
     

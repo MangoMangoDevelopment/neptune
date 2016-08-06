@@ -70,35 +70,64 @@ public class EmailHandler {
         // We should only read the screen after all rendering is complete
         yield return new WaitForEndOfFrame();
 
-        // Create a texture the size of the screen, RGB24 format
-        int width = Screen.width;
-        int height = Screen.height;
-        var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+        UIManager ui = (GameObject.FindGameObjectWithTag(UIManager.TAG) as GameObject).GetComponent<UIManager>();
+        EditorManager editor = (GameObject.FindGameObjectWithTag(EditorManager.TAG) as GameObject).GetComponent<EditorManager>();
 
-        // Read screen contents into the texture
-        tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        tex.Apply();
+        Vector3 mainCameraPositionCache = new Vector3(editor.MainCamera.transform.position.x,
+                                                      editor.MainCamera.transform.position.y,
+                                                      editor.MainCamera.transform.position.z);
+        Vector3 mainCameraRotationCache = new Vector3(editor.MainCamera.transform.rotation.eulerAngles.x,
+                                                      editor.MainCamera.transform.rotation.eulerAngles.y,
+                                                      editor.MainCamera.transform.rotation.eulerAngles.z);
+        editor.HandleCamera.gameObject.SetActive(false);
 
-        // Encode texture into PNG
-        byte[] bytes = tex.EncodeToPNG();
-        Texture2D.Destroy(tex);
-
-        // Create a Web Form
-        WWWForm form = new WWWForm();
-        form.AddField("frameCount", Time.frameCount.ToString());
-        form.AddBinaryData("fileUpload", bytes, this.uploadFilename, this.uploadFileType);
-
-        // Upload to a cgi script
-        WWW www = new WWW(this.uploadEndPoint, form);
-        yield return www;
-        if (!string.IsNullOrEmpty(www.error))
+        int i = 0;
+        foreach (Camera cam in ui.ScreenshotCameras)
         {
-            Debug.Log(www.error);
+            editor.MainCamera.transform.position = cam.transform.position;
+            editor.MainCamera.transform.rotation = cam.transform.rotation;
+            // Create a texture the size of the screen, RGB24 format
+            int width = cam.targetTexture.width;
+            int height = cam.targetTexture.height;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+
+            cam.Render();
+            RenderTexture.active = cam.targetTexture;
+            // Read screen contents into the texture
+            tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            tex.Apply();
+
+            // Encode texture into PNG
+            byte[] bytes = tex.EncodeToPNG();
+            Texture2D.Destroy(tex);
+
+            uploadFilename = "screenshot" + i + ".png";  //Setter handles adding the .png
+
+            // Create a Web Form
+            WWWForm form = new WWWForm();
+            form.AddField("frameCount", Time.frameCount.ToString());
+            form.AddBinaryData("fileUpload", bytes, this.uploadFilename, this.uploadFileType);
+
+            // Upload to a cgi script
+            WWW www = new WWW(this.uploadEndPoint, form);
+            yield return www;
+            if (!string.IsNullOrEmpty(www.error))
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Finished Uploading Screenshot");
+                this.imgUrl = www.text; //expects the server to return the url of img uploaded.
+            }
+            cam.gameObject.SetActive(false);
+            i++;
+
+            yield return new WaitForSeconds(1);
         }
-        else
-        {
-            Debug.Log("Finished Uploading Screenshot");
-            this.imgUrl = www.text; //expects the server to return the url of img uploaded.
-        }
+
+        editor.MainCamera.transform.position = mainCameraPositionCache;
+        editor.MainCamera.transform.rotation = Quaternion.Euler(mainCameraRotationCache);
+        editor.HandleCamera.gameObject.SetActive(true);
     }
 }
