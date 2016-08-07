@@ -88,10 +88,12 @@ public class EditorManager : MonoBehaviour {
             selectedObject = go;
             if (selectedObject != null)
             {
-                selectedObject.GetComponent<Manipulatable>().Select();
                 //Can't select the base since it's not in the part list
-                if (selectedObject != robotBaseObject)
+                if (selectedObject != robotBaseTopPlate)
+                {
+                    selectedObject.GetComponent<Manipulatable>().Select();
                     uiManager.SelectPart(selectedObject);
+                }
                 else
                 {
                     uiManager.Deselect();
@@ -118,7 +120,7 @@ public class EditorManager : MonoBehaviour {
 
     public GameObject GetRobotBaseObject()
     {
-        return robotBaseObject;
+        return robotBaseTopPlate;
     }
 
     public GameObject CreateCustomCubeoid(string name, Color color, float width, float height, float depth)
@@ -144,13 +146,6 @@ public class EditorManager : MonoBehaviour {
         }
         if (robotBaseObject != null)
         {
-            Manipulatable robotManipulatable = robotBaseObject.GetComponent<Manipulatable>();
-            robotManipulatable.XPosManipulation = false;
-            robotManipulatable.YPosManipulation = false;
-            robotManipulatable.ZPosManipulation = false;
-            robotManipulatable.RRotManipulation = false;
-            robotManipulatable.PRotManipulation = false;
-            robotManipulatable.YRotManipulation = false;
             //Find the highest mesh in the model
             float highestY = 0;
             foreach (Transform child in robotBaseObject.transform)
@@ -161,6 +156,14 @@ public class EditorManager : MonoBehaviour {
                     robotBaseTopPlate = child.gameObject;
                 }
             }
+            robotBaseTopPlate.AddComponent<Manipulatable>();
+            Manipulatable robotTopPlateManipulatable = robotBaseTopPlate.GetComponent<Manipulatable>();
+            robotTopPlateManipulatable.XPosManipulation = false;
+            robotTopPlateManipulatable.YPosManipulation = false;
+            robotTopPlateManipulatable.ZPosManipulation = false;
+            robotTopPlateManipulatable.RRotManipulation = false;
+            robotTopPlateManipulatable.PRotManipulation = false;
+            robotTopPlateManipulatable.YRotManipulation = false;
             //robotBaseTopPlate.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             //Offset the y by that amount so that the top of the bot is at (0, 0, 0)
             robotBaseObject.transform.position = Vector3.zero - new Vector3(0, highestY, 0);
@@ -366,7 +369,7 @@ public class EditorManager : MonoBehaviour {
             {
                 if (selectedObject == null)
                 {
-                    SetSelectedObject(robotBaseObject);
+                    SetSelectedObject(robotBaseTopPlate);
                     UpdateHandles();
                 }
                 if (selectedObject != null)

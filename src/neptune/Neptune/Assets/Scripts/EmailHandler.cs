@@ -46,11 +46,13 @@ public class EmailHandler {
         if (!string.IsNullOrEmpty(www.error))
         {
             Debug.Log(www.error);
+            DialogManager.instance.ShowDialog(SmartLocalization.LanguageManager.Instance.GetTextValue("Email.Error"), "", DialogManager.ButtonType.Okay);
         }
         else
         {
             Debug.Log("Email Request Completed.");
             Debug.Log(www.text);
+            DialogManager.instance.ShowDialog(SmartLocalization.LanguageManager.Instance.GetTextValue("Email.Success"), "", DialogManager.ButtonType.Okay);
         }
     }
 

@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public GameObject ResetAxesPanelMask;
     public GameObject CustomCubeoidPanel;
     public GameObject CustomCubeoidPanelMask;
+    public GameObject SendEmailPanel;
     public Button LanguageButtonPrefab;
     public Transform LanguageButtonsContent;
     public InputField CustomCubeoidNameText;
@@ -28,6 +29,13 @@ public class UIManager : MonoBehaviour
     public InputField CustomCubeoidDepthText;
     public float PanelSpeed;
     public Button DeleteSelectedObjectButton;
+    public InputField EmailFormFirstNameText;
+    public InputField EmailFormLastNameText;
+    public InputField EmailFormEmailText;
+    public InputField EmailFormOrganizationNameText;
+    public Dropdown EmailFormStateDropdown;
+    public Dropdown EmailFormCountryDropdown;
+    public Dropdown EmailFormIndustryDropdown;
 
     public Color ClearpathBlack;
     public Color ClearpathWhite;
@@ -53,6 +61,9 @@ public class UIManager : MonoBehaviour
     private Vector3 hiddenCustomCubeoidPanelPos;
     private Vector3 shownCustomCubeoidPanelPos;
     private bool customCubeoidPanelShown = false;
+    private ColorBlock invalidColour;
+    private ColorBlock validColour;
+
 
     void Start()
     {
@@ -83,7 +94,12 @@ public class UIManager : MonoBehaviour
             b.gameObject.transform.SetParent(LanguageButtonsContent);
         }
 
+        invalidColour = EmailFormEmailText.colors;
+        invalidColour.normalColor = Color.red;
+        validColour = EmailFormEmailText.colors;
+
         UpdateColorDropdownOptions();
+        UpdateEmailFormDropdownOptions();
     }
 
     public void ShowLoadingPanel()
@@ -109,6 +125,355 @@ public class UIManager : MonoBehaviour
         colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Black"));
         colorOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("White"));
         CustomCubeoidColorDropdown.AddOptions(colorOptions);
+    }
+
+    private void UpdateEmailFormDropdownOptions()
+    {
+        // This is so that the email form provides the exact same options as that of the following:
+        // www.clearpathrobotics.com/jackal-user-manual/
+        // Hopefully, we can find out if they get their lists from a Web API or something we can hit up
+        //   so that we don't have to harcode all this in here...
+        EmailFormStateDropdown.ClearOptions();
+        List<string> stateOptions = new List<string>();
+        stateOptions.Add("");
+        stateOptions.Add(SmartLocalization.LanguageManager.Instance.GetTextValue("Form.NA"));
+        stateOptions.Add("Alabama");
+        stateOptions.Add("Alaska");
+        stateOptions.Add("Alberta");
+        stateOptions.Add("Arizona");
+        stateOptions.Add("Arkansas");
+        stateOptions.Add("British Columbia");
+        stateOptions.Add("California");
+        stateOptions.Add("Colorado");
+        stateOptions.Add("Connecticut");
+        stateOptions.Add("Delaware");
+        stateOptions.Add("District of Columbia");
+        stateOptions.Add("Florida");
+        stateOptions.Add("Georgia");
+        stateOptions.Add("Hawaii");
+        stateOptions.Add("Idaho");
+        stateOptions.Add("Illinois");
+        stateOptions.Add("Indiana");
+        stateOptions.Add("Iowa");
+        stateOptions.Add("Kansas");
+        stateOptions.Add("Kentucky");
+        stateOptions.Add("Louisiana");
+        stateOptions.Add("Maine");
+        stateOptions.Add("Manitoba");
+        stateOptions.Add("Maryland");
+        stateOptions.Add("Massachusetts");
+        stateOptions.Add("Michigan");
+        stateOptions.Add("Minnesota");
+        stateOptions.Add("Mississippi");
+        stateOptions.Add("Missouri");
+        stateOptions.Add("Montana");
+        stateOptions.Add("Nebraska");
+        stateOptions.Add("Nevada");
+        stateOptions.Add("New Brunswick");
+        stateOptions.Add("New Hampshire");
+        stateOptions.Add("New Jersey");
+        stateOptions.Add("New Mexico");
+        stateOptions.Add("New York");
+        stateOptions.Add("Newfoundland");
+        stateOptions.Add("North Carolina");
+        stateOptions.Add("North Dakota");
+        stateOptions.Add("Northwest Territories");
+        stateOptions.Add("Nova Scotia");
+        stateOptions.Add("Nunavut");
+        stateOptions.Add("Ohio");
+        stateOptions.Add("Oklahoma");
+        stateOptions.Add("Ontario");
+        stateOptions.Add("Oregon");
+        stateOptions.Add("Pennsylvania");
+        stateOptions.Add("Prince Edward Island");
+        stateOptions.Add("Quebec");
+        stateOptions.Add("Rhode Island");
+        stateOptions.Add("Saskatchewan");
+        stateOptions.Add("South Carolina");
+        stateOptions.Add("South Dakota");
+        stateOptions.Add("Tennessee");
+        stateOptions.Add("Texas");
+        stateOptions.Add("Utah");
+        stateOptions.Add("Vermont");
+        stateOptions.Add("Virginia");
+        stateOptions.Add("Washington");
+        stateOptions.Add("West Virginia");
+        stateOptions.Add("Wisconsin");
+        stateOptions.Add("Wyoming");
+        stateOptions.Add("Yukon");
+        stateOptions.Add("Unknown");
+        EmailFormStateDropdown.AddOptions(stateOptions);
+
+        EmailFormCountryDropdown.ClearOptions();
+        List<string> countryOptions = new List<string>();
+        countryOptions.Add("");
+        countryOptions.Add("United States");
+        countryOptions.Add("Canada");
+        countryOptions.Add("Afghanistan");
+        countryOptions.Add("Albania");
+        countryOptions.Add("Algeria");
+        countryOptions.Add("American Samoa");
+        countryOptions.Add("Andorra");
+        countryOptions.Add("Angola");
+        countryOptions.Add("Anguilla");
+        countryOptions.Add("Antartica");
+        countryOptions.Add("Antigua and Barbuda");
+        countryOptions.Add("Argentina");
+        countryOptions.Add("Armenia");
+        countryOptions.Add("Aruba");
+        countryOptions.Add("Australia");
+        countryOptions.Add("Austria");
+        countryOptions.Add("Azerbaijan");
+        countryOptions.Add("Bahamas");
+        countryOptions.Add("Bahrain");
+        countryOptions.Add("Bangladesh");
+        countryOptions.Add("Barbados");
+        countryOptions.Add("Belarus");
+        countryOptions.Add("Belgium");
+        countryOptions.Add("Belize");
+        countryOptions.Add("Benin");
+        countryOptions.Add("Bermuda");
+        countryOptions.Add("Bhutan");
+        countryOptions.Add("Bolivia");
+        countryOptions.Add("Bosnia and Herzegovina");
+        countryOptions.Add("Botswana");
+        countryOptions.Add("Brazil");
+        countryOptions.Add("British Indian Ocean Territory");
+        countryOptions.Add("British Virgin Islands");
+        countryOptions.Add("Brunei");
+        countryOptions.Add("Bulgaria");
+        countryOptions.Add("Burkina Faso");
+        countryOptions.Add("Burundi");
+        countryOptions.Add("Cambodia");
+        countryOptions.Add("Cameroon");
+        countryOptions.Add("Cape Verde");
+        countryOptions.Add("Cayman Islands");
+        countryOptions.Add("Central African Republic");
+        countryOptions.Add("Chad");
+        countryOptions.Add("Chile");
+        countryOptions.Add("China");
+        countryOptions.Add("Christmas Island");
+        countryOptions.Add("Cocos (Keeling) Islands");
+        countryOptions.Add("Colombia");
+        countryOptions.Add("Comoros");
+        countryOptions.Add("Congo");
+        countryOptions.Add("Cook Islands");
+        countryOptions.Add("Costa Rica");
+        countryOptions.Add("Croatia");
+        countryOptions.Add("Cuba");
+        countryOptions.Add("Curacao");
+        countryOptions.Add("Cyprus");
+        countryOptions.Add("Czech Republic");
+        countryOptions.Add("Cote d'Ivoire");
+        countryOptions.Add("Democratic Republic of the Congo");
+        countryOptions.Add("Denmark");
+        countryOptions.Add("Djibouti");
+        countryOptions.Add("Dominica");
+        countryOptions.Add("Dominican Republic");
+        countryOptions.Add("Ecuador");
+        countryOptions.Add("Egypt");
+        countryOptions.Add("El Salvador");
+        countryOptions.Add("Equatorial Guinea");
+        countryOptions.Add("Eritrea");
+        countryOptions.Add("Estonia");
+        countryOptions.Add("Ethiopia");
+        countryOptions.Add("Falkland Islands");
+        countryOptions.Add("Faroe Islands");
+        countryOptions.Add("Fiji");
+        countryOptions.Add("Finland");
+        countryOptions.Add("France");
+        countryOptions.Add("French Guiana");
+        countryOptions.Add("French Polynesia");
+        countryOptions.Add("French Southern Territories");
+        countryOptions.Add("Gabon");
+        countryOptions.Add("Gambia");
+        countryOptions.Add("Georgia");
+        countryOptions.Add("Germany");
+        countryOptions.Add("Ghana");
+        countryOptions.Add("Gibraltar");
+        countryOptions.Add("Greece");
+        countryOptions.Add("Greenland");
+        countryOptions.Add("Grenada");
+        countryOptions.Add("Guadeloupe");
+        countryOptions.Add("Guam");
+        countryOptions.Add("Guatemala");
+        countryOptions.Add("Guernsey");
+        countryOptions.Add("Guinea");
+        countryOptions.Add("Guinea-Bissau");
+        countryOptions.Add("Guyana");
+        countryOptions.Add("Haiti");
+        countryOptions.Add("Honduras");
+        countryOptions.Add("Hong Kong S.A.R., China");
+        countryOptions.Add("Hungary");
+        countryOptions.Add("Iceland");
+        countryOptions.Add("India");
+        countryOptions.Add("Indonesia");
+        countryOptions.Add("Iran");
+        countryOptions.Add("Iraq");
+        countryOptions.Add("Ireland");
+        countryOptions.Add("Isle of Man");
+        countryOptions.Add("Israel");
+        countryOptions.Add("Italy");
+        countryOptions.Add("Jamaica");
+        countryOptions.Add("Japan");
+        countryOptions.Add("Jersey");
+        countryOptions.Add("Jordan");
+        countryOptions.Add("Kazakhstan");
+        countryOptions.Add("Kenya");
+        countryOptions.Add("Kiribati");
+        countryOptions.Add("Kuwait");
+        countryOptions.Add("Kyrgystan");
+        countryOptions.Add("Laos");
+        countryOptions.Add("Latvia");
+        countryOptions.Add("Lebanon");
+        countryOptions.Add("Lesotho");
+        countryOptions.Add("Liberia");
+        countryOptions.Add("Libya");
+        countryOptions.Add("Liechtenstein");
+        countryOptions.Add("Lithuania");
+        countryOptions.Add("Luxembourg");
+        countryOptions.Add("Macao S.A.R., China");
+        countryOptions.Add("Macedonia");
+        countryOptions.Add("Madagascar");
+        countryOptions.Add("Malawi");
+        countryOptions.Add("Malaysia");
+        countryOptions.Add("Maldives");
+        countryOptions.Add("Mali");
+        countryOptions.Add("Malta");
+        countryOptions.Add("Marshall Islands");
+        countryOptions.Add("Martinique");
+        countryOptions.Add("Mauritania");
+        countryOptions.Add("Mauritius");
+        countryOptions.Add("Mayotte");
+        countryOptions.Add("Mexico");
+        countryOptions.Add("Micronesia");
+        countryOptions.Add("Moldova");
+        countryOptions.Add("Monaco");
+        countryOptions.Add("Mongolia");
+        countryOptions.Add("Montenegro");
+        countryOptions.Add("Montserrat");
+        countryOptions.Add("Morocco");
+        countryOptions.Add("Mozambique");
+        countryOptions.Add("Myanmar");
+        countryOptions.Add("Namibia");
+        countryOptions.Add("Nauru");
+        countryOptions.Add("Nepal");
+        countryOptions.Add("Netherlands");
+        countryOptions.Add("New Caledonia");
+        countryOptions.Add("New Zealand");
+        countryOptions.Add("Nicaragua");
+        countryOptions.Add("Niger");
+        countryOptions.Add("Nigeria");
+        countryOptions.Add("Niue");
+        countryOptions.Add("Norfolk Island");
+        countryOptions.Add("North Korea");
+        countryOptions.Add("Northern Mariana Islands");
+        countryOptions.Add("Norway");
+        countryOptions.Add("Oman");
+        countryOptions.Add("Pakistan");
+        countryOptions.Add("Palau");
+        countryOptions.Add("Palestinian Territory");
+        countryOptions.Add("Panama");
+        countryOptions.Add("Papua New Guinea");
+        countryOptions.Add("Paraguay");
+        countryOptions.Add("Peru");
+        countryOptions.Add("Philippines");
+        countryOptions.Add("Pitcairn");
+        countryOptions.Add("Poland");
+        countryOptions.Add("Portugal");
+        countryOptions.Add("Puerto Rico");
+        countryOptions.Add("Qatar");
+        countryOptions.Add("Romania");
+        countryOptions.Add("Russia");
+        countryOptions.Add("Rwanda");
+        countryOptions.Add("Reunion");
+        countryOptions.Add("Saint Barthelemy");
+        countryOptions.Add("Saint Helena");
+        countryOptions.Add("Saint Kitts and Nevis");
+        countryOptions.Add("Saint Lucia");
+        countryOptions.Add("Saint Pierre and Miquelon");
+        countryOptions.Add("Saint Vincent and the Grenadines");
+        countryOptions.Add("Samoa");
+        countryOptions.Add("San Marino");
+        countryOptions.Add("Sao Tome and Principe");
+        countryOptions.Add("Saudi Arabia");
+        countryOptions.Add("Senegal");
+        countryOptions.Add("Serbia");
+        countryOptions.Add("Seychelles");
+        countryOptions.Add("Sierra Leone");
+        countryOptions.Add("Singapore");
+        countryOptions.Add("Slovakia");
+        countryOptions.Add("Slovenia");
+        countryOptions.Add("Solomon Islands");
+        countryOptions.Add("Somalia");
+        countryOptions.Add("South Africa");
+        countryOptions.Add("South Korea");
+        countryOptions.Add("South Sudan");
+        countryOptions.Add("Spain");
+        countryOptions.Add("Sri Lanka");
+        countryOptions.Add("Sudan");
+        countryOptions.Add("Suriname");
+        countryOptions.Add("Svalbard and Jan Mayen");
+        countryOptions.Add("Swaziland");
+        countryOptions.Add("Sweden");
+        countryOptions.Add("Switzerland");
+        countryOptions.Add("Syria");
+        countryOptions.Add("Taiwan");
+        countryOptions.Add("Tajikistan");
+        countryOptions.Add("Tanzania");
+        countryOptions.Add("Thailand");
+        countryOptions.Add("Timor-Leste");
+        countryOptions.Add("Togo");
+        countryOptions.Add("Tokelau");
+        countryOptions.Add("Tonga");
+        countryOptions.Add("Trinidad and Tobago");
+        countryOptions.Add("Tunisia");
+        countryOptions.Add("Turkey");
+        countryOptions.Add("Turkmenistan");
+        countryOptions.Add("Turks and Caicos Islands");
+        countryOptions.Add("Tuvalu");
+        countryOptions.Add("U.S. Virgin Islands");
+        countryOptions.Add("Uganda");
+        countryOptions.Add("Ukraine");
+        countryOptions.Add("United Arab Emirates");
+        countryOptions.Add("United Kingdom");
+        countryOptions.Add("United States Minor Outlying Islands");
+        countryOptions.Add("Uruguay");
+        countryOptions.Add("Uzbekistan");
+        countryOptions.Add("Vanuatu");
+        countryOptions.Add("Vatican");
+        countryOptions.Add("Venezuela");
+        countryOptions.Add("Viet Nam");
+        countryOptions.Add("Wallis and Futuna");
+        countryOptions.Add("Western Sahara");
+        countryOptions.Add("Yemen");
+        countryOptions.Add("Zambia");
+        countryOptions.Add("Zimbabwe");
+        EmailFormCountryDropdown.AddOptions(countryOptions);
+
+        EmailFormIndustryDropdown.ClearOptions();
+        List<string> industryOptions = new List<string>();
+        industryOptions.Add("");
+        industryOptions.Add("Aerospace & Defense");
+        industryOptions.Add("Agriculture");
+        industryOptions.Add("Automotive & Vehicle");
+        industryOptions.Add("Construction");
+        industryOptions.Add("Consumables");
+        industryOptions.Add("Consumer Goods");
+        industryOptions.Add("Contract Manufacturer");
+        industryOptions.Add("Education");
+        industryOptions.Add("Electronics");
+        industryOptions.Add("Energy & Infrastructure");
+        industryOptions.Add("Government");
+        industryOptions.Add("Mining");
+        industryOptions.Add("Other");
+        industryOptions.Add("Other - Manufacturing");
+        industryOptions.Add("Professional Services");
+        industryOptions.Add("Research");
+        industryOptions.Add("Software & Technology");
+        industryOptions.Add("Transportation");
+        industryOptions.Add("Warehousing & Distribution");
+        EmailFormIndustryDropdown.AddOptions(industryOptions);
     }
 
     void Update()
@@ -401,14 +766,41 @@ public class UIManager : MonoBehaviour
         RobotBaseSelectPanel.transform.parent.gameObject.SetActive(false);
     }
 
+    public void ShowEmailForm()
+    {
+        SendEmailPanel.SetActive(true);
+    }
+
     public void SendEmail()
     {
-        editorManager.SetSelectedObject(null);
-        foreach (Camera cam in ScreenshotCameras)
+        if (VerifyEmailForm())
         {
-            cam.gameObject.SetActive(true);
+            HideEmailForm();
+            editorManager.SetSelectedObject(null);
+            foreach (Camera cam in ScreenshotCameras)
+            {
+                cam.gameObject.SetActive(true);
+            }
+            StartCoroutine(emailer.SendEmail(EmailFormEmailText.text));
         }
-        StartCoroutine(emailer.SendEmail("name"));
     }
-    
+
+    public void HideEmailForm()
+    {
+        SendEmailPanel.SetActive(false);
+    }
+
+    private bool VerifyEmailForm()
+    {
+        bool ret = true;
+        if (EmailFormFirstNameText.text.Equals("")) { ret = false; EmailFormFirstNameText.colors = invalidColour; } else { EmailFormFirstNameText.colors = validColour; }
+        if (EmailFormLastNameText.text.Equals("")) { ret = false; EmailFormLastNameText.colors = invalidColour; } else { EmailFormLastNameText.colors = validColour; }
+        if (EmailFormEmailText.text.Equals("")) { ret = false; EmailFormEmailText.colors = invalidColour; } else { EmailFormEmailText.colors = validColour; }
+        if (EmailFormOrganizationNameText.text.Equals("")) { ret = false; EmailFormOrganizationNameText.colors = invalidColour; } else { EmailFormOrganizationNameText.colors = validColour; }
+        if (EmailFormStateDropdown.captionText.text.Equals("")) { ret = false; EmailFormStateDropdown.colors = invalidColour; } else { EmailFormStateDropdown.colors = validColour; }
+        if (EmailFormCountryDropdown.captionText.text.Equals("")) { ret = false; EmailFormCountryDropdown.colors = invalidColour; } else { EmailFormCountryDropdown.colors = validColour; }
+        if (EmailFormIndustryDropdown.captionText.text.Equals("")) { ret = false; EmailFormIndustryDropdown.colors = invalidColour; } else { EmailFormIndustryDropdown.colors = validColour; }
+        return ret;
+    }
+
 }

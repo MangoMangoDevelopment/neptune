@@ -36,9 +36,9 @@ public class DialogManager : MonoBehaviour {
         switch (buttonType)
         {
             case ButtonType.Okay:
-                Button1.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Okay");
-                Button1.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
-                Button2.gameObject.SetActive(false);
+                Button2.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Okay");
+                Button2.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
+                Button1.gameObject.SetActive(false);
                 break;
             case ButtonType.YesNo:
                 Button1.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Yes");
@@ -47,9 +47,9 @@ public class DialogManager : MonoBehaviour {
                 Button2.onClick.AddListener(delegate { ExecuteDelegate(callback2); });
                 break;
             case ButtonType.Cancel:
-                Button1.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Cancel");
-                Button1.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
-                Button2.gameObject.SetActive(false);
+                Button2.GetComponentInChildren<Text>().text = SmartLocalization.LanguageManager.Instance.GetTextValue("Cancel");
+                Button2.onClick.AddListener(delegate { ExecuteDelegate(callback1); });
+                Button1.gameObject.SetActive(false);
                 break;
         }
         Button1.GetComponent<UIClearpathButton>().OnPointerExit(null);

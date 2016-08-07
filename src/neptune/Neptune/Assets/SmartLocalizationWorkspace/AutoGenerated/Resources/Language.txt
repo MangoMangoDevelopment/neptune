@@ -158,6 +158,36 @@
 	<data name="Depth" xml:space="preserve">
 		<value>DEPTH:</value>
 	</data>
+	<data name="Email.Error" xml:space="preserve">
+		<value>An error occurred. Please try again.</value>
+	</data>
+	<data name="Email.Success" xml:space="preserve">
+		<value>Your email has been sent! You will receive a copy soon.</value>
+	</data>
+	<data name="Form.Country" xml:space="preserve">
+		<value>Country*</value>
+	</data>
+	<data name="Form.Email" xml:space="preserve">
+		<value>Email*</value>
+	</data>
+	<data name="Form.FirstName" xml:space="preserve">
+		<value>First Name*</value>
+	</data>
+	<data name="Form.Industry" xml:space="preserve">
+		<value>Industry*</value>
+	</data>
+	<data name="Form.LastName" xml:space="preserve">
+		<value>Last Name*</value>
+	</data>
+	<data name="Form.NA" xml:space="preserve">
+		<value>NOT APPLICABLE</value>
+	</data>
+	<data name="Form.OrganizationName" xml:space="preserve">
+		<value>Name of Organization*</value>
+	</data>
+	<data name="Form.State" xml:space="preserve">
+		<value>State/Prov*</value>
+	</data>
 	<data name="Green" xml:space="preserve">
 		<value>GREEN</value>
 	</data>
@@ -211,6 +241,9 @@
 	</data>
 	<data name="SelectRobotBase" xml:space="preserve">
 		<value>SELECT A ROBOT BASE</value>
+	</data>
+	<data name="Send" xml:space="preserve">
+		<value>SEND</value>
 	</data>
 	<data name="Sensors" xml:space="preserve">
 		<value>SENSORS</value>
