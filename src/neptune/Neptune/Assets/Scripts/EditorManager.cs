@@ -55,6 +55,8 @@ public class EditorManager : MonoBehaviour {
     public Camera MainCamera;
     public Camera HandleCamera;
     public LayerMask IgnoreLayers;
+    //Misc
+    public GameObject Ruler;
 
     //Private Variables
     private RobotBase robotBase;
@@ -93,6 +95,7 @@ public class EditorManager : MonoBehaviour {
                 {
                     selectedObject.GetComponent<Manipulatable>().Select();
                     uiManager.SelectPart(selectedObject);
+                    uiManager.UpdateBridgeIcon(selectedObject.GetComponent<Manipulatable>());
                 }
                 else
                 {
@@ -121,6 +124,11 @@ public class EditorManager : MonoBehaviour {
     public GameObject GetRobotBaseObject()
     {
         return robotBaseTopPlate;
+    }
+
+    public GameObject GetRuler()
+    {
+        return Ruler;
     }
 
     public GameObject CreateCustomCubeoid(string name, Color color, float width, float height, float depth)

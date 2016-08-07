@@ -47,12 +47,14 @@ public class EmailHandler {
         {
             Debug.Log(www.error);
             DialogManager.instance.ShowDialog(SmartLocalization.LanguageManager.Instance.GetTextValue("Email.Error"), "", DialogManager.ButtonType.Okay);
+            GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>().Ruler.SetActive(true);
         }
         else
         {
             Debug.Log("Email Request Completed.");
             Debug.Log(www.text);
             DialogManager.instance.ShowDialog(SmartLocalization.LanguageManager.Instance.GetTextValue("Email.Success"), "", DialogManager.ButtonType.Okay);
+            GameObject.FindGameObjectWithTag(EditorManager.TAG).GetComponent<EditorManager>().Ruler.SetActive(true);
         }
     }
 

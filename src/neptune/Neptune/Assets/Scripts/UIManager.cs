@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     public InputField CustomCubeoidDepthText;
     public float PanelSpeed;
     public Button DeleteSelectedObjectButton;
+    public Button ToggleBridgeButton;
     public InputField EmailFormFirstNameText;
     public InputField EmailFormLastNameText;
     public InputField EmailFormEmailText;
@@ -48,6 +49,9 @@ public class UIManager : MonoBehaviour
     public GameObject TestGO;
     public GameObject ErrorGO;
     public GameObject InvisibleGO;
+
+    public Sprite BridgeOffSprite;
+    public Sprite BridgeOnSprite;
 
     //Cameras
     public List<Camera> ScreenshotCameras;
@@ -496,7 +500,8 @@ public class UIManager : MonoBehaviour
         else
             CustomCubeoidPanel.transform.position = Vector3.MoveTowards(CustomCubeoidPanel.transform.position, hiddenCustomCubeoidPanelPos, PanelSpeed * Time.deltaTime);
 
-        DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject();
+        DeleteSelectedObjectButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject() && editorManager.GetSelectedObject() != editorManager.GetRuler();
+        ToggleBridgeButton.interactable = editorManager.GetSelectedObject() != null && editorManager.GetSelectedObject() != editorManager.GetRobotBaseObject() && editorManager.GetSelectedObject() != editorManager.GetRuler();
     }
 
     public void AddSensor(string text, string prefab, float scale = 1)
@@ -566,6 +571,41 @@ public class UIManager : MonoBehaviour
             selectedPart.colors = c;
         }
         selectedPart = null;
+    }
+
+    public void ToggleBridge()
+    {
+        Manipulatable m = editorManager.GetSelectedObject().GetComponent<Manipulatable>();
+        m.drawBridge = !m.drawBridge;
+        UpdateBridgeIcon(m);
+    }
+
+    public void UpdateBridgeIcon(Manipulatable m)
+    {
+        if (m.drawBridge)
+        {
+            m.ShowBridge();
+            foreach (Transform child in ToggleBridgeButton.transform)
+            {
+                if (child != ToggleBridgeButton.transform && child.GetComponent<Image>())
+                {
+                    child.GetComponent<Image>().sprite = BridgeOffSprite;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            m.HideBridge();
+            foreach (Transform child in ToggleBridgeButton.transform)
+            {
+                if (child != ToggleBridgeButton.transform && child.GetComponent<Image>())
+                {
+                    child.GetComponent<Image>().sprite = BridgeOnSprite;
+                    break;
+                }
+            }
+        }
     }
 
     public void TryDeleteSelectedObject()
@@ -779,6 +819,7 @@ public class UIManager : MonoBehaviour
         {
             HideEmailForm();
             editorManager.SetSelectedObject(null);
+            editorManager.Ruler.SetActive(false);
             foreach (Camera cam in ScreenshotCameras)
             {
                 cam.gameObject.SetActive(true);
