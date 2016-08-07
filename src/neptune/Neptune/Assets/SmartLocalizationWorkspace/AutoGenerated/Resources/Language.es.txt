@@ -116,6 +116,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+	<data name="About.Text" xml:space="preserve">
+		<value>Somos Daniel Forero y Brian Tran.
+
+Esta aplicacion fue creada para el proyecto de culminacion de nuestro programa de Ingenieria de software y technologia en Conestoga College
+
+Esperamos que usted pueda beneficiarse con esta aplicacion!</value>
+	</data>
+	<data name="About.Title" xml:space="preserve">
+		<value>Constructor de Robot de Clearpath</value>
+	</data>
 	<data name="AvailableLanguages" xml:space="preserve">
 		<value>IDIOMAS</value>
 	</data>
@@ -193,6 +203,19 @@
 	</data>
 	<data name="Height" xml:space="preserve">
 		<value>ALTURA:</value>
+	</data>
+	<data name="Help.Text" xml:space="preserve">
+		<value>- Seleccione partes a la izquierda
+- Haga (Click-Izquierdo) en la parte o en su nombre a la derecha para seleccionarla
+- Oprima (T) para mover la parte
+- Oprima (R) para girar la parte
+- Oprima (ESC) o haga (Click-Izquierdo) en cualquier lugar para deseleccionar la parte
+- Sostenga (Click-Derecho) para apuntar la camara. Usa (W)(A)(S)(D) para mover la camara
+- Sostenga (Click-Del Medio) para entrar al modo de orbito. Mueva el raton para mover la camara alrededor de la parte en orbito, or alrededor del robot si no hay parte seleccionada.
+- Cuando estes listo, use el boton de correo electronico arriba para mandarnos su diseño!</value>
+	</data>
+	<data name="Help.Title" xml:space="preserve">
+		<value>Como usar esta aplicacion</value>
 	</data>
 	<data name="LoadingSensor" xml:space="preserve">
 		<value>Cargando sensor.</value>

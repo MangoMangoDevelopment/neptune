@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     public GameObject CustomCubeoidPanel;
     public GameObject CustomCubeoidPanelMask;
     public GameObject SendEmailPanel;
+    public GameObject HelpPanel;
+    public GameObject AboutPanel;
     public Button LanguageButtonPrefab;
     public Transform LanguageButtonsContent;
     public InputField CustomCubeoidNameText;
@@ -85,7 +87,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                b.GetComponent<UIClearpathButton>().normalTextColor = ClearpathWhite;
+                b.GetComponent<UIClearpathButton>().normalTextColor = ClearpathGrey;
             }
             b.GetComponent<UIClearpathButton>().OnPointerExit(null);    // Trigger the color change
             b.GetComponent<UIClearpathButton>().highlightTextColor = ClearpathYellow;
@@ -801,6 +803,26 @@ public class UIManager : MonoBehaviour
         if (EmailFormCountryDropdown.captionText.text.Equals("")) { ret = false; EmailFormCountryDropdown.colors = invalidColour; } else { EmailFormCountryDropdown.colors = validColour; }
         if (EmailFormIndustryDropdown.captionText.text.Equals("")) { ret = false; EmailFormIndustryDropdown.colors = invalidColour; } else { EmailFormIndustryDropdown.colors = validColour; }
         return ret;
+    }
+
+    public void ShowHelpPanel()
+    {
+        HelpPanel.SetActive(true);
+    }
+
+    public void HideHelpPanel()
+    {
+        HelpPanel.SetActive(false);
+    }
+
+    public void ShowAboutPanel()
+    {
+        AboutPanel.SetActive(true);
+    }
+
+    public void HideAboutPanel()
+    {
+        AboutPanel.SetActive(false);
     }
 
 }

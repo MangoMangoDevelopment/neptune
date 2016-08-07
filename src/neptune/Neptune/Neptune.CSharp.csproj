@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Models\UrdfItemModel.cs" />
     <Compile Include="Assets\Scripts\Models\UrdfTypeModel.cs" />
     <Compile Include="Assets\Scripts\PartText.cs" />
+    <Compile Include="Assets\Scripts\Ruler.cs" />
     <Compile Include="Assets\Scripts\Sensor.cs" />
     <Compile Include="Assets\Scripts\UIClearpathButton.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />

@@ -116,6 +116,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+	<data name="About.Text" xml:space="preserve">
+		<value>We are Daniel Forero and Brian Tran.
+
+This tool was created as a Capstone project for our Software Engineering Technology program at Conestoga College.
+
+We hope you are able to benefit from this tool!</value>
+	</data>
+	<data name="About.Title" xml:space="preserve">
+		<value>Clearpath Robot Builder</value>
+	</data>
 	<data name="AvailableLanguages" xml:space="preserve">
 		<value>LANGUAGES</value>
 	</data>
@@ -193,6 +203,19 @@
 	</data>
 	<data name="Height" xml:space="preserve">
 		<value>HEIGHT:</value>
+	</data>
+	<data name="Help.Text" xml:space="preserve">
+		<value>- Select parts from the left hand side
+- (Left-Click) on the part itself or on it's entry on the right hand side to select it
+- Press (T) to translate the part
+- Press (R) to rotate the part
+- Press (ESC) or (Left-Click) anywhere to deselect the part
+- Hold (Right-Click) to point the camera. Use (W)(A)(S)(D) to move the camera around
+- Hold (Middle-Click) to enter orbit mode. Move the mouse around to orbit around the selected part or to orbit around the entire robot if no part is selected.
+- When you're done, use the email button in the top toolbar to send us your design!</value>
+	</data>
+	<data name="Help.Title" xml:space="preserve">
+		<value>How to use this tool</value>
 	</data>
 	<data name="LoadingSensor" xml:space="preserve">
 		<value>Loading sensor.</value>

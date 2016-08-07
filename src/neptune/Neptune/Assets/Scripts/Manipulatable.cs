@@ -24,6 +24,10 @@ public class Manipulatable : MonoBehaviour {
     public bool PRotManipulation = true;
     public bool YRotManipulation = true;
 
+    //Materials
+    public Material CustomHoverMaterial = null;
+    public Material CustomOutlineMaterial = null;
+
     //Private Variables
     private bool lastSelected = false;
     private bool isDragging = false;
@@ -84,7 +88,7 @@ public class Manipulatable : MonoBehaviour {
         lastSelected = isSelected;
         isSelected = true;
         if (gameObject != editorManager.GetRobotBaseObject())
-            ShowOutline(editorManager.OutlineMaterial);
+            ShowOutline(CustomOutlineMaterial == null ? editorManager.OutlineMaterial : CustomOutlineMaterial);
     }
 
     public void Deselect()
@@ -462,7 +466,7 @@ public class Manipulatable : MonoBehaviour {
                     if (defaultMaterials.ContainsKey(hit.transform))
                     {
                         //if (outline == null)  //See ShowOutline()
-                            ShowOutline(editorManager.HoverOutline);
+                            ShowOutline(CustomHoverMaterial == null ? editorManager.HoverOutline : CustomHoverMaterial);
                     }
                     else
                     {
