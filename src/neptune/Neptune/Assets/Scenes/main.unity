@@ -2311,12 +2311,12 @@ Light:
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.8
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -10321,6 +10321,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizedKey: Form.FirstName
+--- !u!1001 &1389249819
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1393551329
 GameObject:
   m_ObjectHideFlags: 0
@@ -11402,7 +11444,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 0.7634888, b: 0.6102941, a: 1}
+  m_BackGroundColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -14323,7 +14365,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1632277100}
   m_HandleRect: {fileID: 1632277099}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

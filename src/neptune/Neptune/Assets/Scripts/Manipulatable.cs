@@ -10,6 +10,7 @@ public class Manipulatable : MonoBehaviour {
 
     //Public Variables
     public bool isSelected = false;
+    public bool drawBridge = true;
 
     //XYZ Translation
     public float XYZDragScaleFactor = 1f;
@@ -219,7 +220,10 @@ public class Manipulatable : MonoBehaviour {
         }
 
         UpdateOutline();
-        UpdateBridge();
+        if(drawBridge)
+        {
+            UpdateBridge();
+        }
     }
     
     private void UpdateDrag()
