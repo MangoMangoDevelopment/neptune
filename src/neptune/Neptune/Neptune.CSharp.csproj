@@ -90,6 +90,8 @@
     <Compile Include="Assets\Scripts\PartText.cs" />
     <Compile Include="Assets\Scripts\Ruler.cs" />
     <Compile Include="Assets\Scripts\Sensor.cs" />
+    <Compile Include="Assets\Scripts\TabManager.cs" />
+    <Compile Include="Assets\Scripts\Tabber.cs" />
     <Compile Include="Assets\Scripts\UIClearpathButton.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\SmartLocalization\Examples\LoadAllLanguages.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EmailHandler {
     private const string TEMPLATE_FILE = @"Templates/emailTemplate";
@@ -7,12 +8,14 @@ public class EmailHandler {
     private string uploadEndPoint = "http://54.148.182.29/upload.php";
 
     private const string CONTACT_NAME = "%%CONTACT_NAME%%";
-    private const string ROBOT_LINK = "%%ROBOT_LINK%%";
+    private const string SENSOR_LIST = "%%SENSOR_LIST%%";
+    private const string ROBOT_IMAGES = "%%ROBOT_IMAGES%%";
 
     private string uploadFilename = "capture.png";
     private string uploadFileType = "image/png";
 
-    private string imgUrl;
+    private string email = "";
+    private string images = "";
 
     public string UploadFilename 
     {
@@ -33,24 +36,33 @@ public class EmailHandler {
 
     public IEnumerator SendEmail(string email, string first, string last, string organization, string state, string country, string industry, string[] parts)
     {
+        this.email = email;
         yield return this.UploadScreen();
+
+        string sensors = "";
+        List<string> sensorList = GameObject.FindGameObjectWithTag(UIManager.TAG).GetComponent<UIManager>().GetParts();
+        foreach (string s in sensorList)
+        {
+            sensors += s + "<br>";
+        }
 
         WWWForm form = new WWWForm();
 		int num_captures = 4;
         string message = getMessage();
-        message = message.Replace("%%CONTACT_NAME%%", first + " " + last);
-        message = message.Replace("%%SENSOR_LIST%%", string.Join(",<br/>",parts));
-        // message = message.Replace("%%ROBOT_LINK%%", this.imgUrl);
-		form.AddField("email", email);
+        message = message.Replace(CONTACT_NAME, first + " " + last);
+        message = message.Replace(SENSOR_LIST, string.Join(",<br/>",parts));
+        message = message.Replace(ROBOT_IMAGES, images);
+        form.AddField("email", email);
 		form.AddField("firstname", first);
 		form.AddField("lastname", last);
 		form.AddField("organization", organization);
 		form.AddField("state", state);
 		form.AddField("country", country);
         form.AddField("message", message);
-        form.AddField("attachment_url", this.imgUrl);
+        //form.AddField("attachment_url", this.imgUrl);
 		form.AddField("num_screenshots", num_captures);
 		form.AddField("parts_list", string.Join(",",parts));
+        form.AddField("message", message);
         WWW www = new WWW(emailEndPoint, form);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
@@ -84,6 +96,7 @@ public class EmailHandler {
         // We should only read the screen after all rendering is complete
         yield return new WaitForEndOfFrame();
 
+        images = "";
         UIManager ui = (GameObject.FindGameObjectWithTag(UIManager.TAG) as GameObject).GetComponent<UIManager>();
         EditorManager editor = (GameObject.FindGameObjectWithTag(EditorManager.TAG) as GameObject).GetComponent<EditorManager>();
 
@@ -115,7 +128,7 @@ public class EmailHandler {
             byte[] bytes = tex.EncodeToPNG();
             Texture2D.Destroy(tex);
 
-            uploadFilename = "screenshot" + i + ".png";  //Setter handles adding the .png
+            uploadFilename = email + " - ROBOT IMAGE " + i + ".png";
 
             // Create a Web Form
             WWWForm form = new WWWForm();
@@ -132,8 +145,9 @@ public class EmailHandler {
             else
             {
                 Debug.Log("Finished Uploading Screenshot");
-                this.imgUrl = www.text; //expects the server to return the url of img uploaded.
+                images += "<a href='" + www.text + "'>Robot Image " + (i + 1) + "</a><br>";
             }
+
             cam.gameObject.SetActive(false);
             i++;
 			

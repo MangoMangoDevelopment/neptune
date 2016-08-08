@@ -126,6 +126,11 @@ public class EditorManager : MonoBehaviour {
         return robotBaseTopPlate;
     }
 
+    public RobotBase GetRobotBase()
+    {
+        return robotBase;
+    }
+
     public GameObject GetRuler()
     {
         return Ruler;

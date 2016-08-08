@@ -824,6 +824,7 @@ public class UIManager : MonoBehaviour
             {
                 cam.gameObject.SetActive(true);
             }
+
 			string[] selectedParts = new string[PartsContent.transform.childCount];
 			int pos = 0;
 			foreach (Transform child in PartsContent.transform) {
@@ -840,6 +841,8 @@ public class UIManager : MonoBehaviour
 				EmailFormIndustryDropdown.captionText.text,
 				selectedParts
 			));
+
+            //StartCoroutine(emailer.SendEmail(EmailFormFirstNameText.text, EmailFormEmailText.text));
         }
     }
 
@@ -881,4 +884,17 @@ public class UIManager : MonoBehaviour
         AboutPanel.SetActive(false);
     }
 
+    public List<string> GetParts()
+    {
+        List<string> parts = new List<string>();
+
+        parts.Add(editorManager.GetRobotBase().ToString() + " Base Robot");
+
+        foreach (Transform b in PartsContent.transform)
+        {
+            parts.Add(b.name);
+        }
+
+        return parts;
+    }
 }

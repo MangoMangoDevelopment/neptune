@@ -497,6 +497,7 @@ GameObject:
   - 222: {fileID: 22388546}
   - 114: {fileID: 22388545}
   - 114: {fileID: 22388544}
+  - 114: {fileID: 22388547}
   m_Layer: 5
   m_Name: LastNameText
   m_TagString: Untagged
@@ -534,15 +535,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 682208164}
+    m_SelectOnDown: {fileID: 299461868}
+    m_SelectOnLeft: {fileID: 682208164}
+    m_SelectOnRight: {fileID: 299461868}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -618,6 +619,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 22388542}
+--- !u!114 &22388547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 22388542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 682208164}
+  NextSelectable: {fileID: 299461868}
 --- !u!1 &22737501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,6 +3041,7 @@ GameObject:
   - 222: {fileID: 299461870}
   - 114: {fileID: 299461869}
   - 114: {fileID: 299461868}
+  - 114: {fileID: 299461871}
   m_Layer: 5
   m_Name: EmailText
   m_TagString: Untagged
@@ -3064,15 +3079,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 22388544}
+    m_SelectOnDown: {fileID: 393610866}
+    m_SelectOnLeft: {fileID: 22388544}
+    m_SelectOnRight: {fileID: 393610866}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -3148,6 +3163,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 299461866}
+--- !u!114 &299461871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 299461866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 22388544}
+  NextSelectable: {fileID: 393610866}
 --- !u!1 &337163999
 GameObject:
   m_ObjectHideFlags: 0
@@ -3284,7 +3312,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -3613,6 +3641,7 @@ GameObject:
   - 222: {fileID: 393610868}
   - 114: {fileID: 393610867}
   - 114: {fileID: 393610866}
+  - 114: {fileID: 393610869}
   m_Layer: 5
   m_Name: OrganizationText
   m_TagString: Untagged
@@ -3650,15 +3679,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 299461868}
+    m_SelectOnDown: {fileID: 924541871}
+    m_SelectOnLeft: {fileID: 299461868}
+    m_SelectOnRight: {fileID: 924541871}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -3734,6 +3763,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 393610864}
+--- !u!114 &393610869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 393610864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 299461868}
+  NextSelectable: {fileID: 924541871}
 --- !u!1 &432769381
 GameObject:
   m_ObjectHideFlags: 0
@@ -4444,7 +4486,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 3
@@ -5484,6 +5526,7 @@ GameObject:
   - 222: {fileID: 682208166}
   - 114: {fileID: 682208165}
   - 114: {fileID: 682208164}
+  - 114: {fileID: 682208167}
   m_Layer: 5
   m_Name: FirstNameText
   m_TagString: Untagged
@@ -5521,15 +5564,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 22388544}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 682208164}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5605,6 +5648,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 682208162}
+--- !u!114 &682208167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 682208162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 0}
+  NextSelectable: {fileID: 22388544}
 --- !u!1 &685815649
 GameObject:
   m_ObjectHideFlags: 0
@@ -6847,7 +6903,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -7367,7 +7423,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -7394,6 +7450,7 @@ GameObject:
   - 222: {fileID: 824859006}
   - 114: {fileID: 824859005}
   - 114: {fileID: 824859004}
+  - 114: {fileID: 824859007}
   m_Layer: 5
   m_Name: IndustryDropdown
   m_TagString: Untagged
@@ -7433,15 +7490,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 1443550719}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 1443550719}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -7503,6 +7560,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 824859002}
+--- !u!114 &824859007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824859002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 1443550719}
+  NextSelectable: {fileID: 0}
 --- !u!1 &836755002
 GameObject:
   m_ObjectHideFlags: 0
@@ -7600,6 +7670,7 @@ GameObject:
   - 224: {fileID: 840176713}
   - 222: {fileID: 840176715}
   - 114: {fileID: 840176714}
+  - 114: {fileID: 840176716}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -7674,6 +7745,25 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 840176712}
+--- !u!114 &840176716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 840176712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a11a45eb69716742abeddf57bf11ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Selectables:
+  - {fileID: 682208167}
+  - {fileID: 22388547}
+  - {fileID: 299461871}
+  - {fileID: 393610869}
+  - {fileID: 924541874}
+  - {fileID: 1443550722}
+  - {fileID: 824859007}
 --- !u!1 &870900827
 GameObject:
   m_ObjectHideFlags: 0
@@ -8128,6 +8218,7 @@ GameObject:
   - 222: {fileID: 924541873}
   - 114: {fileID: 924541872}
   - 114: {fileID: 924541871}
+  - 114: {fileID: 924541874}
   m_Layer: 5
   m_Name: StateDropdown
   m_TagString: Untagged
@@ -8167,15 +8258,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 393610866}
+    m_SelectOnDown: {fileID: 1443550719}
+    m_SelectOnLeft: {fileID: 393610866}
+    m_SelectOnRight: {fileID: 1443550719}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -8237,6 +8328,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 924541869}
+--- !u!114 &924541874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 924541869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 393610866}
+  NextSelectable: {fileID: 1443550719}
 --- !u!1 &929252365
 GameObject:
   m_ObjectHideFlags: 0
@@ -9288,7 +9392,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 3
@@ -11503,7 +11607,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.94
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 475722, guid: 0ea063acd5620cd4abd48fe869206eca, type: 2}
       propertyPath: m_LocalRotation.x
@@ -11825,6 +11929,7 @@ GameObject:
   - 222: {fileID: 1443550721}
   - 114: {fileID: 1443550720}
   - 114: {fileID: 1443550719}
+  - 114: {fileID: 1443550722}
   m_Layer: 5
   m_Name: CountryDropdown
   m_TagString: Untagged
@@ -11864,15 +11969,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 924541871}
+    m_SelectOnDown: {fileID: 824859004}
+    m_SelectOnLeft: {fileID: 924541871}
+    m_SelectOnRight: {fileID: 824859004}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -11934,6 +12039,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1443550717}
+--- !u!114 &1443550722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443550717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8b63d10a6c3ec4ca0e856bf8d2d0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrevSelectable: {fileID: 924541871}
+  NextSelectable: {fileID: 824859004}
 --- !u!1 &1459491169
 GameObject:
   m_ObjectHideFlags: 0
@@ -11991,7 +12109,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -14223,7 +14341,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 3
