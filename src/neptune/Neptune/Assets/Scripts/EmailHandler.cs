@@ -31,16 +31,26 @@ public class EmailHandler {
         }
     }
 
-    public IEnumerator SendEmail(string name)
+    public IEnumerator SendEmail(string email, string first, string last, string organization, string state, string country, string industry, string[] parts)
     {
         yield return this.UploadScreen();
 
         WWWForm form = new WWWForm();
+		int num_captures = 4;
         string message = getMessage();
-        message = message.Replace("%%CONTACT_NAME%%", name);
-        message = message.Replace("%%ROBOT_LINK%%", this.imgUrl);
+        message = message.Replace("%%CONTACT_NAME%%", first + " " + last);
+        message = message.Replace("%%SENSOR_LIST%%", string.Join(",<br/>",parts));
+        // message = message.Replace("%%ROBOT_LINK%%", this.imgUrl);
+		form.AddField("email", email);
+		form.AddField("firstname", first);
+		form.AddField("lastname", last);
+		form.AddField("organization", organization);
+		form.AddField("state", state);
+		form.AddField("country", country);
         form.AddField("message", message);
         form.AddField("attachment_url", this.imgUrl);
+		form.AddField("num_screenshots", num_captures);
+		form.AddField("parts_list", string.Join(",",parts));
         WWW www = new WWW(emailEndPoint, form);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
@@ -126,7 +136,7 @@ public class EmailHandler {
             }
             cam.gameObject.SetActive(false);
             i++;
-
+			
             yield return new WaitForSeconds(1);
         }
 

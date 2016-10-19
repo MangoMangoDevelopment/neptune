@@ -824,7 +824,22 @@ public class UIManager : MonoBehaviour
             {
                 cam.gameObject.SetActive(true);
             }
-            StartCoroutine(emailer.SendEmail(EmailFormEmailText.text));
+			string[] selectedParts = new string[PartsContent.transform.childCount];
+			int pos = 0;
+			foreach (Transform child in PartsContent.transform) {
+				selectedParts[pos++] = child.name;
+			}
+			
+            StartCoroutine(emailer.SendEmail(
+				EmailFormEmailText.text,
+				EmailFormFirstNameText.text,
+				EmailFormLastNameText.text, 
+				EmailFormOrganizationNameText.text, 
+				EmailFormStateDropdown.captionText.text,
+				EmailFormCountryDropdown.captionText.text,
+				EmailFormIndustryDropdown.captionText.text,
+				selectedParts
+			));
         }
     }
 
