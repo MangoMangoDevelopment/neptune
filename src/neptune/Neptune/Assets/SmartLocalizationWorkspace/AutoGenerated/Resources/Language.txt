@@ -151,7 +151,7 @@ We hope you are able to benefit from this tool!</value>
 		<value>CUSTOM</value>
 	</data>
 	<data name="CustomCubeoid" xml:space="preserve">
-		<value>CUSTOM PART</value>
+		<value>CUSTOM PAYLOAD</value>
 	</data>
 	<data name="CustomEllipses" xml:space="preserve">
 		<value>CUSTOM...</value>
@@ -160,7 +160,7 @@ We hope you are able to benefit from this tool!</value>
 		<value>CYAN</value>
 	</data>
 	<data name="DeletingSensor" xml:space="preserve">
-		<value>Deleting sensor!</value>
+		<value>Deleting payload!</value>
 	</data>
 	<data name="DeletingSensor.AreYouSure" xml:space="preserve">
 		<value>Are you sure you want to delete</value>
@@ -205,20 +205,20 @@ We hope you are able to benefit from this tool!</value>
 		<value>HEIGHT:</value>
 	</data>
 	<data name="Help.Text" xml:space="preserve">
-		<value>- Select parts from the left hand side
-- (Left-Click) on the part itself or on it's entry on the right hand side to select it
-- Press (T) to translate the part
-- Press (R) to rotate the part
-- Press (ESC) or (Left-Click) anywhere to deselect the part
-- Hold (Right-Click) to point the camera. Use (W)(A)(S)(D) to move the camera around
-- Hold (Middle-Click) to enter orbit mode. Move the mouse around to orbit around the selected part or to orbit around the entire robot if no part is selected.
+		<value>- Select payloads from the left hand side
+- (Left-Click) on the payload itself or on it's entry on the right hand side to select it
+- Press (T) to translate the payload
+- Press (R) to rotate the payload
+- Press (ESC) or (Left-Click) on the background to focus on the robot
+- Hold (Right-Click) to point the camera. While holding, use (W)(A)(S)(D) to move the camera around. Hold (SHIFT) to slow the camera down while moving it
+- Hold (Middle-Click) to enter orbit mode. Move the mouse around to orbit around the selected payload or robot
 - When you're done, use the email button in the top toolbar to send us your design!</value>
 	</data>
 	<data name="Help.Title" xml:space="preserve">
 		<value>How to use this tool</value>
 	</data>
 	<data name="LoadingSensor" xml:space="preserve">
-		<value>Loading sensor.</value>
+		<value>Loading payload.</value>
 	</data>
 	<data name="Magenta" xml:space="preserve">
 		<value>MAGENTA</value>
@@ -245,7 +245,7 @@ We hope you are able to benefit from this tool!</value>
 		<value>OKAY</value>
 	</data>
 	<data name="Parts" xml:space="preserve">
-		<value>PARTS</value>
+		<value>PAYLOADS</value>
 	</data>
 	<data name="PleaseWait" xml:space="preserve">
 		<value>Please wait...</value>
@@ -269,7 +269,7 @@ We hope you are able to benefit from this tool!</value>
 		<value>SEND</value>
 	</data>
 	<data name="Sensors" xml:space="preserve">
-		<value>SENSORS</value>
+		<value>PAYLOADS</value>
 	</data>
 	<data name="White" xml:space="preserve">
 		<value>WHITE</value>

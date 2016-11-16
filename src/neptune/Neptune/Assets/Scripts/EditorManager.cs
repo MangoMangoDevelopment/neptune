@@ -353,11 +353,11 @@ public class EditorManager : MonoBehaviour {
                 lastCameraRot = MainCamera.transform.rotation;
 
                 Vector3 cameraPos = MainCamera.transform.position;
-
-                float posSpeed = CameraPosMoveSpeed;
+                
+                float posSpeed = CameraPosMoveSpeed * 10;
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    posSpeed *= 10;
+                    posSpeed *= 0.1f;
                 }
                 if (Input.GetKey(KeyCode.W))
                 {
