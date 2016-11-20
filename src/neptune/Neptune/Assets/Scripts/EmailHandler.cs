@@ -59,10 +59,13 @@ public class EmailHandler {
 		form.AddField("state", state);
 		form.AddField("country", country);
         form.AddField("message", message);
-        //form.AddField("attachment_url", this.imgUrl);
 		form.AddField("num_screenshots", num_captures);
 		form.AddField("parts_list", string.Join(",",parts));
         form.AddField("message", message);
+		for(int i = 0; i < num_captures; i++) {
+			form.AddField("ssName[]", email + " - ROBOT IMAGE " + i + ".png");
+		}
+		
         WWW www = new WWW(emailEndPoint, form);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
