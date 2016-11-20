@@ -49,7 +49,7 @@ public class EmailHandler {
         WWWForm form = new WWWForm();
 		int num_captures = 4;
         string message = getMessage();
-        message = message.Replace(CONTACT_NAME, first + " " + last);
+        message = message.Replace(CONTACT_NAME, first);
         message = message.Replace(SENSOR_LIST, string.Join(",<br/>",parts));
         message = message.Replace(ROBOT_IMAGES, images);
         form.AddField("email", email);
