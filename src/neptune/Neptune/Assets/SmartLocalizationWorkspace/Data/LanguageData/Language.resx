@@ -153,6 +153,9 @@ We hope you are able to benefit from this tool!</value>
 	<data name="CustomCubeoid" xml:space="preserve">
 		<value>CUSTOM PAYLOAD</value>
 	</data>
+	<data name="CustomCubeoid.MaxLimit" xml:space="preserve">
+		<value>A custom payload cannot have a width, height, or depth, greater than 25.0</value>
+	</data>
 	<data name="CustomEllipses" xml:space="preserve">
 		<value>CUSTOM...</value>
 	</data>
@@ -210,8 +213,15 @@ We hope you are able to benefit from this tool!</value>
 - Press (T) to translate the payload
 - Press (R) to rotate the payload
 - Press (ESC) or (Left-Click) on the background to focus on the robot
-- Hold (Right-Click) to point the camera. While holding, use (W)(A)(S)(D) to move the camera around. Hold (SHIFT) to slow the camera down while moving it
-- Hold (Middle-Click) to enter orbit mode. Move the mouse around to orbit around the selected payload or robot
+- Click on the Right-Click Button toggle in the toolbar (earth icon) to toggle between Orbit and FPS camera modes
+- Hold (Right-Click) to enter a Camera mode based on the toggle button
+    - Orbit mode (earth icon)
+        - Move the mouse around to orbit the camera around the selected payload or robot
+        - Hold (SHIFT) to slow the movement
+    - FPS mode (crosshair icon)
+        - Move the mouse around to rotate the camera on the spot
+        - Use (W)(A)(S)(D) to move the camera in 3D space
+        - Hold (SHIFT) to slow the movement
 - When you're done, use the email button in the top toolbar to send us your design!</value>
 	</data>
 	<data name="Help.Title" xml:space="preserve">

@@ -12,8 +12,7 @@ public class EditorManager : MonoBehaviour {
     {
         Translate,
         Rotate,
-        CameraControl,
-        Orbit
+        RightClick
     }
 
     public enum RobotBase
@@ -21,6 +20,13 @@ public class EditorManager : MonoBehaviour {
         Jackal,
         Husky,
         Grizzly
+    }
+
+    public enum RightClickMode
+    {
+        FPS,
+        Orbit,
+        Max
     }
 
     //Public Variables
@@ -67,6 +73,7 @@ public class EditorManager : MonoBehaviour {
     private Vector3 lastCameraMousePos;
     private Quaternion lastCameraRot;
     private UIManager uiManager;
+    private RightClickMode rightClickMode;
     //Camera Animation
     private bool isAnimatingCameraPos = false;
     private bool isAnimatingCameraRot = false;
@@ -79,6 +86,7 @@ public class EditorManager : MonoBehaviour {
         uiManager = GameObject.FindGameObjectWithTag(UIManager.TAG).GetComponent<UIManager>();
         XYZHandles.SetActive(false);
         RPYHandles.SetActive(false);
+        rightClickMode = RightClickMode.Orbit;
     }
 
 	public void SetSelectedObject(GameObject go)
@@ -180,6 +188,9 @@ public class EditorManager : MonoBehaviour {
             //robotBaseTopPlate.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             //Offset the y by that amount so that the top of the bot is at (0, 0, 0)
             robotBaseObject.transform.position = Vector3.zero - new Vector3(0, highestY, 0);
+
+            //Show the help panel on startup
+            uiManager.ShowHelpPanel();
         }
     }
 
@@ -188,6 +199,18 @@ public class EditorManager : MonoBehaviour {
         Mesh mesh = robotBaseTopPlate.GetComponentInChildren<MeshFilter>().mesh;
         Bounds bounds = mesh.bounds;
         return bounds.size.x * robotBaseObject.transform.localScale.x - 1;
+    }
+
+    public void ToggleRightClickMode()
+    {
+        rightClickMode++;
+        if (rightClickMode == RightClickMode.Max)
+            rightClickMode = 0;
+    }
+
+    public RightClickMode GetRightClickMode()
+    {
+        return rightClickMode;
     }
 
     void Update ()
@@ -312,10 +335,9 @@ public class EditorManager : MonoBehaviour {
         //Hold modes
         if (Input.GetMouseButtonDown(1))
         {
-            //Don't track other camera mode as mode to return to
-            if (mode != Mode.Orbit)
+            if (mode != Mode.RightClick)
                 lastMode = mode;
-            mode = Mode.CameraControl;
+            mode = Mode.RightClick;
             lastCameraRot = MainCamera.transform.rotation;
             lastCameraMousePos = Input.mousePosition;
         }
@@ -323,21 +345,9 @@ public class EditorManager : MonoBehaviour {
         {
             mode = lastMode;
         }
-        else if (Input.GetMouseButtonDown(2))
-        {
-            if (mode != Mode.CameraControl && mode != Mode.Orbit)
-                lastMode = mode;
-            mode = Mode.Orbit;
-            lastCameraRot = MainCamera.transform.rotation;
-            lastCameraMousePos = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(2))
-        {
-            mode = lastMode;
-        }
         else
         {
-            if (mode == Mode.CameraControl) //Right-click (FPS Modifier)
+            if (mode == Mode.RightClick && rightClickMode == RightClickMode.FPS) //FPS Modifier
             {
                 Vector3 rotOffset = new Vector3(-(Input.mousePosition - lastCameraMousePos).y, (Input.mousePosition - lastCameraMousePos).x, 0);
                 Vector3 cameraRot = rotOffset * CameraRotScaleFactor * Time.deltaTime;
@@ -378,7 +388,7 @@ public class EditorManager : MonoBehaviour {
 
                 MainCamera.transform.position = cameraPos;
             }
-            else if (mode == Mode.Orbit)    //Middle-Click (Orbit modifier)
+            else if (mode == Mode.RightClick && rightClickMode == RightClickMode.Orbit)    //Orbit modifier
             {
                 if (selectedObject == null)
                 {

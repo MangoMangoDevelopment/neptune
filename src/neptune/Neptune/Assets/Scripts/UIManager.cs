@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     public float PanelSpeed;
     public Button DeleteSelectedObjectButton;
     public Button ToggleBridgeButton;
+    public Button ToggleRightClickButton;
     public InputField EmailFormFirstNameText;
     public InputField EmailFormLastNameText;
     public InputField EmailFormEmailText;
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
     public Dropdown EmailFormStateDropdown;
     public Dropdown EmailFormCountryDropdown;
     public Dropdown EmailFormIndustryDropdown;
+    public float MaxCubeoidDimensions;
 
     public Color ClearpathBlack;
     public Color ClearpathWhite;
@@ -52,6 +54,9 @@ public class UIManager : MonoBehaviour
 
     public Sprite BridgeOffSprite;
     public Sprite BridgeOnSprite;
+
+    public Sprite RightClickFPSSprite;
+    public Sprite RightClickOrbitSprite;
 
     //Cameras
     public List<Camera> ScreenshotCameras;
@@ -608,6 +613,35 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ToggleRightClickMode()
+    {
+        editorManager.ToggleRightClickMode();
+
+        switch (editorManager.GetRightClickMode())
+        {
+            case EditorManager.RightClickMode.FPS:
+                foreach (Transform child in ToggleRightClickButton.transform)
+                {
+                    if (child != ToggleRightClickButton.transform && child.GetComponent<Image>())
+                    {
+                        child.GetComponent<Image>().sprite = RightClickFPSSprite;
+                        break;
+                    }
+                }
+                break;
+            case EditorManager.RightClickMode.Orbit:
+                foreach (Transform child in ToggleRightClickButton.transform)
+                {
+                    if (child != ToggleRightClickButton.transform && child.GetComponent<Image>())
+                    {
+                        child.GetComponent<Image>().sprite = RightClickOrbitSprite;
+                        break;
+                    }
+                }
+                break;
+        }
+    }
+
     public void TryDeleteSelectedObject()
     {
         if (selectedPart != null)
@@ -661,32 +695,38 @@ public class UIManager : MonoBehaviour
 
     public void ResetXPosAxis()
     {
-        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.XPos);
+        if (editorManager.GetSelectedObject())
+            editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.XPos);
     }
 
     public void ResetYPosAxis()
     {
-        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YPos);
+        if (editorManager.GetSelectedObject())
+            editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YPos);
     }
 
     public void ResetZPosAxis()
     {
-        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.ZPos);
+        if (editorManager.GetSelectedObject())
+            editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.ZPos);
     }
 
     public void ResetRRotAxis()
     {
-        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.RRot);
+        if (editorManager.GetSelectedObject())
+            editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.RRot);
     }
 
     public void ResetPRotAxis()
     {
-        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.PRot);
+        if (editorManager.GetSelectedObject())
+            editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.PRot);
     }
 
     public void ResetYRotAxis()
     {
-        editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YRot);
+        if (editorManager.GetSelectedObject())
+            editorManager.GetSelectedObject().GetComponent<Manipulatable>().ResetAxis(AxisHandle.Axis.YRot);
     }
 
     private Color GetCubeoidDropdownColor()
@@ -742,7 +782,7 @@ public class UIManager : MonoBehaviour
             c.normalColor = Color.white;
             CustomCubeoidNameText.colors = c;
         }
-        if (CustomCubeoidWidthText.text.Equals(""))
+        if (CustomCubeoidWidthText.text.Equals("") || float.Parse(CustomCubeoidWidthText.text) > MaxCubeoidDimensions)
         {
             ColorBlock c = CustomCubeoidWidthText.colors;
             c.normalColor = Color.red;
@@ -755,7 +795,7 @@ public class UIManager : MonoBehaviour
             c.normalColor = Color.white;
             CustomCubeoidWidthText.colors = c;
         }
-        if (CustomCubeoidHeightText.text.Equals(""))
+        if (CustomCubeoidHeightText.text.Equals("") || float.Parse(CustomCubeoidHeightText.text) > MaxCubeoidDimensions)
         {
             ColorBlock c = CustomCubeoidHeightText.colors;
             c.normalColor = Color.red;
@@ -768,7 +808,7 @@ public class UIManager : MonoBehaviour
             c.normalColor = Color.white;
             CustomCubeoidHeightText.colors = c;
         }
-        if (CustomCubeoidDepthText.text.Equals(""))
+        if (CustomCubeoidDepthText.text.Equals("") || float.Parse(CustomCubeoidDepthText.text) > MaxCubeoidDimensions)
         {
             ColorBlock c = CustomCubeoidDepthText.colors;
             c.normalColor = Color.red;
@@ -780,6 +820,12 @@ public class UIManager : MonoBehaviour
             ColorBlock c = CustomCubeoidDepthText.colors;
             c.normalColor = Color.white;
             CustomCubeoidDepthText.colors = c;
+        }
+        
+        if ((!CustomCubeoidWidthText.text.Equals("") && float.Parse(CustomCubeoidWidthText.text) > MaxCubeoidDimensions) || (!CustomCubeoidHeightText.text.Equals("") && float.Parse(CustomCubeoidHeightText.text) > MaxCubeoidDimensions) || (!CustomCubeoidDepthText.text.Equals("") && float.Parse(CustomCubeoidDepthText.text) > MaxCubeoidDimensions))
+        {
+            string message = SmartLocalization.LanguageManager.Instance.GetTextValue("CustomCubeoid.MaxLimit");
+            DialogManager.instance.ShowDialog(message, "", DialogManager.ButtonType.Okay);
         }
 
         if (valid)
@@ -841,8 +887,6 @@ public class UIManager : MonoBehaviour
 				EmailFormIndustryDropdown.captionText.text,
 				selectedParts
 			));
-
-            //StartCoroutine(emailer.SendEmail(EmailFormFirstNameText.text, EmailFormEmailText.text));
         }
     }
 

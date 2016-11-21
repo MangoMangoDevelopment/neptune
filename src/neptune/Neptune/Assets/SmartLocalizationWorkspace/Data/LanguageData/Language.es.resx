@@ -153,6 +153,9 @@ Esperamos que usted pueda beneficiarse con esta aplicacion!</value>
 	<data name="CustomCubeoid" xml:space="preserve">
 		<value>CARGA UTIL PERSONALIZADO</value>
 	</data>
+	<data name="CustomCubeoid.MaxLimit" xml:space="preserve">
+		<value>Una carga util no puede tener anchura, altura, or profundidad mas de 25.0</value>
+	</data>
 	<data name="CustomEllipses" xml:space="preserve">
 		<value>PERSONALIZADO...</value>
 	</data>
@@ -210,8 +213,15 @@ Esperamos que usted pueda beneficiarse con esta aplicacion!</value>
 - Oprima (T) para mover la carga util
 - Oprima (R) para girar la carga util
 - Oprima (ESC) o haga (Click-Izquierdo) en el fondo para enfocar en el robot
-- Sostenga (Click-Derecho) para apuntar la camara. Mientrastanto, use (W)(A)(S)(D) para mover la camara. Oprima (SHIFT) para bajar la velocidad de la camara
-- Sostenga (Click-Del Medio) para entrar al modo de orbito. Mueva el raton para mover la camara alrededor de la carga util, o el robot, en orbito
+- Clickea en el boton-alternaror de Click-Derecho en la barra de herramientas (icono del mundo) para alternar entre modo de orbito y modo de FPS
+- Sostenga (Click-Derecho) para entrar al un modo de camara basado en el boton-alternaror
+    - Modo de Orbito (icono del mundo)
+        - Mueva el raton para mover la camara alrededor de la carga util, o el robot, en orbito
+        - Sostenga (SHIFT) para bajar la velocidad
+    - Modo de FPS (icono de munto de mira)
+        - Mueva el raton para apuntar la camara
+        - Use (W)(A)(S)(D) para mover la camara en espacio 3D.
+        - Sostenga (SHIFT) para bajar la velocidad
 - Cuando estes listo, use el boton de correo electronico arriba para mandarnos su diseño!</value>
 	</data>
 	<data name="Help.Title" xml:space="preserve">
