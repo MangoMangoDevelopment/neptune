@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\DialogManager.cs" />
     <Compile Include="Assets\Scripts\EditorManager.cs" />
     <Compile Include="Assets\Scripts\EmailHandler.cs" />
+    <Compile Include="Assets\Scripts\Emailer.cs" />
     <Compile Include="Assets\Scripts\LanguageButton.cs" />
     <Compile Include="Assets\Scripts\Manipulatable.cs" />
     <Compile Include="Assets\Scripts\Models\RosLinkModel.cs" />
