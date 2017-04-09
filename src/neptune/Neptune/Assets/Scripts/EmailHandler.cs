@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class EmailHandler {
     private const string TEMPLATE_FILE = @"Templates/emailTemplate";
-    private string emailEndPoint = "http://54.148.182.29/endpoint.php";
-    private string uploadEndPoint = "http://54.148.182.29/upload.php";
+    private string emailEndPoint = "http://50.112.139.235/endpoint.php";
+    private string uploadEndPoint = "http://50.112.139.235/upload.php";
 
     private const string CONTACT_NAME = "%%CONTACT_NAME%%";
     private const string SENSOR_LIST = "%%SENSOR_LIST%%";
@@ -63,7 +63,7 @@ public class EmailHandler {
 		form.AddField("parts_list", string.Join(",",parts));
         form.AddField("message", message);
 		for(int i = 0; i < num_captures; i++) {
-			form.AddField("ssName[]", email + " - ROBOT IMAGE " + i + ".png");
+			form.AddField("ssName[]", "ROBOT-IMAGE-" + i + ".png");
 		}
 		
         WWW www = new WWW(emailEndPoint, form);
@@ -131,11 +131,12 @@ public class EmailHandler {
             byte[] bytes = tex.EncodeToPNG();
             Texture2D.Destroy(tex);
 
-            uploadFilename = email + " - ROBOT IMAGE " + i + ".png";
+            uploadFilename = "ROBOT-IMAGE-" + i + ".png";
 
             // Create a Web Form
             WWWForm form = new WWWForm();
             form.AddField("frameCount", Time.frameCount.ToString());
+            form.AddField("email", email);
             form.AddBinaryData("fileUpload", bytes, this.uploadFilename, this.uploadFileType);
 
             // Upload to a cgi script
