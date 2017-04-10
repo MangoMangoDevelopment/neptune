@@ -222,7 +222,8 @@ We hope you are able to benefit from this tool!</value>
         - Move the mouse around to rotate the camera on the spot
         - Use (W)(A)(S)(D) to move the camera in 3D space
         - Hold (SHIFT) to slow the movement
-- When you're done, use the email button in the top toolbar to send us your design!</value>
+- When you're done, use the email button in the top toolbar to send us your design!
+</value>
 	</data>
 	<data name="Help.Title" xml:space="preserve">
 		<value>How to use this tool</value>
