@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class EmailHandler {
     private const string TEMPLATE_FILE = @"Templates/emailTemplate";
-    private string emailEndPoint = "http://50.112.139.235/endpoint.php";
-    private string uploadEndPoint = "http://50.112.139.235/upload.php";
+    private string emailEndPoint = "https://50.112.139.235/endpoint.php";
+    private string uploadEndPoint = "https://50.112.139.235/upload.php";
 
     private const string CONTACT_NAME = "%%CONTACT_NAME%%";
     private const string SENSOR_LIST = "%%SENSOR_LIST%%";
