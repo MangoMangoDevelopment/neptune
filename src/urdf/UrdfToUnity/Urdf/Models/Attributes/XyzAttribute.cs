@@ -1,4 +1,7 @@
-﻿namespace UrdfToUnity.Urdf.Models.Attributes
+﻿using System;
+using System.Globalization;
+
+namespace UrdfToUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the x, y, z offset.
@@ -50,7 +53,7 @@
         /// <returns>"X Y Z"</returns>
         public override string ToString()
         {
-            return $"{X} {Y} {Z}";
+            return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", X, Y, Z);
         }
 
         protected bool Equals(XyzAttribute other)

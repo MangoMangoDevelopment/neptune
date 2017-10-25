@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Joints
 {
@@ -46,8 +47,8 @@ namespace UrdfToUnity.Urdf.Models.Joints
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.DYNAMICS_ELEMENT_NAME)
-                .AddAttribute(UrdfSchema.DAMPING_ATTRIBUTE_NAME, this.Damping)
-                .AddAttribute(UrdfSchema.FRICTION_ATTRIBUTE_NAME, this.Friction)
+                .AddAttribute(UrdfSchema.DAMPING_ATTRIBUTE_NAME, this.Damping.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.FRICTION_ATTRIBUTE_NAME, this.Friction.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 

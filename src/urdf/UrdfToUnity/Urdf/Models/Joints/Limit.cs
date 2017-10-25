@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Joints
 {
@@ -62,10 +63,10 @@ namespace UrdfToUnity.Urdf.Models.Joints
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.LIMIT_ELEMENT_NAME)
-                .AddAttribute(UrdfSchema.EFFORT_ATTRIBUTE_NAME, this.Effort)
-                .AddAttribute(UrdfSchema.VELOCITY_ATTRIBUTE_NAME, this.Velocity)
-                .AddAttribute(UrdfSchema.LOWER_ATTRIBUTE_NAME, this.Lower)
-                .AddAttribute(UrdfSchema.UPPER_ATTRIBUTE_NAME, this.Upper)
+                .AddAttribute(UrdfSchema.EFFORT_ATTRIBUTE_NAME, this.Effort.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.VELOCITY_ATTRIBUTE_NAME, this.Velocity.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.LOWER_ATTRIBUTE_NAME, this.Lower.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.UPPER_ATTRIBUTE_NAME, this.Upper.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 

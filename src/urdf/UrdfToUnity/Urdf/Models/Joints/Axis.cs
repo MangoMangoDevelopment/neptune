@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Urdf.Models.Attributes;
+﻿using System.Globalization;
+using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Joints

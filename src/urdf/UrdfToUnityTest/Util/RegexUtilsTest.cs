@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UrdfToUnity.Util;
@@ -72,7 +73,7 @@ namespace UrdfToUnityTest.Util
         {
             double pi = 3.14;
             double tau = 6.28;
-            string numbersAsString = pi.ToString() + " " + tau.ToString();
+            string numbersAsString = pi.ToString(CultureInfo.InvariantCulture) + " " + tau.ToString(CultureInfo.InvariantCulture);
             double[] results = RegexUtils.MatchDoubles(numbersAsString);
 
             Assert.IsTrue(results.Length == 2);

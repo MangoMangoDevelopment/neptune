@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Joints
 {
@@ -64,8 +65,8 @@ namespace UrdfToUnity.Urdf.Models.Joints
         {
             return new XmlStringBuilder(UrdfSchema.MIMIC_ELEMENT_NAME)
                 .AddAttribute(UrdfSchema.JOINT_ATTRIBUTE_NAME, this.Joint.Name)
-                .AddAttribute(UrdfSchema.MULTIPLIER_ATTRIBUTE_NAME, this.Multiplier)
-                .AddAttribute(UrdfSchema.OFFSET_ATTRIBUTE_NAME, this.Offset)
+                .AddAttribute(UrdfSchema.MULTIPLIER_ATTRIBUTE_NAME, this.Multiplier.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.OFFSET_ATTRIBUTE_NAME, this.Offset.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 

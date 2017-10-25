@@ -1,4 +1,7 @@
-﻿namespace UrdfToUnity.Urdf.Models.Attributes
+﻿using System;
+using System.Globalization;
+
+namespace UrdfToUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the three side lengths of a box shape.
@@ -41,7 +44,7 @@
         /// <returns>"L W H"</returns>
         public override string ToString()
         {
-            return $"{Length} {Width} {Height}";
+            return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", Length, Width, Height);
         }
 
         protected bool Equals(SizeAttribute other)
