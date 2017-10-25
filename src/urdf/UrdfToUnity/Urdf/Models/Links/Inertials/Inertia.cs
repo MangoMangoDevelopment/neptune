@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Links.Inertials
 {
@@ -76,12 +77,12 @@ namespace UrdfToUnity.Urdf.Models.Links.Inertials
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.INERTIA_ELEMENT_NAME)
-                .AddAttribute(UrdfSchema.IXX_ATTRIBUTE_NAME, this.Ixx)
-                .AddAttribute(UrdfSchema.IXY_ATTRIBUTE_NAME, this.Ixy)
-                .AddAttribute(UrdfSchema.IXZ_ATTRIBUTE_NAME, this.Ixz)
-                .AddAttribute(UrdfSchema.IYY_ATTRIBUTE_NAME, this.Iyy)
-                .AddAttribute(UrdfSchema.IYZ_ATTRIBUTE_NAME, this.Iyz)
-                .AddAttribute(UrdfSchema.IZZ_ATTRIBUTE_NAME, this.Izz)
+                .AddAttribute(UrdfSchema.IXX_ATTRIBUTE_NAME, this.Ixx.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.IXY_ATTRIBUTE_NAME, this.Ixy.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.IXZ_ATTRIBUTE_NAME, this.Ixz.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.IYY_ATTRIBUTE_NAME, this.Iyy.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.IYZ_ATTRIBUTE_NAME, this.Iyz.ToString(CultureInfo.InvariantCulture))
+                .AddAttribute(UrdfSchema.IZZ_ATTRIBUTE_NAME, this.Izz.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 

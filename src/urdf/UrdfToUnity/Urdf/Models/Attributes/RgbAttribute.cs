@@ -1,4 +1,6 @@
-﻿using UrdfToUnity.Util;
+﻿using System;
+using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Attributes
 {
@@ -63,7 +65,7 @@ namespace UrdfToUnity.Urdf.Models.Attributes
         /// <returns>"R G B"</returns>
         public override string ToString()
         {
-            return $"{R} {G} {B}";
+            return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", R, G, B);
         }
 
         protected bool Equals(RgbAttribute other)

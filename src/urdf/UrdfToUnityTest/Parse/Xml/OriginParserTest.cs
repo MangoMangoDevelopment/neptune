@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,7 +33,7 @@ namespace UrdfToUnityTest.Parse.Xml
             double rpyY = 0;
 
             // <origin rpy='0 1.57075 0' xyz='0 0 -0.3'/>
-            string xml = String.Format("<origin rpy='{0} {1} {2}' xyz='{3} {4} {5}'/>", rpyR, rpyP, rpyY, xyzX, xyzY, xyzZ);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<origin rpy='{0} {1} {2}' xyz='{3} {4} {5}'/>", rpyR, rpyP, rpyY, xyzX, xyzY, xyzZ);
             
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Origin origin = this.parser.Parse(xmlDoc.DocumentElement);
@@ -56,7 +57,7 @@ namespace UrdfToUnityTest.Parse.Xml
             double rpyY = 0;
 
             // <origin rpy='0 1.57075 0' xyz='0 0 -0.3'/> with leading and trailing whitespace
-            string xml = String.Format("<origin rpy='{0} {1} {2} ' xyz=' {3} {4}   {5}'/>", rpyR, rpyP, rpyY, xyzX, xyzY, xyzZ);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<origin rpy='{0} {1} {2} ' xyz=' {3} {4}   {5}'/>", rpyR, rpyP, rpyY, xyzX, xyzY, xyzZ);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Origin origin = this.parser.Parse(xmlDoc.DocumentElement);
@@ -77,7 +78,7 @@ namespace UrdfToUnityTest.Parse.Xml
             double xyzZ = .25;
 
             // <origin xyz='0 -0.22 0.25'/>
-            string xml = String.Format("<origin xyz='{0} {1} {2}'/>", xyzX, xyzY, xyzZ);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<origin xyz='{0} {1} {2}'/>", xyzX, xyzY, xyzZ);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Origin origin = this.parser.Parse(xmlDoc.DocumentElement);
@@ -99,7 +100,7 @@ namespace UrdfToUnityTest.Parse.Xml
             double rpyY = 0;
 
             // <origin rpy='0 1.57075 0'/>
-            string xml = String.Format("<origin rpy='{0} {1} {2}'/>", rpyR, rpyP, rpyY);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<origin rpy='{0} {1} {2}'/>", rpyR, rpyP, rpyY);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Origin origin = this.parser.Parse(xmlDoc.DocumentElement);
@@ -119,7 +120,7 @@ namespace UrdfToUnityTest.Parse.Xml
             double y = 2;
             double z = 3;
 
-            string xml = String.Format("<origin xyz='{0} {1} {2}' rpy='1 2'/>", x, y, z); // Missing y-value for rpy
+            string xml = String.Format(CultureInfo.InvariantCulture, "<origin xyz='{0} {1} {2}' rpy='1 2'/>", x, y, z); // Missing y-value for rpy
             
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Origin origin = this.parser.Parse(xmlDoc.DocumentElement);

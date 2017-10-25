@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -70,7 +71,7 @@ namespace UrdfToUnity.Util
             Preconditions.IsTrue(REAL_NUMBER_REGEX.IsMatch(input), $"Provided input string <{input}> is not a double representation");
 
             Match match = REAL_NUMBER_REGEX.Match(input);
-            return Double.Parse(match.Value);
+            return Double.Parse(match.Value, CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace UrdfToUnity.Util
 
             for (int i = 0; i < matches.Count; i++)
             {
-                doubles[i] = Double.Parse(matches[i].Value);
+                doubles[i] = Double.Parse(matches[i].Value, CultureInfo.InvariantCulture);
             }
 
             return doubles;

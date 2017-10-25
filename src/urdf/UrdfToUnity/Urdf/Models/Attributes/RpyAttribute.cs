@@ -1,4 +1,7 @@
-﻿namespace UrdfToUnity.Urdf.Models.Attributes
+﻿using System;
+using System.Globalization;
+
+namespace UrdfToUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the fixed axis roll, pitch and yaw angles in radians.
@@ -49,7 +52,7 @@
         /// <returns>"R P Y"</returns>
         public override string ToString()
         {
-            return $"{R} {P} {Y}";
+            return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", R, P, Y);
         }
 
         protected bool Equals(RpyAttribute other)

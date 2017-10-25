@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,7 @@ namespace UrdfToUnityTest.Parse.Xml.Links.Visuals
             int r = 1;
             int g = 2;
             int b = 3;
-            string xml = String.Format("<color rgb='{0} {1} {2}'/>", r, g, b);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<color rgb='{0} {1} {2}'/>", r, g, b);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Color color = this.parser.Parse(this.xmlDoc.DocumentElement);
@@ -37,7 +38,7 @@ namespace UrdfToUnityTest.Parse.Xml.Links.Visuals
             int g = 2;
             int b = 3;
             double alpha = 0d;
-            string xml = String.Format("<color rgb='{0} {1} {2}' alpha='{3}'/>", r, g, b, alpha);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<color rgb='{0} {1} {2}' alpha='{3}'/>", r, g, b, alpha);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Color color = this.parser.Parse(this.xmlDoc.DocumentElement);
@@ -55,7 +56,7 @@ namespace UrdfToUnityTest.Parse.Xml.Links.Visuals
             double g = 0.5;
             double b = 0.75;
             double alpha = 0d;
-            string xml = String.Format("<color rgba='{0} {1} {2} {3}'/>", r, g, b, alpha);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<color rgba='{0} {1} {2} {3}'/>", r, g, b, alpha);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Color color = this.parser.Parse(this.xmlDoc.DocumentElement);
@@ -86,7 +87,7 @@ namespace UrdfToUnityTest.Parse.Xml.Links.Visuals
             int r = 1;
             int g = 2;
             int b = 3;
-            string xml = String.Format("<color rgb='{0} {1} {2}' alpha='no alpha'/>", r, g, b);
+            string xml = String.Format(CultureInfo.InvariantCulture, "<color rgb='{0} {1} {2}' alpha='no alpha'/>", r, g, b);
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Color color = this.parser.Parse(this.xmlDoc.DocumentElement);
@@ -103,7 +104,7 @@ namespace UrdfToUnityTest.Parse.Xml.Links.Visuals
             double r = 0.25;
             double g = 0.5;
             double b = 0.75;
-            string xml = String.Format("<color rgba='{0} {1} {2}'/>", r, g, b); // Missing value
+            string xml = String.Format(CultureInfo.InvariantCulture, "<color rgba='{0} {1} {2}'/>", r, g, b); // Missing value
 
             this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
             Color color = this.parser.Parse(this.xmlDoc.DocumentElement);

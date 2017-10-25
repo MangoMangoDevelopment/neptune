@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Links.Geometries
 {
@@ -30,7 +31,7 @@ namespace UrdfToUnity.Urdf.Models.Links.Geometries
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.SPHERE_ELEMENT_NAME)
-                .AddAttribute(UrdfSchema.RADIUS_ATTRIBUTE_NAME, this.Radius)
+                .AddAttribute(UrdfSchema.RADIUS_ATTRIBUTE_NAME, this.Radius.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 

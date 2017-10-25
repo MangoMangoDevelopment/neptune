@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,7 +23,7 @@ namespace UrdfToUnityTest.Parse.Xml.Links.Inertials
 
             foreach (double value in testValues)
             {
-                string xml = String.Format(FORMAT_STRING, value);
+                string xml = String.Format(CultureInfo.InvariantCulture, FORMAT_STRING, value);
                 this.xmlDoc.Load(XmlReader.Create(new StringReader(xml)));
                 Mass mass = this.parser.Parse(xmlDoc.DocumentElement);
 

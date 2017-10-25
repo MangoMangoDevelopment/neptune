@@ -1,4 +1,7 @@
-﻿namespace UrdfToUnity.Urdf.Models.Attributes
+﻿using System;
+using System.Globalization;
+
+namespace UrdfToUnity.Urdf.Models.Attributes
 {
     /// <summary>
     /// Represents the scale attribute of a trimesh element.
@@ -42,7 +45,7 @@
         /// <returns>"X Y Z"</returns>
         public override string ToString()
         {
-            return $"{X} {Y} {Z}";
+            return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", X, Y, Z);
         }
 
         protected bool Equals(ScaleAttribute other)

@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Util;
+﻿using System.Globalization;
+using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Links.Inertials
 {
@@ -32,7 +33,7 @@ namespace UrdfToUnity.Urdf.Models.Links.Inertials
         public override string ToString()
         {
             return new XmlStringBuilder(UrdfSchema.MASS_ELEMENT_NAME)
-                .AddAttribute(UrdfSchema.MASS_VALUE_ATTRIBUTE_NAME, this.Value)
+                .AddAttribute(UrdfSchema.MASS_VALUE_ATTRIBUTE_NAME, this.Value.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 

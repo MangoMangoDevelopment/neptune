@@ -1,4 +1,5 @@
-﻿using UrdfToUnity.Urdf.Models.Attributes;
+﻿using System.Globalization;
+using UrdfToUnity.Urdf.Models.Attributes;
 using UrdfToUnity.Util;
 
 namespace UrdfToUnity.Urdf.Models.Links.Visuals
@@ -57,7 +58,7 @@ namespace UrdfToUnity.Urdf.Models.Links.Visuals
         {
             return new XmlStringBuilder(UrdfSchema.COLOR_ELEMENT_NAME)
                 .AddAttribute(UrdfSchema.RGB_ATTRIBUTE_NAME, this.Rgb)
-                .AddAttribute(UrdfSchema.ALPHA_ATTRIBUTE_NAME, this.Alpha)
+                .AddAttribute(UrdfSchema.ALPHA_ATTRIBUTE_NAME, this.Alpha.ToString(CultureInfo.InvariantCulture))
                 .ToString();
         }
 
